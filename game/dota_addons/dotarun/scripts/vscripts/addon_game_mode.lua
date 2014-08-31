@@ -5,6 +5,9 @@ if CAddonTemplateGameMode == nil then
 end
 
 function Precache( context )
+	PrecacheUnitByNameSync("npc_dota_hero_venomancer", context) --[[Returns:void
+	Precaches a DOTA unit by its dota_npc_units.txt name
+	]]
 	--[[
 		Precache things we know we'll use.  Possible file types include (but not limited to):
 			PrecacheResource( "model", "*.vmdl", context )
@@ -23,6 +26,15 @@ end
 function CAddonTemplateGameMode:InitGameMode()
 	print( "Template addon is loaded." )
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, "GlobalThink", 2 )
+	--ListenToGameEvent("dota_player_used_ability", Dynamic_Wrap(CAddonTemplateGameMode, 'On_dota_player_used_ability'), self)
+	ListenToGameEvent("dota_action_item", Dynamic_Wrap(CAddonTemplateGameMode, 'On_dota_action_item'), self)
+	ListenToGameEvent("dota_item_used", Dynamic_Wrap(CAddonTemplateGameMode, 'On_dota_item_used'), self)
+	ListenToGameEvent("dota_inventory_item_changed", Dynamic_Wrap(CAddonTemplateGameMode, 'On_dota_inventory_item_changed'), self)
+		ListenToGameEvent("dota_inventory_item_added", Dynamic_Wrap(CAddonTemplateGameMode, 'On_dota_inventory_item_added'), self)
+
+
+
+
 end
 
 -- Evaluate the state of the game
@@ -33,4 +45,33 @@ function CAddonTemplateGameMode:OnThink()
 		return nil
 	end
 	return 1
+end
+
+--[[function CAddonTemplateGameMode:On_dota_player_used_ability(data)
+	table.foreach(data, print) 
+	print(data["PlayerID"])
+	player = PlayerResource:GetPlayer(data["PlayerID"]-1)
+	print(player)
+	print(data["abilityname"])
+	player:GetAssignedHero():RemoveAbility(data["abilityname"])
+end
+]]
+function CAddonTemplateGameMode:On_dota_action_item(data)
+	print("Item action")
+	table.foreach(data, print) 
+ end
+
+ function CAddonTemplateGameMode:On_dota_item_used(data)
+  print("[BAREBONES] dota_item_used")
+  table.foreach(data, print) 
+end
+
+ function CAddonTemplateGameMode:On_dota_inventory_item_changed(data)
+  print("[BAREBONES] item changed")
+  table.foreach(data, print) 
+end
+
+ function CAddonTemplateGameMode:On_dota_inventory_item_added(data)
+  print("[BAREBONES] item added")
+  table.foreach(data, print) 
 end
