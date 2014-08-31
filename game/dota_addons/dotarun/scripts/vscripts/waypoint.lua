@@ -129,10 +129,14 @@ end
 function KillEntity(trigger)
 
     unitName = trigger.activator:GetUnitName() -- Retrieves the name that the unit has, such as listed in "npc_units_custom.txt"
+    playerID = trigger.activator:GetPlayerID()
 
     print("Unit '" .. unitName .. "' has entered the killbox")
 
     if (trigger.activator:IsOwnedByAnyPlayer() ) then -- Checks to see if the entity is a player controlled unit
+    	for i = 1, 3 do
+        	GameRules.dotaRun.waypoints[playerID][i] = false
+    	end
     	trigger.activator:ForceKill(true) -- Kills the unit
         print("Is player owned - kill")
 
