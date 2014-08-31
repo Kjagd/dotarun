@@ -125,6 +125,23 @@ function WinHere(trigger)
         end
     end
 end 
+
+function KillEntity(trigger)
+
+    unitName = trigger.activator:GetUnitName() -- Retrieves the name that the unit has, such as listed in "npc_units_custom.txt"
+
+    print("Unit '" .. unitName .. "' has entered the killbox")
+
+    if (trigger.activator:IsOwnedByAnyPlayer() ) then -- Checks to see if the entity is a player controlled unit
+    	trigger.activator:ForceKill(true) -- Kills the unit
+        print("Is player owned - kill")
+
+    else
+        print("Is not owned by player - ignore")
+        
+    end
+
+end
            
         -- if (trigger.activator:IsOwnedByAnyPlayer() ) then -- Checks to see if the entity is a player controlled unit
         --        playerID = trigger.activator:GetPlayerID() 
