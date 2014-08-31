@@ -1,9 +1,9 @@
 local zoneCount = {}
 
 function GiveRandomItem(hero)
-	print("Entered Item Zone")
 
-	itemList = { 'item_blink', 'item_force_staff', 'item_cyclone', 'item_rod_of_atos'}
+
+	itemList = { "item_blink", "item_force_staff", "item_cyclone", "item_gale"}
  
 	item = CreateItem(itemList[math.random(#itemList)], hero, hero)
 	hero:AddItem(item)
@@ -11,13 +11,17 @@ function GiveRandomItem(hero)
 end
 
 function ItemZoneOne(trigger)
-	
-	
+	print("Entered Item Zone")
+
 	hero = trigger.activator
+
 	if(zoneCount[hero:GetPlayerID()] == nil) then
 		zoneCount[hero:GetPlayerID()] = 0
 	end
-	zoneCount[hero:GetPlayerID()] = zoneCount[hero:GetPlayerID()] + 1
-	print("items picked up by player " .. hero:GetPlayerID()..": "..zoneCount[hero:GetPlayerID()])
-	GiveRandomItem(hero)
+
+	if(zoneCount[hero:GetPlayerID()] < 5) then
+		zoneCount[hero:GetPlayerID()] = zoneCount[hero:GetPlayerID()] + 1
+		print("items picked up by player " .. hero:GetPlayerID()..": "..zoneCount[hero:GetPlayerID()])
+		GiveRandomItem(hero)
+	end
 end
