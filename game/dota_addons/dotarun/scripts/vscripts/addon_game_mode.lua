@@ -34,7 +34,21 @@ function CDotaRun:InitGameMode()
 	end
 	print( "Template addon is loaded." )
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, "GlobalThink", 2 )
+	ListenToGameEvent('dota_item_used', Dynamic_Wrap(CDotaRun, 'OnItemUs'), self)
 end
+
+function CDotaRun:OnPlayerConnectFull(keys)
+    
+    print("player connected")
+
+end
+
+function CDotaRun:OnItemUsed(keys)
+    
+    print("player connected")
+
+end
+
 
 -- Evaluate the state of the game
 function CDotaRun:OnThink()
