@@ -25,3 +25,9 @@ function ItemZoneOne(trigger)
 		GiveRandomItem(hero)
 	end
 end
+
+function NoAutoAttacks(trigger)
+	hero = trigger.activator
+	local ability = hero:FindAbilityByName("custom_guardian_angel")
+	ability:SetLevel(1)
+end

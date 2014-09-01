@@ -9,7 +9,7 @@
 	"npc_dota_hero_mirana_runner"
 	{
 		"override_hero"				"npc_dota_hero_mirana"			// Hero to override
-		"Ability1"					""											
+		"Ability1"					"custom_guardian_angel"											
 		"Ability2"					""
 		"Ability3"					""
 		"Ability4"					""
