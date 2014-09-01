@@ -46,4 +46,33 @@
 			}
 		}
 	}
+
+	//=================================================================================================================
+	// No auto attacks
+	//=================================================================================================================
+	"custom_guardian_angel"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"						"ability_datadriven"
+		"AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityTextureName"			"omniknight_guardian_angel"
+		
+
+		"Modifiers"
+		{
+
+			"custom_guardian_angel"
+			{
+				"Passive"					"1"
+				"Properties"
+				{
+					// Sub-keys can be found by using "modifierState" constant completions
+					// Sub-values can be found by using "modifierStateValue" constant completions
+					"MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL"				"1"
+					
+				}
+			}
+		}
+	}
 }
