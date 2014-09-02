@@ -48,9 +48,9 @@
 	}
 
 	//=================================================================================================================
-	// No auto attacks
+	// Literally unkillable
 	//=================================================================================================================
-	"custom_guardian_angel"
+	"Immunity"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
@@ -62,14 +62,14 @@
 		"Modifiers"
 		{
 
-			"custom_guardian_angel"
+			"Immunity"
 			{
 				"Passive"					"1"
 				"Properties"
 				{
-					// Sub-keys can be found by using "modifierState" constant completions
-					// Sub-values can be found by using "modifierStateValue" constant completions
 					"MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL"				"1"
+					"MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL"				"1"
+					"MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE"					"1" 
 					
 				}
 			}
