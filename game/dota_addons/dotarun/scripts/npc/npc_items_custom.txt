@@ -142,6 +142,10 @@
 						    {
 						        "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"      "-50"
 						    }
+						    "States"
+   							{
+        						"MODIFIER_STATE_STUNNED" "MODIFIER_STATE_VALUE_ENABLED"
+    					}	  		
                     }
                 }
 		
@@ -149,24 +153,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
 		{
-			"SpendCharge"
-            	{}
 			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_intellect"		"10"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_mana_regen"		"150"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"bonus_movement_speed"	"40"
-			}
-			"04"
 			{
 				"var_type"				"FIELD_FLOAT"
 				"cyclone_duration"		"2.5"

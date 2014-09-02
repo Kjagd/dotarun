@@ -1,6 +1,7 @@
 -- Generated from template
 
 
+require('timers')
 if CDotaRun == nil then
 	CDotaRun = class({})
 end
@@ -34,7 +35,10 @@ function CDotaRun:InitGameMode()
 	end
 	print( "Template addon is loaded." )
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, "GlobalThink", 2 )
-	ListenToGameEvent('dota_item_used', Dynamic_Wrap(CDotaRun, 'OnItemUs'), self)
+	ListenToGameEvent('dota_item_used', Dynamic_Wrap(CDotaRun, 'OnItemUsed'), self)
+	ListenToGameEvent("npc_spawned", Dynamic_Wrap(CDotaRun, 'OnNPCSpawned'), self)
+	-- ListenToGameEvent("game_start", Dynamic_Wrap(CDotaRun, 'On_game_start'), self)
+	ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(CDotaRun, 'On_game_rules_state_change'), self)
 end
 
 function CDotaRun:OnPlayerConnectFull(keys)
@@ -45,17 +49,71 @@ end
 
 function CDotaRun:OnItemUsed(keys)
     
-    print("player connected")
+    print("item used")
 
 end
 
 
 -- Evaluate the state of the game
 function CDotaRun:OnThink()
-	if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
-		--print( "Template addon script is running." )
-	elseif GameRules:State_Get() >= DOTA_GAMERULES_STATE_POST_GAME then
-		return nil
-	end
+	-- print("Thinking")
+
+	-- if GameRules:State_Get() < DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+			
+	-- end
+
+	-- if GameRules:State_Get() >= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+	-- 	for i = 0,9 do
+	-- 		player = PlayerResource:GetPlayer(i)
+	-- 		hero = player:GetAssignedHero()
+	-- 		hero:RemoveModifierByName(modifier_stunned) 
+	-- 	end
+	-- end
 	return 1
+end
+
+function CDotaRun:OnNPCSpawned( keys )
+    local spawnedUnit = EntIndexToHScript( keys.entindex )
+    if string.find(spawnedUnit:GetUnitName(), "hero") then
+    	
+        Timers:CreateTimer(0.6, function()
+        	local ability = spawnedUnit:FindAbilityByName("Immunity")
+			ability:SetLevel(1)
+			for i = 0,9 do
+				player = PlayerResource:GetPlayer(i)
+				if (player ~=nil) then
+					-- player = PlayerResource:GetPlayer(i)
+					hero = player:GetAssignedHero()
+					hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
+				end
+			end
+            return
+         end
+         )
+    end
+end
+
+-- function CDotaRun:On_game_start(data)
+-- 	print("game starting")
+-- 	for i = 0,9 do
+-- 		player = PlayerResource:GetPlayer(i)
+-- 		hero = player:GetAssignedHero()
+-- 		hero:RemoveModifierByNameAndCaster("modifier_stunned", caster)
+-- 		hero:RemoveModifierByName("modifier_stunned") 
+-- 	end
+-- end
+
+function CDotaRun:On_game_rules_state_change( data )
+	print("game starting!")
+	if GameRules:State_Get() >= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+		for i = 0,9 do
+			player = PlayerResource:GetPlayer(i)
+			if (player ~=nil) then
+				-- player = PlayerResource:GetPlayer(i)
+				hero = player:GetAssignedHero()
+				hero:RemoveModifierByName("modifier_stunned") 
+			end
+		end
+	end
+	
 end
