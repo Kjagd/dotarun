@@ -3,6 +3,45 @@
 {
 	"Version"		"1"
 
+
+	"mirana_fart"
+	 {
+	 		"BaseClass"						"ability_datadriven"
+			"AbilityTextureName"			"necrolyte_death_pulse"
+			"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+
+
+	 		"AbilityCooldown"				"20"
+	 		"AbilityManaCost"				"0"
+	 		"AbilityCastPoint"				"0"
+
+	 		"OnSpellStart"
+	 		{
+	 			"ApplyModifier"
+					{
+						"ModifierName"			"fart_modifier"
+						"Target"				"CASTER"
+						 "Duration"      "2.0"
+					}
+			}
+
+	 		"Modifiers"
+            {
+	            "fart_modifier"
+	            {
+	            	"AttachEffect"
+	            	{
+			 			"Target"						"CASTER"
+			            "EffectName"       			     "particles/units/heroes/hero_venomancer/venomancer_venomous_gale.vpcf"
+
+			            "EffectAttachType"				"follow_origin"
+		            }
+				 	"Duration"      "2.0"
+
+		        }
+	        }
+	 		
+	 }
 	//=================================================================================================================
 	// Templar Assassin: Refraction Holdout
 	//=================================================================================================================

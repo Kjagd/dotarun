@@ -13,7 +13,16 @@ end
 function ItemZoneOne(trigger)
 	print("Entered Item Zone")
 
+
 	hero = trigger.activator
+
+	hero:RemoveAbility("mirana_fart") 
+
+	hero:AddAbility("mirana_arrow")
+	ability = hero:FindAbilityByName("mirana_arrow")
+	ability:SetLevel(1)
+	ability:SetAbilityIndex(1)
+
 
 	if(zoneCount[hero:GetPlayerID()] == nil) then
 		zoneCount[hero:GetPlayerID()] = 0
