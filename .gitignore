@@ -17,3 +17,5 @@
 !/content/dota_addons
 /content/dota_addons/*
 !/content/dota_addons/dotarun
+
+*.bin
