@@ -39,6 +39,7 @@ function CDotaRun:InitGameMode()
 	ListenToGameEvent("npc_spawned", Dynamic_Wrap(CDotaRun, 'OnNPCSpawned'), self)
 	-- ListenToGameEvent("game_start", Dynamic_Wrap(CDotaRun, 'On_game_start'), self)
 	ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(CDotaRun, 'On_game_rules_state_change'), self)
+	ListenToGameEvent("dota_player_used_ability", Dynamic_Wrap(CDotaRun, 'OnAbilityUsed'), self) 
 end
 
 function CDotaRun:OnPlayerConnectFull(keys)
@@ -85,6 +86,7 @@ function CDotaRun:OnNPCSpawned( keys )
 					-- player = PlayerResource:GetPlayer(i)
 					hero = player:GetAssignedHero()
 					hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
+					AddFillerAbility(hero)
 				end
 			end
             return
@@ -116,4 +118,38 @@ function CDotaRun:On_game_rules_state_change( data )
 		end
 	end
 	
+end
+
+function CDotaRun:OnAbilityUsed(data)
+	print("Removing ability "..data.abilityname)
+	player = PlayerResource:GetPlayer(data.PlayerID-1)
+	hero = player:GetAssignedHero()
+	ability = hero:FindAbilityByName(data.abilityname)
+	if(ability ~= nil) then
+		ability:SetLevel(0)
+		print(ability:GetLevel())
+		hero:RemoveAbility(data.abilityname)
+		if(hero:FindAbilityByName(data.abilityname) ~= nil) then
+			hero:RemoveAbility("mirana_fart")
+		end
+		AddFillerAbility(hero)
+
+	else
+		print("Deleting item")
+		for i=0,5,1 do 
+	   		item = hero:GetItemInSlot(i)
+	    	if  item ~= nil then
+	    		if(item:GetClassname() == data.abilityname) then
+	    			hero:RemoveItem(item)
+	    		end
+	    	end
+	    end
+	end
+end
+
+function AddFillerAbility(hero)
+	hero:AddAbility("mirana_fart")
+	ability = hero:FindAbilityByName("mirana_fart")
+	ability:SetAbilityIndex(1) 
+	ability:SetLevel(1)
 end
