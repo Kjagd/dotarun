@@ -26,8 +26,8 @@ function ItemZoneOne(trigger)
 	end
 end
 
-function NoAutoAttacks(trigger)
-	hero = trigger.activator
-	local ability = hero:FindAbilityByName("custom_guardian_angel")
-	ability:SetLevel(1)
-end
+-- function GiveImmunity(trigger)
+-- 	hero = trigger.activator
+-- 	local ability = hero:FindAbilityByName("Immunity")
+-- 	ability:SetLevel(1)
+-- end
