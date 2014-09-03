@@ -48,34 +48,7 @@
 		"AbilityManaCost"				"0"
 	} 
 
-	"obsidian_destroyer_astral_imprisonment"
-	{
-
-
-		"AbilityManaCost"				"0"
-
-		"AbilityDuration"				"3"
-		"AbilityCooldown"				"5"
-
-
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"				"FIELD_INTEGER"
-				"int_steal"				"0"
-			}
-			"02"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"steal_duration"		"0"
-			}
-			"03"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"prison_duration"		"3"
-			}
-	}
+	
 	
 	//=================================================================================================================
 	// Helm of the Dominator Override
