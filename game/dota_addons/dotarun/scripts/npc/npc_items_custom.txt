@@ -173,7 +173,7 @@
         //-------------------------------------------------------------------------------------------------------------
         "BaseClass"                             "item_datadriven"
         "AbilityTextureName"                    "item_orb_of_venom"
-        "AbilityBehavior"                               "DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
+        "AbilityBehavior"                       "DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
         "AbilityCastAnimation"                  "ACT_DOTA_ATTACK"
 
         // Casting
