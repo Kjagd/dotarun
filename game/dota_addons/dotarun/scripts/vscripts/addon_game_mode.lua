@@ -135,6 +135,7 @@ function CDotaRun:OnAbilityUsed(data)
 	print("Removing ability "..data.abilityname)
 	player = PlayerResource:GetPlayer(data.PlayerID-1)
 	hero = player:GetAssignedHero()
+	
 	ability = hero:FindAbilityByName(data.abilityname)
 	if(ability ~= nil) then
 		Timers:CreateTimer(4, function()
