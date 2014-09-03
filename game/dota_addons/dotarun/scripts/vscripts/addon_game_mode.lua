@@ -8,6 +8,7 @@ end
 
 function Precache( context )
 	PrecacheUnitByNameSync("npc_dota_hero_venomancer", context)
+	PrecacheUnitByNameSync("npc_dota_hero_mirana", context)
 	--[[
 		Precache things we know we'll use.  Possible file types include (but not limited to):
 			PrecacheResource( "model", "*.vmdl", context )
@@ -80,15 +81,22 @@ function CDotaRun:OnNPCSpawned( keys )
         Timers:CreateTimer(0.6, function()
         	local ability = spawnedUnit:FindAbilityByName("Immunity")
 			ability:SetLevel(1)
-			for i = 0,9 do
-				player = PlayerResource:GetPlayer(i)
-				if (player ~=nil) then
-					-- player = PlayerResource:GetPlayer(i)
-					hero = player:GetAssignedHero()
-					hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
-					AddFillerAbility(hero)
-				end
+			playerID = spawnedUnit:GetPlayerID() 
+			player = PlayerResource:GetPlayer(playerID)
+			hero = player:GetAssignedHero() 
+			if (GameRules:State_Get() < DOTA_GAMERULES_STATE_GAME_IN_PROGRESS) then
+				hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
 			end
+			AddFillerAbility(hero)
+			-- for i = 0,9 do
+			-- 	player = PlayerResource:GetPlayer(playerID)
+			-- 	if (player ~=nil) then
+			-- 		-- player = PlayerResource:GetPlayer(i)
+			-- 		hero = player:GetAssignedHero()
+			-- 		hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
+			-- 		AddFillerAbility(hero)
+			-- 	end
+			-- end
             return
          end
          )
@@ -111,9 +119,10 @@ function CDotaRun:On_game_rules_state_change( data )
 		for i = 0,9 do
 			player = PlayerResource:GetPlayer(i)
 			if (player ~=nil) then
-				-- player = PlayerResource:GetPlayer(i)
 				hero = player:GetAssignedHero()
-				hero:RemoveModifierByName("modifier_stunned") 
+				if (hero ~=nil) then
+					hero:RemoveModifierByName("modifier_stunned") 
+				end
 			end
 		end
 	end
@@ -121,19 +130,24 @@ function CDotaRun:On_game_rules_state_change( data )
 end
 
 function CDotaRun:OnAbilityUsed(data)
+		
+
 	print("Removing ability "..data.abilityname)
 	player = PlayerResource:GetPlayer(data.PlayerID-1)
 	hero = player:GetAssignedHero()
 	ability = hero:FindAbilityByName(data.abilityname)
 	if(ability ~= nil) then
-		ability:SetLevel(0)
-		print(ability:GetLevel())
-		hero:RemoveAbility(data.abilityname)
-		if(hero:FindAbilityByName(data.abilityname) ~= nil) then
-			hero:RemoveAbility("mirana_fart")
-		end
-		AddFillerAbility(hero)
-
+		Timers:CreateTimer(4, function()
+			ability:SetLevel(0)
+			print(ability:GetLevel())
+        	hero:RemoveAbility(data.abilityname)
+        	if(hero:FindAbilityByName(data.abilityname) ~= nil) then
+        		hero:RemoveAbility("mirana_fart")
+        	end
+        	AddFillerAbility(hero)
+            return
+         end
+         )
 	else
 		print("Deleting item")
 		for i=0,5,1 do 

@@ -124,10 +124,12 @@ function WinHere(trigger)
     
 
     if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3]) then
-        if (hero:GetTeamNumber() == 3) then
-            GameRules:MakeTeamLose(2)
-        elseif (hero:GetTeamNumber() == 2) then
-            GameRules:MakeTeamLose(3)
+        if (hero:GetTeamNumber() == DOTA_TEAM_BADGUYS) then
+            GameRules:SetSafeToLeave( true )
+            GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+        elseif (hero:GetTeamNumber() == DOTA_TEAM_GOODGUYS) then
+            GameRules:SetSafeToLeave( true )
+            GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
         end
     end
 end 
