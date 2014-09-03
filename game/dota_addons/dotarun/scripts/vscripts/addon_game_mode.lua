@@ -9,6 +9,7 @@ end
 function Precache( context )
 	PrecacheUnitByNameSync("npc_dota_hero_venomancer", context)
 	PrecacheUnitByNameSync("npc_dota_hero_mirana", context)
+	PrecacheUnitByNameSync("npc_dota_hero_obsidian_destroyer", context)
 	--[[
 		Precache things we know we'll use.  Possible file types include (but not limited to):
 			PrecacheResource( "model", "*.vmdl", context )
