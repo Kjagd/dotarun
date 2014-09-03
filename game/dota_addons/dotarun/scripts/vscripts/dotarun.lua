@@ -16,12 +16,15 @@ function ItemZoneOne(trigger)
 
 	hero = trigger.activator
 
-	hero:RemoveAbility("mirana_fart") 
 
-	hero:AddAbility("mirana_arrow")
-	ability = hero:FindAbilityByName("mirana_arrow")
-	ability:SetLevel(1)
-	ability:SetAbilityIndex(1)
+	if(hero:FindAbilityByName("mirana_arrow") == nil) then
+        hero:RemoveAbility("mirana_fart") 
+		hero:AddAbility("mirana_arrow")
+		ability = hero:FindAbilityByName("mirana_arrow")
+		ability:SetLevel(1)
+		ability:SetAbilityIndex(1)
+    end
+	
 
 
 	if(zoneCount[hero:GetPlayerID()] == nil) then
