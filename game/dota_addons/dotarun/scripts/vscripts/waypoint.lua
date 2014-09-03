@@ -3,11 +3,11 @@
 function WaypointOneTouch(trigger)
      
     playerID = trigger.activator:GetPlayerID() 
-    print(playerID)
+    -- print(playerID)
     GameRules.dotaRun.waypoints[playerID][1] = true
-    print(GameRules.dotaRun.waypoints[playerID][1])
-    print(GameRules.dotaRun.waypoints[playerID][2])
-    print(GameRules.dotaRun.waypoints[playerID][3])
+    -- print(GameRules.dotaRun.waypoints[playerID][1])
+    -- print(GameRules.dotaRun.waypoints[playerID][2])
+    -- print(GameRules.dotaRun.waypoints[playerID][3])
 
             
             -- if (trigger.activator:IsOwnedByAnyPlayer() ) then -- Checks to see if the entity is a player controlled unit
@@ -37,14 +37,14 @@ function WaypointTwoTouch(trigger)
 
 
     playerID = trigger.activator:GetPlayerID() 
-    print(playerID)
+    -- print(playerID)
     if (GameRules.dotaRun.waypoints[playerID][1]) then
     	GameRules.dotaRun.waypoints[playerID][2] = true
     end
     
-    print(GameRules.dotaRun.waypoints[playerID][1])
-    print(GameRules.dotaRun.waypoints[playerID][2])
-    print(GameRules.dotaRun.waypoints[playerID][3])
+    -- print(GameRules.dotaRun.waypoints[playerID][1])
+    -- print(GameRules.dotaRun.waypoints[playerID][2])
+    -- print(GameRules.dotaRun.waypoints[playerID][3])
      
           
             
@@ -74,14 +74,14 @@ end
 function WaypointThreeTouch(trigger)
 
     playerID = trigger.activator:GetPlayerID() 
-    print(playerID)      
+    -- print(playerID)      
     if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2]) then
     	GameRules.dotaRun.waypoints[playerID][3] = true
     end
 
-    print(GameRules.dotaRun.waypoints[playerID][1])
-    print(GameRules.dotaRun.waypoints[playerID][2])
-    print(GameRules.dotaRun.waypoints[playerID][3])
+    -- print(GameRules.dotaRun.waypoints[playerID][1])
+    -- print(GameRules.dotaRun.waypoints[playerID][2])
+    -- print(GameRules.dotaRun.waypoints[playerID][3])
      
 end           
             
@@ -115,12 +115,12 @@ function WinHere(trigger)
     player = PlayerResource:GetPlayer(playerID)
     hero = player:GetAssignedHero()  
 
-    print("WinHere")
-    print(playerID)
-    print(GameRules.dotaRun.waypoints[playerID][1])
-    print(GameRules.dotaRun.waypoints[playerID][2])
-    print(GameRules.dotaRun.waypoints[playerID][3])
-    print(GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3])
+    -- print("WinHere")
+    -- print(playerID)
+    -- print(GameRules.dotaRun.waypoints[playerID][1])
+    -- print(GameRules.dotaRun.waypoints[playerID][2])
+    -- print(GameRules.dotaRun.waypoints[playerID][3])
+    -- print(GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3])
     
 
     if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3]) then
