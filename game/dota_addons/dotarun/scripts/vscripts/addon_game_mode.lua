@@ -7,9 +7,20 @@ if CDotaRun == nil then
 end
 
 function Precache( context )
-	PrecacheUnitByNameSync("npc_dota_hero_venomancer", context)
-	PrecacheUnitByNameSync("npc_dota_hero_mirana", context)
-	PrecacheUnitByNameSync("npc_dota_hero_obsidian_destroyer", context)
+	-- PrecacheUnitByNameSync("npc_dota_hero_venomancer", context)
+	-- PrecacheUnitByNameSync("npc_dota_hero_mirana", context)
+	-- PrecacheUnitByNameSync("npc_dota_hero_obsidian_destroyer", context)
+	PrecacheItemByNameSync("mirana_arrow", context)
+	PrecacheItemByNameSync("venomancer_venomous_gale", context)
+	PrecacheItemByNameSync("mirana_leap", context)
+	PrecacheItemByNameSync("dark_seer_surge", context)
+	PrecacheItemByNameSync("jakiro_ice_path", context)
+	PrecacheItemByNameSync("batrider_flamebreak", context)
+	PrecacheItemByNameSync("ancient_apparition_ice_vortex", context)
+	PrecacheItemByNameSync("gyrocopter_homing_missile", context)
+	PrecacheItemByNameSync("obsidian_destroyer_astral_imprisonment", context)
+	PrecacheItemByNameSync("necrolyte_death_pulse", context)
+
 	--[[
 		Precache things we know we'll use.  Possible file types include (but not limited to):
 			PrecacheResource( "model", "*.vmdl", context )
@@ -85,6 +96,7 @@ function CDotaRun:OnNPCSpawned( keys )
 			playerID = spawnedUnit:GetPlayerID() 
 			player = PlayerResource:GetPlayer(playerID)
 			hero = player:GetAssignedHero() 
+			hero:SetAbilityPoints(0)
 			if (GameRules:State_Get() < DOTA_GAMERULES_STATE_GAME_IN_PROGRESS) then
 				hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
 			end
