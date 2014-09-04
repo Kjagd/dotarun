@@ -34,7 +34,7 @@ end
 function ItemZoneOne(trigger)
 	-- See http://stackoverflow.com/questions/18199844/lua-math-random-not-working pop dem randoms
 	-- Vi burde nok bare bruge volvos random
-	math.randomseed(Global:RandomInt(0, 999999999) 
+	math.randomseed(GameRules:GetGameTime() )
 	math.random()
 	math.random()
 	math.random()
