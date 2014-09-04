@@ -4,11 +4,6 @@
 {
 	"Version"		"1"
 
-	"mirana_arrow"
-	{
-			"AbilityManaCost"				"0"
-	}
-
 	"mirana_leap"
 	{
 			"AbilityManaCost"				"0"
@@ -47,6 +42,8 @@
 	{
 		"AbilityManaCost"				"0"
 	} 
+
+	
 
 	
 	
@@ -372,3 +369,4 @@
 		}
 	}
 }
+	
