@@ -118,8 +118,8 @@ function CDotaRun:OnNPCSpawned( keys )
 			-- 	end
 			-- end
             return
-         end
-         )
+        end
+        )
     end
 end
 
