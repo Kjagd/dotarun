@@ -1,6 +1,7 @@
+
 local zoneCount = {}
 
-itemList = { "item_blink", "item_force_staff", "item_cyclone", "item_shivas_guard", "item_sheepstick"}
+itemList = { "item_blink", "item_force_staff", "item_cyclone", "item_shivas_guard", "item_sheepstick", }
 spellList = {"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_gale_custom", "dark_seer_surge_custom", "jakiro_ice_path_custom", 
 "batrider_flamebreak_custom", "ancient_apparition_ice_vortex_custom", "gyrocopter_homing_missile_custom", "obsidian_destroyer_astral_imprisonment_custom"}
 
@@ -10,13 +11,14 @@ spellList = {"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_g
 --invoker_tornado
 
 function GiveRandomItem(hero)
- 
+ 	
 	item = CreateItem(itemList[math.random(#itemList)], hero, hero)
 	hero:AddItem(item)
 
 end
 
 function GiveRandomAbility(hero)
+
 	abilityName = spellList[math.random(#spellList)]
 	-- abilityName = "obsidian_destroyer_astral_imprisonment_custom"
 	print("Rolled ability "..abilityName)
@@ -30,6 +32,12 @@ function GiveRandomAbility(hero)
 end
 
 function ItemZoneOne(trigger)
+	-- See http://stackoverflow.com/questions/18199844/lua-math-random-not-working pop dem randoms
+	math.randomseed(GameRules:GetGameTime() )
+	math.random()
+	math.random()
+	math.random()
+
 	print("Entered Item Zone")
 
 
