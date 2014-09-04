@@ -170,15 +170,19 @@ function CDotaRun:OnAbilityUsed(data)
          end
          )
 	else
-		print("Deleting item")
-		for i=0,5,1 do 
-	   		item = hero:GetItemInSlot(i)
-	    	if  item ~= nil then
-	    		if(item:GetClassname() == data.abilityname) then
-	    			hero:RemoveItem(item)
+		Timers:CreateTimer(1, function() 
+			print("Deleting item")
+			for i=0,5,1 do 
+	   			item = hero:GetItemInSlot(i)
+	    		if  item ~= nil then
+		    		if(item:GetClassname() == data.abilityname) then
+		    			hero:RemoveItem(item)
+	    			end
 	    		end
-	    	end
-	    end
+	   		end
+	   		return
+	   	end
+	    )
 	end
 end
 
