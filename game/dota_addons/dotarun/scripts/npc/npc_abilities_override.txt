@@ -4,44 +4,7 @@
 {
 	"Version"		"1"
 
-	"mirana_leap"
-	{
-			"AbilityManaCost"				"0"
-	}
-
-	"venomancer_venomous_gale"
-	{
-		"AbilityManaCost"				"0"
-	} 
-
-	"dark_seer_surge" 
-	{
-		"AbilityManaCost"				"0"
-	} 
-	"clinkz_wind_walk" 
-	{
-		"AbilityManaCost"				"0"
-	} 
-
-	"jakiro_ice_path"
-	{
-		"AbilityManaCost"				"0"
-	} 
-
-	"batrider_flamebreak"
-	{
-		"AbilityManaCost"				"0"
-	} 
-
-	"ancient_apparition_ice_vortex"
-	{
-		"AbilityManaCost"				"0"
-	} 
-
-	"gyrocopter_homing_missile"
-	{
-		"AbilityManaCost"				"0"
-	} 
+	
 
 	
 
