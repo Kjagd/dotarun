@@ -5,87 +5,39 @@
 
 
 	"mirana_fart"
-	 {
-	 		"BaseClass"						"ability_datadriven"
-			"AbilityTextureName"			"necrolyte_death_pulse"
-			"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-
-
-	 		"AbilityCooldown"				"20"
-	 		"AbilityManaCost"				"0"
-	 		"AbilityCastPoint"				"0"
-
-	 		"OnSpellStart"
-	 		{
-	 			"ApplyModifier"
-					{
-						"ModifierName"			"fart_modifier"
-						"Target"				"CASTER"
-						 "Duration"      "2.0"
-					}
-			}
-
-	 		"Modifiers"
-            {
-	            "fart_modifier"
-	            {
-	            	"AttachEffect"
-	            	{
-			 			"Target"						"CASTER"
-			            "EffectName"       			     "particles/units/heroes/hero_venomancer/venomancer_venomous_gale.vpcf"
-
-			            "EffectAttachType"				"follow_origin"
-		            }
-				 	"Duration"      "2.0"
-
-		        }
-	        }
-	 		
-	 }
-	//=================================================================================================================
-	// Templar Assassin: Refraction Holdout
-	//=================================================================================================================
-	"templar_assassin_refraction_holdout"
 	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_PHYSICAL"	
+		"BaseClass"						"ability_datadriven"
+		"AbilityTextureName"			"necrolyte_death_pulse"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+ 		"AbilityCooldown"				"20"
+ 		"AbilityManaCost"				"0"
+ 		"AbilityCastPoint"				"0"
 
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"17.0 17.0 17.0 17.0"
-
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"100"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"damage_absorb"				"200 300 400 500"
-			}
-			"02"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"bonus_damage"				"20 40 60 80"
-			}
-			"04"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"duration"					"17.0 17.0 17.0 17.0"
-			}
+ 		"OnSpellStart"
+ 		{
+ 			"ApplyModifier"
+				{
+					"ModifierName"			"fart_modifier"
+					"Target"				"CASTER"
+					 "Duration"      "2.0"
+				}
 		}
-	}
+ 		"Modifiers"
+        {
+            "fart_modifier"
+            {
+            	"AttachEffect"
+            	{
+		 			"Target"						"CASTER"
+		            "EffectName"       			     "particles/units/heroes/hero_venomancer/venomancer_venomous_gale.vpcf"
+		            "EffectAttachType"				"follow_origin"
+	            }
+				"Duration"      "2.0"
 
+		    }
+	    }
+	}
 	//=================================================================================================================
 	// Literally unkillable
 	//=================================================================================================================
@@ -125,6 +77,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY | DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityTextureName"			"obsidian_destroyer_astral_imprisonment"
 
 		"AbilityDuration"				"3"
 		"AbilityCooldown"				"5"
@@ -161,6 +114,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"FightRecapLevel"				"1"
+		"AbilityTextureName"			"mirana_arrow"
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -194,6 +148,7 @@
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"  
 		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
+		"AbilityTextureName"			"dark_seer_surge"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -230,6 +185,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"mirana_leap"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityTextureName"			"mirana_leap"
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -289,6 +245,7 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
 		"FightRecapLevel"				"1"
+		"AbilityTextureName"			"venomancer_venomous_gale"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -355,6 +312,7 @@
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"FightRecapLevel"				"1"
+		"AbilityTextureName"			"jakiro_ice_path"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -409,7 +367,8 @@
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"FightRecapLevel"				"1"
-		
+		"AbilityTextureName"			"batrider_flamebreak"
+
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"1500"
@@ -481,6 +440,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ancient_apparition_ice_vortex"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityTextureName"			"ancient_apparition_ice_vortex"
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -533,6 +493,7 @@
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"FightRecapLevel"				"1"
+		"AbilityTextureName"			"gyrocopter_homing_missile"
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
