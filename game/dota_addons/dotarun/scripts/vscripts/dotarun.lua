@@ -1,3 +1,4 @@
+require('pudge')
 
 local zoneOpen = {}
 for i = 0,9 do
@@ -81,6 +82,8 @@ function GiveRandomAbility(hero)
 end
 
 function ItemZoneOne(trigger)
+
+
 	-- See http://stackoverflow.com/questions/18199844/lua-math-random-not-working pop dem randoms
 	-- Vi burde nok bare bruge volvos random
 	math.randomseed(GameRules:GetGameTime() )
@@ -89,6 +92,8 @@ function ItemZoneOne(trigger)
 	end
 
 	hero = trigger.activator
+
+	hook(hero)
 
 	print("Entered Item Zone, can get new item: ", zoneOpen[hero:GetPlayerID()])
 	

@@ -89,4 +89,86 @@
 			"XPGain"					"15"
 		}
 	}
+
+	"pudge_hooker"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"Model"					"models/heroes/pudge/pudge.mdl"				// Model.		
+		"BaseClass"				"npc_dota_creep_neutral"
+		"Portrait"				"vgui/hud/heroportraits/portrait_pudge"		// Small image for hero selection
+		"IdleExpression"		"scenes/pudge/pudge_exp_idle_01.vcd"		// custom facial animation idle
+		"SoundSet"				"Hero_Pudge"								// Name of sound set.
+		"PickSound"				"pudge_pud_spawn_10"
+		"BanSound"				"pudge_pud_anger_01"
+		"IdleSoundLoop"			"Hero_Pudge.IdleLoop"
+		"Enabled"				"1"
+		"HeroUnlockOrder"		"3"
+		"Role"					"Durable,Disabler"
+		"Rolelevels"			"3,1"
+		"Team"					"Bad"
+		"HeroID"				"14"									// unique ID number for this hero.  Do not change this once established or it will invalidate collected stats.
+		"BotImplemented"		"1"
+		"ModelScale"			"0.98"
+		"LoadoutScale"          ".92"
+		"HeroGlowColor"			"178 128 114"
+		"CMEnabled"				"1"
+		"url"				"Pudge"
+		"LastHitChallengeRival"	"npc_dota_hero_skeleton_king"
+		"HeroSelectSoundEffect"		")weapons/hero/pudge/dismember_swing2.wav"
+
+		// Abilities
+		//-------------------------------------------------------------------------------------------------------------
+		"Ability1"				"empty_ability1"							// Ability 1
+		"Ability2"				"empty_ability1"									// Ability 2
+		"Ability3"				"empty_ability1"							// Ability 3
+		"Ability4"				"empty_ability1"							// Ability 4
+
+		// Armor
+		//-------------------------------------------------------------------------------------------------------------
+		"ArmorPhysical"			"-1"											// Physical protection.
+
+		// Attack
+		//-------------------------------------------------------------------------------------------------------------
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"			"27"									// Damage range min.
+		"AttackDamageMax"			"33"									// Damage range max.
+		"AttackRate"				"1.7"									// Speed of attack.
+		"AttackAnimationPoint"		"0.5"									// Normalized time in animation cycle to attack.
+		"AttackAcquisitionRange"	"600"									// Range within a target can be acquired.
+		"AttackRange"				"128"									// Range within a target can be attacked.
+		"ProjectileModel"			""										// Particle system model for projectile.
+		"ProjectileSpeed"			"0"										// Speed of projectile.
+
+		// Attributes
+		//-------------------------------------------------------------------------------------------------------------
+		"AttributePrimary"			"DOTA_ATTRIBUTE_STRENGTH"
+		"AttributeBaseStrength"		"25"									// Base strength
+		"AttributeStrengthGain"		"3.2"									// Strength bonus per level.
+		"AttributeBaseIntelligence"	"14"									// Base intelligence
+		"AttributeIntelligenceGain"	"1.5"									// Intelligence bonus per level.
+		"AttributeBaseAgility"		"14"									// Base agility
+		"AttributeAgilityGain"		"1.5"									// Agility bonus per level.
+
+		// Movement
+		//-------------------------------------------------------------------------------------------------------------
+		"MovementSpeed"				"285"									// Speed.
+		"MovementTurnRate"			"0.5"									// Turning rate.
+		
+		// Bounds
+		//-------------------------------------------------------------------------------------------------------------
+		"BoundsHullName"			"DOTA_HULL_SIZE_HERO"
+		"HealthBarOffset"			"180"
+		
+
+		"ParticleFile"				"particles/units/heroes/hero_pudge.pcf"
+		"GameSoundsFile"			"scripts/game_sounds_heroes/game_sounds_pudge.txt"
+		"VoiceFile"					"scripts/voscripts/game_sounds_vo_pudge.txt"
+		
+		"VoiceBackgroundSound"		"Pudge.Background"
+
+		// Additional data needed to render the out of game portrait
+		
+			
+	}	
 }
