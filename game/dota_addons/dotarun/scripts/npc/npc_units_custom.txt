@@ -119,10 +119,10 @@
 
 		// Abilities
 		//-------------------------------------------------------------------------------------------------------------
-		"Ability1"				"empty_ability1"							// Ability 1
-		"Ability2"				"empty_ability1"									// Ability 2
-		"Ability3"				"empty_ability1"							// Ability 3
-		"Ability4"				"empty_ability1"							// Ability 4
+		"Ability1"				"pudge_meat_hook_custom"							// Ability 1
+		"Ability2"				""									// Ability 2
+		"Ability3"				""							// Ability 3
+		"Ability4"				""							// Ability 4
 
 		// Armor
 		//-------------------------------------------------------------------------------------------------------------
