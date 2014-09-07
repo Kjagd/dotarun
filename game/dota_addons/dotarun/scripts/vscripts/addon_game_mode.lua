@@ -53,6 +53,16 @@ function CDotaRun:InitGameMode()
         	self.waypoints[i][j] = false -- Fill the values here
     	end
 	end
+	self.spawned = {}
+	for i = 0,9 do
+		self.spawned[i] = false
+	end
+	self.lead = 0
+	self.waypoint1leader = false
+	self.waypoint2leader = false
+	self.waypoint3leader = false
+
+
 	print( "Template addon is loaded." )
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, "GlobalThink", 2 )
 	ListenToGameEvent('dota_item_used', Dynamic_Wrap(CDotaRun, 'OnItemUsed'), self)
@@ -93,21 +103,30 @@ function CDotaRun:OnThink()
 	return 1
 end
 
+
+
+
 function CDotaRun:OnNPCSpawned( keys )
     local spawnedUnit = EntIndexToHScript( keys.entindex )
-    if string.find(spawnedUnit:GetUnitName(), "hero") then
+    local playerID = spawnedUnit:GetPlayerID() 
+    if (string.find(spawnedUnit:GetUnitName(), "hero") and not GameRules.dotaRun.spawned[playerID]) then
     	
         Timers:CreateTimer(0.6, function()
         	local ability = spawnedUnit:FindAbilityByName("Immunity")
 			ability:SetLevel(1)
-			playerID = spawnedUnit:GetPlayerID() 
 			player = PlayerResource:GetPlayer(playerID)
 			hero = player:GetAssignedHero() 
 			hero:SetAbilityPoints(0)
 			if (GameRules:State_Get() < DOTA_GAMERULES_STATE_GAME_IN_PROGRESS) then
 				hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
 			end
-			AddFillerAbility(hero)
+			for i = 1, 6 do
+				hero:AddAbility("empty_ability1")
+			end
+			item = CreateItem("item_force_staff", hero, hero) 
+			hero:AddItem(item)
+			GameRules.dotaRun.spawned[playerID] = true
+			-- AddFillerAbility(hero)
 			-- for i = 0,9 do
 			-- 	player = PlayerResource:GetPlayer(playerID)
 			-- 	if (player ~=nil) then
@@ -162,10 +181,10 @@ function CDotaRun:OnAbilityUsed(data)
 			ability:SetLevel(0)
 			print(ability:GetLevel())
         	hero:RemoveAbility(data.abilityname)
-        	if(hero:FindAbilityByName(data.abilityname) ~= nil) then
-        		hero:RemoveAbility("mirana_fart")
-        	end
-        	AddFillerAbility(hero)
+        	-- if(hero:FindAbilityByName(data.abilityname) ~= nil) then
+        	-- 	hero:RemoveAbility("mirana_fart")
+        	-- end
+        	hero:AddAbility("empty_ability1") 
             return
          end
          )
@@ -174,7 +193,7 @@ function CDotaRun:OnAbilityUsed(data)
 			print("Deleting item")
 			for i=0,5,1 do 
 	   			item = hero:GetItemInSlot(i)
-	    		if  item ~= nil then
+	    		if  item ~= nil and item:GetClassname()  ~= "item_force_staff" then
 		    		if(item:GetClassname() == data.abilityname) then
 		    			hero:RemoveItem(item)
 	    			end
@@ -186,9 +205,10 @@ function CDotaRun:OnAbilityUsed(data)
 	end
 end
 
-function AddFillerAbility(hero)
-	hero:AddAbility("mirana_fart")
-	ability = hero:FindAbilityByName("mirana_fart")
-	ability:SetAbilityIndex(1) 
-	ability:SetLevel(1)
-end
+-- function AddFillerAbility(hero)
+-- 	hero:AddAbility("empty_ability1")
+-- 	hero:AddAbility("mirana_fart")
+-- 	ability = hero:FindAbilityByName("mirana_fart")
+-- 	ability:SetAbilityIndex(1) 
+-- 	ability:SetLevel(1)
+-- end
