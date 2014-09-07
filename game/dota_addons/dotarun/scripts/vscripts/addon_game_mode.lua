@@ -2,6 +2,7 @@
 
 
 require('timers')
+require('pudge')
 if CDotaRun == nil then
 	CDotaRun = class({})
 end
@@ -64,14 +65,17 @@ function CDotaRun:InitGameMode()
 	self.waypoint2leader = false
 	self.waypoint3leader = false
 
+	initPudge()
 
-	print( "Template addon is loaded." )
+	
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, "GlobalThink", 2 )
 	ListenToGameEvent('dota_item_used', Dynamic_Wrap(CDotaRun, 'OnItemUsed'), self)
 	ListenToGameEvent("npc_spawned", Dynamic_Wrap(CDotaRun, 'OnNPCSpawned'), self)
 	-- ListenToGameEvent("game_start", Dynamic_Wrap(CDotaRun, 'On_game_start'), self)
 	ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(CDotaRun, 'On_game_rules_state_change'), self)
 	ListenToGameEvent("dota_player_used_ability", Dynamic_Wrap(CDotaRun, 'OnAbilityUsed'), self) 
+
+	print( "Dotarun has literally loaded." )
 end
 
 function CDotaRun:OnPlayerConnectFull(keys)
