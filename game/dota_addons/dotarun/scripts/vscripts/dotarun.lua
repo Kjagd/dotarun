@@ -1,13 +1,12 @@
 
-local zoneCount = {}
+local zoneOpen = {}
 for i = 0,9 do
-	zoneCount[i] = true
+	zoneOpen[i] = true
 end
-
 
 itemList = { "item_blink", "item_cyclone", "item_shivas_guard", "item_sheepstick", "item_ancient_janggo", "item_smoke_of_deceit", "item_rod_of_atos"}
 spellList = {"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_gale_custom", "dark_seer_surge_custom", "jakiro_ice_path_custom", 
-"batrider_flamebreak_custom", "ancient_apparition_ice_vortex_custom", "gyrocopter_homing_missile_custom", "obsidian_destroyer_astral_imprisonment_custom"}
+"batrider_flamebreak_custom", "ancient_apparition_ice_vortex_custom", "gyrocopter_homing_missile_custom", "obsidian_destroyer_astral_imprisonment_custom", "pudge_meat_hook_custom"}
 
 --problems:
 --alchemist_unstable_concoction
@@ -27,7 +26,21 @@ function GiveRandomItem(hero)
 		elseif (itemNew:GetClassname() == "item_smoke_of_deceit" and hero:GetPlayerID() == GameRules.dotaRun.lead) then
 			print("Cannot get smoke if you're in the lead")
 			alreadyHas = true
+			break
 	    end
+	end
+
+	itemSlotsFull = true
+	for i=0,5 do 
+		if(hero:GetItemInSlot(i) == nil) then
+	    	itemSlotsFull = false
+	    	break
+	    end
+	end
+
+	if(itemSlotsFull) then
+		print("No item slots!")
+		return
 	end
 
 	if (alreadyHas) then 
@@ -41,25 +54,13 @@ end
 
 function GiveRandomAbility(hero)
 
-	ability1 = hero:GetAbilityByIndex(1)
-	ability2 = hero:GetAbilityByIndex(2)
-	ability3 = hero:GetAbilityByIndex(3)
-	ability4 = hero:GetAbilityByIndex(4)
-	ability5 = hero:GetAbilityByIndex(5)
-	ability6 = hero:GetAbilityByIndex(6)
-
-	print(ability1:GetAbilityName() .. " " .. ability2:GetAbilityName() .. " " .. ability3:GetAbilityName() .. 
-		" " .. ability4:GetAbilityName() .. " " .. ability5:GetAbilityName() .. " " .. ability6:GetAbilityName())
-	
-	hasMaxAbilities = false
-	if(ability1:GetAbilityName() ~= "empty_ability1" and ability2:GetAbilityName() ~= "empty_ability1" and ability3:GetAbilityName() ~= "empty_ability1" and
-		ability4:GetAbilityName() ~= "empty_ability1" and ability5:GetAbilityName() ~= "empty_ability1" and ability6:GetAbilityName() ~= "empty_ability1") then
-		print("Hero already has six abilities")
-		hasMaxAbilities = true
-	else 
-		hasMaxAbilities = false
+	hasMaxAbilities = true;
+	for i = 1,6 do
+		if(hero:GetAbilityByIndex(i):GetAbilityName() == "empty_ability1") then
+			hasMaxAbilities = false
+		end
 	end
-
+	
 	if (not hasMaxAbilities) then
 		abilityName = spellList[math.random(#spellList)]
 		if(hero:FindAbilityByName(abilityName) == nil) then
@@ -73,6 +74,8 @@ function GiveRandomAbility(hero)
 			print("Hero already had ability: "..abilityName)
 			GiveRandomAbility(hero)
    		end
+	else
+		print("Hero already has six abilities")
 	end
 
 end
@@ -81,38 +84,33 @@ function ItemZoneOne(trigger)
 	-- See http://stackoverflow.com/questions/18199844/lua-math-random-not-working pop dem randoms
 	-- Vi burde nok bare bruge volvos random
 	math.randomseed(GameRules:GetGameTime() )
-	math.random()
-	math.random()
-	math.random()
+	for i = 0, 5 do
+		math.random()
+	end
 
 	hero = trigger.activator
 
-	print("Entered Item Zone")
-	print(zoneCount[hero:GetPlayerID()])
-
-
+	print("Entered Item Zone, can get new item: ", zoneOpen[hero:GetPlayerID()])
 	
-
-
-	if (zoneCount[hero:GetPlayerID()] == true) then
+	if (zoneOpen[hero:GetPlayerID()] == true) then
 		GiveRandomAbility(hero)
 		GiveRandomItem(hero)
-		zoneCount[hero:GetPlayerID()] = false
+		zoneOpen[hero:GetPlayerID()] = false
 		Timers:CreateTimer(5, function()
-			zoneCount[hero:GetPlayerID()] = true
+			zoneOpen[hero:GetPlayerID()] = true
             return
         end
         )
     end
 
 
-	-- if(zoneCount[hero:GetPlayerID()] == nil) then
-	-- 	zoneCount[hero:GetPlayerID()] = 0
+	-- if(zoneOpen[hero:GetPlayerID()] == nil) then
+	-- 	zoneOpen[hero:GetPlayerID()] = 0
 	-- end
 
-	-- if(zoneCount[hero:GetPlayerID()] < 5) then
-	-- 	zoneCount[hero:GetPlayerID()] = zoneCount[hero:GetPlayerID()] + 1
-	-- 	print("items picked up by player " .. hero:GetPlayerID()..": "..zoneCount[hero:GetPlayerID()])
+	-- if(zoneOpen[hero:GetPlayerID()] < 5) then
+	-- 	zoneOpen[hero:GetPlayerID()] = zoneOpen[hero:GetPlayerID()] + 1
+	-- 	print("items picked up by player " .. hero:GetPlayerID()..": "..zoneOpen[hero:GetPlayerID()])
 	-- 	GiveRandomItem(hero)
 	-- end
 end

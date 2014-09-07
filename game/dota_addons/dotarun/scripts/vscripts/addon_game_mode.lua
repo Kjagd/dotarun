@@ -16,6 +16,8 @@ function Precache( context )
 	PrecacheUnitByNameSync("npc_dota_hero_gyrocopter", context)
 	PrecacheUnitByNameSync("npc_dota_hero_necrolyte", context)
 	PrecacheUnitByNameSync("npc_dota_hero_obsidian_destroyer", context)
+	PrecacheUnitByNameSync("npc_dota_hero_pudge", context)
+
 
 	-- PrecacheItemByNameSync("mirana_arrow", context)
 	-- PrecacheItemByNameSync("venomancer_venomous_gale", context)
@@ -108,38 +110,40 @@ end
 
 function CDotaRun:OnNPCSpawned( keys )
     local spawnedUnit = EntIndexToHScript( keys.entindex )
-    local playerID = spawnedUnit:GetPlayerID() 
-    if (string.find(spawnedUnit:GetUnitName(), "hero") and not GameRules.dotaRun.spawned[playerID]) then
-    	
-        Timers:CreateTimer(0.6, function()
-        	local ability = spawnedUnit:FindAbilityByName("Immunity")
-			ability:SetLevel(1)
-			player = PlayerResource:GetPlayer(playerID)
-			hero = player:GetAssignedHero() 
-			hero:SetAbilityPoints(0)
-			if (GameRules:State_Get() < DOTA_GAMERULES_STATE_GAME_IN_PROGRESS) then
-				hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
-			end
-			for i = 1, 6 do
-				hero:AddAbility("empty_ability1")
-			end
-			item = CreateItem("item_force_staff", hero, hero) 
-			hero:AddItem(item)
-			GameRules.dotaRun.spawned[playerID] = true
-			-- AddFillerAbility(hero)
-			-- for i = 0,9 do
-			-- 	player = PlayerResource:GetPlayer(playerID)
-			-- 	if (player ~=nil) then
-			-- 		-- player = PlayerResource:GetPlayer(i)
-			-- 		hero = player:GetAssignedHero()
-			-- 		hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
-			-- 		AddFillerAbility(hero)
-			-- 	end
-			-- end
-            return
-        end
-        )
-    end
+    if(string.find(spawnedUnit:GetUnitName(), "hero")) then
+		local playerID = spawnedUnit:GetPlayerID() 
+	    if (not GameRules.dotaRun.spawned[playerID]) then
+	    	
+	        Timers:CreateTimer(0.6, function()
+	        	local ability = spawnedUnit:FindAbilityByName("Immunity")
+				ability:SetLevel(1)
+				player = PlayerResource:GetPlayer(playerID)
+				hero = player:GetAssignedHero() 
+				hero:SetAbilityPoints(0)
+				if (GameRules:State_Get() < DOTA_GAMERULES_STATE_GAME_IN_PROGRESS) then
+					hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
+				end
+				for i = 1, 6 do
+					hero:AddAbility("empty_ability1")
+				end
+				item = CreateItem("item_force_staff", hero, hero) 
+				hero:AddItem(item)
+				GameRules.dotaRun.spawned[playerID] = true
+				-- AddFillerAbility(hero)
+				-- for i = 0,9 do
+				-- 	player = PlayerResource:GetPlayer(playerID)
+				-- 	if (player ~=nil) then
+				-- 		-- player = PlayerResource:GetPlayer(i)
+				-- 		hero = player:GetAssignedHero()
+				-- 		hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
+				-- 		AddFillerAbility(hero)
+				-- 	end
+				-- end
+	            return
+	        end
+	        )
+	    end
+   	end
 end
 
 -- function CDotaRun:On_game_start(data)
