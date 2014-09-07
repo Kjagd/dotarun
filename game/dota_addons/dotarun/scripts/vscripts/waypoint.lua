@@ -157,11 +157,35 @@ function KillEntity(trigger)
     print("Unit '" .. unitName .. "' has entered the killbox")
 
     if (trigger.activator:IsOwnedByAnyPlayer() ) then -- Checks to see if the entity is a player controlled unit
-    	for i = 1, 3 do
-        	GameRules.dotaRun.waypoints[playerID][i] = false
-    	end
-    	trigger.activator:ForceKill(true) -- Kills the unit
-        print("Is player owned - kill")
+    	-- for i = 1, 3 do
+     --    	GameRules.dotaRun.waypoints[playerID][i] = false
+    	-- end
+    	-- trigger.activator:ForceKill(true) -- Kills the unit
+     --    print("Is player owned - kill")
+        
+        local point
+        if (GameRules.dotaRun.waypoints[playerID][3] == true) then
+            point = Entities:FindByName( nil, "waypointThreeTeleport" ):GetAbsOrigin()
+        elseif (GameRules.dotaRun.waypoints[playerID][2] == true) then
+            point = Entities:FindByName( nil, "waypointTwoTeleport" ):GetAbsOrigin()
+        elseif (GameRules.dotaRun.waypoints[playerID][1] == true) then
+            point = Entities:FindByName( nil, "waypointOneTeleport" ):GetAbsOrigin()
+        end
+
+       
+
+        if (GameRules.dotaRun.waypoints[playerID][1] == true) then
+            -- Find a spot for the hero around 'point' and teleports to it
+            FindClearSpaceForUnit(trigger.activator, point, false)
+            -- Stop the hero, so he doesn't move
+            trigger.activator:Stop()
+            -- Refocus the camera of said player to the position of the teleported hero.
+            SendToConsole("dota_camera_center")
+        else 
+            trigger.activator:ForceKill(true) -- Kills the unit
+        end
+
+
         player = PlayerResource:GetPlayer(playerID)
         hero = player:GetAssignedHero() 
         item = CreateItem("item_smoke_of_deceit", hero, hero) 
