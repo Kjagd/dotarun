@@ -3,6 +3,11 @@
 function WaypointOneTouch(trigger)
      
     playerID = trigger.activator:GetPlayerID() 
+
+    if (not GameRules.dotaRun.waypoint1leader) then
+        GameRules.dotaRun.lead = playerID
+        GameRules.dotaRun.waypoint1leader = true
+    end
     -- print(playerID)
     GameRules.dotaRun.waypoints[playerID][1] = true
     -- print(GameRules.dotaRun.waypoints[playerID][1])
@@ -37,6 +42,11 @@ function WaypointTwoTouch(trigger)
 
 
     playerID = trigger.activator:GetPlayerID() 
+
+    if (not GameRules.dotaRun.waypoint2leader) then
+        GameRules.dotaRun.lead = playerID
+        GameRules.dotaRun.waypoint2leader = true
+    end
     -- print(playerID)
     if (GameRules.dotaRun.waypoints[playerID][1]) then
     	GameRules.dotaRun.waypoints[playerID][2] = true
@@ -75,6 +85,11 @@ function WaypointThreeTouch(trigger)
 
     playerID = trigger.activator:GetPlayerID() 
     -- print(playerID)      
+
+    if (not GameRules.dotaRun.waypoint3leader) then
+        GameRules.dotaRun.lead = playerID
+        GameRules.dotaRun.waypoint3leader = true
+    end
     if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2]) then
     	GameRules.dotaRun.waypoints[playerID][3] = true
     end
@@ -147,6 +162,11 @@ function KillEntity(trigger)
     	end
     	trigger.activator:ForceKill(true) -- Kills the unit
         print("Is player owned - kill")
+        player = PlayerResource:GetPlayer(playerID)
+        hero = player:GetAssignedHero() 
+        item = CreateItem("item_smoke_of_deceit", hero, hero) 
+        hero:AddItem(item)
+
 
     else
         print("Is not owned by player - ignore")
