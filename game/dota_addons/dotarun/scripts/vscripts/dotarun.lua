@@ -82,6 +82,11 @@ end
 
 function ItemZoneOne(trigger)
 
+	-- DeepPrintTable(trigger)
+
+
+	playerID = trigger.activator:GetPlayerID()
+	print("PlayerID: " .. playerID) 
 	hero = trigger.activator
 
 	-- hook(hero)
