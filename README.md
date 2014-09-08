@@ -23,7 +23,9 @@ and you will to need move the content of this folder one level up to dota_ugc. (
 The documentation for Dota 2 alpha tools aren't always the best, so here are some of the resources we are using.
 
 [Valve's scripting overview](https://developer.valvesoftware.com/wiki/Dota_2_Workshop_Tools/Scripting)
+
 [Dota2Modding subreddit](http://www.reddit.com/r/dota2modding)
+
 [Some introduction tutorials](http://yrrep.me/dota/)
 
 [Trap inspiration](http://thristhart.github.io/techniques/dota/arrow-trap)
