@@ -67,9 +67,9 @@ function CDotaRun:InitGameMode()
 	for i = 0,9 do
 		self.spawned[i] = false
 	end
-	self.lead = 0
+	self.lead = -1
 	self.waypointleader = {}
-	for i = 1, 9 do
+	for i = 1, 3 do
 		self.waypointleader[i] = false
 	end
 
