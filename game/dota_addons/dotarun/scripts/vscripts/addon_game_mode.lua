@@ -203,8 +203,11 @@ end
 function CDotaRun:OnAbilityUsed(data)
 		
 
-	print("Removing ability "..data.abilityname)
+	print("Removing ability "..data.abilityname.." playerID "..data.PlayerID)
 	player = PlayerResource:GetPlayer(data.PlayerID-1)
+	if(player == nil) then
+		return
+	end
 	hero = player:GetAssignedHero()
 	
 	ability = hero:FindAbilityByName(data.abilityname)
