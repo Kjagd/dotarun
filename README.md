@@ -15,8 +15,8 @@ First of all you need to download the files to the correct location. Your git ro
 
 `...\Steam\SteamApps\common\dota 2 beta\dota_ugc`
 
-Please note that since git doesn't allow cloning into an non-empty directly, it will probably create a directory called dotarun,
-and you will to need move the content of this folder one level up to dota_ugc. (Don't forget the .git folder!!)
+Please note that since git doesn't allow cloning into a non-empty directory, it will probably create a directory called dotarun,
+and you will to need move the content of this folder one level up to dota_ugc. (Don't forget the .git folder!)
 
 #### Resources
 
