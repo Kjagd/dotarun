@@ -201,10 +201,12 @@ function CDotaRun:On_game_rules_state_change( data )
 end
 
 function CDotaRun:OnAbilityUsed(data)
-		
 
-	print("Removing ability "..data.abilityname.." player " .. player)
-	player = data.player
+	DeepPrintTable(data)
+
+	print("Removing ability "..data.abilityname)
+	playerID = data.PlayerID
+	player = PlayerResource:GetPlayer(data.PlayerID-1) 
 	hero = player:GetAssignedHero()
 	
 	ability = hero:FindAbilityByName(data.abilityname)
