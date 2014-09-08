@@ -4,9 +4,9 @@ function WaypointOneTouch(trigger)
      
     playerID = trigger.activator:GetPlayerID() 
 
-    if (not GameRules.dotaRun.waypoint1leader) then
+    if (not GameRules.dotaRun.waypointleader[1]) then
         GameRules.dotaRun.lead = playerID
-        GameRules.dotaRun.waypoint1leader = true
+        GameRules.dotaRun.waypointleader[1] = true
     end
     -- print(playerID)
     GameRules.dotaRun.waypoints[playerID][1] = true
@@ -43,9 +43,9 @@ function WaypointTwoTouch(trigger)
 
     playerID = trigger.activator:GetPlayerID() 
 
-    if (not GameRules.dotaRun.waypoint2leader) then
+    if (not GameRules.dotaRun.waypointleader[2]) then
         GameRules.dotaRun.lead = playerID
-        GameRules.dotaRun.waypoint2leader = true
+        GameRules.dotaRun.waypointleader[2] = true
     end
     -- print(playerID)
     if (GameRules.dotaRun.waypoints[playerID][1]) then
@@ -86,9 +86,9 @@ function WaypointThreeTouch(trigger)
     playerID = trigger.activator:GetPlayerID() 
     -- print(playerID)      
 
-    if (not GameRules.dotaRun.waypoint3leader) then
+    if (not GameRules.dotaRun.waypointleader[3]) then
         GameRules.dotaRun.lead = playerID
-        GameRules.dotaRun.waypoint3leader = true
+        GameRules.dotaRun.waypointleader[3] = true
     end
     if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2]) then
     	GameRules.dotaRun.waypoints[playerID][3] = true

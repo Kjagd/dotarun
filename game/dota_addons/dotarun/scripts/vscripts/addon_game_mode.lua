@@ -48,6 +48,13 @@ function Activate()
 end
 
 function CDotaRun:InitGameMode()
+	DebugDrawText(Vector(-5464,-6529,20), "Get items and abilities by running through these", false, -1) 
+
+	self.zoneOpen = {}
+	for i = 0,9 do
+		self.zoneOpen[i] = true
+	end
+
 	self.waypoints = {}
 	for i = 0, 9 do
     self.waypoints[i] = {}
@@ -61,14 +68,15 @@ function CDotaRun:InitGameMode()
 		self.spawned[i] = false
 	end
 	self.lead = 0
-	self.waypoint1leader = false
-	self.waypoint2leader = false
-	self.waypoint3leader = false
+	self.waypointleader = {}
+	for i = 1, 9 do
+		self.waypointleader[i] = false
+	end
 
-	initPudge()
+	initPudges()
 
 	
-	GameRules:GetGameModeEntity():SetThink( "OnThink", self, "GlobalThink", 2 )
+	GameRules:GetGameModeEntity():SetThink( "OnThink", self, 0.25 )
 	ListenToGameEvent('dota_item_used', Dynamic_Wrap(CDotaRun, 'OnItemUsed'), self)
 	ListenToGameEvent("npc_spawned", Dynamic_Wrap(CDotaRun, 'OnNPCSpawned'), self)
 	-- ListenToGameEvent("game_start", Dynamic_Wrap(CDotaRun, 'On_game_start'), self)
@@ -76,6 +84,8 @@ function CDotaRun:InitGameMode()
 	ListenToGameEvent("dota_player_used_ability", Dynamic_Wrap(CDotaRun, 'OnAbilityUsed'), self) 
 
 	print( "Dotarun has literally loaded." )
+
+	
 end
 
 function CDotaRun:OnPlayerConnectFull(keys)
@@ -109,6 +119,19 @@ function CDotaRun:OnThink()
 	return 1
 end
 
+function CDotaRun:StartZoneTimer(hero)
+	Timers:CreateTimer(5, function()
+		GameRules.dotaRun.zoneOpen[hero:GetPlayerID()] = true
+        return
+    end
+    )
+end
+
+-- Need a better way to call this
+-- function CDotaRun:XpThink()
+-- 	hook()
+-- 	return 1
+-- end
 
 
 

@@ -1,9 +1,6 @@
 require('pudge')
 
-local zoneOpen = {}
-for i = 0,9 do
-	zoneOpen[i] = true
-end
+
 
 itemList = { "item_blink", "item_cyclone", "item_shivas_guard", "item_sheepstick", "item_ancient_janggo", "item_smoke_of_deceit", "item_rod_of_atos"}
 spellList = {"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_gale_custom", "dark_seer_surge_custom", "jakiro_ice_path_custom", 
@@ -16,7 +13,8 @@ spellList = {"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_g
 
 function GiveRandomItem(hero)
  	
-	itemNew = CreateItem(itemList[math.random(#itemList)], hero, hero)
+ 	-- See https://stackoverflow.com/questions/9613322/lua-table-getn-returns-0
+	itemNew = CreateItem(itemList[RandomInt(1, 7)], hero, hero)
 	alreadyHas = false
 	for i=0,5 do 
 	   	itemOld = hero:GetItemInSlot(i)
@@ -63,7 +61,8 @@ function GiveRandomAbility(hero)
 	end
 	
 	if (not hasMaxAbilities) then
-		abilityName = spellList[math.random(#spellList)]
+		-- See https://stackoverflow.com/questions/9613322/lua-table-getn-returns-0
+		abilityName = spellList[RandomInt(1, 10)]
 		if(hero:FindAbilityByName(abilityName) == nil) then
 			print("Adding ability: "..abilityName)
     	    hero:RemoveAbility("empty_ability1") 
@@ -83,29 +82,18 @@ end
 
 function ItemZoneOne(trigger)
 
-
-	-- See http://stackoverflow.com/questions/18199844/lua-math-random-not-working pop dem randoms
-	-- Vi burde nok bare bruge volvos random
-	math.randomseed(GameRules:GetGameTime() )
-	for i = 0, 5 do
-		math.random()
-	end
-
 	hero = trigger.activator
 
-	hook(hero)
+	-- hook(hero)
 
-	print("Entered Item Zone, can get new item: ", zoneOpen[hero:GetPlayerID()])
+	print("Entered Item Zone, can get new item: ", GameRules.dotaRun.zoneOpen[hero:GetPlayerID()])
+	print("PlayerID: " .. hero:GetPlayerID())
 	
-	if (zoneOpen[hero:GetPlayerID()] == true) then
+	if (GameRules.dotaRun.zoneOpen[hero:GetPlayerID()] == true) then
 		GiveRandomAbility(hero)
 		GiveRandomItem(hero)
-		zoneOpen[hero:GetPlayerID()] = false
-		Timers:CreateTimer(5, function()
-			zoneOpen[hero:GetPlayerID()] = true
-            return
-        end
-        )
+		GameRules.dotaRun.zoneOpen[hero:GetPlayerID()] = false
+		GameRules.dotaRun:StartZoneTimer(hero)
     end
 
 

@@ -1,20 +1,40 @@
--- local pudge = {}
-local hookAbility = {}
+local pudges = {}
+local hookAbilities = {}
+local positions = {Vector(-5234,-5396,20), Vector(4161,-7033,20)}
+local hookPositions = {Vector(-5271,-6243,20), Vector(4144,-6220,20)}
+local numPudges = 2
 
-function initPudge() 
-	pudge = CreateUnitByName("pudge_hooker", Vector(-4650,-5359,20), true, nil, nil, 1)
+function initPudges() 
+	for i = 1, numPudges do
+		pudges[i] = CreateUnitByName("pudge_hooker", positions[i], true, nil, nil, 1)
+		hookAbilities[i] = pudges[i]:FindAbilityByName("pudge_meat_hook_ai")
+		hookAbilities[i]:SetLevel(1)
+		print("pudge " .. i .. " created")
+		ability = pudges[i]:FindAbilityByName("Invulnerable") 
+		ability:SetLevel(1)
+	end
 	-- pudge:AddAbility("pudge_meat_hook_custom")
-	hookAbility = pudge:FindAbilityByName("pudge_meat_hook_custom")
-	hookAbility:SetLevel(1)
-	print("pudge created")
-	DeepPrintTable(hookAbility)
+	-- DeepPrintTable(hookAbility)
 	--pudge:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
+	startHooks()
+	--Nothing below is called
+	
+    -- print("Timer test")
 end
 
-function hook(unit) 
-	print("HOOKING")
-	
-
+function hook() 
+	for i = 1, numPudges do
+		-- print("HOOKING " .. i)
+		pudges[i]:CastAbilityOnPosition(hookPositions[i] + Vector(RandomInt(0, 500),RandomInt(0, 500),20), hookAbilities[i], 0)
+	end
 	-- pudge:CastAbilityOnTarget(unit, hookAbility, 0)
-	pudge:CastAbilityOnPosition(Vector(-5271,-6243,20), hookAbility, 0)
+end
+
+function startHooks()
+	Timers:CreateTimer(5, function()
+      -- print ("Hello. I'm running 5 seconds after you called me and then every 3.5 seconds thereafter.")
+    	hook()
+      	return 3.5
+    end
+    )
 end
