@@ -83,11 +83,45 @@ function CDotaRun:InitGameMode()
 	-- ListenToGameEvent("game_start", Dynamic_Wrap(CDotaRun, 'On_game_start'), self)
 	ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(CDotaRun, 'On_game_rules_state_change'), self)
 	ListenToGameEvent("dota_player_used_ability", Dynamic_Wrap(CDotaRun, 'OnAbilityUsed'), self) 
+	-- ListenToGameEvent('dota_player_used_ability', ApplyCooldownReduction, {} )
+
 
 	print( "Dotarun has literally loaded." )
 
 	
 end
+
+-- function ApplyCooldownReduction( _, event )
+-- 	print("Maybe this works")
+-- 	DeepPrintTable(event)
+
+--     local hero = PlayerResource:GetSelectedHeroEntity( event.PlayerID - 1 )
+--     local ability = hero:FindAbilityByName( event.abilityname )
+
+--     if ability:GetCooldownTimeRemaining() > 0 then
+--         -- Change this to desired value
+--         -- 0.4 means 40% cooldown reduction (15 -> 9 sec)
+--         local reduction = 0.5
+
+--         local cdDefault = ability:GetCooldown( ability:GetLevel() - 1 )
+--         local cdReduced = cdDefault * ( 1.0 - reduction )   -- Modified cooldown time
+--         local cdRemaining = ability:GetCooldownTimeRemaining()
+
+--         if cdRemaining > cdReduced then
+--             -- Apply the modified cooldown time
+--             cdRemaining = cdRemaining - cdDefault * reduction
+--             ability:EndCooldown()
+--             ability:StartCooldown( cdRemaining )
+--         end
+--     end
+-- end
+
+-- function CDotaRun:RemoveCastedAbility(keys)
+-- 	print("does this even work")
+-- 	DeepPrintTable(keys)
+-- 	local hero = keys.caster
+-- 	print("hero: "  .. hero) 
+-- end
 
 function CDotaRun:OnPlayerConnectFull(keys)
     
@@ -202,18 +236,22 @@ end
 
 function CDotaRun:OnAbilityUsed(data)
 
+	--Testing grounds
 	DeepPrintTable(data)
 
+
+
 	print("Removing ability "..data.abilityname)
-	playerID = data.PlayerID
-	player = PlayerResource:GetPlayer(data.PlayerID-1) 
-	hero = player:GetAssignedHero()
+	-- playerID = data.PlayerID
+	-- player = PlayerResource:GetPlayer(data.PlayerID-1) 
+	local player = EntIndexToHScript(data.PlayerID)
+	local hero = player:GetAssignedHero()
 	
-	ability = hero:FindAbilityByName(data.abilityname)
+	local ability = hero:FindAbilityByName(data.abilityname)
 	if(ability ~= nil) then
 		Timers:CreateTimer(4, function()
 			ability:SetLevel(0)
-			print(ability:GetLevel())
+			print("Level of ability: " .. ability:GetLevel())
         	hero:RemoveAbility(data.abilityname)
         	-- if(hero:FindAbilityByName(data.abilityname) ~= nil) then
         	-- 	hero:RemoveAbility("mirana_fart")
@@ -223,12 +261,13 @@ function CDotaRun:OnAbilityUsed(data)
          end
          )
 	else
+		print("It's an item")
 		Timers:CreateTimer(1, function() 
-			print("Deleting item")
 			for i=0,5,1 do 
-	   			item = hero:GetItemInSlot(i)
+	   			local item = hero:GetItemInSlot(i)
 	    		if  item ~= nil and item:GetClassname()  ~= "item_force_staff" then
 		    		if(item:GetClassname() == data.abilityname) then
+		    			print("Deleting item: " .. item:GetClassname())
 		    			hero:RemoveItem(item)
 	    			end
 	    		end
