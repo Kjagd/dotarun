@@ -48,6 +48,7 @@ function Activate()
 end
 
 function CDotaRun:InitGameMode()
+	GameRules:SetSameHeroSelectionEnabled( true )
 	DebugDrawText(Vector(-5464,-6529,20), "Get items and abilities by running through these", false, -1) 
 
 	self.zoneOpen = {}
