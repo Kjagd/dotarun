@@ -23,7 +23,7 @@
 	   				"IsHidden"			"1"
 	   				"Properties"
 	   				{
-	   				"MODIFIER_PROPERTY_MOVESPEED_BASE_OVERRIDE"		"180"
+	   				"MODIFIER_PROPERTY_MOVESPEED_BASE_OVERRIDE"		"220"
 	   				}
 
  	   			}

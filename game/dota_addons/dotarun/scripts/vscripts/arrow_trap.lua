@@ -3,7 +3,7 @@ function Fire(data)
 	local target = data.caller
 	if target ~= nil then
     	local arrow = thisEntity:FindAbilityByName("mirana_arrow_custom")
-    	thisEntity:CastAbilityOnPosition(target:GetOrigin(), arrow, -1 )
+    	thisEntity:CastAbilityOnPosition(Vector(7040,512,20), arrow, -1 )
   	end
 end
 
