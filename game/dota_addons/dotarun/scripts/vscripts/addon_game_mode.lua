@@ -57,8 +57,8 @@ function CDotaRun:InitGameMode()
 		self.laps[i] = 0
 	end
 
-	GameRules:SetSameHeroSelectionEnabled( true )
-	DebugDrawText(Vector(-5464,-6529,20), "Get items and abilities by running through these", false, -1) 
+	-- GameRules:SetSameHeroSelectionEnabled( true )
+	-- DebugDrawText(Vector(-5464,-6529,20), "Get items and abilities by running through these", false, -1) 
 
 	self.playerCount = 0
 
@@ -244,7 +244,7 @@ end
 
 function CDotaRun:On_game_rules_state_change( data )
 	print("game starting!")
-	if GameRules:State_Get() >= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS and not  DOTA_GAMERULES_STATE_POST_GAME then
+	if GameRules:State_Get() >= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS and  GameRules:State_Get() < DOTA_GAMERULES_STATE_POST_GAME then
 		GameRules.dotaRun:ShowCenterMessage("Welcome to Dota Run!\n Best of three laps", 5)
     	Timers:CreateTimer(5, function()
 			GameRules.dotaRun:ShowCenterMessage("Run over logos to \n get items and spells", 5)
