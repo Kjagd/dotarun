@@ -42,7 +42,10 @@ end
 function TaTrap(data)
 	print("TA trap!")
 	local TaTrap = Entities:FindByName(nil, "ta_trap_one")
-	DeepPrintTable(TaTrap)
+	trap = TaTrap:FindAbilityByName("templar_assassin_psionic_trap_custom")
+	trap:SetLevel(1)
+	TaTrap:CastAbilityOnPosition(Vector(-4160, 6528, 320), trap, -1 )
+
 	trap = TaTrap:FindAbilityByName("templar_assassin_trap_custom")
 	trap:SetLevel(1)
 	TaTrap:CastAbilityOnPosition(Vector(-4160, 6528, 320), trap, -1 )
