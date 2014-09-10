@@ -28,6 +28,29 @@
     	"UnitRelationshipClass" "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_WARD"
   	}
 
+  	"npc_dota_ta_trap"
+  	{
+    	"Model"      "models/development/invisiblebox.mdl"
+    	"BaseClass"  "npc_dota_creature"
+    
+    	// Abilities
+    	//----------------------------------------------------------------
+    	"Ability1"   "templar_assassin_psionic_trap_custom"
+    	"Ability2"   "templar_assassin_trap_custom"
+    	"Ability3"   "unselectable"
+    	"Ability4"   ""
+ 
+    	// Attack
+    	//----------------------------------------------------------------
+    	"AttackCapabilities"  "DOTA_UNIT_CAP_NO_ATTACK"
+ 
+	    // Movement
+    	//----------------------------------------------------------------
+    	"MovementCapabilities"  "DOTA_UNIT_CAP_MOVE_NONE"
+ 
+    	"UnitRelationshipClass" "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_WARD"
+  	}
+
 	//=================================================================================	
 	// Creature: Gnoll Assassin
 	//=================================================================================
