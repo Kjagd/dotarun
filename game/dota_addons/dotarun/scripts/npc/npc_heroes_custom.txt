@@ -11,8 +11,8 @@
 		"override_hero"				"npc_dota_hero_mirana"			// Hero to override
 		"AbilityLayout"				"6"
 		"Ability1"					""											
-		"Ability2"					"templar_assassin_trap_custom"
-		"Ability3"					"templar_assassin_psionic_trap_custom"
+		"Ability2"					""
+		"Ability3"					""
 		"Ability4"					""
 		"Ability5"					"Immunity"
 		"Ability6"					""
