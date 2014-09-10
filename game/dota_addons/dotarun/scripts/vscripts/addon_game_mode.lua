@@ -18,7 +18,7 @@ function Precache( context )
 	PrecacheUnitByNameSync("npc_dota_hero_necrolyte", context)
 	PrecacheUnitByNameSync("npc_dota_hero_obsidian_destroyer", context)
 	PrecacheUnitByNameSync("npc_dota_hero_pudge", context)
-
+	PrecacheUnitByNameSync("npc_dota_hero_templar_assassin", context)
 
 	-- PrecacheItemByNameSync("mirana_arrow", context)
 	-- PrecacheItemByNameSync("venomancer_venomous_gale", context)
@@ -75,6 +75,12 @@ function CDotaRun:InitGameMode()
 	end
 
 	initPudges()
+
+	local TaTrap = Entities:FindByName(nil, "ta_trap_one")
+	trap = TaTrap:FindAbilityByName("templar_assassin_psionic_trap_custom")
+	trap:SetLevel(1)
+	TaTrap:CastAbilityOnPosition(Vector(-4160, 6528, 320), trap, -1 )
+
 
 	
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, 0.25 )
