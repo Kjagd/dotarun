@@ -41,7 +41,7 @@ end
 
 function TaTrap(data)
 	print("TA trap!")
-	if (~GameRules.dotaRun.TaTrapFired) then
+	if (not GameRules.dotaRun.TaTrapFired) then
 		local TaTrap = Entities:FindByName(nil, "ta_trap_one")
 		trap = TaTrap:FindAbilityByName("templar_assassin_psionic_trap_custom")
 		trap:SetLevel(1)
