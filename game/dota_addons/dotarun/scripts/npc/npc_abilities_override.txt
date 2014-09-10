@@ -466,8 +466,61 @@
 	//=================================================================================================================
 	"item_smoke_of_deceit"
 	{
-		"ItemPurchasable"				"0"
-		"ItemDroppable"					"0"
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"188"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"Model"							"models/props_gameplay/smoke.mdl"
+		"Effect"						"dropped_smoke"		
+		"FightRecapLevel"				"1"
+																																																																												 
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"25.0"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"100"
+		"ItemShopTags"					"consumable"
+		"ItemQuality"					"consumable"
+		"ItemAliases"					"smoke of deceit"
+		"ItemStackable"					"1"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemPermanent"					"0"
+		"ItemInitialCharges"			"1"
+		"ItemDisplayCharges"			"1"
+		"ItemStockMax"					"3"
+		"ItemStockTime"					"720.0"			  
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemSupport"					"1"
+		"ItemAlertable"					"1"
+
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"application_radius"	"1200"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"visibility_radius"		"1025"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_movement_speed"		"25"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"35.0"
+			}
+		}
 	}
 
 
