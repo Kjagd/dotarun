@@ -51,6 +51,8 @@ function CDotaRun:InitGameMode()
 	GameRules:SetSameHeroSelectionEnabled( true )
 	DebugDrawText(Vector(-5464,-6529,20), "Get items and abilities by running through these", false, -1) 
 
+	self.playerCount = 0
+
 	self.zoneOpen = {}
 	for i = 0,9 do
 		self.zoneOpen[i] = true
@@ -70,13 +72,14 @@ function CDotaRun:InitGameMode()
 	end
 	self.lead = -1
 	self.waypointleader = {}
+
 	for i = 1, 3 do
 		self.waypointleader[i] = false
 	end
 
 	initPudges()
 
-	
+
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, 0.25 )
 	ListenToGameEvent('dota_item_used', Dynamic_Wrap(CDotaRun, 'OnItemUsed'), self)
 	ListenToGameEvent("npc_spawned", Dynamic_Wrap(CDotaRun, 'OnNPCSpawned'), self)
@@ -175,7 +178,7 @@ function CDotaRun:OnNPCSpawned( keys )
     if(string.find(spawnedUnit:GetUnitName(), "hero")) then
 		local playerID = spawnedUnit:GetPlayerID() 
 	    if (not GameRules.dotaRun.spawned[playerID]) then
-	    	
+	    	GameRules.dotaRun.playerCount = GameRules.dotaRun.playerCount + 1
 	        Timers:CreateTimer(0.6, function()
 	        	local ability = spawnedUnit:FindAbilityByName("Immunity")
 				ability:SetLevel(1)
