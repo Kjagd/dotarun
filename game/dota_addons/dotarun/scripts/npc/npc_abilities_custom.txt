@@ -512,7 +512,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"duration"				"3.0 4.5 6.0 7.5"
+				"duration"				"5.0"
 			}
 		}
 	}
@@ -546,7 +546,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"leap_distance"			"630 720 780 870"
+				"leap_distance"			"700"
 			}
 			"02"
 			{
@@ -566,7 +566,7 @@
 			"05"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"leap_speedbonus"	"4 8 12 16"
+				"leap_speedbonus"	"10"
 			}
 			"06"
 			{
@@ -605,7 +605,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"duration"				"15.0 15.0 15.0 15.0"
+				"duration"				"10"
 			}
 			"02"
 			{
@@ -660,7 +660,7 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"4"
-		"AbilityDuration"				"1.0 1.33 1.66 2.0"
+		"AbilityDuration"				"2"
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
@@ -682,7 +682,7 @@
 			"02"
 			{
 				"var_type"					"FIELD_FLOAT"
-				"duration"					"1.0 1.4 1.8 2.2"
+				"duration"					"2"
 			}
 			"03"
 			{
@@ -756,7 +756,7 @@
 			"06"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"knockback_max_distance"	"400"
+				"knockback_max_distance"	"600"
 			}
 			"07"
 			{
@@ -806,7 +806,7 @@
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"movement_speed_pct"	"-15 -20 -25 -30"
+				"movement_speed_pct"	"-25"
 			}
 			"03"
 			{
@@ -835,7 +835,7 @@
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"1050"
+		"AbilityCastRange"				"0"
 		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
 
 		// Time		
@@ -867,7 +867,7 @@
 			"03"
 			{
 				"var_type"					"FIELD_FLOAT"
-				"stun_duration"				"2.2 2.4 2.6 2.8"
+				"stun_duration"				"5"
 			}
 			"04"
 			{
@@ -897,7 +897,7 @@
 			"09"
 			{
 				"var_type"					"FIELD_FLOAT"
-				"speed"						"340"
+				"speed"						"600"
 			}
 			"10"
 			{

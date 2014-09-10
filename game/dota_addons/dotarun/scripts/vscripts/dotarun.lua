@@ -4,7 +4,7 @@ require('pudge')
 
 itemList = { "item_blink", "item_cyclone", "item_shivas_guard", "item_sheepstick", "item_ancient_janggo", "item_smoke_of_deceit", "item_rod_of_atos"}
 spellList = {"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_gale_custom", "dark_seer_surge_custom", "jakiro_ice_path_custom", 
-"batrider_flamebreak_custom", "ancient_apparition_ice_vortex_custom", "gyrocopter_homing_missile_custom", "obsidian_destroyer_astral_imprisonment_custom", "pudge_meat_hook_custom"}
+"batrider_flamebreak_custom", "ancient_apparition_ice_vortex_custom", "obsidian_destroyer_astral_imprisonment_custom", "pudge_meat_hook_custom"}
 
 --problems:
 --alchemist_unstable_concoction
@@ -62,7 +62,7 @@ function GiveRandomAbility(hero)
 	
 	if (not hasMaxAbilities) then
 		-- See https://stackoverflow.com/questions/9613322/lua-table-getn-returns-0
-		abilityName = spellList[RandomInt(1, 10)]
+		abilityName = spellList[RandomInt(1, 9)]
 		if(hero:FindAbilityByName(abilityName) == nil) then
 			print("Adding ability: "..abilityName)
     	    hero:RemoveAbility("empty_ability1") 
