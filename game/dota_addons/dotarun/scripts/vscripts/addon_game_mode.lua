@@ -62,18 +62,10 @@ function CDotaRun:InitGameMode()
 	self.playerCount = 0
 
 	self.zoneOpen = {}
-	for i = 0,9 do
-		self.zoneOpen[i] = true
-	end
+	
 
 	self.waypoints = {}
-	for i = 0, 9 do
-    self.waypoints[i] = {}
-
-    	for j = 1, 3 do
-        	self.waypoints[i][j] = false -- Fill the values here
-    	end
-	end
+	
 	self.spawned = {}
 	for i = 0,9 do
 		self.spawned[i] = false
@@ -81,11 +73,11 @@ function CDotaRun:InitGameMode()
 	self.lead = -1
 	self.waypointleader = {}
 
-	for i = 1, 3 do
-		self.waypointleader[i] = false
-	end
+	
 
 	initPudges()
+
+	CDotaRun:ResetRound()
 
 
 	ListenToGameEvent('dota_item_used', Dynamic_Wrap(CDotaRun, 'OnItemUsed'), self)
@@ -104,6 +96,22 @@ end
 
 function CDotaRun:ResetRound()
 	GameRules.dotaRun.TaTrapFired = false
+
+	for i = 0,9 do
+		GameRules.dotaRun.zoneOpen[i] = true
+	end
+
+	for i = 0, 9 do
+    	GameRules.dotaRun.waypoints[i] = {}
+
+    	for j = 1, 3 do
+    		GameRules.dotaRun.waypoints[i][j] = false -- Fill the values here
+    	end
+	end
+
+	for i = 1, 3 do
+		GameRules.dotaRun.waypointleader[i] = false
+	end
 end
 
 -- function ApplyCooldownReduction( _, event )
@@ -248,12 +256,7 @@ end
 function CDotaRun:On_game_rules_state_change( data )
 	print("game starting!")
 	if GameRules:State_Get() >= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS and  GameRules:State_Get() < DOTA_GAMERULES_STATE_POST_GAME then
-		GameRules.dotaRun:ShowCenterMessage("Welcome to Dota Run!\n Best of three laps", 5)
-    	Timers:CreateTimer(5, function()
-			GameRules.dotaRun:ShowCenterMessage("Run over logos to \n get items and spells", 5)
-        	return
-    	end
-    	)
+		
 		for i = 0,9 do
 			player = PlayerResource:GetPlayer(i)
 			if (player ~=nil) then
@@ -265,6 +268,31 @@ function CDotaRun:On_game_rules_state_change( data )
 		end
 	end
 	
+	if GameRules:State_Get() == DOTA_GAMERULES_STATE_PRE_GAME then
+		Timers:CreateTimer(2, function()
+			GameRules.dotaRun:ShowCenterMessage("Welcome to Dota Run!\n Best of three laps", 5)
+        	return
+    	end
+    	)
+
+		Timers:CreateTimer(7, function()
+			GameRules.dotaRun:ShowCenterMessage("Run over the squares to \n get items and spells", 5)
+        	return
+    	end
+    	)
+    	for i = 0,2 do
+    		Timers:CreateTimer(12+i, function()
+			GameRules.dotaRun:ShowCenterMessage((3-i).."", 1)
+        	return
+	    	end
+	    	)
+		end
+		Timers:CreateTimer(15, function()
+			GameRules.dotaRun:ShowCenterMessage("Go!", 1)
+        	return
+	    	end
+	    	)
+	end
 end
 
 function CDotaRun:OnAbilityUsed(data)
