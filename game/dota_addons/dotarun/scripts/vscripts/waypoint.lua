@@ -10,6 +10,9 @@ function WaypointOneTouch(trigger)
     end
     -- print(playerID)
     GameRules.dotaRun.waypoints[playerID][1] = true
+    
+    lastMan(1)
+
     -- print(GameRules.dotaRun.waypoints[playerID][1])
     -- print(GameRules.dotaRun.waypoints[playerID][2])
     -- print(GameRules.dotaRun.waypoints[playerID][3])
@@ -51,6 +54,9 @@ function WaypointTwoTouch(trigger)
     if (GameRules.dotaRun.waypoints[playerID][1]) then
     	GameRules.dotaRun.waypoints[playerID][2] = true
     end
+
+    lastMan(2)
+
     
     -- print(GameRules.dotaRun.waypoints[playerID][1])
     -- print(GameRules.dotaRun.waypoints[playerID][2])
@@ -94,6 +100,9 @@ function WaypointThreeTouch(trigger)
     	GameRules.dotaRun.waypoints[playerID][3] = true
     end
 
+    lastMan(3)
+
+
     -- print(GameRules.dotaRun.waypoints[playerID][1])
     -- print(GameRules.dotaRun.waypoints[playerID][2])
     -- print(GameRules.dotaRun.waypoints[playerID][3])
@@ -120,8 +129,28 @@ end
                 
             -- end  
 
-           
+function lastMan(waypointID)
+    troughCount = 0
+    for i = 0, 9 do
+       if (GameRules.dotaRun.waypoints[i][waypointID]) then
+         troughCount = troughCount + 1
+        end
+    end
 
+    if (troughCount == GameRules.dotaRun.playerCount) then
+        print("last man!")
+        abilityName = "gyrocopter_homing_missile_custom"
+        player = PlayerResource:GetPlayer(playerID)
+        hero = player:GetAssignedHero() 
+        if(hero:FindAbilityByName(abilityName) == nil) then
+            print("Adding ability: "..abilityName)
+            hero:RemoveAbility("empty_ability1") 
+            hero:AddAbility(abilityName)
+            ability = hero:FindAbilityByName(abilityName)
+            ability:SetLevel(1)
+        end
+    end
+end
 
 function WinHere(trigger)
 
@@ -157,6 +186,13 @@ function WinHere(trigger)
                 NewLap(DOTA_TEAM_GOODGUYS)
             end
         end
+        for i = 0, 9 do
+            player = PlayerResource:GetPlayer(i)
+            if(player ~= nil) then
+                PlayerResource:SetCameraTarget(i, hero)
+            end
+        end
+       
     end
 end 
 
