@@ -219,15 +219,7 @@ function KillEntity(trigger)
             point = Entities:FindByName( nil, "waypointHomeTeleport" ):GetAbsOrigin()
         end
 
-       
-
-        if (GameRules.dotaRun.waypoints[playerID][1] == true) then
-            teleportHero(trigger.activator, point, playerID)
-            
-        else 
-            trigger.activator:ForceKill(true) -- Kills the unit
-        end
-
+        teleportHero(trigger.activator, point, playerID)
 
         -- player = PlayerResource:GetPlayer(playerID)
         -- hero = player:GetAssignedHero() 
@@ -269,7 +261,7 @@ function NewLap(winner)
             else     
                 local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
                 FindClearSpaceForUnit(hero, point, false)
-                hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
+                -- hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
 
             -- local hero = player:GetAssignedHero()
             -- if (hero ~=nil) then
