@@ -49,7 +49,7 @@ end
 
 function CDotaRun:InitGameMode()
 	self.TaTrapFired = false
-	self.itemList = { "item_blink", "item_cyclone", "item_shivas_guard", "item_sheepstick", "item_ancient_janggo", "item_smoke_of_deceit", "item_rod_of_atos"}
+	self.itemList = { "item_blink", "item_cyclone", "item_shivas_guard", "item_sheepstick", "item_ancient_janggo", "item_rod_of_atos"}
 	self.spellList = {"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_gale_custom", "dark_seer_surge_custom", "jakiro_ice_path_custom", 
 	"batrider_flamebreak_custom", "ancient_apparition_ice_vortex_custom", "gyrocopter_homing_missile_custom", "obsidian_destroyer_astral_imprisonment_custom", "pudge_meat_hook_custom"}
 
@@ -262,11 +262,23 @@ function CDotaRun:GiveForceStaff(hero)
 	end
 
 	if (not hasForceStaff) then
-		print("Player does not have forcestaff " ..  hero:GetPlayerID())
+		-- print("Player does not have forcestaff " ..  hero:GetPlayerID())
 		local item = CreateItem("item_force_staff", hero, hero) 
 		hero:AddItem(item)
 	end
+end
 
+
+
+function CDotaRun:DoesHeroHaveMaxItems(hero)
+	local itemSlotsFull = true
+	for i=0,5 do 
+		if(hero:GetItemInSlot(i) == nil) then
+	    	itemSlotsFull = false
+	    	break
+	    end
+	end
+	return itemSlotsFull
 end
 
 -- function CDotaRun:On_game_start(data)

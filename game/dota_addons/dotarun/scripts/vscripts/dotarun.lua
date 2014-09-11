@@ -5,17 +5,10 @@
 
 function GiveRandomItem(hero)
  	
-	local itemSlotsFull = true
-	for i=0,5 do 
-		if(hero:GetItemInSlot(i) == nil) then
-	    	itemSlotsFull = false
-	    	break
-	    end
-	end
-
+ 	local itemSlotsFull = GameRules.dotaRun:DoesHeroHaveMaxItems(hero)
 
 	local alreadyHas = false
-	local itemNew = CreateItem(GameRules.dotaRun.itemList[RandomInt(1, 7)], hero, hero)
+	local itemNew = CreateItem(GameRules.dotaRun.itemList[RandomInt(1, 6)], hero, hero)
 	if(not itemSlotsFull) then
 		print("No item slots!")
 		for i=0,5 do 

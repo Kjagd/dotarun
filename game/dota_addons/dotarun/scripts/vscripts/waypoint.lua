@@ -139,7 +139,12 @@ function lastMan(waypointID, hero)
 
     if (throughCount == GameRules.dotaRun.playerCount) then
         print("last man!")
-        abilityName = "gyrocopter_homing_missile_custom"
+        local abilityName = "gyrocopter_homing_missile_custom"
+        local itemSlotsFull = GameRules.dotaRun:DoesHeroHaveMaxItems(hero)
+        if (not itemSlotsFull) then
+            local item = CreateItem("item_smoke_of_deceit", hero, hero) 
+            hero:AddItem(item)
+        end
         if(hero:FindAbilityByName(abilityName) == nil) then
             print("Adding ability: "..abilityName)
             hero:RemoveAbility("empty_ability1") 
@@ -223,8 +228,12 @@ function KillEntity(trigger)
 
         -- player = PlayerResource:GetPlayer(playerID)
         -- hero = player:GetAssignedHero() 
-        local item = CreateItem("item_smoke_of_deceit", hero, hero) 
-        trigger.activator:AddItem(item)
+        local itemSlotsFull = GameRules.dotaRun:DoesHeroHaveMaxItems(hero)
+
+        if (not itemSlotsFull) then
+            local item = CreateItem("item_smoke_of_deceit", hero, hero) 
+            trigger.activator:AddItem(item)
+        end
 
 
     else
