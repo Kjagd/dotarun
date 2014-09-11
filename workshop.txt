@@ -1,0 +1,10 @@
+Lobby password: dotarun
+
+If you liked Mario Kart / Crash Team Racing / Lego Racers you'll love this!
+
+Get to the finish line faster than your opponents by using all the dirty tricks you can come up with using your trusted
+force staff and the addional items and abilities you collect by finding the marked squares.
+
+But be careful of the traps...
+
+The mod is open sourced here: https://github.com/Kjagd/dotarun
