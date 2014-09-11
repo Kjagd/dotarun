@@ -14,7 +14,7 @@ spellList = {"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_g
 function GiveRandomItem(hero)
  	
  	-- See https://stackoverflow.com/questions/9613322/lua-table-getn-returns-0
-	itemNew = CreateItem(itemList[RandomInt(1, 7)], hero, hero)
+	itemNew = CreateItem(GameRules.dotaRun.itemList[RandomInt(1, 7)], hero, hero)
 	alreadyHas = false
 	for i=0,5 do 
 	   	itemOld = hero:GetItemInSlot(i)
@@ -62,7 +62,7 @@ function GiveRandomAbility(hero)
 	
 	if (not hasMaxAbilities) then
 		-- See https://stackoverflow.com/questions/9613322/lua-table-getn-returns-0
-		abilityName = spellList[RandomInt(1, 9)]
+		abilityName = GameRules.dotaRun.spellList[RandomInt(1, 9)]
 		if(hero:FindAbilityByName(abilityName) == nil) then
 			print("Adding ability: "..abilityName)
     	    hero:RemoveAbility("empty_ability1") 
