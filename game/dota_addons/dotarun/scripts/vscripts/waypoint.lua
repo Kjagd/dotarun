@@ -140,17 +140,20 @@ function lastMan(waypointID, hero)
     if (throughCount == GameRules.dotaRun.playerCount) then
         print("last man!")
         local abilityName = "gyrocopter_homing_missile_custom"
-        local itemSlotsFull = GameRules.dotaRun:DoesHeroHaveMaxItems(hero)
-        if (not itemSlotsFull) then
-            local item = CreateItem("item_smoke_of_deceit", hero, hero) 
-            hero:AddItem(item)
-        end
         if(hero:FindAbilityByName(abilityName) == nil) then
             print("Adding ability: "..abilityName)
             hero:RemoveAbility("empty_ability1") 
             hero:AddAbility(abilityName)
             ability = hero:FindAbilityByName(abilityName)
             ability:SetLevel(1)
+        end
+    end
+
+    if (throughCount >= GameRules.dotaRun.playerCount /2) then 
+        local itemSlotsFull = GameRules.dotaRun:DoesHeroHaveMaxItems(hero)
+        if (not itemSlotsFull) then
+            local item = CreateItem("item_smoke_of_deceit", hero, hero) 
+            hero:AddItem(item)
         end
     end
 end
