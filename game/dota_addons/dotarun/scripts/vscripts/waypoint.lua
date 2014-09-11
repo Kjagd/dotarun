@@ -153,9 +153,9 @@ end
 function WinHere(trigger)
 
 
-    playerID = trigger.activator:GetPlayerID()
-    player = PlayerResource:GetPlayer(playerID)
-    hero = player:GetAssignedHero()  
+    local playerID = trigger.activator:GetPlayerID()
+    local player = PlayerResource:GetPlayer(playerID)
+    local hero = player:GetAssignedHero()  
 
     -- print("WinHere")
     -- print(playerID)
@@ -244,30 +244,28 @@ function KillEntity(trigger)
 
 end
 
+function teleportHero()
+
+end
+
 function NewLap(winner)
-    --Still needs to kill a hero of opposing team to change scoreboard
-    GameRules.dotaRun:ResetRound()
-
-    for i = 0, 9 do
-    GameRules.dotaRun.waypoints[i] = {}
-
-        for j = 1, 3 do
-            GameRules.dotaRun.waypoints[i][j] = false -- Fill the values here
-        end
-    end
-
-    for i = 0,9 do
-        GameRules.dotaRun.spawned[i] = false
-    end
+    GameRules.dotaRun:ResetRound() 
 
     for i = 0,9 do
         local player = PlayerResource:GetPlayer(i)
         if (player ~=nil) then
             PlayerResource:ReplaceHeroWith(i, "npc_dota_hero_mirana", 0, 0)
-            local hero = player:GetAssignedHero() 
-            local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
-            FindClearSpaceForUnit(hero, point, false)
-            hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
+            local hero = player:GetAssignedHero()
+            if (winner == DOTA_TEAM_BADGUYS and hero:GetTeamNumber() == DOTA_TEAM_GOODGUYS and not GameRules.dotaRun.killHeroForWin) then
+                hero:ForceKill(true)
+                GameRules.dotaRun.killHeroForWin = true
+            elseif (winner == DOTA_TEAM_GOODGUYS and hero:GetTeamNumber()  == DOTA_TEAM_BADGUYS and not GameRules.dotaRun.killHeroForWin) then
+                hero:ForceKill(true)
+                GameRules.dotaRun.killHeroForWin = true
+            else     
+                local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
+                FindClearSpaceForUnit(hero, point, false)
+                hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
 
             -- local hero = player:GetAssignedHero()
             -- if (hero ~=nil) then
@@ -301,8 +299,13 @@ function NewLap(winner)
             --     SendToConsole("dota_camera_center")
             --     hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
             -- end
+            end
         end
-    end    
+    end
+
+    GameRules.dotaRun.killHeroForWin = false
+
+       
 
     GameRules.dotaRun:ShowCenterMessage("New lap starting in\n 5 seconds", 5)
     Timers:CreateTimer(5, function()
