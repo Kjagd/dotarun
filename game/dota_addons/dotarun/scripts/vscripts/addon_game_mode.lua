@@ -229,7 +229,7 @@ function CDotaRun:OnNPCSpawned( keys )
 				for i = 1, 6 do
 					hero:AddAbility("empty_ability1")
 				end
-				GiveForceStaff(hero)
+				GameRules.dotaRun:GiveForceStaff(hero)
 				
 				GameRules.dotaRun.spawned[playerID] = true
 				-- AddFillerAbility(hero)
@@ -254,12 +254,15 @@ function CDotaRun:GiveForceStaff(hero)
 
 	for i=0,5 do 
 	   	local item = hero:GetItemInSlot(i)
-	    if  item:GetClassname()  == "item_force_staff" then
-		    hasForceStaff = true
+	   	if (item ~= nil) then
+	    	if  item:GetClassname()  == "item_force_staff" then
+		    	hasForceStaff = true
+		    end
 	    end
 	end
 
 	if (not hasForceStaff) then
+		print("Player does not have forcestaff " ..  hero:GetPlayerID())
 		local item = CreateItem("item_force_staff", hero, hero) 
 		hero:AddItem(item)
 	end
