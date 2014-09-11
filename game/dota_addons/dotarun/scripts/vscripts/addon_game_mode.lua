@@ -60,18 +60,17 @@ function CDotaRun:InitGameMode()
 	-- DebugDrawText(Vector(-5464,-6529,20), "Get items and abilities by running through these", false, -1) 
 
 	self.playerCount = 0
+	self.killHeroForWin = false
 
 	self.zoneOpen = {}
 	
-
 	self.waypoints = {}
 	
 	self.spawned = {}
-	for i = 0,9 do
-		self.spawned[i] = false
-	end
-	self.lead = -1
+	
 	self.waypointleader = {}
+
+	self.lead = -1
 
 	
 
@@ -95,6 +94,13 @@ function CDotaRun:InitGameMode()
 end
 
 function CDotaRun:ResetRound()
+
+	GameRules.dotaRun.lead = -1
+
+	for i = 0,9 do
+		GameRules.dotaRun.spawned[i] = false
+	end
+
 	GameRules.dotaRun.TaTrapFired = false
 
 	for i = 0,9 do
