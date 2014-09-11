@@ -220,8 +220,8 @@ function CDotaRun:OnNPCSpawned( keys )
 	        Timers:CreateTimer(0.6, function()
 	        	local ability = spawnedUnit:FindAbilityByName("Immunity")
 				ability:SetLevel(1)
-				player = PlayerResource:GetPlayer(playerID)
-				hero = player:GetAssignedHero() 
+				local player = PlayerResource:GetPlayer(playerID)
+				local hero = player:GetAssignedHero() 
 				hero:SetAbilityPoints(0)
 				if (GameRules:State_Get() < DOTA_GAMERULES_STATE_GAME_IN_PROGRESS) then
 					hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
@@ -229,8 +229,8 @@ function CDotaRun:OnNPCSpawned( keys )
 				for i = 1, 6 do
 					hero:AddAbility("empty_ability1")
 				end
-				item = CreateItem("item_force_staff", hero, hero) 
-				hero:AddItem(item)
+				GiveForceStaff(hero)
+				
 				GameRules.dotaRun.spawned[playerID] = true
 				-- AddFillerAbility(hero)
 				-- for i = 0,9 do
@@ -247,6 +247,23 @@ function CDotaRun:OnNPCSpawned( keys )
 	        )
 	    end
    	end
+end
+
+function CDotaRun:GiveForceStaff(hero)
+	local hasForceStaff = false;
+
+	for i=0,5 do 
+	   	local item = hero:GetItemInSlot(i)
+	    if  item:GetClassname()  == "item_force_staff" then
+		    hasForceStaff = true
+	    end
+	end
+
+	if (not hasForceStaff) then
+		local item = CreateItem("item_force_staff", hero, hero) 
+		hero:AddItem(item)
+	end
+
 end
 
 -- function CDotaRun:On_game_start(data)
@@ -288,23 +305,24 @@ function CDotaRun:On_game_rules_state_change( data )
     	)
     	for i = 0,2 do
     		Timers:CreateTimer(12+i, function()
-			GameRules.dotaRun:ShowCenterMessage((3-i).."", 1)
-        	return
+				GameRules.dotaRun:ShowCenterMessage((3-i).."", 1)
+        		return
 	    	end
 	    	)
 		end
 		Timers:CreateTimer(15, function()
 			GameRules.dotaRun:ShowCenterMessage("Go!", 1)
         	return
-	    	end
-	    	)
+	    end
+	    )
 	end
 end
 
+-- Deletes item or ability after use
 function CDotaRun:OnAbilityUsed(data)
 
-	--Testing grounds
-	DeepPrintTable(data)
+	-- Testing grounds
+	-- DeepPrintTable(data)
 
 
 
@@ -316,19 +334,17 @@ function CDotaRun:OnAbilityUsed(data)
 	
 	local ability = hero:FindAbilityByName(data.abilityname)
 	if(ability ~= nil) then
+		-- Delete ability
 		Timers:CreateTimer(4, function()
 			ability:SetLevel(0)
-			print("Level of ability: " .. ability:GetLevel())
         	hero:RemoveAbility(data.abilityname)
-        	-- if(hero:FindAbilityByName(data.abilityname) ~= nil) then
-        	-- 	hero:RemoveAbility("mirana_fart")
-        	-- end
+        	print("Removing ability: " .. data.abilityname)
         	hero:AddAbility("empty_ability1") 
             return
          end
          )
 	else
-		print("It's an item")
+		-- Else delete item
 		Timers:CreateTimer(1, function() 
 			for i=0,5,1 do 
 	   			local item = hero:GetItemInSlot(i)
