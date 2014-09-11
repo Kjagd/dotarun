@@ -17,10 +17,6 @@ function GiveRandomItem(hero)
 				print("Hero already has: " .. itemNew:GetClassname())
 				alreadyHas = true
 				break
-			elseif (itemNew:GetClassname() == "item_smoke_of_deceit" and hero:GetPlayerID() == GameRules.dotaRun.lead) then
-				print("Cannot get smoke if you're in the lead")
-				alreadyHas = true
-				break
 	    	end
 		end
 	end
