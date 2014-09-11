@@ -93,6 +93,33 @@ function CDotaRun:InitGameMode()
 	
 end
 
+function CDotaRun:FindTrees()
+	mightbetrees = {}
+
+	-- mightbetrees[1] = Entities:FindAllByClassname("CDOTA_MapTree")
+	-- mightbetrees[2] = Entities:FindAllByClassname("MapTree")
+	-- mightbetrees[3] = Entities:FindAllByModel("CDOTA_MapTree")
+	-- mightbetrees[4] = Entities:FindAllByModel("MapTree")
+	-- mightbetrees[5] = Entities:FindAllByName("CDOTA_MapTree")
+	-- mightbetrees[6] = Entities:FindAllByName("MapTree")
+	-- mightbetrees[7] = Entities:FindAllByTarget("CDOTA_MapTree")
+	-- mightbetrees[8] = Entities:FindAllByTarget("MapTree")
+	mightbetrees[9] = Entities:FindAllInSphere(Vector(-6082,1157,20), 1500)
+
+	-- for i = 1,9 do
+	print("mightbetrees: 9")
+	DeepPrintTable(mightbetrees[i])
+	--Use these to figure out which ones are trees
+	--GetClassname
+	--GetName  
+
+	-- end
+
+	
+	
+
+end
+
 function CDotaRun:ResetRound()
 
 	GameRules.dotaRun.lead = -1
@@ -294,7 +321,7 @@ end
 function CDotaRun:On_game_rules_state_change( data )
 	print("game starting!")
 	if GameRules:State_Get() >= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS and  GameRules:State_Get() < DOTA_GAMERULES_STATE_POST_GAME then
-		
+		GameRules.dotaRun:FindTrees()
 		for i = 0,9 do
 			player = PlayerResource:GetPlayer(i)
 			if (player ~=nil) then
