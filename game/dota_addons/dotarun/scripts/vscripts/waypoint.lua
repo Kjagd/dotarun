@@ -149,6 +149,7 @@ function lastMan(waypointID, hero)
         end
     end
 
+    -- Fix me if you want less smoke
     if (throughCount >= GameRules.dotaRun.playerCount /2) then 
         local itemSlotsFull = GameRules.dotaRun:DoesHeroHaveMaxItems(hero)
         if (not itemSlotsFull) then
