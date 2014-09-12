@@ -94,9 +94,23 @@ function CDotaRun:InitGameMode()
 end
 
 function CDotaRun:FindTrees()
-	mightbetrees = {}
 
-	-- mightbetrees[1] = Entities:FindAllByClassname("CDOTA_MapTree")
+	--This works
+	
+	-- mightbetrees = {}
+
+	-- mightbetrees[1] = Entities:FindAllByClassname("ent_dota_tree")
+	-- DeepPrintTable(mightbetrees[1])
+	-- for key,value in pairs(mightbetrees[1]) do 
+	-- 	-- mightbetrees[1][key]:CutDown(DOTA_TEAM_GOODGUYS)
+	-- 	mightbetrees[1][key]:CutDownRegrowAfter(RandomFloat(0, 15), DOTA_TEAM_GOODGUYS)  
+ --    	-- print("Classname: " .. mightbetrees[1][key]:GetClassname())
+	-- end
+
+
+
+
+
 	-- mightbetrees[2] = Entities:FindAllByClassname("MapTree")
 	-- mightbetrees[3] = Entities:FindAllByModel("CDOTA_MapTree")
 	-- mightbetrees[4] = Entities:FindAllByModel("MapTree")
@@ -104,11 +118,15 @@ function CDotaRun:FindTrees()
 	-- mightbetrees[6] = Entities:FindAllByName("MapTree")
 	-- mightbetrees[7] = Entities:FindAllByTarget("CDOTA_MapTree")
 	-- mightbetrees[8] = Entities:FindAllByTarget("MapTree")
-	mightbetrees[9] = Entities:FindAllInSphere(Vector(-6082,1157,20), 1500)
+	-- mightbetrees[9] = Entities:FindAllInSphere(Vector(-6082,1157,20), 1500)
 
 	-- for i = 1,9 do
-	print("mightbetrees: 9")
-	DeepPrintTable(mightbetrees[i])
+	-- print("mightbetrees: 9")
+	-- DeepPrintTable(mightbetrees[9])
+	-- for key,value in pairs(mightbetrees[9]) do 
+	-- 	print("Name: " .. mightbetrees[9][key]:GetName())
+ --    	print("Classname: " .. mightbetrees[9][key]:GetClassname())
+	-- end
 	--Use these to figure out which ones are trees
 	--GetClassname
 	--GetName  
