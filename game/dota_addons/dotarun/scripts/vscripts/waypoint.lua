@@ -164,7 +164,8 @@ function WinHere(trigger)
 
     local playerID = trigger.activator:GetPlayerID()
     local player = PlayerResource:GetPlayer(playerID)
-    local hero = player:GetAssignedHero()  
+    local hero = player:GetAssignedHero()
+    local teamNumber = hero:GetTeamNumber()
 
     -- print("WinHere")
     -- print(playerID)
@@ -175,26 +176,38 @@ function WinHere(trigger)
     
 
     if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3]) then
-        if (hero:GetTeamNumber() == DOTA_TEAM_BADGUYS) then
-            if (GameRules.dotaRun.badLaps == 1) then
-                GameRules:SetSafeToLeave( true )
-                GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
-                setCameraToWin(hero)
-            else 
-                GameRules.dotaRun.badLaps = GameRules.dotaRun.badLaps + 1
-                NewLap(DOTA_TEAM_BADGUYS)
-            end
+        if (GameRules.dotaRun.laps[teamNumber] == 1) then
+            GameRules:SetSafeToLeave( true )
+            GameRules:SetGameWinner(teamNumber)
+            setCameraToWin(hero)
+            GameRules:SetCustomVictoryMessage( GameRules.dotaRun.m_VictoryMessages[teamNumber] )
+        else 
+            GameRules.dotaRun.laps[teamNumber] = GameRules.dotaRun.laps[teamNumber] + 1
+            ShowCustomHeaderMessage( "#OneLapRemainingMessage", playerID, -1, 5 )
+            EmitGlobalSound( "ui.npe_objective_complete" )
+            NewLap()
 
-        elseif (hero:GetTeamNumber() == DOTA_TEAM_GOODGUYS) then
-            if (GameRules.dotaRun.goodLaps == 1) then
-                GameRules:SetSafeToLeave( true )
-                GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
-                setCameraToWin(hero)
-            else
-                GameRules.dotaRun.goodLaps = GameRules.dotaRun.goodLaps + 1
-                NewLap(DOTA_TEAM_GOODGUYS)
-            end
-        end       
+        -- if (hero:GetTeamNumber() == DOTA_TEAM_BADGUYS) then
+        --     if (GameRules.dotaRun.badLaps == 1) then
+        --         GameRules:SetSafeToLeave( true )
+        --         GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+        --         setCameraToWin(hero)
+        --     else 
+        --         GameRules.dotaRun.badLaps = GameRules.dotaRun.badLaps + 1
+        --         NewLap(DOTA_TEAM_BADGUYS)
+        --     end
+
+        -- elseif (hero:GetTeamNumber() == DOTA_TEAM_GOODGUYS) then
+        --     if (GameRules.dotaRun.goodLaps == 1) then
+        --         GameRules:SetSafeToLeave( true )
+        --         GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+        --         setCameraToWin(hero)
+        --     else
+        --         GameRules.dotaRun.goodLaps = GameRules.dotaRun.goodLaps + 1
+        --         NewLap(DOTA_TEAM_GOODGUYS)
+        --     end
+        -- end 
+        end     
     end
 end
 
@@ -212,6 +225,7 @@ function KillEntity(trigger)
 
     local unitName = trigger.activator:GetUnitName() -- Retrieves the name that the unit has, such as listed in "npc_units_custom.txt"
     local playerID = trigger.activator:GetPlayerID()
+    local hero = trigger.activator
 
     print("Unit '" .. unitName .. "' has entered the killbox")
 
@@ -249,15 +263,16 @@ end
 
 function teleportHero(hero, point, playerID)
     -- Find a spot for the hero around 'point' and teleports to it
-    FindClearSpaceForUnit(trigger.activator, point, false)
+    FindClearSpaceForUnit(hero, point, false)
     -- Stop the hero, so he doesn't move
-    trigger.activator:Stop()
+    hero:Stop()
     -- Refocus the camera of said player to the position of the teleported hero.
-    PlayerResource:SetCameraTarget(playerID, trigger.activator)
+    -- PlayerResource:SetCameraTarget(playerID, hero)
+    SendToConsole("dota_camera_center")
 
 end
 
-function NewLap(winner)
+function NewLap()
     GameRules.dotaRun:ResetRound() 
 
     for i = 0,9 do
@@ -265,16 +280,16 @@ function NewLap(winner)
         if (player ~=nil) then
             PlayerResource:ReplaceHeroWith(i, "npc_dota_hero_mirana", 0, 0)
             local hero = player:GetAssignedHero()
-            if (winner == DOTA_TEAM_BADGUYS and hero:GetTeamNumber() == DOTA_TEAM_GOODGUYS and not GameRules.dotaRun.killHeroForWin) then
-                hero:ForceKill(true)
-                GameRules.dotaRun.killHeroForWin = true
-            elseif (winner == DOTA_TEAM_GOODGUYS and hero:GetTeamNumber()  == DOTA_TEAM_BADGUYS and not GameRules.dotaRun.killHeroForWin) then
-                hero:ForceKill(true)
-                GameRules.dotaRun.killHeroForWin = true
-            else     
-                local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
-                FindClearSpaceForUnit(hero, point, false)
-                -- hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
+            -- if (winner == DOTA_TEAM_BADGUYS and hero:GetTeamNumber() == DOTA_TEAM_GOODGUYS and not GameRules.dotaRun.killHeroForWin) then
+            --     hero:ForceKill(true)
+            --     GameRules.dotaRun.killHeroForWin = true
+            -- elseif (winner == DOTA_TEAM_GOODGUYS and hero:GetTeamNumber()  == DOTA_TEAM_BADGUYS and not GameRules.dotaRun.killHeroForWin) then
+            --     hero:ForceKill(true)
+            --     GameRules.dotaRun.killHeroForWin = true
+            -- else     
+            local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
+            FindClearSpaceForUnit(hero, point, false)
+            hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
 
             -- local hero = player:GetAssignedHero()
             -- if (hero ~=nil) then
@@ -308,11 +323,11 @@ function NewLap(winner)
             --     SendToConsole("dota_camera_center")
             --     hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
             -- end
-            end
+            -- end
         end
     end
 
-    GameRules.dotaRun.killHeroForWin = false
+    -- GameRules.dotaRun.killHeroForWin = false
 
        
 
