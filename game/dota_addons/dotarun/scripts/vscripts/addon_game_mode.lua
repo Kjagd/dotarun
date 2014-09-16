@@ -48,19 +48,59 @@ function Activate()
 end
 
 function CDotaRun:InitGameMode()
+	-- Multiteam support
+
+	self.m_TeamColors = {}
+	self.m_TeamColors[DOTA_TEAM_GOODGUYS] = { 255, 0, 0 }
+	self.m_TeamColors[DOTA_TEAM_BADGUYS] = { 0, 255, 0 }
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_1] = { 0, 0, 255 }
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_2] = { 255, 128, 64 }
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_3] = { 255, 255, 0 }
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_4] = { 128, 255, 0 }
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_5] = { 128, 0, 255 }
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_6] = { 255, 0, 128 }
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_7] = { 0, 255, 255 }
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_8] = { 255, 255, 255 }
+
+	self.m_VictoryMessages = {}
+	self.m_VictoryMessages[DOTA_TEAM_GOODGUYS] = "#VictoryMessage_GoodGuys"
+	self.m_VictoryMessages[DOTA_TEAM_BADGUYS] = "#VictoryMessage_BadGuys"
+	self.m_VictoryMessages[DOTA_TEAM_CUSTOM_1] = "#VictoryMessage_Custom1"
+	self.m_VictoryMessages[DOTA_TEAM_CUSTOM_2] = "#VictoryMessage_Custom2"
+	self.m_VictoryMessages[DOTA_TEAM_CUSTOM_3] = "#VictoryMessage_Custom3"
+	self.m_VictoryMessages[DOTA_TEAM_CUSTOM_4] = "#VictoryMessage_Custom4"
+	self.m_VictoryMessages[DOTA_TEAM_CUSTOM_5] = "#VictoryMessage_Custom5"
+	self.m_VictoryMessages[DOTA_TEAM_CUSTOM_6] = "#VictoryMessage_Custom6"
+	self.m_VictoryMessages[DOTA_TEAM_CUSTOM_7] = "#VictoryMessage_Custom7"
+	self.m_VictoryMessages[DOTA_TEAM_CUSTOM_8] = "#VictoryMessage_Custom8"
+
+	self.m_GatheredShuffledTeams = {}
+	self.m_NumAssignedPlayers = 0
+
+	self:GatherValidTeams()
+
+	GameRules:SetCustomGameEndDelay( 0 )
+	GameRules:SetCustomVictoryMessageDuration( 0 )
+	GameRules:SetHideKillMessageHeaders( true )
+
+
+
 	self.TaTrapFired = false
 	self.itemList = { "item_blink", "item_cyclone", "item_shivas_guard", "item_sheepstick", "item_ancient_janggo", "item_rod_of_atos"}
 	self.spellList = {"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_gale_custom", "dark_seer_surge_custom", "jakiro_ice_path_custom", 
 	"batrider_flamebreak_custom", "ancient_apparition_ice_vortex_custom", "gyrocopter_homing_missile_custom", "obsidian_destroyer_astral_imprisonment_custom", "pudge_meat_hook_custom"}
 
-	self.goodLaps = 0
-	self.badLaps = 0
+	self.laps = {}
+	for i = DOTA_TEAM_GOODGUYS, DOTA_TEAM_CUSTOM_8 do
+    	self.laps[i] = 0
 
-	-- GameRules:SetSameHeroSelectionEnabled( true )
+	end
+
+
+	GameRules:SetSameHeroSelectionEnabled( true )
 	-- DebugDrawText(Vector(-5464,-6529,20), "Get items and abilities by running through these", false, -1) 
 
 	self.playerCount = 0
-	self.killHeroForWin = false
 
 	self.zoneOpen = {}
 	
@@ -88,10 +128,190 @@ function CDotaRun:InitGameMode()
 	-- ListenToGameEvent('dota_player_used_ability', ApplyCooldownReduction, {} )
 
 
+	GameRules:GetGameModeEntity():SetThink( "OnThink", self, 1 )
+
 	print( "Dotarun has literally loaded." )
 
 	
 end
+
+
+---------------------------------------------------------------------------
+-- Get the color associated with a given teamID
+---------------------------------------------------------------------------
+function CDotaRun:ColorForTeam( teamID )
+	local color = self.m_TeamColors[ teamID ]
+	if color == nil then
+		color = { 255, 255, 255 } -- default to white
+	end
+	return color
+end
+
+---------------------------------------------------------------------------
+-- Determine a good team assignment for the next player
+---------------------------------------------------------------------------
+function CDotaRun:GetNextTeamAssignment()
+	if #self.m_GatheredShuffledTeams == 0 then
+--		print( "CANNOT ASSIGN PLAYER - NO KNOWN TEAMS" )
+		return DOTA_TEAM_NOTEAM
+	end
+
+	-- haven't assigned this player to a team yet
+--	print( "m_NumAssignedPlayers = " .. self.m_NumAssignedPlayers )
+	
+	-- If the number of players per team doesn't divide evenly (ie. 10 players on 4 teams => 2.5 players per team)
+	-- Then this floor will round that down to 2 players per team
+	-- If you want to limit the number of players per team, you could just set this to eg. 1
+	local playersPerTeam = math.floor( DOTA_MAX_TEAM_PLAYERS / #self.m_GatheredShuffledTeams )
+--	print( "playersPerTeam = " .. playersPerTeam )
+
+	local teamIndexForPlayer = math.floor( self.m_NumAssignedPlayers / playersPerTeam )
+--	print( "teamIndexForPlayer = " .. teamIndexForPlayer )
+
+	-- Then once we get to the 9th player from the case above, we need to wrap around and start assigning to the first team
+	if teamIndexForPlayer >= #self.m_GatheredShuffledTeams then
+		teamIndexForPlayer = teamIndexForPlayer - #self.m_GatheredShuffledTeams
+--		print( "teamIndexForPlayer => " .. teamIndexForPlayer )
+	end
+	
+	teamAssignment = self.m_GatheredShuffledTeams[ 1 + teamIndexForPlayer ]
+--	print( "teamAssignment = " .. teamAssignment )
+
+	self.m_NumAssignedPlayers = self.m_NumAssignedPlayers + 1
+
+	return teamAssignment
+end
+
+---------------------------------------------------------------------------
+-- Put a label over a player's hero so people know who is on what team
+---------------------------------------------------------------------------
+function CDotaRun:MakeLabelForPlayer( nPlayerID )
+	if not PlayerResource:HasSelectedHero( nPlayerID ) then
+		return
+	end
+
+	local hero = PlayerResource:GetSelectedHeroEntity( nPlayerID )
+	if hero == nil then
+		return
+	end
+
+	local teamID = PlayerResource:GetTeam( nPlayerID )
+	local color = self:ColorForTeam( teamID )
+	hero:SetCustomHealthLabel( GetTeamName( teamID ), color[1], color[2], color[3] )
+end
+
+---------------------------------------------------------------------------
+-- Tell everyone the team assignments during hero selection
+---------------------------------------------------------------------------
+function CDotaRun:BroadcastPlayerTeamAssignments()
+	for nPlayerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
+		local nTeamID = PlayerResource:GetTeam( nPlayerID )
+		if nTeamID ~= DOTA_TEAM_NOTEAM then
+			GameRules:SendCustomMessage( "#TeamAssignmentMessage", nPlayerID, -1 )
+		end
+	end
+end
+
+---------------------------------------------------------------------------
+-- Update player labels and the scoreboard
+---------------------------------------------------------------------------
+function CDotaRun:OnThink()
+
+	for nPlayerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
+		self:MakeLabelForPlayer( nPlayerID )
+	end
+	
+	self:UpdateScoreboard()
+		
+	return 1
+end
+
+---------------------------------------------------------------------------
+-- Simple scoreboard using debug text
+---------------------------------------------------------------------------
+function CDotaRun:UpdateScoreboard()
+	local sortedTeams = {}
+	for _, team in pairs( self.m_GatheredShuffledTeams ) do
+		table.insert( sortedTeams, { teamID = team, teamScore = self.laps[team] } )
+	end
+
+	-- reverse-sort by score
+	table.sort( sortedTeams, function(a,b) return ( a.teamScore > b.teamScore ) end )
+
+	UTIL_ResetMessageTextAll()
+	UTIL_MessageTextAll( "#ScoreboardTitle", 255, 255, 255, 255 )
+	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
+	for _, t in pairs( sortedTeams ) do
+		local clr = self:ColorForTeam( t.teamID )
+		UTIL_MessageTextAll_WithContext( "#ScoreboardRow", clr[1], clr[2], clr[3], 255, { team_id = t.teamID, value = t.teamScore } )
+	end
+end
+
+---------------------------------------------------------------------------
+-- Helper functions
+---------------------------------------------------------------------------
+function ShuffledList( list )
+	local result = {}
+	local count = #list
+	for i = 1, count do
+		local pick = RandomInt( 1, #list )
+		result[ #result + 1 ] = list[ pick ]
+		table.remove( list, pick )
+	end
+	return result
+end
+
+function TableCount( t )
+	local n = 0
+	for _ in pairs( t ) do
+		n = n + 1
+	end
+	return n
+end
+
+---------------------------------------------------------------------------
+-- Scan the map to see which teams have spawn points
+---------------------------------------------------------------------------
+function CDotaRun:GatherValidTeams()
+--	print( "GatherValidTeams:" )
+
+	local foundTeams = {}
+	for _, playerStart in pairs( Entities:FindAllByClassname( "info_player_start_dota" ) ) do
+		foundTeams[  playerStart:GetTeam() ] = true
+	end
+
+--	print( "GatherValidTeams - Found spawns for a total of " .. TableCount(foundTeams) .. " teams" )
+	
+	local foundTeamsList = {}
+	for t, _ in pairs( foundTeams ) do
+		table.insert( foundTeamsList, t )
+	end
+
+	self.m_GatheredShuffledTeams = ShuffledList( foundTeamsList )
+
+--	print( "Final shuffled team list:" )
+--	for _, team in pairs( self.m_GatheredShuffledTeams ) do
+--		print( " - " .. team .. " ( " .. GetTeamName( team ) .. " )" )
+--	end
+end
+
+---------------------------------------------------------------------------
+-- Assign all real players to a team
+---------------------------------------------------------------------------
+function CDotaRun:AssignAllPlayersToTeams()
+--	print( "Assigning players to teams..." )
+	for playerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
+		if nil ~= PlayerResource:GetPlayer( playerID ) then
+			local teamID = self:GetNextTeamAssignment()
+--			print( " - Player " .. playerID .. " assigned to team " .. teamID )
+			PlayerResource:SetCustomTeamAssignment( playerID, teamID )
+		end
+	end
+end
+
+
+
+
 
 function CDotaRun:FindTrees()
 
@@ -207,6 +427,7 @@ function CDotaRun:ShowCenterMessage( msg, nDur )
 end
 
 function CDotaRun:OnPlayerConnectFull(keys)
+
     -- if (HaveAllPlayersJoined()) then
     	
     -- end
@@ -223,22 +444,22 @@ end
 
 
 -- Evaluate the state of the game
-function CDotaRun:OnThink()
-	-- print("Thinking")
+-- function CDotaRun:OnThink()
+-- 	-- print("Thinking")
 
-	-- if GameRules:State_Get() < DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+-- 	-- if GameRules:State_Get() < DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
 			
-	-- end
+-- 	-- end
 
-	-- if GameRules:State_Get() >= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
-	-- 	for i = 0,9 do
-	-- 		player = PlayerResource:GetPlayer(i)
-	-- 		hero = player:GetAssignedHero()
-	-- 		hero:RemoveModifierByName(modifier_stunned) 
-	-- 	end
-	-- end
-	return 1
-end
+-- 	-- if GameRules:State_Get() >= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+-- 	-- 	for i = 0,9 do
+-- 	-- 		player = PlayerResource:GetPlayer(i)
+-- 	-- 		hero = player:GetAssignedHero()
+-- 	-- 		hero:RemoveModifierByName(modifier_stunned) 
+-- 	-- 	end
+-- 	-- end
+-- 	return 1
+-- end
 
 function CDotaRun:StartZoneTimer(hero)
 	Timers:CreateTimer(5, function()
@@ -338,6 +559,16 @@ end
 
 function CDotaRun:On_game_rules_state_change( data )
 	print("game starting!")
+
+	-- For multiteam
+	local nNewState = GameRules:State_Get()
+--	print( "OnGameRulesStateChange: " .. nNewState )
+
+	if nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
+		self:AssignAllPlayersToTeams()
+		GameRules:GetGameModeEntity():SetThink( "BroadcastPlayerTeamAssignments", self, 0 ) -- can't do this immediately because the player resource doesn't have the names yet
+	end	
+
 	if GameRules:State_Get() >= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS and  GameRules:State_Get() < DOTA_GAMERULES_STATE_POST_GAME then
 		GameRules.dotaRun:FindTrees()
 		for i = 0,9 do

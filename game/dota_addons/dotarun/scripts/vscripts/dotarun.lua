@@ -6,20 +6,22 @@
 function GiveRandomItem(hero)
  	
  	local itemSlotsFull = GameRules.dotaRun:DoesHeroHaveMaxItems(hero)
+ 	if (itemSlotsFull) then
+ 		print("No item slots!")
+ 		return
+ 	end
 
 	local alreadyHas = false
 	local itemNew = CreateItem(GameRules.dotaRun.itemList[RandomInt(1, 6)], hero, hero)
-	if(not itemSlotsFull) then
-		print("No item slots!")
-		for i=0,5 do 
-	   		itemOld = hero:GetItemInSlot(i)
-			if(itemOld ~= nil and itemOld:GetClassname() == itemNew:GetClassname()) then
-				print("Hero already has: " .. itemNew:GetClassname())
-				alreadyHas = true
-				break
-	    	end
-		end
+	for i=0,5 do 
+		itemOld = hero:GetItemInSlot(i)
+		if(itemOld ~= nil and itemOld:GetClassname() == itemNew:GetClassname()) then
+			print("Hero already has: " .. itemNew:GetClassname())
+			alreadyHas = true
+			break
+	    end
 	end
+	
 
 	if (alreadyHas) then 
 		GiveRandomItem(hero)
