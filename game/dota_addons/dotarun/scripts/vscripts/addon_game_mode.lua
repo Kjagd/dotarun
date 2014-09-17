@@ -220,6 +220,14 @@ function CDotaRun:OnThink()
 	for nPlayerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
 		self:MakeLabelForPlayer( nPlayerID )
 	end
+
+	for i = 0,9 do
+		local player = PlayerResource:GetPlayer(i)
+		if (player ~= nil) then
+			distance = (Entities:FindByName( nil, "waypointHomeTeleport" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+			print("Player: " .. i .. " distance ", distance)
+		end
+	end
 	
 	self:UpdateScoreboard()
 		
