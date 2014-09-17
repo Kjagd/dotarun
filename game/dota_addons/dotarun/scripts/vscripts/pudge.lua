@@ -32,9 +32,9 @@ end
 
 function startHooks()
 	Timers:CreateTimer(5, function()
-      -- print ("Hello. I'm running 5 seconds after you called me and then every 3.5 seconds thereafter.")
+      -- print ("Hello. I'm running 5 seconds after you called me and then every 1.5 to 3.5 seconds thereafter.")
     	hook()
-      	return 3.5
+      	return RandomInt(1.5, 3.5)
     end
     )
 end
