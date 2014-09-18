@@ -288,12 +288,13 @@ function CDotaRun:CalculatePositions()
 end
 
 function CDotaRun:BlueShell(playerPositions)
-	speed = 360
+	local speed = 360
 	for key, t in pairs( playerPositions ) do
 		playerID = PlayerResource:GetNthPlayerIDOnTeam(t.teamID, 1)
 		if(playerID ~= -1) then
 			PlayerResource:GetPlayer(playerID):GetAssignedHero():SetBaseMoveSpeed(speed)
-			speed = speed - 5
+			speed = speed + 10
+			--Note that this actually works, but the movement display is not altered :D
 		end
 	end
 end
@@ -345,7 +346,7 @@ function CDotaRun:UpdateScoreboard(playerPositions)
 
 
 	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
-	UTIL_MessageTextAll( "#ScoreboardPosition", 255, 255, 255, 255 )
+	UTIL_MessageTextAll( "#ScoreboardPositionHeader", 255, 255, 255, 255 )
 	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
 	for key, t in pairs( playerPositions ) do
 		local clr = self:ColorForTeam( t.teamID )
