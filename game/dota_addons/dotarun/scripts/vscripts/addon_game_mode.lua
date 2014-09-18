@@ -101,7 +101,6 @@ function CDotaRun:InitGameMode()
 	self.distanceFromThreeToGoal = 10639
 
 	self.playerDistances = {}
-	self.playerPositions = {}
 
 	GameRules:SetSameHeroSelectionEnabled( true )
 	-- DebugDrawText(Vector(-5464,-6529,20), "Get items and abilities by running through these", false, -1) 
@@ -237,9 +236,10 @@ end
 
 function CDotaRun:CalculatePositions()
 
+	-- Waypoints are indexed from zero because it matches playerID but playerDistance is indexed from 1 because we use lua list functions on it
 	for i = 0,9 do
 		local player = PlayerResource:GetPlayer(i)
-		if (player ~= nil) then
+		if (player ~= nil and player:GetAssignedHero() ~= nil) then
 			if (GameRules.dotaRun.waypoints[i][3]) then
 				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "win" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
 			elseif (GameRules.dotaRun.waypoints[i][2]) then
@@ -271,24 +271,17 @@ function CDotaRun:CalculatePositions()
 
 	-- Player positions not needed atm as Distance is also 1 indexed now
 
+	-- DeepPrintTable(GameRules.dotaRun.playerDistances)
+	-- for key, value in pairs( GameRules.dotaRun.playerDistances ) do
+	-- 	table.insert( GameRules.dotaRun.playerPositions, GameRules.dotaRun.playerDistances[key] )
+	-- end
 
-	for key, value in pairs( GameRules.dotaRun.playerDistances ) do
-		table.insert( GameRules.dotaRun.playerPositions, GameRules.dotaRun.playerDistances[key] )
-	end
 
-	function comp(w1,w2)
-        if w1 > w2 then
-            return true
-        end
-    end
 
-    
+	-- for i = 1,DOTA_MAX_TEAM_PLAYERS do
+	-- 	GameRules.dotaRun.playerPositions[i] = GameRules.dotaRun.playerDistances[i]
+	-- end
 
-	-- reverse-sort by distance
-	table.sort( GameRules.dotaRun.playerPositions, comp)
-	for i = 1, DOTA_MAX_TEAM_PLAYERS do
-    	print(i .. " Pos: ", GameRules.dotaRun.playerPositions[i])
-    end
 
 
 end
@@ -302,6 +295,10 @@ function CDotaRun:UpdateScoreboard()
 		table.insert( sortedTeams, { teamID = team, teamScore = self.laps[team] } )
 	end
 
+   	-- DeepPrintTable(self.m_GatheredShuffledTeams)
+   	-- DeepPrintTable(sortedTeams)
+
+
 	-- reverse-sort by score
 	table.sort( sortedTeams, function(a,b) return ( a.teamScore > b.teamScore ) end )
 
@@ -313,11 +310,27 @@ function CDotaRun:UpdateScoreboard()
 		UTIL_MessageTextAll_WithContext( "#ScoreboardRow", clr[1], clr[2], clr[3], 255, { team_id = t.teamID, value = t.teamScore } )
 	end
 
+	local playerPositions = {}
+	for key,value in pairs( GameRules.dotaRun.playerDistances ) do
+		-- Key is 1 indexed, so we subtract one to key playerID
+		local teamID = PlayerResource:GetTeam( key-1 )
+		local tempValue
+		if value == 0 then
+			tempValue = 99999
+		else 
+			tempValue = values
+		end
+		table.insert( playerPositions, { teamID = teamID, position = tempValue } )
+	end
+
+	-- reverse-sort by distance
+	table.sort(  playerPositions, function(a,b) return ( a.position < b.position ) end )
+
 	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
 	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
-	for i = 1, DOTA_MAX_TEAM_PLAYERS do
-		-- local clr = self:ColorForTeam(self.m_TeamColors[i])
-		UTIL_MessageTextAll_WithContext( "#ScoreboardPosition", 255, 255, 255, 255, {value = GameRules.dotaRun.playerDistances[i]} )
+		for _, t in pairs( playerPositions ) do
+		local clr = self:ColorForTeam( t.teamID )
+		UTIL_MessageTextAll_WithContext( "#ScoreboardPosition", clr[1], clr[2], clr[3], 255, { value = t.position } )
 	end
 end
 
@@ -453,7 +466,6 @@ function CDotaRun:ResetRound()
 
 	for i = 1, DOTA_MAX_TEAM_PLAYERS do
 		GameRules.dotaRun.playerDistances[i] = 0
-		GameRules.dotaRun.playerPositions[i] = 0
 	end
 
 	for i = 1, 3 do
