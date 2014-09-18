@@ -226,10 +226,11 @@ function CDotaRun:OnThink()
 		self:MakeLabelForPlayer( nPlayerID )
 	end
 
-
 	
+	playerPositions = self:SortPositions()
 	self:CalculatePositions()
-	self:UpdateScoreboard()
+	self:UpdateScoreboard(playerPositions)
+	self:BlueShell(playerPositions)
 		
 	return 1
 end
@@ -286,30 +287,18 @@ function CDotaRun:CalculatePositions()
 
 end
 
----------------------------------------------------------------------------
--- Simple scoreboard using debug text
----------------------------------------------------------------------------
-function CDotaRun:UpdateScoreboard()
-	local sortedTeams = {}
-	for _, team in pairs( self.m_GatheredShuffledTeams ) do
-		table.insert( sortedTeams, { teamID = team, teamScore = self.laps[team] } )
+function CDotaRun:BlueShell(playerPositions)
+	speed = 360
+	for key, t in pairs( playerPositions ) do
+		playerID = PlayerResource:GetNthPlayerIDOnTeam(t.teamID, 1)
+		if(playerID ~= -1) then
+			PlayerResource:GetPlayer(playerID):GetAssignedHero():SetBaseMoveSpeed(speed)
+			speed = speed - 5
+		end
 	end
+end
 
-   	-- DeepPrintTable(self.m_GatheredShuffledTeams)
-   	-- DeepPrintTable(sortedTeams)
-
-
-	-- reverse-sort by score
-	table.sort( sortedTeams, function(a,b) return ( a.teamScore > b.teamScore ) end )
-
-	UTIL_ResetMessageTextAll()
-	UTIL_MessageTextAll( "#ScoreboardTitle", 255, 255, 255, 255 )
-	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
-	for _, t in pairs( sortedTeams ) do
-		local clr = self:ColorForTeam( t.teamID )
-		UTIL_MessageTextAll_WithContext( "#ScoreboardRow", clr[1], clr[2], clr[3], 255, { team_id = t.teamID, value = t.teamScore } )
-	end
-
+function CDotaRun:SortPositions() 
 	-- Note that playerPositions is recalculated everytime and is local
 	local playerPositions = {}
 	for key,value in pairs( GameRules.dotaRun.playerDistances ) do
@@ -325,24 +314,51 @@ function CDotaRun:UpdateScoreboard()
 		table.insert( playerPositions, { teamID = teamID, position = tempValue } )
 	end
 
-
 	-- reverse-sort by distance
 	table.sort(  playerPositions, function(a,b) return ( a.position < b.position ) end )
 
+	return playerPositions
+end
+
+---------------------------------------------------------------------------
+-- Simple scoreboard using debug text
+---------------------------------------------------------------------------
+function CDotaRun:UpdateScoreboard(playerPositions)
+	
+	local sortedTeams = {}
+	for _, team in pairs( self.m_GatheredShuffledTeams ) do
+		table.insert( sortedTeams, { teamID = team, teamScore = self.laps[team] } )
+	end
+
+	-- reverse-sort by score
+	table.sort( sortedTeams, function(a,b) return ( a.teamScore > b.teamScore ) end )
+
+	UTIL_ResetMessageTextAll()
+	UTIL_MessageTextAll( "#ScoreboardTitle", 255, 255, 255, 255 )
 	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
+	for _, t in pairs( sortedTeams ) do
+		local clr = self:ColorForTeam( t.teamID )
+		if(PlayerResource:GetNthPlayerIDOnTeam(t.teamID, 1) ~= -1) then
+			UTIL_MessageTextAll_WithContext( "#ScoreboardRow", clr[1], clr[2], clr[3], 255, { team_id = t.teamID, value = t.teamScore } )
+		end
+	end
+
+
 	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
-		for key, t in pairs( playerPositions ) do
+	UTIL_MessageTextAll( "#ScoreboardPosition", 255, 255, 255, 255 )
+	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
+	for key, t in pairs( playerPositions ) do
 		local clr = self:ColorForTeam( t.teamID )
 		if t.teamID == 5 then
 			
 		elseif key == 1 then
-			UTIL_MessageTextAll_WithContext( "#ScoreboardPositionFirst", clr[1], clr[2], clr[3], 255, { value = key } )
+			UTIL_MessageTextAll_WithContext( "#ScoreboardPositionFirst", clr[1], clr[2], clr[3], 255, { value = key, team_id = t.teamID } )
 		elseif key == 2 then
-			UTIL_MessageTextAll_WithContext( "#ScoreboardPositionSecond", clr[1], clr[2], clr[3], 255, { value = key } )
+			UTIL_MessageTextAll_WithContext( "#ScoreboardPositionSecond", clr[1], clr[2], clr[3], 255, { value = key, team_id = t.teamID } )
 		elseif key == 3 then
-			UTIL_MessageTextAll_WithContext( "#ScoreboardPositionThird", clr[1], clr[2], clr[3], 255, { value = key } )
+			UTIL_MessageTextAll_WithContext( "#ScoreboardPositionThird", clr[1], clr[2], clr[3], 255, { value = key, team_id = t.teamID } )
 		else 
-			UTIL_MessageTextAll_WithContext( "#ScoreboardPosition", clr[1], clr[2], clr[3], 255, { value = key } )
+			UTIL_MessageTextAll_WithContext( "#ScoreboardPosition", clr[1], clr[2], clr[3], 255, { value = key, team_id = t.teamID } )
 		end
 	end
 end
