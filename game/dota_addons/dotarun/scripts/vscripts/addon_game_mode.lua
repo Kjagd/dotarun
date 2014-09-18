@@ -88,7 +88,7 @@ function CDotaRun:InitGameMode()
 	self.TaTrapFired = false
 	self.itemList = { "item_blink", "item_cyclone", "item_shivas_guard", "item_sheepstick", "item_ancient_janggo", "item_rod_of_atos"}
 	self.spellList = {"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_gale_custom", "dark_seer_surge_custom", "jakiro_ice_path_custom", 
-	"batrider_flamebreak_custom", "ancient_apparition_ice_vortex_custom", "gyrocopter_homing_missile_custom", "obsidian_destroyer_astral_imprisonment_custom", "pudge_meat_hook_custom"}
+	"batrider_flamebreak_custom", "ancient_apparition_ice_vortex_custom", "obsidian_destroyer_astral_imprisonment_custom", "pudge_meat_hook_custom"}
 
 	self.laps = {}
 	for i = DOTA_TEAM_GOODGUYS, DOTA_TEAM_CUSTOM_8 do
@@ -96,6 +96,12 @@ function CDotaRun:InitGameMode()
 
 	end
 
+	self.distanceFromOneToTwo = 12406
+	self.distanceFromTwoToThree = 12452
+	self.distanceFromThreeToGoal = 10639
+
+	self.playerDistances = {}
+	self.playerPositions = {}
 
 	GameRules:SetSameHeroSelectionEnabled( true )
 	-- DebugDrawText(Vector(-5464,-6529,20), "Get items and abilities by running through these", false, -1) 
@@ -221,17 +227,70 @@ function CDotaRun:OnThink()
 		self:MakeLabelForPlayer( nPlayerID )
 	end
 
-	for i = 0,9 do
-		local player = PlayerResource:GetPlayer(i)
-		if (player ~= nil) then
-			distance = (Entities:FindByName( nil, "waypointHomeTeleport" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-			print("Player: " .. i .. " distance ", distance)
-		end
-	end
+
 	
+	self:CalculatePositions()
 	self:UpdateScoreboard()
 		
 	return 1
+end
+
+function CDotaRun:CalculatePositions()
+
+	for i = 0,9 do
+		local player = PlayerResource:GetPlayer(i)
+		if (player ~= nil) then
+			if (GameRules.dotaRun.waypoints[i][3]) then
+				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "win" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+			elseif (GameRules.dotaRun.waypoints[i][2]) then
+				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint3" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+					+ self.distanceFromThreeToGoal
+			elseif (GameRules.dotaRun.waypoints[i][1]) then
+				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint2" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+					+ self.distanceFromThreeToGoal + self.distanceFromTwoToThree
+			else 
+				local distance = (Entities:FindByName( nil, "waypoint1" ):GetOrigin() 
+					- player:GetAssignedHero():GetOrigin()):Length2D()
+				GameRules.dotaRun.playerDistances[i+1] = distance
+					+ self.distanceFromThreeToGoal + self.distanceFromTwoToThree + self.distanceFromOneToTwo
+				-- print("Vector length: ", distance)
+				-- print("3-goal: " .. self.distanceFromThreeToGoal)
+				-- print("2-3: " .. self.distanceFromTwoToThree)
+				-- print("1-2: " .. self.distanceFromOneToTwo)
+			end 
+
+			-- distance = (Entities:FindByName( nil, "waypointHomeTeleport" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+			-- print("Player: " .. i .. " distance ", distance)
+		end
+	end
+
+	-- for i = DOTA_TEAM_GOODGUYS, DOTA_TEAM_CUSTOM_8 do
+	-- 	GameRules.dotaRun.playerPositions = GameRules.dotaRun.playerDistances[i]
+	-- end
+
+
+	-- Player positions not needed atm as Distance is also 1 indexed now
+
+
+	for key, value in pairs( GameRules.dotaRun.playerDistances ) do
+		table.insert( GameRules.dotaRun.playerPositions, GameRules.dotaRun.playerDistances[key] )
+	end
+
+	function comp(w1,w2)
+        if w1 > w2 then
+            return true
+        end
+    end
+
+    
+
+	-- reverse-sort by distance
+	table.sort( GameRules.dotaRun.playerPositions, comp)
+	for i = 1, DOTA_MAX_TEAM_PLAYERS do
+    	print(i .. " Pos: ", GameRules.dotaRun.playerPositions[i])
+    end
+
+
 end
 
 ---------------------------------------------------------------------------
@@ -252,6 +311,13 @@ function CDotaRun:UpdateScoreboard()
 	for _, t in pairs( sortedTeams ) do
 		local clr = self:ColorForTeam( t.teamID )
 		UTIL_MessageTextAll_WithContext( "#ScoreboardRow", clr[1], clr[2], clr[3], 255, { team_id = t.teamID, value = t.teamScore } )
+	end
+
+	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
+	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
+	for i = 1, DOTA_MAX_TEAM_PLAYERS do
+		-- local clr = self:ColorForTeam(self.m_TeamColors[i])
+		UTIL_MessageTextAll_WithContext( "#ScoreboardPosition", 255, 255, 255, 255, {value = GameRules.dotaRun.playerDistances[i]} )
 	end
 end
 
@@ -370,22 +436,24 @@ function CDotaRun:ResetRound()
 
 	GameRules.dotaRun.lead = -1
 
-	for i = 0,9 do
-		GameRules.dotaRun.spawned[i] = false
-	end
-
 	GameRules.dotaRun.TaTrapFired = false
 
-	for i = 0,9 do
-		GameRules.dotaRun.zoneOpen[i] = true
-	end
 
 	for i = 0, 9 do
     	GameRules.dotaRun.waypoints[i] = {}
+    	GameRules.dotaRun.spawned[i] = false
+		GameRules.dotaRun.zoneOpen[i] = true
+
 
     	for j = 1, 3 do
     		GameRules.dotaRun.waypoints[i][j] = false -- Fill the values here
     	end
+
+	end
+
+	for i = 1, DOTA_MAX_TEAM_PLAYERS do
+		GameRules.dotaRun.playerDistances[i] = 0
+		GameRules.dotaRun.playerPositions[i] = 0
 	end
 
 	for i = 1, 3 do
