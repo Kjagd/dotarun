@@ -310,6 +310,7 @@ function CDotaRun:UpdateScoreboard()
 		UTIL_MessageTextAll_WithContext( "#ScoreboardRow", clr[1], clr[2], clr[3], 255, { team_id = t.teamID, value = t.teamScore } )
 	end
 
+	-- Note that playerPositions is recalculated everytime and is local
 	local playerPositions = {}
 	for key,value in pairs( GameRules.dotaRun.playerDistances ) do
 		-- Key is 1 indexed, so we subtract one to key playerID
@@ -318,19 +319,31 @@ function CDotaRun:UpdateScoreboard()
 		if value == 0 then
 			tempValue = 99999
 		else 
-			tempValue = values
+			tempValue = value
 		end
+		-- Position is not shown atm but this is how it can be gotten
 		table.insert( playerPositions, { teamID = teamID, position = tempValue } )
 	end
+
 
 	-- reverse-sort by distance
 	table.sort(  playerPositions, function(a,b) return ( a.position < b.position ) end )
 
 	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
 	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
-		for _, t in pairs( playerPositions ) do
+		for key, t in pairs( playerPositions ) do
 		local clr = self:ColorForTeam( t.teamID )
-		UTIL_MessageTextAll_WithContext( "#ScoreboardPosition", clr[1], clr[2], clr[3], 255, { value = t.position } )
+		if t.teamID == 5 then
+			
+		elseif key == 1 then
+			UTIL_MessageTextAll_WithContext( "#ScoreboardPositionFirst", clr[1], clr[2], clr[3], 255, { value = key } )
+		elseif key == 2 then
+			UTIL_MessageTextAll_WithContext( "#ScoreboardPositionSecond", clr[1], clr[2], clr[3], 255, { value = key } )
+		elseif key == 3 then
+			UTIL_MessageTextAll_WithContext( "#ScoreboardPositionThird", clr[1], clr[2], clr[3], 255, { value = key } )
+		else 
+			UTIL_MessageTextAll_WithContext( "#ScoreboardPosition", clr[1], clr[2], clr[3], 255, { value = key } )
+		end
 	end
 end
 
