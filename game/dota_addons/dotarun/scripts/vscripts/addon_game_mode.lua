@@ -75,6 +75,7 @@ function CDotaRun:InitGameMode()
 	self.m_VictoryMessages[DOTA_TEAM_CUSTOM_8] = "#VictoryMessage_Custom8"
 
 	self.m_GatheredShuffledTeams = {}
+	self.m_PlayerTeamAssignments = {}
 	self.m_NumAssignedPlayers = 0
 
 	self:GatherValidTeams()
@@ -155,32 +156,47 @@ end
 ---------------------------------------------------------------------------
 -- Determine a good team assignment for the next player
 ---------------------------------------------------------------------------
-function CDotaRun:GetNextTeamAssignment()
+function CDotaRun:GetTeamReassignmentForPlayer( playerID )
 	if #self.m_GatheredShuffledTeams == 0 then
---		print( "CANNOT ASSIGN PLAYER - NO KNOWN TEAMS" )
-		return DOTA_TEAM_NOTEAM
+		return nil
+	end
+
+	if nil == PlayerResource:GetPlayer( playerID ) then
+		return nil -- no player yet
+	end
+	
+	-- see if we've already assigned the player	
+	local existingAssignment = self.m_PlayerTeamAssignments[ playerID ]
+	if existingAssignment ~= nil then
+		if existingAssignment == PlayerResource:GetTeam( playerID ) then
+			return nil -- already assigned to this team and they're still on it
+		else
+			return existingAssignment -- something else pushed them out of the desired team - set it back
+		end
 	end
 
 	-- haven't assigned this player to a team yet
---	print( "m_NumAssignedPlayers = " .. self.m_NumAssignedPlayers )
+	-- print( "m_NumAssignedPlayers = " .. self.m_NumAssignedPlayers )
 	
 	-- If the number of players per team doesn't divide evenly (ie. 10 players on 4 teams => 2.5 players per team)
 	-- Then this floor will round that down to 2 players per team
 	-- If you want to limit the number of players per team, you could just set this to eg. 1
 	local playersPerTeam = math.floor( DOTA_MAX_TEAM_PLAYERS / #self.m_GatheredShuffledTeams )
---	print( "playersPerTeam = " .. playersPerTeam )
+	-- print( "playersPerTeam = " .. playersPerTeam )
 
 	local teamIndexForPlayer = math.floor( self.m_NumAssignedPlayers / playersPerTeam )
---	print( "teamIndexForPlayer = " .. teamIndexForPlayer )
+	-- print( "teamIndexForPlayer = " .. teamIndexForPlayer )
 
 	-- Then once we get to the 9th player from the case above, we need to wrap around and start assigning to the first team
 	if teamIndexForPlayer >= #self.m_GatheredShuffledTeams then
 		teamIndexForPlayer = teamIndexForPlayer - #self.m_GatheredShuffledTeams
---		print( "teamIndexForPlayer => " .. teamIndexForPlayer )
+		-- print( "teamIndexForPlayer => " .. teamIndexForPlayer )
 	end
 	
 	teamAssignment = self.m_GatheredShuffledTeams[ 1 + teamIndexForPlayer ]
---	print( "teamAssignment = " .. teamAssignment )
+	-- print( "teamAssignment = " .. teamAssignment )
+
+	self.m_PlayerTeamAssignments[ playerID ] = teamAssignment
 
 	self.m_NumAssignedPlayers = self.m_NumAssignedPlayers + 1
 
@@ -291,10 +307,12 @@ function CDotaRun:BlueShell(playerPositions)
 	local speed = 360
 	for key, t in pairs( playerPositions ) do
 		playerID = PlayerResource:GetNthPlayerIDOnTeam(t.teamID, 1)
-		if(playerID ~= -1) then
-			PlayerResource:GetPlayer(playerID):GetAssignedHero():SetBaseMoveSpeed(speed)
-			speed = speed + 10
-			--Note that this actually works, but the movement display is not altered :D
+		if (playerID ~= nil) then	
+			if(playerID ~= -1) then
+				PlayerResource:GetPlayer(playerID):GetAssignedHero():SetBaseMoveSpeed(speed)
+				speed = speed + 10
+				--Note that this actually works, but the movement display is not altered :D
+			end½
 		end
 	end
 end
@@ -345,7 +363,7 @@ function CDotaRun:UpdateScoreboard(playerPositions)
 	end
 
 
-	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
+	UTIL_MessageTextAll( "#ScoreboardBreaker", 255, 255, 255, 255 )
 	UTIL_MessageTextAll( "#ScoreboardPositionHeader", 255, 255, 255, 255 )
 	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
 	for key, t in pairs( playerPositions ) do
@@ -406,24 +424,26 @@ function CDotaRun:GatherValidTeams()
 
 	self.m_GatheredShuffledTeams = ShuffledList( foundTeamsList )
 
---	print( "Final shuffled team list:" )
---	for _, team in pairs( self.m_GatheredShuffledTeams ) do
---		print( " - " .. team .. " ( " .. GetTeamName( team ) .. " )" )
---	end
+	-- print( "Final shuffled team list:" )
+	-- for _, team in pairs( self.m_GatheredShuffledTeams ) do
+	-- 	print( " - " .. team .. " ( " .. GetTeamName( team ) .. " )" )
+	-- end
 end
 
 ---------------------------------------------------------------------------
 -- Assign all real players to a team
 ---------------------------------------------------------------------------
-function CDotaRun:AssignAllPlayersToTeams()
+function CDotaRun:EnsurePlayersOnCorrectTeam()
 --	print( "Assigning players to teams..." )
 	for playerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
-		if nil ~= PlayerResource:GetPlayer( playerID ) then
-			local teamID = self:GetNextTeamAssignment()
---			print( " - Player " .. playerID .. " assigned to team " .. teamID )
-			PlayerResource:SetCustomTeamAssignment( playerID, teamID )
+		local teamReassignment = self:GetTeamReassignmentForPlayer( playerID )
+		if nil ~= teamReassignment then
+			print( " - Player " .. playerID .. " reassigned to team " .. teamReassignment )
+			PlayerResource:SetCustomTeamAssignment( playerID, teamReassignment )
 		end
 	end
+	
+	return 1 -- Check again later in case more players spawn
 end
 
 
@@ -680,12 +700,18 @@ function CDotaRun:On_game_rules_state_change( data )
 
 	-- For multiteam
 	local nNewState = GameRules:State_Get()
---	print( "OnGameRulesStateChange: " .. nNewState )
+	-- print( "OnGameRulesStateChange: " .. nNewState )
+
+
+	--Perhaps use this popup instead to instruct on rules
+	-- if nNewState == DOTA_GAMERULES_STATE_PRE_GAME then
+	-- 	ShowGenericPopup( "#multiteam_instructions_title", "#multiteam_instructions_body", tostring(self.TEAM_KILLS_TO_WIN), "", DOTA_SHOWGENERICPOPUP_TINT_SCREEN )
+	-- end
 
 	if nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
-		self:AssignAllPlayersToTeams()
-		GameRules:GetGameModeEntity():SetThink( "BroadcastPlayerTeamAssignments", self, 0 ) -- can't do this immediately because the player resource doesn't have the names yet
-	end	
+		GameRules:GetGameModeEntity():SetThink( "EnsurePlayersOnCorrectTeam", self, 0 )
+		GameRules:GetGameModeEntity():SetThink( "BroadcastPlayerTeamAssignments", self, 1 )
+	end
 
 	if GameRules:State_Get() >= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS and  GameRules:State_Get() < DOTA_GAMERULES_STATE_POST_GAME then
 		GameRules.dotaRun:FindTrees()
