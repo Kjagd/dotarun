@@ -167,12 +167,12 @@ function WinHere(trigger)
     local hero = player:GetAssignedHero()
     local teamNumber = hero:GetTeamNumber()
 
-    -- print("WinHere")
-    -- print(playerID)
-    -- print(GameRules.dotaRun.waypoints[playerID][1])
-    -- print(GameRules.dotaRun.waypoints[playerID][2])
-    -- print(GameRules.dotaRun.waypoints[playerID][3])
-    -- print(GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3])
+    print("WinHere")
+    print(playerID)
+    print(GameRules.dotaRun.waypoints[playerID][1])
+    print(GameRules.dotaRun.waypoints[playerID][2])
+    print(GameRules.dotaRun.waypoints[playerID][3])
+    print(GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3])
     
 
     if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3]) then
