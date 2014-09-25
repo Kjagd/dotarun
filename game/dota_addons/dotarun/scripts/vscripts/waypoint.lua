@@ -130,33 +130,43 @@ end
             -- end  
 
 function lastMan(waypointID, hero)
-    throughCount = 0
+    local throughCount = 0
     for i = 0, 9 do
         if (GameRules.dotaRun.waypoints[i][waypointID]) then
             throughCount = throughCount + 1
         end
     end
 
+
+
     if (throughCount == GameRules.dotaRun.playerCount) then
+        local hasMaxAbilities = true;
+        for i = 1,6 do
+            if(hero:GetAbilityByIndex(i):GetAbilityName() == "empty_ability1") then
+                hasMaxAbilities = false
+            end
+        end        
         print("last man!")
-        local abilityName = "gyrocopter_homing_missile_custom"
-        if(hero:FindAbilityByName(abilityName) == nil) then
-            print("Adding ability: "..abilityName)
-            hero:RemoveAbility("empty_ability1") 
-            hero:AddAbility(abilityName)
-            ability = hero:FindAbilityByName(abilityName)
-            ability:SetLevel(1)
+        if (not hasMaxAbilities) then
+            local abilityName = "gyrocopter_homing_missile_custom"
+            if(hero:FindAbilityByName(abilityName) == nil) then
+                print("Adding ability: "..abilityName)
+                hero:RemoveAbility("empty_ability1") 
+                hero:AddAbility(abilityName)
+                ability = hero:FindAbilityByName(abilityName)
+                ability:SetLevel(1)
+            end
         end
     end
 
     -- Fix me if you want less smoke
-    if (throughCount >= GameRules.dotaRun.playerCount /2) then 
-        local itemSlotsFull = GameRules.dotaRun:DoesHeroHaveMaxItems(hero)
-        if (not itemSlotsFull) then
-            local item = CreateItem("item_smoke_of_deceit", hero, hero) 
-            hero:AddItem(item)
-        end
-    end
+    -- if (throughCount >= GameRules.dotaRun.playerCount /2) then 
+    --     local itemSlotsFull = GameRules.dotaRun:DoesHeroHaveMaxItems(hero)
+    --     if (not itemSlotsFull) then
+    --         local item = CreateItem("item_smoke_of_deceit", hero, hero) 
+    --         hero:AddItem(item)
+    --     end
+    -- end
 end
 
 function WinHere(trigger)
@@ -175,17 +185,47 @@ function WinHere(trigger)
     print(GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3])
     
 
+
     if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3]) then
-        if (GameRules.dotaRun.laps[teamNumber] == 1) then
+        DistributePoints()
+        local messageSend = false
+        local maxPoints = {}
+        maxPoints[1] = {teamID = -1, points = 0}
+        for i = DOTA_TEAM_GOODGUYS, DOTA_TEAM_CUSTOM_8 do
+            if (GameRules.dotaRun.points[i] >= maxPoints[1].points) then
+                maxPoints[1] = { teamID = i, points = GameRules.dotaRun.points[i] }
+            end
+        end
+
+        if (maxPoints[1].points >= GameRules.dotaRun.pointsToWin) then
             GameRules:SetSafeToLeave( true )
-            GameRules:SetGameWinner(teamNumber)
-            setCameraToWin(hero)
-            GameRules:SetCustomVictoryMessage( GameRules.dotaRun.m_VictoryMessages[teamNumber] )
-        else 
-            GameRules.dotaRun.laps[teamNumber] = GameRules.dotaRun.laps[teamNumber] + 1
-            ShowCustomHeaderMessage( "#OneLapRemainingMessage", playerID, -1, 5 )
+            GameRules:SetGameWinner(maxPoints[1].teamID)
+            setCameraToWin(PlayerResource:GetNthPlayerIDOnTeam(maxPoints[1].teamID, 1):GetAssignedHero())
+            GameRules:SetCustomVictoryMessage( GameRules.dotaRun.m_VictoryMessages[maxPoints[1].teamID] )
+        else
+            if (not messageSend and maxPoints[1].points >= GameRules.dotaRun.pointsToWin-10) then
+                ShowCustomHeaderMessage( "#CloseToWin", PlayerResource:GetNthPlayerIDOnTeam(maxPoints[1].teamID), -1, 5 )
+                messageSend = true
+            end
+
             EmitGlobalSound( "ui.npe_objective_complete" )
             NewLap()
+        end
+    end 
+
+
+    -- if (GameRules.dotaRun.laps[teamNumber] == 1) then
+    --             GameRules:SetSafeToLeave( true )
+    --             GameRules:SetGameWinner(teamNumber)
+    --             setCameraToWin(hero)
+    --             GameRules:SetCustomVictoryMessage( GameRules.dotaRun.m_VictoryMessages[teamNumber] )
+    --         else 
+    --             GameRules.dotaRun.laps[teamNumber] = GameRules.dotaRun.laps[teamNumber] + 1
+    --             ShowCustomHeaderMessage( "#OneLapRemainingMessage", playerID, -1, 5 )
+    --             EmitGlobalSound( "ui.npe_objective_complete" )
+    --             NewLap()
+                -- setCameraToWin(hero)
+            -- GameRules:SetCustomVictoryMessage( GameRules.dotaRun.m_VictoryMessages[teamNumber] )
 
         -- if (hero:GetTeamNumber() == DOTA_TEAM_BADGUYS) then
         --     if (GameRules.dotaRun.badLaps == 1) then
@@ -207,7 +247,20 @@ function WinHere(trigger)
         --         NewLap(DOTA_TEAM_GOODGUYS)
         --     end
         -- end 
-        end     
+end
+
+function DistributePoints()
+    playerPositions = GameRules.dotaRun:SortPositions()
+    local points = 10
+    for key, t in pairs( playerPositions ) do
+        GameRules.dotaRun.points[t.teamID] = GameRules.dotaRun.points[t.teamID] + points
+        if key == 1 then
+            points = 7
+        elseif key == 2 then
+            points = 5
+        elseif points <= 5 and points > 0 then
+            points = points - 1
+        end
     end
 end
 

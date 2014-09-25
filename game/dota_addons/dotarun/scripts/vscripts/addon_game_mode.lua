@@ -91,11 +91,13 @@ function CDotaRun:InitGameMode()
 	self.spellList = {"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_gale_custom", "dark_seer_surge_custom", "jakiro_ice_path_custom", 
 	"batrider_flamebreak_custom", "ancient_apparition_ice_vortex_custom", "obsidian_destroyer_astral_imprisonment_custom", "pudge_meat_hook_custom"}
 
-	self.laps = {}
+	self.points = {}
 	for i = DOTA_TEAM_GOODGUYS, DOTA_TEAM_CUSTOM_8 do
-    	self.laps[i] = 0
+    	self.points[i] = 0
 
 	end
+
+	self.pointsToWin = 30
 
 	self.distanceFromOneToTwo = 12406
 	self.distanceFromTwoToThree = 12452
@@ -312,7 +314,7 @@ function CDotaRun:BlueShell(playerPositions)
 				PlayerResource:GetPlayer(playerID):GetAssignedHero():SetBaseMoveSpeed(speed)
 				speed = speed + 10
 				--Note that this actually works, but the movement display is not altered :D
-			end½
+			end
 		end
 	end
 end
@@ -346,7 +348,7 @@ function CDotaRun:UpdateScoreboard(playerPositions)
 	
 	local sortedTeams = {}
 	for _, team in pairs( self.m_GatheredShuffledTeams ) do
-		table.insert( sortedTeams, { teamID = team, teamScore = self.laps[team] } )
+		table.insert( sortedTeams, { teamID = team, teamScore = self.points[team] } )
 	end
 
 	-- reverse-sort by score
@@ -728,7 +730,7 @@ function CDotaRun:On_game_rules_state_change( data )
 	
 	if GameRules:State_Get() == DOTA_GAMERULES_STATE_PRE_GAME then
 		Timers:CreateTimer(2, function()
-			GameRules.dotaRun:ShowCenterMessage("Welcome to Dota Run!\n Best of three laps", 5)
+			GameRules.dotaRun:ShowCenterMessage("Welcome to Dota Run!\n First to 30 points", 5)
         	return
     	end
     	)
