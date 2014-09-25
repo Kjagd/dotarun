@@ -34,7 +34,7 @@ end
 
 function GiveRandomAbility(hero)
 
-	hasMaxAbilities = true;
+	local hasMaxAbilities = true;
 	for i = 1,6 do
 		if(hero:GetAbilityByIndex(i):GetAbilityName() == "empty_ability1") then
 			hasMaxAbilities = false
