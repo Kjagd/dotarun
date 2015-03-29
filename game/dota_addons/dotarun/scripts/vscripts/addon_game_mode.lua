@@ -83,6 +83,7 @@ function CDotaRun:InitGameMode()
 	GameRules:SetCustomGameEndDelay( 0 )
 	GameRules:SetCustomVictoryMessageDuration( 0 )
 	GameRules:SetHideKillMessageHeaders( true )
+	GameRules:SetSameHeroSelectionEnabled( true )
 
 
 
@@ -105,7 +106,7 @@ function CDotaRun:InitGameMode()
 
 	self.playerDistances = {}
 
-	GameRules:SetSameHeroSelectionEnabled( true )
+
 	-- DebugDrawText(Vector(-5464,-6529,20), "Get items and abilities by running through these", false, -1) 
 
 	self.playerCount = 0
@@ -311,8 +312,14 @@ function CDotaRun:BlueShell(playerPositions)
 		playerID = PlayerResource:GetNthPlayerIDOnTeam(t.teamID, 1)
 		if (playerID ~= nil) then	
 			if(playerID ~= -1) then
-				PlayerResource:GetPlayer(playerID):GetAssignedHero():SetBaseMoveSpeed(speed)
-				speed = speed + 10
+				local player = PlayerResource:GetPlayer(playerID)
+				if (player ~= nil) then
+					local hero = PlayerResource:GetPlayer(playerID):GetAssignedHero()
+					if (hero ~= nil) then
+						hero:SetBaseMoveSpeed(speed)
+						speed = speed + 10
+					end
+				end
 				--Note that this actually works, but the movement display is not altered :D
 			end
 		end
