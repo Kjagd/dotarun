@@ -19,5 +19,7 @@
 		"Ability7"					""
 
 		"MovementSpeed"			"360"
+
+		"AttackCapabilities"    	"DOTA_UNIT_CAP_NO_ATTACK"
 	}
 }
