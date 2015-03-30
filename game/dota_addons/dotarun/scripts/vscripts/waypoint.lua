@@ -14,6 +14,7 @@ function WaypointOneTouch(trigger)
     lastMan(1, trigger.activator)
 
     print(GameRules.dotaRun.waypoints[playerID][1])
+    print("id" .. playerID)
     -- print(GameRules.dotaRun.waypoints[playerID][2])
     -- print(GameRules.dotaRun.waypoints[playerID][3])
 
@@ -59,6 +60,7 @@ function WaypointTwoTouch(trigger)
 
     
     print(GameRules.dotaRun.waypoints[playerID][1])
+    print("id" .. playerID)
     print(GameRules.dotaRun.waypoints[playerID][2])
     -- print(GameRules.dotaRun.waypoints[playerID][3])
      
@@ -104,6 +106,7 @@ function WaypointThreeTouch(trigger)
 
 
     print(GameRules.dotaRun.waypoints[playerID][1])
+    print("id" .. playerID)
     print(GameRules.dotaRun.waypoints[playerID][2])
     print(GameRules.dotaRun.waypoints[playerID][3])
      
