@@ -126,7 +126,7 @@ function CDotaRun:InitGameMode()
 	initPudges()
 
 	CDotaRun:ResetRound()
-
+	
 
 	ListenToGameEvent('dota_item_used', Dynamic_Wrap(CDotaRun, 'OnItemUsed'), self)
 	ListenToGameEvent("npc_spawned", Dynamic_Wrap(CDotaRun, 'OnNPCSpawned'), self)
@@ -505,7 +505,7 @@ function CDotaRun:FindTrees()
 end
 
 function CDotaRun:ResetRound()
-
+	
 	GameRules.dotaRun.lead = -1
 
 	GameRules.dotaRun.TaTrapFired = false
