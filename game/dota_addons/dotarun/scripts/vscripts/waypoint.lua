@@ -13,7 +13,7 @@ function WaypointOneTouch(trigger)
     
     lastMan(1, trigger.activator)
 
-    -- print(GameRules.dotaRun.waypoints[playerID][1])
+    print(GameRules.dotaRun.waypoints[playerID][1])
     -- print(GameRules.dotaRun.waypoints[playerID][2])
     -- print(GameRules.dotaRun.waypoints[playerID][3])
 
@@ -58,8 +58,8 @@ function WaypointTwoTouch(trigger)
     lastMan(2, trigger.activator)
 
     
-    -- print(GameRules.dotaRun.waypoints[playerID][1])
-    -- print(GameRules.dotaRun.waypoints[playerID][2])
+    print(GameRules.dotaRun.waypoints[playerID][1])
+    print(GameRules.dotaRun.waypoints[playerID][2])
     -- print(GameRules.dotaRun.waypoints[playerID][3])
      
           
@@ -103,9 +103,9 @@ function WaypointThreeTouch(trigger)
     lastMan(3, trigger.activator)
 
 
-    -- print(GameRules.dotaRun.waypoints[playerID][1])
-    -- print(GameRules.dotaRun.waypoints[playerID][2])
-    -- print(GameRules.dotaRun.waypoints[playerID][3])
+    print(GameRules.dotaRun.waypoints[playerID][1])
+    print(GameRules.dotaRun.waypoints[playerID][2])
+    print(GameRules.dotaRun.waypoints[playerID][3])
      
 end           
             
@@ -170,6 +170,7 @@ function lastMan(waypointID, hero)
 end
 
 function WinHere(trigger)
+    --trying to comment GetNthPlayerIDOnTeam out
 
 
     local playerID = trigger.activator:GetPlayerID()
@@ -186,32 +187,51 @@ function WinHere(trigger)
     
 
 
-    if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3]) then
+    --if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3]) then
+        --print("pre DistributePoints")
         DistributePoints()
+        --print("post DistributePoints")
         local messageSend = false
         local maxPoints = {}
         maxPoints[1] = {teamID = -1, points = 0}
+        --print("PRE FOR")
         for i = DOTA_TEAM_GOODGUYS, DOTA_TEAM_CUSTOM_8 do
-            if (GameRules.dotaRun.points[i] >= maxPoints[1].points) then
-                maxPoints[1] = { teamID = i, points = GameRules.dotaRun.points[i] }
+            if (i ~= 5) then
+                if (GameRules.dotaRun.points[i] >= maxPoints[1].points) then
+                    --print("if1")
+                    --print("i: " .. i)
+                    --print("points: " .. GameRules.dotaRun.points[i])
+                    maxPoints[1] = { teamID = i, points = GameRules.dotaRun.points[i] }
+                end
             end
         end
+        --print("post FOR")
+
+        --print("max: " .. maxPoints[1].points)
+        --print("pointstowin: " .. GameRules.dotaRun.pointsToWin)
 
         if (maxPoints[1].points >= GameRules.dotaRun.pointsToWin) then
+            --print("if2")
             GameRules:SetSafeToLeave( true )
+            --print("if2-2")
             GameRules:SetGameWinner(maxPoints[1].teamID)
-            setCameraToWin(PlayerResource:GetNthPlayerIDOnTeam(maxPoints[1].teamID, 1):GetAssignedHero())
-            GameRules:SetCustomVictoryMessage( GameRules.dotaRun.m_VictoryMessages[maxPoints[1].teamID] )
+            --print("if2-3")
+            --setCameraToWin(PlayerResource:GetNthPlayerIDOnTeam(maxPoints[1].teamID, 1):GetAssignedHero()) --this line is fucked
+            GameRules:SetCustomVictoryMessage( GameRules.dotaRun.m_VictoryMessages[maxPoints[1].teamID] ) 
+            --print("if2-4")
         else
+            --print("else")
             if (not messageSend and maxPoints[1].points >= GameRules.dotaRun.pointsToWin-10) then
-                ShowCustomHeaderMessage( "#CloseToWin", PlayerResource:GetNthPlayerIDOnTeam(maxPoints[1].teamID), -1, 5 )
+                ShowCustomHeaderMessage( "#CloseToWin", PlayerResource:GetNthPlayerIDOnTeam(maxPoints[1].teamID, 1), -1, 5 )
                 messageSend = true
             end
 
             EmitGlobalSound( "ui.npe_objective_complete" )
+            --print("pre newLap")
             NewLap()
+            --print("post newLap")
         end
-    end 
+    --end 
 
 
     -- if (GameRules.dotaRun.laps[teamNumber] == 1) then
@@ -253,13 +273,17 @@ function DistributePoints()
     playerPositions = GameRules.dotaRun:SortPositions()
     local points = 10
     for key, t in pairs( playerPositions ) do
-        GameRules.dotaRun.points[t.teamID] = GameRules.dotaRun.points[t.teamID] + points
-        if key == 1 then
-            points = 7
-        elseif key == 2 then
-            points = 5
-        elseif points <= 5 and points > 0 then
-            points = points - 1
+        if (t.teamID ~= 5) then
+            print("teamID " .. t.teamID .. " points before: " .. GameRules.dotaRun.points[t.teamID])
+            GameRules.dotaRun.points[t.teamID] = GameRules.dotaRun.points[t.teamID] + points
+            print("teamID " .. t.teamID .. " points after: " .. GameRules.dotaRun.points[t.teamID])
+            if key == 1 then
+                points = 7
+            elseif key == 2 then
+                points = 5
+            elseif points <= 5 and points > 0 then
+                points = points - 1
+            end
         end
     end
 end
@@ -326,7 +350,9 @@ function teleportHero(hero, point, playerID)
 end
 
 function NewLap()
+    print("pre ResetRound")
     GameRules.dotaRun:ResetRound() 
+    print("post ResetRound")
 
     for i = 0,9 do
         local player = PlayerResource:GetPlayer(i)
