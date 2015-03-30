@@ -3,6 +3,7 @@
 
 require('timers')
 require('pudge')
+require('shakers')
 if CDotaRun == nil then
 	CDotaRun = class({})
 end
@@ -18,6 +19,7 @@ function Precache( context )
 	PrecacheUnitByNameSync("npc_dota_hero_necrolyte", context)
 	PrecacheUnitByNameSync("npc_dota_hero_obsidian_destroyer", context)
 	PrecacheUnitByNameSync("npc_dota_hero_pudge", context)
+	PrecacheUnitByNameSync("npc_dota_hero_earthshaker", context)
 	PrecacheUnitByNameSync("npc_dota_hero_templar_assassin", context)
 
 	-- PrecacheItemByNameSync("mirana_arrow", context)
@@ -84,6 +86,8 @@ function CDotaRun:InitGameMode()
 	GameRules:SetCustomVictoryMessageDuration( 0 )
 	GameRules:SetHideKillMessageHeaders( true )
 	GameRules:SetSameHeroSelectionEnabled( true )
+	GameRules:GetGameModeEntity():SetTopBarTeamValuesOverride( true )
+	GameRules:GetGameModeEntity():SetTopBarTeamValuesVisible( false )
 
 
 
@@ -124,9 +128,10 @@ function CDotaRun:InitGameMode()
 	
 
 	initPudges()
+	initShakers()
 
 	CDotaRun:ResetRound()
-	
+
 
 	ListenToGameEvent('dota_item_used', Dynamic_Wrap(CDotaRun, 'OnItemUsed'), self)
 	ListenToGameEvent("npc_spawned", Dynamic_Wrap(CDotaRun, 'OnNPCSpawned'), self)
@@ -257,7 +262,7 @@ end
 function CDotaRun:CalculatePositions()
 
 	-- Waypoints are indexed from zero because it matches playerID but playerDistance is indexed from 1 because we use lua list functions on it
-	for i = 0,9 do
+	for i = 0,(DOTA_MAX_TEAM_PLAYERS-1) do
 		local player = PlayerResource:GetPlayer(i)
 		if (player ~= nil and player:GetAssignedHero() ~= nil) then
 			if (GameRules.dotaRun.waypoints[i][3]) then
@@ -505,13 +510,13 @@ function CDotaRun:FindTrees()
 end
 
 function CDotaRun:ResetRound()
-	
+
 	GameRules.dotaRun.lead = -1
 
 	GameRules.dotaRun.TaTrapFired = false
 
 
-	for i = 0, 9 do
+	for i = 0, (DOTA_MAX_TEAM_PLAYERS-1) do 
     	GameRules.dotaRun.waypoints[i] = {}
     	GameRules.dotaRun.spawned[i] = false
 		GameRules.dotaRun.zoneOpen[i] = true
@@ -724,7 +729,7 @@ function CDotaRun:On_game_rules_state_change( data )
 
 	if GameRules:State_Get() >= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS and  GameRules:State_Get() < DOTA_GAMERULES_STATE_POST_GAME then
 		GameRules.dotaRun:FindTrees()
-		for i = 0,9 do
+		for i = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
 			player = PlayerResource:GetPlayer(i)
 			if (player ~=nil) then
 				hero = player:GetAssignedHero()
