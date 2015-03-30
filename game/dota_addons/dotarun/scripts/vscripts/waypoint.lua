@@ -187,7 +187,7 @@ function WinHere(trigger)
     
 
 
-    --if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3]) then
+    if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3]) then
         --print("pre DistributePoints")
         DistributePoints()
         --print("post DistributePoints")
@@ -231,7 +231,7 @@ function WinHere(trigger)
             NewLap()
             --print("post newLap")
         end
-    --end 
+    end 
 
 
     -- if (GameRules.dotaRun.laps[teamNumber] == 1) then
