@@ -4,6 +4,7 @@
 require('timers')
 require('pudge')
 require('shakers')
+require('centaurs')
 if CDotaRun == nil then
 	CDotaRun = class({})
 end
@@ -129,6 +130,7 @@ function CDotaRun:InitGameMode()
 
 	initPudges()
 	initShakers()
+	initCents()
 
 	CDotaRun:ResetRound()
 
