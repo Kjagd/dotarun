@@ -1,0 +1,25 @@
+// Dota Heroes File
+// NOTE: This is not for creating new heroes, this is for taking a currently existing hero as a template and overriding
+// the specified key-value combinations.  Use override_hero <hero_to_override> for this.
+"DOTAHeroes"
+{
+	//=================================================================================================================
+	// HERO: Mirana
+	//=================================================================================================================
+	"npc_dota_hero_mirana_runner"
+	{
+		"override_hero"				"npc_dota_hero_mirana"			// Hero to override
+		"AbilityLayout"				"6"
+		"Ability1"					""											
+		"Ability2"					""
+		"Ability3"					""
+		"Ability4"					""
+		"Ability5"					"Immunity"
+		"Ability6"					""
+		"Ability7"					""
+
+		"MovementSpeed"			 	"360"
+
+		"AttackCapabilities"    	"DOTA_UNIT_CAP_NO_ATTACK"
+	}
+}
