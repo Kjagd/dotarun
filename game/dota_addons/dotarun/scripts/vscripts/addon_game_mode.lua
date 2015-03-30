@@ -5,6 +5,7 @@ require('timers')
 require('pudge')
 require('shakers')
 require('centaurs')
+--require('magnus')
 if CDotaRun == nil then
 	CDotaRun = class({})
 end
@@ -22,6 +23,7 @@ function Precache( context )
 	PrecacheUnitByNameSync("npc_dota_hero_pudge", context)
 	PrecacheUnitByNameSync("npc_dota_hero_earthshaker", context)
 	PrecacheUnitByNameSync("npc_dota_hero_templar_assassin", context)
+	PrecacheUnitByNameSync("npc_dota_hero_magnataur", context)
 
 	-- PrecacheItemByNameSync("mirana_arrow", context)
 	-- PrecacheItemByNameSync("venomancer_venomous_gale", context)
@@ -131,6 +133,7 @@ function CDotaRun:InitGameMode()
 	initPudges()
 	initShakers()
 	initCents()
+	--initMagnus()
 
 	CDotaRun:ResetRound()
 

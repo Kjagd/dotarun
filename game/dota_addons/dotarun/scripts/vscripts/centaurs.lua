@@ -1,20 +1,30 @@
 local cents = {}
+local boss = {}
 local stompAbilities = {}
 local positions = {Vector(3400,-3700,200), Vector(3120, -3266, 200), 
 Vector(2600, -2480, 200), Vector(4180, -3100, 200),
-Vector(4740, -4100, 200)}
-local numCents = 5
+Vector(4740, -4100, 200), Vector(2090, -3888, 200),
+Vector(4564, -3600, 200), Vector(4560, -3075,200),
+Vector(4560, -2544, 200),  Vector(4578, -1039, 200)} --Last pos is boss
+local numCents = 10
 
 function initCents() 
-	for i = 1, numCents do
+	for i = 1, numCents-1 do
 		cents[i] = CreateUnitByName("stomp_cent", positions[i], true, nil, nil, 1)
 		stompAbilities[i] = cents[i]:FindAbilityByName("cent_stomp")
 		stompAbilities[i]:SetLevel(1)
 		print("cent " .. i .. " created")
-		cents[i]:AddAbility("Invulnerable") 
 		ability = cents[i]:FindAbilityByName("Invulnerable") 
 		ability:SetLevel(1)
 	end
+
+	cents[numCents] = CreateUnitByName("stomp_cent_boss", positions[numCents], true, nil, nil, 1)
+	stompAbilities[numCents] = cents[numCents]:FindAbilityByName("cent_stomp_2")
+	stompAbilities[numCents]:SetLevel(1)
+
+	ability = cents[numCents]:FindAbilityByName("Invulnerable") 
+	ability:SetLevel(1)
+
 	startPatrol()
 end
 
