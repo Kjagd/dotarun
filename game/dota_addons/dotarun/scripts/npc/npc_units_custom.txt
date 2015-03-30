@@ -104,6 +104,85 @@
 		"VoiceFile"				"scripts/voscripts/game_sounds_vo_earthshaker.txt"
 	}
 
+	//=================================================================================================================
+	// HERO: Magnus
+	//=================================================================================================================
+	"skewer_magnus"
+	{																		
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"Model"						"models/heroes/magnataur/magnataur.mdl"			// Model.
+		"SoundSet"					"Hero_Magnataur"							// Name of sound set.
+		"BaseClass"					"npc_dota_creep_neutral"
+		"Enabled"					"1"
+		"HeroUnlockOrder"			"0"
+		"Role"						"Initiator,Disabler,Nuker,Carry"
+		"Rolelevels"				"3,1,1,1"
+		"Team"						"Bad"
+		"Portrait"					"vgui/hud/heroportraits/portrait_centaur"
+		"ModelScale" 				"0.92"
+		"LoadoutScale"			"0.90"
+		"NameAliases"				"magnataur, magnus"
+		"url"						"Magnus"
+		"PickSound"					"magnataur_magn_spawn_06"
+		"BanSound"					"magnataur_magn_anger_07"
+		"CMEnabled"					"1"
+		"LastHitChallengeRival"		"npc_dota_hero_tidehunter"
+		"HeroSelectSoundEffect"		"Hero_Magnataur.Pick"
+
+		// Abilities
+		//-------------------------------------------------------------------------------------------------------------
+		"Ability1"					"skew"						// Ability 1
+		"Ability2"					"Invulnerable"							// Ability 2
+		"Ability3"					""					// Ability 3
+		"Ability4"					""					// Ability 4
+		"Ability5"					""	
+
+
+		// Armor
+		//-------------------------------------------------------------------------------------------------------------
+		"ArmorPhysical"				"2"										// Physical protection.
+
+		// Attack
+		//-------------------------------------------------------------------------------------------------------------
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"			"28"									// Damage range min.
+		"AttackDamageMax"			"40"									// Damage range max.	
+		"AttackRate"				"1.7"									// Speed of attack.
+		"AttackAnimationPoint"		"0.5"									// Normalized time in animation cycle to attack.
+		"AttackAcquisitionRange"	"600"									// Range within a target can be acquired.
+		"AttackRange"				"128"									// Range within a target can be attacked.
+	
+
+		// Attributes
+		//-------------------------------------------------------------------------------------------------------------
+		"AttributePrimary"			"DOTA_ATTRIBUTE_STRENGTH"
+		"AttributeBaseStrength"		"21"									// Base strength
+		"AttributeStrengthGain"		"2.75"									// Strength bonus per level.
+		"AttributeBaseIntelligence"	"19"									// Base intelligence
+		"AttributeIntelligenceGain"	"1.65"									// Intelligence bonus per level.
+		"AttributeBaseAgility"		"15"									// Base agility
+		"AttributeAgilityGain"		"2.5"									// Agility bonus per level.
+
+			// Vision
+		//-------------------------------------------------------------------------------------------------------------
+		"VisionDaytimeRange"		"1800"									// Range of vision during day light.
+		"VisionNighttimeRange"		"800"									// Range of vision at night time.
+
+		// Movement
+		//-------------------------------------------------------------------------------------------------------------
+		"MovementSpeed"				"315"									// Speed.
+		"MovementTurnRate"			"0.8"									// Turning rate.
+		
+		"BoundsHullName"			"DOTA_HULL_SIZE_HERO"
+		"HealthBarOffset"			"220"
+
+		"GameSoundsFile"			"scripts/game_sounds_heroes/game_sounds_magnataur.txt"
+		"ParticleFile"				"particles/units/heroes/hero_magnataur.pcf"
+		"GameSoundsFile"			"scripts/game_sounds_heroes/game_sounds_magnataur.txt"
+		"VoiceFile" 				"scripts/voscripts/game_sounds_vo_magnataur.txt"
+	}
+
 //=================================================================================
 // Neutral: Centaur Chief
 //=================================================================================
@@ -115,7 +194,7 @@
 		"BaseClass"					"npc_dota_creep_neutral"
 		"SoundSet"					"n_creep_Melee"
 		"Level"						"5"
-		"ModelScale" 					"1"
+		"ModelScale" 				"1"
 		"IsNeutralUnitType"			"1"
 
 		// Abilities
@@ -136,6 +215,71 @@
 		// Bounds
 		//----------------------------------------------------------------
 		"RingRadius"				"80"
+		"HealthBarOffset"			"220"
+
+		// Bounty
+		//----------------------------------------------------------------
+		"BountyXP"					"119"		// Experience earn.
+		"BountyGoldMin"				"66"		// Gold earned min.
+		"BountyGoldMax"				"78"		// Gold earned max.
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"420"		// Speed.
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"				"1100"		// Base health.
+		"StatusHealthRegen"			"1"			// Health regeneration rate.
+		"StatusMana"				"200"		// Base mana.
+		"StatusManaRegen"			"0.0"		// Mana regeneration rate.		 
+		
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"		"800"		// Range of vision during day light.
+		"VisionNighttimeRange"		"800"		// Range of vision at night time.
+
+		// Team
+		//----------------------------------------------------------------
+		"TeamName"					"DOTA_TEAM_NEUTRALS"							// Team name.
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_LIGHT"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_STRONG"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+	}
+
+	//=================================================================================
+// Neutral: Centaur Chief
+//=================================================================================
+	"stomp_cent_boss"
+	{										
+		// General
+		//----------------------------------------------------------------
+		"Model"						"models/creeps/neutral_creeps/n_creep_centaur_lrg/n_creep_centaur_lrg.mdl"	// Model.
+		"BaseClass"					"npc_dota_creep_neutral"
+		"SoundSet"					"n_creep_Melee"
+		"Level"						"25"
+		"ModelScale" 				"2.5"
+		"IsNeutralUnitType"			"1"
+
+		// Abilities
+		//----------------------------------------------------------------
+		"Ability1"					"cent_stomp_2"			// Ability 1
+		"Ability2"					"Invulnerable"			// Ability 2
+		"Ability3"					""			// Ability 3
+		"Ability4"					""			// Ability 4
+
+		// Armor
+		//----------------------------------------------------------------
+		"ArmorPhysical"				"4"			// Physical protection.
+
+		// Attack
+		//----------------------------------------------------------------
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"  
+
+		// Bounds
+		//----------------------------------------------------------------
+		"RingRadius"				"300"
 		"HealthBarOffset"			"220"
 
 		// Bounty
