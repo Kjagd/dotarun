@@ -5,7 +5,7 @@ require('timers')
 require('pudge')
 require('shakers')
 require('centaurs')
-require('magnus')
+--require('magnus')
 if CDotaRun == nil then
 	CDotaRun = class({})
 end
@@ -135,7 +135,7 @@ function CDotaRun:InitGameMode()
 	initPudges()
 	initShakers()
 	initCents()
-	initMagnus()
+	--initMagnus()
 
 	CDotaRun:ResetRound()
 
