@@ -1,7 +1,7 @@
 local magnus = {}
 local skewerAbilities = {}
 local positions = {Vector(4593,20, 300)} 
-local target = {Vector(4593, 2586, 300)}
+local target = Vector(4593, 2586, 300)
 local numMagnus = 1
 
 function initMagnus() 
@@ -14,29 +14,29 @@ function initMagnus()
 		ability:SetLevel(1)
 	end
 	
-	startPatrol()
+	startPatrol_mag()
 end
 
-function act(magnusNum) 
+function act_mag(magnusNum) 
 	magnus[magnusNum]:CastAbilityOnPosition(target, skewerAbilities[magnusNum], 0)
-	Timers:CreateTimer(1, function()
+	Timers:CreateTimer(10, function()
 		magnus[magnusNum]:MoveToPosition(positions[magnusNum])
 		return 
 	end
 	)
 end
 
-function patrol(magnusNum)
-	Timers:CreateTimer(0, function()
-		act(magnusNum)
+function patrol_mag(magnusNum)
+	Timers:CreateTimer(10, function()
+		act_mag(magnusNum)
 		return 8
 	end
 	)
 end
 
 
-function startPatrol()
+function startPatrol_mag()
 	for i = 1, numMagnus do
-		patrol(i)
+		patrol_mag(i)
 	end
 end
