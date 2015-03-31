@@ -5,7 +5,7 @@ require('timers')
 require('pudge')
 require('shakers')
 require('centaurs')
---require('magnus')
+require('magnus')
 if CDotaRun == nil then
 	CDotaRun = class({})
 end
@@ -133,7 +133,7 @@ function CDotaRun:InitGameMode()
 	initPudges()
 	initShakers()
 	initCents()
-	--initMagnus()
+	initMagnus()
 
 	CDotaRun:ResetRound()
 
@@ -519,6 +519,8 @@ function CDotaRun:ResetRound()
 	GameRules.dotaRun.lead = -1
 
 	GameRules.dotaRun.TaTrapFired = false
+
+	GameRules.dotaRun.playerCount = 0
 
 
 	for i = 0, (DOTA_MAX_TEAM_PLAYERS-1) do 
