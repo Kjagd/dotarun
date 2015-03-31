@@ -109,7 +109,9 @@ function CDotaRun:InitGameMode()
 
 	self.distanceFromOneToTwo = 12406
 	self.distanceFromTwoToThree = 12452
-	self.distanceFromThreeToGoal = 10639
+	self.distanceFromThreeToFour = 9000
+	self.distanceFromFourToFive = 9500
+	self.distanceFromFiveToGoal = 7300
 
 	self.playerDistances = {}
 
@@ -270,19 +272,26 @@ function CDotaRun:CalculatePositions()
 	for i = 0,(DOTA_MAX_TEAM_PLAYERS-1) do
 		local player = PlayerResource:GetPlayer(i)
 		if (player ~= nil and player:GetAssignedHero() ~= nil) then
-			if (GameRules.dotaRun.waypoints[i][3]) then
+
+			if (GameRules.dotaRun.waypoints[i][5]) then
 				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "win" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+			elseif (GameRules.dotaRun.waypoints[i][4]) then
+				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint5" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+					+ self.distanceFromFiveToGoal
+			elseif (GameRules.dotaRun.waypoints[i][3]) then
+				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint3" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+					+ self.distanceFromFiveToGoal + self.distanceFromFourToFive
 			elseif (GameRules.dotaRun.waypoints[i][2]) then
 				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint3" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromThreeToGoal
+					+ self.distanceFromFiveToGoal + self.distanceFromFourToFive + self.distanceFromThreeToFour
 			elseif (GameRules.dotaRun.waypoints[i][1]) then
 				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint2" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromThreeToGoal + self.distanceFromTwoToThree
+					+ self.distanceFromFiveToGoal + self.distanceFromFourToFive + self.distanceFromThreeToFour + self.distanceFromTwoToThree
 			else 
 				local distance = (Entities:FindByName( nil, "waypoint1" ):GetOrigin() 
 					- player:GetAssignedHero():GetOrigin()):Length2D()
 				GameRules.dotaRun.playerDistances[i+1] = distance
-					+ self.distanceFromThreeToGoal + self.distanceFromTwoToThree + self.distanceFromOneToTwo
+					+ self.distanceFromFiveToGoal + self.distanceFromFourToFive + self.distanceFromThreeToFour + self.distanceFromTwoToThree + self.distanceFromOneToTwo
 				-- print("Vector length: ", distance)
 				-- print("3-goal: " .. self.distanceFromThreeToGoal)
 				-- print("2-3: " .. self.distanceFromTwoToThree)
@@ -529,7 +538,7 @@ function CDotaRun:ResetRound()
 		GameRules.dotaRun.zoneOpen[i] = true
 
 
-    	for j = 1, 3 do
+    	for j = 1, 5 do
     		GameRules.dotaRun.waypoints[i][j] = false -- Fill the values here
     	end
 
@@ -539,7 +548,7 @@ function CDotaRun:ResetRound()
 		GameRules.dotaRun.playerDistances[i] = 0
 	end
 
-	for i = 1, 3 do
+	for i = 1, 5 do
 		GameRules.dotaRun.waypointleader[i] = false
 	end
 end

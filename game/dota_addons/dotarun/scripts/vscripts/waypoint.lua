@@ -14,32 +14,7 @@ function WaypointOneTouch(trigger)
     lastMan(1, trigger.activator)
 
     print(GameRules.dotaRun.waypoints[playerID][1])
-    print("id" .. playerID)
-    -- print(GameRules.dotaRun.waypoints[playerID][2])
-    -- print(GameRules.dotaRun.waypoints[playerID][3])
-
-            
-            -- if (trigger.activator:IsOwnedByAnyPlayer() ) then -- Checks to see if the entity is a player controlled unit
-            --     playerID = trigger.activator:GetPlayerID() 
-            --     player = PlayerResource:GetPlayer(playerID)
-            --     hero = player:GetAssignedHero() 
-            --     GameRules:MakeTeamLose(3)
-
-            --     --hero:AddExperience(5000, false)
-
-            --     hero:AddItem(CreateItem("item_ancient_janggo" ,hero ,hero)) 
-            --     print("Trying to create item")
-                
-            --     --hero:AddItem(item_blink) 
-            --     --trigger.activator:SetGold(trigger.activator:GetGold() + 5000, true) 
-
-            -- else
-            --     trigger.activator:SetGold(trigger.activator:GetGold() + 5000, true) 
-            --     print("Is not owned by player - Terminate")
-                
-            -- end  
-
-           
+    print("id" .. playerID)          
 end	
 
 function WaypointTwoTouch(trigger)
@@ -110,27 +85,49 @@ function WaypointThreeTouch(trigger)
     print(GameRules.dotaRun.waypoints[playerID][2])
     print(GameRules.dotaRun.waypoints[playerID][3])
      
-end           
+end    
+
+function WaypointFourTouch(trigger)
+     
+    playerID = trigger.activator:GetPlayerID() 
+
+    if (not GameRules.dotaRun.waypointleader[4]) then
+        GameRules.dotaRun.lead = playerID
+        GameRules.dotaRun.waypointleader[4] = true
+    end
+    -- print(playerID)
+    if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2]
+        and GameRules.dotaRun.waypoints[playerID][3]) then
+        GameRules.dotaRun.waypoints[playerID][4] = true
+    end
+    
+    lastMan(4, trigger.activator)
+
+    print(GameRules.dotaRun.waypoints[playerID][4])
+    print("id" .. playerID)          
+end 
+
+function WaypointFiveTouch(trigger)
+     
+    playerID = trigger.activator:GetPlayerID() 
+
+    if (not GameRules.dotaRun.waypointleader[5]) then
+        GameRules.dotaRun.lead = playerID
+        GameRules.dotaRun.waypointleader[5] = true
+    end
+    -- print(playerID)
+    if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2]
+        and GameRules.dotaRun.waypoints[playerID][3] and GameRules.dotaRun.waypoints[playerID][4]) then
+        GameRules.dotaRun.waypoints[playerID][5] = true
+    end
+    
+    lastMan(1, trigger.activator)
+
+    print(GameRules.dotaRun.waypoints[playerID][5])
+    print("id" .. playerID)          
+end        
             
-            -- if (trigger.activator:IsOwnedByAnyPlayer() ) then -- Checks to see if the entity is a player controlled unit
-            --     playerID = trigger.activator:GetPlayerID() 
-            --     player = PlayerResource:GetPlayer(playerID)
-            --     hero = player:GetAssignedHero() 
-            --     GameRules:MakeTeamLose(3)
-
-            --     --hero:AddExperience(5000, false)
-
-            --     hero:AddItem(CreateItem("item_ancient_janggo" ,hero ,hero)) 
-            --     print("Trying to create item")
-                
-            --     --hero:AddItem(item_blink) 
-            --     --trigger.activator:SetGold(trigger.activator:GetGold() + 5000, true) 
-
-            -- else
-            --     trigger.activator:SetGold(trigger.activator:GetGold() + 5000, true) 
-            --     print("Is not owned by player - Terminate")
-                
-            -- end  
+           
 
 function lastMan(waypointID, hero)
     local throughCount = 0
@@ -186,11 +183,15 @@ function WinHere(trigger)
     print(GameRules.dotaRun.waypoints[playerID][1])
     print(GameRules.dotaRun.waypoints[playerID][2])
     print(GameRules.dotaRun.waypoints[playerID][3])
-    print(GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3])
+    print(GameRules.dotaRun.waypoints[playerID][4])
+    print(GameRules.dotaRun.waypoints[playerID][5])
+    print(GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] 
+        and GameRules.dotaRun.waypoints[playerID][3] and GameRules.dotaRun.waypoints[playerID][4] and GameRules.dotaRun.waypoints[playerID][5])
     
 
 
-    if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3]) then
+    if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3]
+         and GameRules.dotaRun.waypoints[playerID][4] and GameRules.dotaRun.waypoints[playerID][5]) then
         --print("pre DistributePoints")
         DistributePoints()
         --print("post DistributePoints")
