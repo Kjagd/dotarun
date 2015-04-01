@@ -1,6 +1,6 @@
 -- Generated from template
 
-
+require('lib.statcollection')
 require('timers')
 require('pudge')
 require('shakers')
@@ -9,6 +9,10 @@ require('centaurs')
 if CDotaRun == nil then
 	CDotaRun = class({})
 end
+
+statcollection.addStats({
+    modID = 'XXXXXXXXXXXXXXXXXXX' --GET THIS FROM http://getdotastats.com/#d2mods__my_mods
+  })
 
 function Precache( context )
 	PrecacheUnitByNameSync("npc_dota_hero_venomancer", context)
