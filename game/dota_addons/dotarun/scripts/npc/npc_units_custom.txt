@@ -33,7 +33,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------	
 		"Model"					"models/heroes/earthshaker/earthshaker.mdl"				// Model.
-		"BaseClass"				"npc_dota_creep_neutral"
+		"BaseClass"				"npc_dota_creature"
 		"Portrait"				"vgui/hud/heroportraits/portrait_earthshaker"	// Small image for hero selection
 		"IdleExpression"		"scenes/earthshaker/earthshaker_exp_idle_01.vcd"		// custom facial animation idle
 		"SoundSet"				"Hero_Earthshaker"							// Name of sound set.
@@ -339,7 +339,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"Model"					"models/heroes/pudge/pudge.mdl"				// Model.		
-		"BaseClass"				"npc_dota_creep_neutral"
+		"BaseClass"				"npc_dota_creature"
 		"Portrait"				"vgui/hud/heroportraits/portrait_pudge"		// Small image for hero selection
 		"IdleExpression"		"scenes/pudge/pudge_exp_idle_01.vcd"		// custom facial animation idle
 		"SoundSet"				"Hero_Pudge"								// Name of sound set.
