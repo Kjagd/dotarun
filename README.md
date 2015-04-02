@@ -42,3 +42,6 @@ Now browse scipts/npc or whatever you need.
 #### Steam Workshop:
 
 [Workshop link](http://steamcommunity.com/sharedfiles/filedetails/?id=311707837)
+
+#### Credits: 
+Thanks do BMD for his Barebones mod and his Timers library [GitHub](https://github.com/bmddota/barebones)
