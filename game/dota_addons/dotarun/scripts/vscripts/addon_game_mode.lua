@@ -237,7 +237,7 @@ function CDotaRun:MakeLabelForPlayer( nPlayerID )
 
 	local teamID = PlayerResource:GetTeam( nPlayerID )
 	local color = self:ColorForTeam( teamID )
-	hero:SetCustomHealthLabel( GetTeamName( teamID ), color[1], color[2], color[3] )
+	hero:SetCustomHealthLabel( PlayerResource:GetPlayerName(nPlayerID), color[1], color[2], color[3] )
 end
 
 ---------------------------------------------------------------------------
@@ -362,7 +362,7 @@ function CDotaRun:SortPositions()
 			tempValue = value
 		end
 		-- Position is not shown atm but this is how it can be gotten
-		table.insert( playerPositions, { teamID = teamID, position = tempValue } )
+		table.insert( playerPositions, { teamID = teamID, position = tempValue, pName = PlayerResource:GetPlayerName(PlayerResource:GetNthPlayerIDOnTeam(teamID, 1)) } )
 	end
 
 	-- reverse-sort by distance
@@ -390,7 +390,8 @@ function CDotaRun:UpdateScoreboard(playerPositions)
 	for _, t in pairs( sortedTeams ) do
 		local clr = self:ColorForTeam( t.teamID )
 		if(PlayerResource:GetNthPlayerIDOnTeam(t.teamID, 1) ~= -1) then
-			UTIL_MessageTextAll_WithContext( "#ScoreboardRow", clr[1], clr[2], clr[3], 255, { team_id = t.teamID, value = t.teamScore } )
+			name = PlayerResource:GetPlayerName(PlayerResource:GetNthPlayerIDOnTeam(t.teamID, 1))
+			UTIL_MessageTextAll(t.teamScore.."\t"..name, clr[1], clr[2], clr[3], 255)
 		end
 	end
 
@@ -403,13 +404,13 @@ function CDotaRun:UpdateScoreboard(playerPositions)
 		if t.teamID == 5 then
 			
 		elseif key == 1 then
-			UTIL_MessageTextAll_WithContext( "#ScoreboardPositionFirst", clr[1], clr[2], clr[3], 255, { value = key, team_id = t.teamID } )
+			UTIL_MessageTextAll(key.."st\t"..t.pName, clr[1], clr[2], clr[3], 255)
 		elseif key == 2 then
-			UTIL_MessageTextAll_WithContext( "#ScoreboardPositionSecond", clr[1], clr[2], clr[3], 255, { value = key, team_id = t.teamID } )
+			UTIL_MessageTextAll(key.."nd\t"..t.pName, clr[1], clr[2], clr[3], 255)
 		elseif key == 3 then
-			UTIL_MessageTextAll_WithContext( "#ScoreboardPositionThird", clr[1], clr[2], clr[3], 255, { value = key, team_id = t.teamID } )
+			UTIL_MessageTextAll(key.."rd\t"..t.pName, clr[1], clr[2], clr[3], 255)
 		else 
-			UTIL_MessageTextAll_WithContext( "#ScoreboardPosition", clr[1], clr[2], clr[3], 255, { value = key, team_id = t.teamID } )
+			UTIL_MessageTextAll(key.."th\t"..t.pName, clr[1], clr[2], clr[3], 255)
 		end
 	end
 end
