@@ -39,6 +39,6 @@ To read all the KV-files in the game download gcfscape and open
 
 Now browse scipts/npc or whatever you need.
 
-#### Steam (Still only accesible for friends)?
+#### Steam Workshop:
 
 [Workshop link](http://steamcommunity.com/sharedfiles/filedetails/?id=311707837)
