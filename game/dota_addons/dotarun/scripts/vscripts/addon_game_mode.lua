@@ -10,9 +10,9 @@ if CDotaRun == nil then
 	CDotaRun = class({})
 end
 
-statcollection.addStats({
-    modID = 'XXXXXXXXXXXXXXXXXXX' --GET THIS FROM http://getdotastats.com/#d2mods__my_mods
-  })
+-- statcollection.addStats({
+--     modID = '19b0e2fdf5da5817c03127bb598102bd' --GET THIS FROM http://getdotastats.com/#d2mods__my_mods
+--   })
 
 function Precache( context )
 	PrecacheUnitByNameSync("npc_dota_hero_venomancer", context)
@@ -133,6 +133,8 @@ function CDotaRun:InitGameMode()
 	self.waypointleader = {}
 
 	self.lead = -1
+
+	self.numFinished = 0
 
 	
 
@@ -535,6 +537,7 @@ function CDotaRun:ResetRound()
 	GameRules.dotaRun.TaTrapFired = false
 
 	GameRules.dotaRun.playerCount = 0
+	GameRules.dotaRun.numFinished = 0
 
 
 	for i = 0, (DOTA_MAX_TEAM_PLAYERS-1) do 

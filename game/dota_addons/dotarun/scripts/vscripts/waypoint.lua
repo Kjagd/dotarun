@@ -170,13 +170,10 @@ function lastMan(waypointID, hero)
 end
 
 function WinHere(trigger)
-    --trying to comment GetNthPlayerIDOnTeam out
-
-
     local playerID = trigger.activator:GetPlayerID()
     local player = PlayerResource:GetPlayer(playerID)
     local hero = player:GetAssignedHero()
-    local teamNumber = hero:GetTeamNumber()
+    local teamNumber = PlayerResource:GetTeam(playerID)
 
     print("WinHere")
     print(playerID)
@@ -192,50 +189,75 @@ function WinHere(trigger)
 
     if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3]
          and GameRules.dotaRun.waypoints[playerID][4] and GameRules.dotaRun.waypoints[playerID][5]) then
-        --print("pre DistributePoints")
-        DistributePoints()
-        --print("post DistributePoints")
-        local messageSend = false
-        local maxPoints = {}
-        maxPoints[1] = {teamID = -1, points = 0}
-        --print("PRE FOR")
-        for i = DOTA_TEAM_GOODGUYS, DOTA_TEAM_CUSTOM_8 do
-            if (i ~= 5) then
-                if (GameRules.dotaRun.points[i] >= maxPoints[1].points) then
-                    --print("if1")
-                    --print("i: " .. i)
-                    --print("points: " .. GameRules.dotaRun.points[i])
-                    maxPoints[1] = { teamID = i, points = GameRules.dotaRun.points[i] }
-                end
+        DistributePoints(teamNumber)
+        GameRules.dotaRun.numFinished = GameRules.dotaRun.numFinished + 1
+        local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
+        teleportHero(hero, point, playerID)
+        hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
+
+        --team id wrong
+        --make if
+        if (GameRules.dotaRun.numFinished == 1) then
+            ShowCustomHeaderMessage( "#Finished", playerID, -1, 5 )
+            Timers:CreateTimer(12, function()
+                GameRules.dotaRun:ShowCenterMessage("3", 1)
+                return 
+            end
+            )
+            Timers:CreateTimer(13, function()
+                GameRules.dotaRun:ShowCenterMessage("2", 1)
+                return 
+            end
+            )
+            Timers:CreateTimer(14, function()
+                GameRules.dotaRun:ShowCenterMessage("1", 1)
+                return 
+            end
+            )
+            Timers:CreateTimer(15, function()
+                StartReset()
+                return 
+            end
+            )
+        end
+    end
+end
+
+function StartReset()
+    local messageSend = false
+    local maxPoints = {}
+    maxPoints[1] = {teamID = -1, points = 0}
+    for i = DOTA_TEAM_GOODGUYS, DOTA_TEAM_CUSTOM_8 do
+        if (i ~= 5) then
+            if (GameRules.dotaRun.points[i] >= maxPoints[1].points) then
+                --print("i: " .. i)
+                --print("points: " .. GameRules.dotaRun.points[i])
+                maxPoints[1] = { teamID = i, points = GameRules.dotaRun.points[i] }
             end
         end
-        --print("post FOR")
+    end
 
-        --print("max: " .. maxPoints[1].points)
-        --print("pointstowin: " .. GameRules.dotaRun.pointsToWin)
+    --print("max: " .. maxPoints[1].points)
+    --print("pointstowin: " .. GameRules.dotaRun.pointsToWin)
 
-        if (maxPoints[1].points >= GameRules.dotaRun.pointsToWin) then
-            --print("if2")
-            GameRules:SetSafeToLeave( true )
-            --print("if2-2")
-            GameRules:SetGameWinner(maxPoints[1].teamID)
-            --print("if2-3")
-            --setCameraToWin(PlayerResource:GetNthPlayerIDOnTeam(maxPoints[1].teamID, 1):GetAssignedHero()) --this line is fucked
-            GameRules:SetCustomVictoryMessage( GameRules.dotaRun.m_VictoryMessages[maxPoints[1].teamID] ) 
-            --print("if2-4")
-        else
-            --print("else")
-            if (not messageSend and maxPoints[1].points >= GameRules.dotaRun.pointsToWin-10) then
-                ShowCustomHeaderMessage( "#CloseToWin", PlayerResource:GetNthPlayerIDOnTeam(maxPoints[1].teamID, 1), -1, 5 )
-                messageSend = true
-            end
-
-            EmitGlobalSound( "ui.npe_objective_complete" )
-            --print("pre newLap")
-            NewLap()
-            --print("post newLap")
+    if (maxPoints[1].points >= GameRules.dotaRun.pointsToWin) then
+        GameRules:SetSafeToLeave( true )
+        GameRules:SetGameWinner(maxPoints[1].teamID)
+        --setCameraToWin(PlayerResource:GetNthPlayerIDOnTeam(maxPoints[1].teamID, 1):GetAssignedHero()) --this line is fucked
+        GameRules:SetCustomVictoryMessage( GameRules.dotaRun.m_VictoryMessages[maxPoints[1].teamID] ) 
+    else
+        --print("else")
+        if (not messageSend and maxPoints[1].points >= GameRules.dotaRun.pointsToWin-10) then
+            ShowCustomHeaderMessage( "#CloseToWin", PlayerResource:GetNthPlayerIDOnTeam(maxPoints[1].teamID, 1), -1, 5 )
+            messageSend = true
         end
-    end 
+
+        EmitGlobalSound( "ui.npe_objective_complete" )
+        NewLap()
+    end
+end
+
+
 
 
     -- if (GameRules.dotaRun.laps[teamNumber] == 1) then
@@ -271,26 +293,43 @@ function WinHere(trigger)
         --         NewLap(DOTA_TEAM_GOODGUYS)
         --     end
         -- end 
-end
 
-function DistributePoints()
-    playerPositions = GameRules.dotaRun:SortPositions()
-    local points = 10
-    for key, t in pairs( playerPositions ) do
-        if (t.teamID ~= 5) then
-            print("teamID " .. t.teamID .. " points before: " .. GameRules.dotaRun.points[t.teamID])
-            GameRules.dotaRun.points[t.teamID] = GameRules.dotaRun.points[t.teamID] + points
-            print("teamID " .. t.teamID .. " points after: " .. GameRules.dotaRun.points[t.teamID])
-            if key == 1 then
-                points = 7
-            elseif key == 2 then
-                points = 5
-            elseif points <= 5 and points > 0 then
-                points = points - 1
-            end
-        end
+function DistributePoints(teamID)
+    if GameRules.dotaRun.numFinished == 0 then
+        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + 10
+    elseif GameRules.dotaRun.numFinished == 1 then
+        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + 7
+    elseif GameRules.dotaRun.numFinished == 2 then
+        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + 5
+    elseif GameRules.dotaRun.numFinished == 3 then
+        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + 4
+    elseif GameRules.dotaRun.numFinished == 4 then
+        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + 3
+    elseif GameRules.dotaRun.numFinished == 5 then
+        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + 2
+    elseif GameRules.dotaRun.numFinished == 6 then
+        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + 1
     end
 end
+
+-- function DistributePoints()
+--     playerPositions = GameRules.dotaRun:SortPositions()
+--     local points = 10
+--     for key, t in pairs( playerPositions ) do
+--         if (t.teamID ~= 5) then
+--             print("teamID " .. t.teamID .. " points before: " .. GameRules.dotaRun.points[t.teamID])
+--             GameRules.dotaRun.points[t.teamID] = GameRules.dotaRun.points[t.teamID] + points
+--             print("teamID " .. t.teamID .. " points after: " .. GameRules.dotaRun.points[t.teamID])
+--             if key == 1 then
+--                 points = 7
+--             elseif key == 2 then
+--                 points = 5
+--             elseif points <= 5 and points > 0 then
+--                 points = points - 1
+--             end
+--         end
+--     end
+-- end
 
 function setCameraToWin(hero)
     for i = 0, 9 do
@@ -371,7 +410,8 @@ function NewLap()
             --     GameRules.dotaRun.killHeroForWin = true
             -- else     
             local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
-            FindClearSpaceForUnit(hero, point, false)
+            teleportHero(hero, point, i)
+            --FindClearSpaceForUnit(hero, point, false)
             hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
 
             -- local hero = player:GetAssignedHero()
