@@ -25,6 +25,9 @@ end
 function hook() 
 	for i = 1, numPudges do
 		-- print("HOOKING " .. i)
+		if (pudges[i]:GetAbsOrigin() ~= positions[i]) then
+			FindClearSpaceForUnit(pudges[i], positions[i], false)
+		end
 		pudges[i]:CastAbilityOnPosition(hookPositions[i] + Vector(RandomInt(0, 500),RandomInt(0, 500),20), hookAbilities[i], 0)
 	end
 	-- pudge:CastAbilityOnTarget(unit, hookAbility, 0)
