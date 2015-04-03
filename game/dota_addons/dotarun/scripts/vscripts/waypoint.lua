@@ -139,7 +139,7 @@ function lastMan(waypointID, hero)
 
 
 
-    if (throughCount == GameRules.dotaRun.playerCount) then
+    if (throughCount == GameRules.dotaRun.m_NumAssignedPlayers) then
         local hasMaxAbilities = true;
         for i = 1,6 do
             if(hero:GetAbilityByIndex(i):GetAbilityName() == "empty_ability1") then
@@ -191,6 +191,9 @@ function WinHere(trigger)
          and GameRules.dotaRun.waypoints[playerID][4] and GameRules.dotaRun.waypoints[playerID][5]) then
         DistributePoints(teamNumber)
         GameRules.dotaRun.numFinished = GameRules.dotaRun.numFinished + 1
+        if (GameRules.dotaRun.numFinished == GameRules.dotaRun.m_NumAssignedPlayers) then
+            StartReset()
+        end 
         local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
         teleportHero(hero, point, playerID)
         hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
@@ -215,7 +218,9 @@ function WinHere(trigger)
             end
             )
             Timers:CreateTimer(15, function()
-                StartReset()
+                if (GameRules.dotaRun.numFinished ~= GameRules.dotaRun.m_NumAssignedPlayers) then
+                    StartReset()
+                end
                 return 
             end
             )
