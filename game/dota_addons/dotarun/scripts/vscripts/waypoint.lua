@@ -193,7 +193,7 @@ function WinHere(trigger)
         GameRules.dotaRun.numFinished = GameRules.dotaRun.numFinished + 1
         if (GameRules.dotaRun.numFinished == GameRules.dotaRun.m_NumAssignedPlayers) then
             StartReset()
-        else then
+        else
             local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
             teleportHero(hero, point, playerID)
             hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table)
