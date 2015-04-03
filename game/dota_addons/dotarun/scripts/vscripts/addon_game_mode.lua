@@ -220,6 +220,7 @@ function CDotaRun:GetTeamReassignmentForPlayer( playerID )
 	self.m_PlayerTeamAssignments[ playerID ] = teamAssignment
 
 	self.m_NumAssignedPlayers = self.m_NumAssignedPlayers + 1
+	print("m_NumAssignedPlayers: " .. self.m_NumAssignedPlayers)
 
 	return teamAssignment
 end
