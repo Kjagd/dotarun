@@ -136,6 +136,8 @@ function CDotaRun:InitGameMode()
 
 	self.numFinished = 0
 
+	self.hasAlreadyReset = false
+
 	
 
 	initPudges()
