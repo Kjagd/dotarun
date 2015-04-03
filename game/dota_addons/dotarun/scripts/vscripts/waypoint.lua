@@ -1,6 +1,10 @@
 
 
 function WaypointOneTouch(trigger)
+
+    if (GameRules.dotaRun.hasAlreadyReset) then
+        GameRules.dotaRun.hasAlreadyReset = false
+    end
      
     playerID = trigger.activator:GetPlayerID() 
 
@@ -193,6 +197,7 @@ function WinHere(trigger)
         GameRules.dotaRun.numFinished = GameRules.dotaRun.numFinished + 1
         if (GameRules.dotaRun.numFinished == GameRules.dotaRun.m_NumAssignedPlayers) then
             StartReset()
+            GameRules.dotaRun.hasAlreadyReset = true
         else
             local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
             teleportHero(hero, point, playerID)
@@ -217,7 +222,7 @@ function WinHere(trigger)
             end
             )
             Timers:CreateTimer(15, function()
-                if (GameRules.dotaRun.numFinished ~= GameRules.dotaRun.m_NumAssignedPlayers) then
+                if (not GameRules.dotaRun.hasAlreadyReset) then
                     StartReset()
                 end
                 return 
