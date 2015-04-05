@@ -7,11 +7,9 @@ function Fire(data)
   	end
 end
 
-
 local Points = {Vector(4058,6076,20),Vector(3286,6964,20),Vector(2286,6072,20),Vector(1470,6940,20), Vector(-1120,6724,20), Vector(-1097,6528,20), Vector(-1114,6361,20)}
 function FireAtPoint(data)
 	print("Arrow firing")
-	-- DeepPrintTable(data)
 	local target = data.caller
 	if target ~= nil then
 		if(string.find(thisEntity:GetName(), "two")) then

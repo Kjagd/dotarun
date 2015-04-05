@@ -1,8 +1,3 @@
---problems:
---alchemist_unstable_concoction
---invoker_deafening_blast
---invoker_tornado
-
 function GiveRandomItem(hero)
  	
  	local itemSlotsFull = GameRules.dotaRun:DoesHeroHaveMaxItems(hero)
@@ -22,14 +17,12 @@ function GiveRandomItem(hero)
 	    end
 	end
 	
-
 	if (alreadyHas) then 
 		GiveRandomItem(hero)
 	else
 		print("Adding item: " .. itemNew:GetClassname())
 	    hero:AddItem(itemNew)
 	end
-
 end
 
 function GiveRandomAbility(hero)
@@ -62,42 +55,22 @@ function GiveRandomAbility(hero)
 end
 
 function ItemZoneOne(trigger)
-
-	-- DeepPrintTable(trigger)
-
-
 	playerID = trigger.activator:GetPlayerID()
 	print("PlayerID: " .. playerID) 
 	hero = trigger.activator
 
-	-- hook(hero)
-
-	print("Entered Item Zone, can get new item: ", GameRules.dotaRun.zoneOpen[hero:GetPlayerID()])
-	print("PlayerID: " .. hero:GetPlayerID())
-	
 	if (GameRules.dotaRun.zoneOpen[hero:GetPlayerID()] == true) then
 		GiveRandomAbility(hero)
 		GiveRandomItem(hero)
 		GameRules.dotaRun.zoneOpen[hero:GetPlayerID()] = false
 		GameRules.dotaRun:StartZoneTimer(hero)
     end
-
-
-	-- if(zoneOpen[hero:GetPlayerID()] == nil) then
-	-- 	zoneOpen[hero:GetPlayerID()] = 0
-	-- end
-
-	-- if(zoneOpen[hero:GetPlayerID()] < 5) then
-	-- 	zoneOpen[hero:GetPlayerID()] = zoneOpen[hero:GetPlayerID()] + 1
-	-- 	print("items picked up by player " .. hero:GetPlayerID()..": "..zoneOpen[hero:GetPlayerID()])
-	-- 	GiveRandomItem(hero)
-	-- end
 end
 
 function WaterSlow(trigger)
 	print("Slowing")
 	hero = trigger.activator
-	GiveUnitSlow(hero, hero, "modifier_slow", 50)
+	GiveUnitSlow(hero, hero, "modifier_slow", 40)
 end
 
 function WaterUnslow(trigger)
@@ -112,10 +85,3 @@ function GiveUnitSlow(source, target, modifier,dur)
     local item = CreateItem( "item_apply_slow", source, source)
     item:ApplyDataDrivenModifier( source, target, modifier, {duration=dur} )
 end
-
-
--- function GiveImmunity(trigger)
--- 	hero = trigger.activator
--- 	local ability = hero:FindAbilityByName("Immunity")
--- 	ability:SetLevel(1)
--- end
