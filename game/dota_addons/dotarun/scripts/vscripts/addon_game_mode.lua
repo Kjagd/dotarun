@@ -96,8 +96,6 @@ function CDotaRun:InitGameMode()
 	GameRules:GetGameModeEntity():SetTopBarTeamValuesOverride( true )
 	GameRules:GetGameModeEntity():SetTopBarTeamValuesVisible( false )
 
-
-
 	self.TaTrapFired = false
 	self.itemList = { "item_blink", "item_cyclone", "item_shivas_guard", "item_sheepstick", "item_ancient_janggo", "item_rod_of_atos"}
 	self.spellList = {"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_gale_custom", "dark_seer_surge_custom", "jakiro_ice_path_custom", 
@@ -106,7 +104,6 @@ function CDotaRun:InitGameMode()
 	self.points = {}
 	for i = DOTA_TEAM_GOODGUYS, DOTA_TEAM_CUSTOM_8 do
     	self.points[i] = 0
-
 	end
 
 	self.pointsToWin = 30
@@ -118,9 +115,6 @@ function CDotaRun:InitGameMode()
 	self.distanceFromFiveToGoal = 7300
 
 	self.playerDistances = {}
-
-
-	-- DebugDrawText(Vector(-5464,-6529,20), "Get items and abilities by running through these", false, -1) 
 
 	self.playerCount = 0
 
@@ -138,8 +132,6 @@ function CDotaRun:InitGameMode()
 
 	self.hasAlreadyReset = false
 
-	
-
 	initPudges()
 	initShakers()
 	initCents()
@@ -147,21 +139,14 @@ function CDotaRun:InitGameMode()
 
 	CDotaRun:ResetRound()
 
-
 	ListenToGameEvent('dota_item_used', Dynamic_Wrap(CDotaRun, 'OnItemUsed'), self)
 	ListenToGameEvent("npc_spawned", Dynamic_Wrap(CDotaRun, 'OnNPCSpawned'), self)
-	-- ListenToGameEvent("game_start", Dynamic_Wrap(CDotaRun, 'On_game_start'), self)
 	ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(CDotaRun, 'On_game_rules_state_change'), self)
 	ListenToGameEvent("dota_player_used_ability", Dynamic_Wrap(CDotaRun, 'OnAbilityUsed'), self) 
-	-- ListenToGameEvent('player_connect_full', Dynamic_Wrap(CDotaRun, 'OnPlayerConnectFull'), self)
-	-- ListenToGameEvent('dota_player_used_ability', ApplyCooldownReduction, {} )
-
 
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, 1 )
 
 	print( "Dotarun has literally loaded." )
-
-	
 end
 
 
@@ -265,7 +250,6 @@ function CDotaRun:OnThink()
 	for nPlayerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
 		self:MakeLabelForPlayer( nPlayerID )
 	end
-
 	
 	playerPositions = self:SortPositions()
 	self:CalculatePositions()
@@ -275,8 +259,10 @@ function CDotaRun:OnThink()
 	return 1
 end
 
+---------------------------------------------------------------------------
+-- Calculate the distances from the waypoints
+---------------------------------------------------------------------------
 function CDotaRun:CalculatePositions()
-
 	-- Waypoints are indexed from zero because it matches playerID but playerDistance is indexed from 1 because we use lua list functions on it
 	for i = 0,(DOTA_MAX_TEAM_PLAYERS-1) do
 		local player = PlayerResource:GetPlayer(i)
@@ -301,39 +287,14 @@ function CDotaRun:CalculatePositions()
 					- player:GetAssignedHero():GetOrigin()):Length2D()
 				GameRules.dotaRun.playerDistances[i+1] = distance
 					+ self.distanceFromFiveToGoal + self.distanceFromFourToFive + self.distanceFromThreeToFour + self.distanceFromTwoToThree + self.distanceFromOneToTwo
-				-- print("Vector length: ", distance)
-				-- print("3-goal: " .. self.distanceFromThreeToGoal)
-				-- print("2-3: " .. self.distanceFromTwoToThree)
-				-- print("1-2: " .. self.distanceFromOneToTwo)
 			end 
-
-			-- distance = (Entities:FindByName( nil, "waypointHomeTeleport" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-			-- print("Player: " .. i .. " distance ", distance)
 		end
 	end
-
-	-- for i = DOTA_TEAM_GOODGUYS, DOTA_TEAM_CUSTOM_8 do
-	-- 	GameRules.dotaRun.playerPositions = GameRules.dotaRun.playerDistances[i]
-	-- end
-
-
-	-- Player positions not needed atm as Distance is also 1 indexed now
-
-	-- DeepPrintTable(GameRules.dotaRun.playerDistances)
-	-- for key, value in pairs( GameRules.dotaRun.playerDistances ) do
-	-- 	table.insert( GameRules.dotaRun.playerPositions, GameRules.dotaRun.playerDistances[key] )
-	-- end
-
-
-
-	-- for i = 1,DOTA_MAX_TEAM_PLAYERS do
-	-- 	GameRules.dotaRun.playerPositions[i] = GameRules.dotaRun.playerDistances[i]
-	-- end
-
-
-
 end
 
+---------------------------------------------------------------------------
+-- Modify basespeed based on position
+---------------------------------------------------------------------------
 function CDotaRun:BlueShell(playerPositions)
 	local speed = 360
 	for key, t in pairs( playerPositions ) do
@@ -354,6 +315,9 @@ function CDotaRun:BlueShell(playerPositions)
 	end
 end
 
+---------------------------------------------------------------------------
+-- Create and sort relevant player data
+---------------------------------------------------------------------------
 function CDotaRun:SortPositions() 
 	-- Note that playerPositions is recalculated everytime and is local
 	local playerPositions = {}
@@ -399,7 +363,6 @@ function CDotaRun:UpdateScoreboard(playerPositions)
 			UTIL_MessageTextAll(t.teamScore.."\t"..name, clr[1], clr[2], clr[3], 255)
 		end
 	end
-
 
 	UTIL_MessageTextAll( "#ScoreboardBreaker", 255, 255, 255, 255 )
 	UTIL_MessageTextAll( "#ScoreboardPositionHeader", 255, 255, 255, 255 )
@@ -453,26 +416,18 @@ function CDotaRun:GatherValidTeams()
 		foundTeams[  playerStart:GetTeam() ] = true
 	end
 
---	print( "GatherValidTeams - Found spawns for a total of " .. TableCount(foundTeams) .. " teams" )
-	
 	local foundTeamsList = {}
 	for t, _ in pairs( foundTeams ) do
 		table.insert( foundTeamsList, t )
 	end
 
 	self.m_GatheredShuffledTeams = ShuffledList( foundTeamsList )
-
-	-- print( "Final shuffled team list:" )
-	-- for _, team in pairs( self.m_GatheredShuffledTeams ) do
-	-- 	print( " - " .. team .. " ( " .. GetTeamName( team ) .. " )" )
-	-- end
 end
 
 ---------------------------------------------------------------------------
 -- Assign all real players to a team
 ---------------------------------------------------------------------------
 function CDotaRun:EnsurePlayersOnCorrectTeam()
---	print( "Assigning players to teams..." )
 	for playerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
 		local teamReassignment = self:GetTeamReassignmentForPlayer( playerID )
 		if nil ~= teamReassignment then
@@ -480,79 +435,26 @@ function CDotaRun:EnsurePlayersOnCorrectTeam()
 			PlayerResource:SetCustomTeamAssignment( playerID, teamReassignment )
 		end
 	end
-	
 	return 1 -- Check again later in case more players spawn
 end
 
-
-
-
-
-function CDotaRun:FindTrees()
-
-	--This works
-	
-	-- mightbetrees = {}
-
-	-- mightbetrees[1] = Entities:FindAllByClassname("ent_dota_tree")
-	-- DeepPrintTable(mightbetrees[1])
-	-- for key,value in pairs(mightbetrees[1]) do 
-	-- 	-- mightbetrees[1][key]:CutDown(DOTA_TEAM_GOODGUYS)
-	-- 	mightbetrees[1][key]:CutDownRegrowAfter(RandomFloat(0, 15), DOTA_TEAM_GOODGUYS)  
- --    	-- print("Classname: " .. mightbetrees[1][key]:GetClassname())
-	-- end
-
-
-
-
-
-	-- mightbetrees[2] = Entities:FindAllByClassname("MapTree")
-	-- mightbetrees[3] = Entities:FindAllByModel("CDOTA_MapTree")
-	-- mightbetrees[4] = Entities:FindAllByModel("MapTree")
-	-- mightbetrees[5] = Entities:FindAllByName("CDOTA_MapTree")
-	-- mightbetrees[6] = Entities:FindAllByName("MapTree")
-	-- mightbetrees[7] = Entities:FindAllByTarget("CDOTA_MapTree")
-	-- mightbetrees[8] = Entities:FindAllByTarget("MapTree")
-	-- mightbetrees[9] = Entities:FindAllInSphere(Vector(-6082,1157,20), 1500)
-
-	-- for i = 1,9 do
-	-- print("mightbetrees: 9")
-	-- DeepPrintTable(mightbetrees[9])
-	-- for key,value in pairs(mightbetrees[9]) do 
-	-- 	print("Name: " .. mightbetrees[9][key]:GetName())
- --    	print("Classname: " .. mightbetrees[9][key]:GetClassname())
-	-- end
-	--Use these to figure out which ones are trees
-	--GetClassname
-	--GetName  
-
-	-- end
-
-	
-	
-
-end
-
+---------------------------------------------------------------------------
+-- Resets relevant variables for a new round
+---------------------------------------------------------------------------
 function CDotaRun:ResetRound()
-
 	GameRules.dotaRun.lead = -1
-
 	GameRules.dotaRun.TaTrapFired = false
-
 	GameRules.dotaRun.playerCount = 0
 	GameRules.dotaRun.numFinished = 0
-
 
 	for i = 0, (DOTA_MAX_TEAM_PLAYERS-1) do 
     	GameRules.dotaRun.waypoints[i] = {}
     	GameRules.dotaRun.spawned[i] = false
 		GameRules.dotaRun.zoneOpen[i] = true
 
-
     	for j = 1, 5 do
     		GameRules.dotaRun.waypoints[i][j] = false -- Fill the values here
     	end
-
 	end
 
 	for i = 1, DOTA_MAX_TEAM_PLAYERS do
@@ -564,81 +466,13 @@ function CDotaRun:ResetRound()
 	end
 end
 
--- function ApplyCooldownReduction( _, event )
--- 	print("Maybe this works")
--- 	DeepPrintTable(event)
-
---     local hero = PlayerResource:GetSelectedHeroEntity( event.PlayerID - 1 )
---     local ability = hero:FindAbilityByName( event.abilityname )
-
---     if ability:GetCooldownTimeRemaining() > 0 then
---         -- Change this to desired value
---         -- 0.4 means 40% cooldown reduction (15 -> 9 sec)
---         local reduction = 0.5
-
---         local cdDefault = ability:GetCooldown( ability:GetLevel() - 1 )
---         local cdReduced = cdDefault * ( 1.0 - reduction )   -- Modified cooldown time
---         local cdRemaining = ability:GetCooldownTimeRemaining()
-
---         if cdRemaining > cdReduced then
---             -- Apply the modified cooldown time
---             cdRemaining = cdRemaining - cdDefault * reduction
---             ability:EndCooldown()
---             ability:StartCooldown( cdRemaining )
---         end
---     end
--- end
-
--- function CDotaRun:RemoveCastedAbility(keys)
--- 	print("does this even work")
--- 	DeepPrintTable(keys)
--- 	local hero = keys.caster
--- 	print("hero: "  .. hero) 
--- end
-
 function CDotaRun:ShowCenterMessage( msg, nDur )
 	local msg = {
 		message = msg,
 		duration = nDur
 	}
-	print( "Sending message to all clients." )
 	FireGameEvent("show_center_message", msg)
 end
-
-function CDotaRun:OnPlayerConnectFull(keys)
-
-    -- if (HaveAllPlayersJoined()) then
-    	
-    -- end
-    	
-    print("player connected")
-
-end
-
-function CDotaRun:OnItemUsed(keys)
-    
-    print("item used")
-
-end
-
-
--- Evaluate the state of the game
--- function CDotaRun:OnThink()
--- 	-- print("Thinking")
-
--- 	-- if GameRules:State_Get() < DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
-			
--- 	-- end
-
--- 	-- if GameRules:State_Get() >= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
--- 	-- 	for i = 0,9 do
--- 	-- 		player = PlayerResource:GetPlayer(i)
--- 	-- 		hero = player:GetAssignedHero()
--- 	-- 		hero:RemoveModifierByName(modifier_stunned) 
--- 	-- 	end
--- 	-- end
--- 	return 1
--- end
 
 function CDotaRun:StartZoneTimer(hero)
 	Timers:CreateTimer(5, function()
@@ -648,14 +482,9 @@ function CDotaRun:StartZoneTimer(hero)
     )
 end
 
--- Need a better way to call this
--- function CDotaRun:XpThink()
--- 	hook()
--- 	return 1
--- end
-
-
-
+---------------------------------------------------------------------------
+-- Give Miranas spells and empty abilities
+---------------------------------------------------------------------------
 function CDotaRun:OnNPCSpawned( keys )
     local spawnedUnit = EntIndexToHScript( keys.entindex )
     if(string.find(spawnedUnit:GetUnitName(), "hero")) then
@@ -677,16 +506,6 @@ function CDotaRun:OnNPCSpawned( keys )
 				GameRules.dotaRun:GiveForceStaff(hero)
 				
 				GameRules.dotaRun.spawned[playerID] = true
-				-- AddFillerAbility(hero)
-				-- for i = 0,9 do
-				-- 	player = PlayerResource:GetPlayer(playerID)
-				-- 	if (player ~=nil) then
-				-- 		-- player = PlayerResource:GetPlayer(i)
-				-- 		hero = player:GetAssignedHero()
-				-- 		hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
-				-- 		AddFillerAbility(hero)
-				-- 	end
-				-- end
 	            return
 	        end
 	        )
@@ -707,13 +526,10 @@ function CDotaRun:GiveForceStaff(hero)
 	end
 
 	if (not hasForceStaff) then
-		-- print("Player does not have forcestaff " ..  hero:GetPlayerID())
 		local item = CreateItem("item_force_staff", hero, hero) 
 		hero:AddItem(item)
 	end
 end
-
-
 
 function CDotaRun:DoesHeroHaveMaxItems(hero)
 	local itemSlotsFull = true
@@ -726,23 +542,11 @@ function CDotaRun:DoesHeroHaveMaxItems(hero)
 	return itemSlotsFull
 end
 
--- function CDotaRun:On_game_start(data)
--- 	print("game starting")
--- 	for i = 0,9 do
--- 		player = PlayerResource:GetPlayer(i)
--- 		hero = player:GetAssignedHero()
--- 		hero:RemoveModifierByNameAndCaster("modifier_stunned", caster)
--- 		hero:RemoveModifierByName("modifier_stunned") 
--- 	end
--- end
-
 function CDotaRun:On_game_rules_state_change( data )
 	print("game starting!")
 
 	-- For multiteam
 	local nNewState = GameRules:State_Get()
-	-- print( "OnGameRulesStateChange: " .. nNewState )
-
 
 	--Perhaps use this popup instead to instruct on rules
 	-- if nNewState == DOTA_GAMERULES_STATE_PRE_GAME then
@@ -755,7 +559,6 @@ function CDotaRun:On_game_rules_state_change( data )
 	end
 
 	if GameRules:State_Get() >= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS and  GameRules:State_Get() < DOTA_GAMERULES_STATE_POST_GAME then
-		GameRules.dotaRun:FindTrees()
 		for i = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
 			player = PlayerResource:GetPlayer(i)
 			if (player ~=nil) then
@@ -794,17 +597,11 @@ function CDotaRun:On_game_rules_state_change( data )
 	end
 end
 
+---------------------------------------------------------------------------
 -- Deletes item or ability after use
+---------------------------------------------------------------------------
 function CDotaRun:OnAbilityUsed(data)
-
-	-- Testing grounds
-	-- DeepPrintTable(data)
-
-
-
 	print("Removing ability "..data.abilityname)
-	-- playerID = data.PlayerID
-	-- player = PlayerResource:GetPlayer(data.PlayerID-1) 
 	local player = EntIndexToHScript(data.PlayerID)
 	local hero = player:GetAssignedHero()
 	
@@ -814,7 +611,6 @@ function CDotaRun:OnAbilityUsed(data)
 		Timers:CreateTimer(4, function()
 			ability:SetLevel(0)
         	hero:RemoveAbility(data.abilityname)
-        	print("Removing ability: " .. data.abilityname)
         	hero:AddAbility("empty_ability1") 
             return
          end
@@ -826,7 +622,6 @@ function CDotaRun:OnAbilityUsed(data)
 	   			local item = hero:GetItemInSlot(i)
 	    		if  item ~= nil and item:GetClassname()  ~= "item_force_staff" then
 		    		if(item:GetClassname() == data.abilityname) then
-		    			print("Deleting item: " .. item:GetClassname())
 		    			hero:RemoveItem(item)
 	    			end
 	    		end
@@ -836,11 +631,3 @@ function CDotaRun:OnAbilityUsed(data)
 	    )
 	end
 end
-
--- function AddFillerAbility(hero)
--- 	hero:AddAbility("empty_ability1")
--- 	hero:AddAbility("mirana_fart")
--- 	ability = hero:FindAbilityByName("mirana_fart")
--- 	ability:SetAbilityIndex(1) 
--- 	ability:SetLevel(1)
--- end
