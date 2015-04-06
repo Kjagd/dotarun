@@ -103,7 +103,7 @@ function lastMan(waypointID, hero)
         end
     end
 
-    if (throughCount == GameRules.dotaRun.m_NumAssignedPlayers) then
+    if (throughCount == GameRules.dotaRun.playerCount) then
         local hasMaxAbilities = true;
         for i = 1,6 do
             if(hero:GetAbilityByIndex(i):GetAbilityName() == "empty_ability1") then
@@ -144,7 +144,7 @@ function WinHere(trigger)
          and GameRules.dotaRun.waypoints[playerID][4] and GameRules.dotaRun.waypoints[playerID][5]) then
         DistributePoints(teamNumber)
         GameRules.dotaRun.numFinished = GameRules.dotaRun.numFinished + 1
-        if (GameRules.dotaRun.numFinished == GameRules.dotaRun.m_NumAssignedPlayers) then
+        if (GameRules.dotaRun.numFinished == GameRules.dotaRun.playerCount) then
             StartReset()
             GameRules.dotaRun.hasAlreadyReset = true
         else
@@ -155,22 +155,32 @@ function WinHere(trigger)
 
         if (GameRules.dotaRun.numFinished == 1) then
             ShowCustomHeaderMessage( "#Finished", playerID, -1, 5 )
-            Timers:CreateTimer(12, function()
-                GameRules.dotaRun:ShowCenterMessage("3", 1)
+            Timers:CreateTimer(27, function()
+                if (not GameRules.dotaRun.hasAlreadyReset) then
+                    GameRules.dotaRun:ShowCenterMessage("3", 1)
+                end
+                
                 return 
             end
             )
-            Timers:CreateTimer(13, function()
-                GameRules.dotaRun:ShowCenterMessage("2", 1)
+            Timers:CreateTimer(28, function()
+                if (not GameRules.dotaRun.hasAlreadyReset) then
+                    GameRules.dotaRun:ShowCenterMessage("2", 1)
+                end
+                
                 return 
             end
             )
-            Timers:CreateTimer(14, function()
-                GameRules.dotaRun:ShowCenterMessage("1", 1)
+            Timers:CreateTimer(29, function()
+                if (not GameRules.dotaRun.hasAlreadyReset) then
+                    GameRules.dotaRun:ShowCenterMessage("1", 1)
+                end
+                -- Make if check as well to prevent countdown
+                
                 return 
             end
             )
-            Timers:CreateTimer(15, function()
+            Timers:CreateTimer(30, function()
                 if (not GameRules.dotaRun.hasAlreadyReset) then
                     StartReset()
                 end
