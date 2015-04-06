@@ -143,8 +143,8 @@ function CDotaRun:InitGameMode()
 	ListenToGameEvent("npc_spawned", Dynamic_Wrap(CDotaRun, 'OnNPCSpawned'), self)
 	ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(CDotaRun, 'On_game_rules_state_change'), self)
 	ListenToGameEvent("dota_player_used_ability", Dynamic_Wrap(CDotaRun, 'OnAbilityUsed'), self) 
-	ListenToGameEvent("player_team", Dynamic_Wrap(GameMode, 'On_player_team'), self)
-	ListenToGameEvent("player_reconnected", Dynamic_Wrap(GameMode, 'On_player_reconnected '), self)
+	ListenToGameEvent("player_team", Dynamic_Wrap(CDotaRun, 'On_player_team'), self)
+	ListenToGameEvent("player_reconnected", Dynamic_Wrap(CDotaRun, 'On_player_reconnected '), self)
 
 
 
