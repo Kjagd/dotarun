@@ -143,12 +143,27 @@ function CDotaRun:InitGameMode()
 	ListenToGameEvent("npc_spawned", Dynamic_Wrap(CDotaRun, 'OnNPCSpawned'), self)
 	ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(CDotaRun, 'On_game_rules_state_change'), self)
 	ListenToGameEvent("dota_player_used_ability", Dynamic_Wrap(CDotaRun, 'OnAbilityUsed'), self) 
+	ListenToGameEvent("player_team", Dynamic_Wrap(GameMode, 'On_player_team'), self)
+	ListenToGameEvent("player_reconnected", Dynamic_Wrap(GameMode, 'On_player_reconnected '), self)
+
+
 
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, 1 )
 
 	print( "Dotarun has literally loaded." )
 end
 
+function CDotaRun:On_player_team(data)
+	print("[BAREBONES] player_team")
+	PrintTable(data)
+	-- This should print disconnect data
+
+end
+
+function CDotaRun:On_player_reconnected (data)
+	print("[BAREBONES] player_reconnected")
+	PrintTable(data)
+end
 
 ---------------------------------------------------------------------------
 -- Get the color associated with a given teamID
