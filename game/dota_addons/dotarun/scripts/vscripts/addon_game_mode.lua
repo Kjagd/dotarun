@@ -144,7 +144,6 @@ function CDotaRun:InitGameMode()
 	ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(CDotaRun, 'On_game_rules_state_change'), self)
 	ListenToGameEvent("dota_player_used_ability", Dynamic_Wrap(CDotaRun, 'OnAbilityUsed'), self) 
 	ListenToGameEvent("player_team", Dynamic_Wrap(CDotaRun, 'On_player_team'), self)
-	ListenToGameEvent("player_reconnected", Dynamic_Wrap(CDotaRun, 'On_player_reconnected '), self)
 
 
 
@@ -154,15 +153,16 @@ function CDotaRun:InitGameMode()
 end
 
 function CDotaRun:On_player_team(data)
+	if (data.disconnect == 1) then -- player has disconnected
+		self.playerCount = self.playerCount - 1
+	elseif(data.disconnect == 0) then -- player has reconnected
+		self.playerCount = self.playerCount + 1
+	end
 	print("[BAREBONES] player_team")
 	PrintTable(data)
+	print("playercount is: " .. self.playerCount)
 	-- This should print disconnect data
 
-end
-
-function CDotaRun:On_player_reconnected (data)
-	print("[BAREBONES] player_reconnected")
-	PrintTable(data)
 end
 
 ---------------------------------------------------------------------------
@@ -222,6 +222,7 @@ function CDotaRun:GetTeamReassignmentForPlayer( playerID )
 	self.m_PlayerTeamAssignments[ playerID ] = teamAssignment
 
 	self.m_NumAssignedPlayers = self.m_NumAssignedPlayers + 1
+	self.playerCount = self.playerCount + 1
 	print("m_NumAssignedPlayers: " .. self.m_NumAssignedPlayers)
 
 	return teamAssignment
@@ -459,7 +460,6 @@ end
 function CDotaRun:ResetRound()
 	GameRules.dotaRun.lead = -1
 	GameRules.dotaRun.TaTrapFired = false
-	GameRules.dotaRun.playerCount = 0
 	GameRules.dotaRun.numFinished = 0
 
 	for i = 0, (DOTA_MAX_TEAM_PLAYERS-1) do 
@@ -505,7 +505,6 @@ function CDotaRun:OnNPCSpawned( keys )
     if(string.find(spawnedUnit:GetUnitName(), "hero")) then
 		local playerID = spawnedUnit:GetPlayerID() 
 	    if (not GameRules.dotaRun.spawned[playerID]) then
-	    	GameRules.dotaRun.playerCount = GameRules.dotaRun.playerCount + 1
 	        Timers:CreateTimer(0.6, function()
 	        	local ability = spawnedUnit:FindAbilityByName("Immunity")
 				ability:SetLevel(1)
@@ -569,6 +568,7 @@ function CDotaRun:On_game_rules_state_change( data )
 	-- end
 
 	if nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
+		self.playerCount = 0
 		GameRules:GetGameModeEntity():SetThink( "EnsurePlayersOnCorrectTeam", self, 0 )
 		GameRules:GetGameModeEntity():SetThink( "BroadcastPlayerTeamAssignments", self, 1 )
 	end
