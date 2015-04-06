@@ -155,14 +155,29 @@ end
 function CDotaRun:On_player_team(data)
 	if (data.disconnect == 1) then -- player has disconnected
 		self.playerCount = self.playerCount - 1
-	elseif(data.disconnect == 0) then -- player has reconnected
+		print("disconnect")
+	elseif (data.disconnect == 0 and data.oldteam == 0 and GameRules:State_Get() < DOTA_GAMERULES_STATE_HERO_SELECTION) then -- player has connected
 		self.playerCount = self.playerCount + 1
-	end
-	print("[BAREBONES] player_team")
-	PrintTable(data)
-	print("playercount is: " .. self.playerCount)
-	-- This should print disconnect data
+		print("connect")
+	elseif (data.disconnect == 0 and data.oldteam == 0) then -- player has reconnected
+		self.playerCount = self.playerCount + 1
+		print("reconnect")
 
+
+		Timers:CreateTimer(1, function()
+			local playerID = PlayerResource:GetNthPlayerIDOnTeam(data.team, 1)
+			GameRules.dotaRun.spawned[playerID] = false
+			local player = PlayerResource:GetPlayer(playerID)
+	        PlayerResource:ReplaceHeroWith(playerID, "npc_dota_hero_mirana", 0, 0)
+	        local hero = player:GetAssignedHero()
+	        local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
+	        teleportHero(hero, point, playerID)
+	        return
+	    end
+	    )
+		
+	end
+	print("playercount is: " .. self.playerCount)
 end
 
 ---------------------------------------------------------------------------
@@ -222,8 +237,6 @@ function CDotaRun:GetTeamReassignmentForPlayer( playerID )
 	self.m_PlayerTeamAssignments[ playerID ] = teamAssignment
 
 	self.m_NumAssignedPlayers = self.m_NumAssignedPlayers + 1
-	self.playerCount = self.playerCount + 1
-	print("m_NumAssignedPlayers: " .. self.m_NumAssignedPlayers)
 
 	return teamAssignment
 end
@@ -568,7 +581,6 @@ function CDotaRun:On_game_rules_state_change( data )
 	-- end
 
 	if nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
-		self.playerCount = 0
 		GameRules:GetGameModeEntity():SetThink( "EnsurePlayersOnCorrectTeam", self, 0 )
 		GameRules:GetGameModeEntity():SetThink( "BroadcastPlayerTeamAssignments", self, 1 )
 	end
@@ -679,4 +691,15 @@ function PrintTable(t, indent, done)
 			end
 		end
 	end
+end
+
+--Use this in waypoint too
+function teleportHero(hero, point, playerID)
+    -- Find a spot for the hero around 'point' and teleports to it
+    FindClearSpaceForUnit(hero, point, false)
+    -- Stop the hero, so he doesn't move
+    hero:Stop()
+    -- Refocus the camera of said player to the position of the teleported hero.
+    -- PlayerResource:SetCameraTarget(playerID, hero)
+    SendToConsole("dota_camera_center")
 end
