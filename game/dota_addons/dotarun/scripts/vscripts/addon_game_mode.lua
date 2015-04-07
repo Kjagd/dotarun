@@ -143,12 +143,45 @@ function CDotaRun:InitGameMode()
 	ListenToGameEvent("npc_spawned", Dynamic_Wrap(CDotaRun, 'OnNPCSpawned'), self)
 	ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(CDotaRun, 'On_game_rules_state_change'), self)
 	ListenToGameEvent("dota_player_used_ability", Dynamic_Wrap(CDotaRun, 'OnAbilityUsed'), self) 
+	ListenToGameEvent("player_team", Dynamic_Wrap(CDotaRun, 'On_player_team'), self)
+
+
 
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, 1 )
 
 	print( "Dotarun has literally loaded." )
 end
 
+function CDotaRun:On_player_team(data)
+	if (data.disconnect == 1) then -- player has disconnected
+		self.playerCount = self.playerCount - 1
+		print("disconnect")
+	elseif (data.disconnect == 0 and data.oldteam == 0 and GameRules:State_Get() < DOTA_GAMERULES_STATE_HERO_SELECTION) then -- player has connected
+		self.playerCount = self.playerCount + 1
+		local playerID = PlayerResource:GetNthPlayerIDOnTeam(data.team, 1)
+		local spawn = Entities:FindByName( nil, "waypointHomeTeleport")
+		--PlayerResource:SetCameraTarget(playerID, spawn) -- sets camera to spawn and locks it
+		--FireGameEvent("console_command", {pid=-2, command="dota_camera_lock 0"}) -- unlocks camera
+		--Can't unlock camera, need ActionScript https://github.com/AeroHand/Speed-Racing/tree/0a293da7817d01ab860cdffc4187e96970fd1be8/resource/flash3
+		print("connect")
+	elseif (data.disconnect == 0 and data.oldteam == 0) then -- player has reconnected
+		self.playerCount = self.playerCount + 1
+
+		Timers:CreateTimer(1, function()
+			local playerID = PlayerResource:GetNthPlayerIDOnTeam(data.team, 1)
+			GameRules.dotaRun.spawned[playerID] = false
+			local player = PlayerResource:GetPlayer(playerID)
+	        PlayerResource:ReplaceHeroWith(playerID, "npc_dota_hero_mirana", 0, 0)
+	        local hero = player:GetAssignedHero()
+	        local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
+	        teleportHero(hero, point, playerID)
+	        return
+	    end
+	    )
+		print("reconnect")
+	end
+	print("playercount is: " .. self.playerCount)
+end
 
 ---------------------------------------------------------------------------
 -- Get the color associated with a given teamID
@@ -207,7 +240,6 @@ function CDotaRun:GetTeamReassignmentForPlayer( playerID )
 	self.m_PlayerTeamAssignments[ playerID ] = teamAssignment
 
 	self.m_NumAssignedPlayers = self.m_NumAssignedPlayers + 1
-	print("m_NumAssignedPlayers: " .. self.m_NumAssignedPlayers)
 
 	return teamAssignment
 end
@@ -444,7 +476,6 @@ end
 function CDotaRun:ResetRound()
 	GameRules.dotaRun.lead = -1
 	GameRules.dotaRun.TaTrapFired = false
-	GameRules.dotaRun.playerCount = 0
 	GameRules.dotaRun.numFinished = 0
 
 	for i = 0, (DOTA_MAX_TEAM_PLAYERS-1) do 
@@ -490,7 +521,6 @@ function CDotaRun:OnNPCSpawned( keys )
     if(string.find(spawnedUnit:GetUnitName(), "hero")) then
 		local playerID = spawnedUnit:GetPlayerID() 
 	    if (not GameRules.dotaRun.spawned[playerID]) then
-	    	GameRules.dotaRun.playerCount = GameRules.dotaRun.playerCount + 1
 	        Timers:CreateTimer(0.6, function()
 	        	local ability = spawnedUnit:FindAbilityByName("Immunity")
 				ability:SetLevel(1)
@@ -630,4 +660,49 @@ function CDotaRun:OnAbilityUsed(data)
 	   	end
 	    )
 	end
+end
+
+function PrintTable(t, indent, done)
+	--print ( string.format ('PrintTable type %s', type(keys)) )
+	if type(t) ~= "table" then return end
+	done = done or {}
+	done[t] = true
+	indent = indent or 0
+	local l = {}
+	for k, v in pairs(t) do
+	table.insert(l, k)
+	end
+	table.sort(l)
+	for k, v in ipairs(l) do
+		-- Ignore FDesc
+		if v ~= 'FDesc' then
+			local value = t[v]
+			if type(value) == "table" and not done[value] then
+				done [value] = true
+				print(string.rep ("\t", indent)..tostring(v)..":")
+				PrintTable (value, indent + 2, done)
+			elseif type(value) == "userdata" and not done[value] then
+				done [value] = true
+				print(string.rep ("\t", indent)..tostring(v)..": "..tostring(value))
+				PrintTable ((getmetatable(value) and getmetatable(value).__index) or getmetatable(value), indent + 2, done)
+			else
+				if t.FDesc and t.FDesc[v] then
+					print(string.rep ("\t", indent)..tostring(t.FDesc[v]))
+				else
+					print(string.rep ("\t", indent)..tostring(v)..": "..tostring(value))
+				end
+			end
+		end
+	end
+end
+
+--Use this in waypoint too
+function teleportHero(hero, point, playerID)
+    -- Find a spot for the hero around 'point' and teleports to it
+    FindClearSpaceForUnit(hero, point, false)
+    -- Stop the hero, so he doesn't move
+    hero:Stop()
+    -- Refocus the camera of said player to the position of the teleported hero.
+    -- PlayerResource:SetCameraTarget(playerID, hero)
+    SendToConsole("dota_camera_center")
 end
