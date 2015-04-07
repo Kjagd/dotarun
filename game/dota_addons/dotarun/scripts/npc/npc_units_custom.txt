@@ -102,6 +102,25 @@
 		"ParticleFile"				"particles/units/heroes/hero_earthshaker.pcf"
 		"GameSoundsFile"			"scripts/game_sounds_heroes/game_sounds_earthshaker.txt"
 		"VoiceFile"				"scripts/voscripts/game_sounds_vo_earthshaker.txt"
+
+		"Creature"
+		{
+			"AttachWearables"
+			{
+			    "Wearable1"
+			    {
+			        "ItemDef" "459"
+			    }
+			    "Wearable2"
+			    {
+			        "ItemDef" "460"
+			    }
+			    "Wearable3"
+			    {
+			        "ItemDef" "461"
+			    }
+			}
+		}
 	}
 
 	//=================================================================================================================
@@ -401,5 +420,36 @@
 		"VoiceFile"					"scripts/voscripts/game_sounds_vo_pudge.txt"
 		
 		"VoiceBackgroundSound"		"Pudge.Background"
+
+		"Creature"
+		{
+			"AttachWearables"
+			{
+			    "Wearable1"
+			    {
+			        "ItemDef" "47"
+			    }
+			    "Wearable2"
+			    {
+			        "ItemDef" "258"
+			    }
+			    "Wearable3"
+			    {
+			        "ItemDef" "259"
+			    }
+			    "Wearable4"
+			    {
+			        "ItemDef" "260"
+			    }
+			    "Wearable5"
+			    {
+			        "ItemDef" "261"
+			    }
+			    "Wearable6"
+			    {
+			        "ItemDef" "262"
+			    }
+			}
+		}
 	}	
 }
