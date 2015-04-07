@@ -158,11 +158,14 @@ function CDotaRun:On_player_team(data)
 		print("disconnect")
 	elseif (data.disconnect == 0 and data.oldteam == 0 and GameRules:State_Get() < DOTA_GAMERULES_STATE_HERO_SELECTION) then -- player has connected
 		self.playerCount = self.playerCount + 1
+		local playerID = PlayerResource:GetNthPlayerIDOnTeam(data.team, 1)
+		local spawn = Entities:FindByName( nil, "waypointHomeTeleport")
+		--PlayerResource:SetCameraTarget(playerID, spawn) -- sets camera to spawn and locks it
+		--FireGameEvent("console_command", {pid=-2, command="dota_camera_lock 0"}) -- unlocks camera
+		--Can't unlock camera, need ActionScript https://github.com/AeroHand/Speed-Racing/tree/0a293da7817d01ab860cdffc4187e96970fd1be8/resource/flash3
 		print("connect")
 	elseif (data.disconnect == 0 and data.oldteam == 0) then -- player has reconnected
 		self.playerCount = self.playerCount + 1
-		print("reconnect")
-
 
 		Timers:CreateTimer(1, function()
 			local playerID = PlayerResource:GetNthPlayerIDOnTeam(data.team, 1)
@@ -175,7 +178,7 @@ function CDotaRun:On_player_team(data)
 	        return
 	    end
 	    )
-		
+		print("reconnect")
 	end
 	print("playercount is: " .. self.playerCount)
 end
