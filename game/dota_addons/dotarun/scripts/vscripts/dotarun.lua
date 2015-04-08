@@ -64,6 +64,14 @@ function ItemZoneOne(trigger)
 		GiveRandomItem(hero)
 		GameRules.dotaRun.zoneOpen[hero:GetPlayerID()] = false
 		GameRules.dotaRun:StartZoneTimer(hero)
+		local particle = ParticleManager:CreateParticleForPlayer("particles/units/heroes/hero_wisp/wisp_guardian_explosion.vpcf",
+		 PATTACH_ABSORIGIN_FOLLOW, hero, PlayerResource:GetPlayer(playerID))
+		ParticleManager:SetParticleControl(particle, 0, trigger.activator:GetAbsOrigin())
+		-- Timers:CreateTimer(2, function()
+		-- 	ParticleManager:DestroyParticle(particle, true)
+	 --        return
+	 --    end
+	 --    )
     end
 end
 
