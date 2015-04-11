@@ -263,9 +263,7 @@ function teleportHero(hero, point, playerID)
 end
 
 function NewLap()
-    print("pre ResetRound")
     GameRules.dotaRun:ResetRound() 
-    print("post ResetRound")
 
     for i = 0,9 do
         local player = PlayerResource:GetPlayer(i)
@@ -278,6 +276,10 @@ function NewLap()
             hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
         end
     end
+
+
+
+
 
     GameRules.dotaRun:ShowCenterMessage("New lap starting in\n 5 seconds", 5)
     Timers:CreateTimer(5, function()
