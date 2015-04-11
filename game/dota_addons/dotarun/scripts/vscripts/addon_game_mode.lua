@@ -29,8 +29,7 @@ function Precache( context )
 	PrecacheUnitByNameSync("npc_dota_hero_templar_assassin", context)
 	PrecacheUnitByNameSync("npc_dota_hero_magnataur", context)
 
-	PrecacheResource( "particle", "particles/units/heroes/hero_wisp/wisp_guardian_explosion.vpcf", context )
-
+	PrecacheResource( "particle", "particles/econ/items/lanaya/lanaya_epit_trap/templar_assassin_epit_trap_ring_inner_start.vpcf", context )
 	-- PrecacheItemByNameSync("mirana_arrow", context)
 	-- PrecacheItemByNameSync("venomancer_venomous_gale", context)
 	-- PrecacheItemByNameSync("mirana_leap", context)
