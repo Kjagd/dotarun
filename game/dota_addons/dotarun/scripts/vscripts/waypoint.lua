@@ -274,6 +274,12 @@ function NewLap()
             teleportHero(hero, point, i)
             --FindClearSpaceForUnit(hero, point, false)
             hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
+            for i=0,5,1 do 
+                local item = hero:GetItemInSlot(i)
+                if  item ~= nil and item:GetClassname()  ~= "item_force_staff" then
+                    hero:RemoveItem(item)
+                end
+            end
         end
     end
 

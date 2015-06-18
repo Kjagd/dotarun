@@ -5,6 +5,7 @@ require('timers')
 require('pudge')
 require('shakers')
 require('centaurs')
+require( "utility_functions" )
 --require('magnus')
 if CDotaRun == nil then
 	CDotaRun = class({})
@@ -61,16 +62,23 @@ function CDotaRun:InitGameMode()
 	-- Multiteam support
 
 	self.m_TeamColors = {}
-	self.m_TeamColors[DOTA_TEAM_GOODGUYS] = { 255, 0, 0 }
-	self.m_TeamColors[DOTA_TEAM_BADGUYS] = { 0, 255, 0 }
-	self.m_TeamColors[DOTA_TEAM_CUSTOM_1] = { 0, 0, 255 }
-	self.m_TeamColors[DOTA_TEAM_CUSTOM_2] = { 255, 128, 64 }
-	self.m_TeamColors[DOTA_TEAM_CUSTOM_3] = { 255, 255, 0 }
-	self.m_TeamColors[DOTA_TEAM_CUSTOM_4] = { 128, 255, 0 }
-	self.m_TeamColors[DOTA_TEAM_CUSTOM_5] = { 128, 0, 255 }
-	self.m_TeamColors[DOTA_TEAM_CUSTOM_6] = { 255, 0, 128 }
-	self.m_TeamColors[DOTA_TEAM_CUSTOM_7] = { 0, 255, 255 }
-	self.m_TeamColors[DOTA_TEAM_CUSTOM_8] = { 255, 255, 255 }
+	self.m_TeamColors[DOTA_TEAM_GOODGUYS] = { 61, 210, 150 }	--		Teal
+	self.m_TeamColors[DOTA_TEAM_BADGUYS]  = { 243, 201, 9 }		--		Yellow
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_1] = { 197, 77, 168 }	--      Pink
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_2] = { 255, 108, 0 }		--		Orange
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_3] = { 52, 85, 255 }		--		Blue
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_4] = { 101, 212, 19 }	--		Green
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_5] = { 129, 83, 54 }		--		Brown
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_6] = { 27, 192, 216 }	--		Cyan
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_7] = { 199, 228, 13 }	--		Olive
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_8] = { 140, 42, 244 }	--		Purple
+
+	for team = 0, (DOTA_TEAM_COUNT-1) do
+		color = self.m_TeamColors[ team ]
+		if color then
+			SetTeamCustomHealthbarColor( team, color[1], color[2], color[3] )
+		end
+	end
 
 	self.m_VictoryMessages = {}
 	self.m_VictoryMessages[DOTA_TEAM_GOODGUYS] = "#VictoryMessage_GoodGuys"
@@ -88,7 +96,7 @@ function CDotaRun:InitGameMode()
 	self.m_PlayerTeamAssignments = {}
 	self.m_NumAssignedPlayers = 0
 
-	self:GatherValidTeams()
+	self:GatherAndRegisterValidTeams()
 
 	GameRules:SetCustomGameEndDelay( 0 )
 	GameRules:SetCustomVictoryMessageDuration( 0 )
@@ -150,7 +158,7 @@ function CDotaRun:InitGameMode()
 
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, 1 )
 
-	print( "Dotarun has literally loaded." )
+	print( "Dotarun has literally loaded, test." )
 end
 
 function CDotaRun:On_player_team(data)
@@ -198,91 +206,91 @@ end
 ---------------------------------------------------------------------------
 -- Determine a good team assignment for the next player
 ---------------------------------------------------------------------------
-function CDotaRun:GetTeamReassignmentForPlayer( playerID )
-	if #self.m_GatheredShuffledTeams == 0 then
-		return nil
-	end
+-- function CDotaRun:GetTeamReassignmentForPlayer( playerID )
+-- 	if #self.m_GatheredShuffledTeams == 0 then
+-- 		return nil
+-- 	end
 
-	if nil == PlayerResource:GetPlayer( playerID ) then
-		return nil -- no player yet
-	end
+-- 	if nil == PlayerResource:GetPlayer( playerID ) then
+-- 		return nil -- no player yet
+-- 	end
 	
-	-- see if we've already assigned the player	
-	local existingAssignment = self.m_PlayerTeamAssignments[ playerID ]
-	if existingAssignment ~= nil then
-		if existingAssignment == PlayerResource:GetTeam( playerID ) then
-			return nil -- already assigned to this team and they're still on it
-		else
-			return existingAssignment -- something else pushed them out of the desired team - set it back
-		end
-	end
+-- 	-- see if we've already assigned the player	
+-- 	local existingAssignment = self.m_PlayerTeamAssignments[ playerID ]
+-- 	if existingAssignment ~= nil then
+-- 		if existingAssignment == PlayerResource:GetTeam( playerID ) then
+-- 			return nil -- already assigned to this team and they're still on it
+-- 		else
+-- 			return existingAssignment -- something else pushed them out of the desired team - set it back
+-- 		end
+-- 	end
 
-	-- haven't assigned this player to a team yet
-	-- print( "m_NumAssignedPlayers = " .. self.m_NumAssignedPlayers )
+-- 	-- haven't assigned this player to a team yet
+-- 	-- print( "m_NumAssignedPlayers = " .. self.m_NumAssignedPlayers )
 	
-	-- If the number of players per team doesn't divide evenly (ie. 10 players on 4 teams => 2.5 players per team)
-	-- Then this floor will round that down to 2 players per team
-	-- If you want to limit the number of players per team, you could just set this to eg. 1
-	local playersPerTeam = math.floor( DOTA_MAX_TEAM_PLAYERS / #self.m_GatheredShuffledTeams )
-	-- print( "playersPerTeam = " .. playersPerTeam )
+-- 	-- If the number of players per team doesn't divide evenly (ie. 10 players on 4 teams => 2.5 players per team)
+-- 	-- Then this floor will round that down to 2 players per team
+-- 	-- If you want to limit the number of players per team, you could just set this to eg. 1
+-- 	local playersPerTeam = math.floor( DOTA_MAX_TEAM_PLAYERS / #self.m_GatheredShuffledTeams )
+-- 	-- print( "playersPerTeam = " .. playersPerTeam )
 
-	local teamIndexForPlayer = math.floor( self.m_NumAssignedPlayers / playersPerTeam )
-	-- print( "teamIndexForPlayer = " .. teamIndexForPlayer )
+-- 	local teamIndexForPlayer = math.floor( self.m_NumAssignedPlayers / playersPerTeam )
+-- 	-- print( "teamIndexForPlayer = " .. teamIndexForPlayer )
 
-	-- Then once we get to the 9th player from the case above, we need to wrap around and start assigning to the first team
-	if teamIndexForPlayer >= #self.m_GatheredShuffledTeams then
-		teamIndexForPlayer = teamIndexForPlayer - #self.m_GatheredShuffledTeams
-		-- print( "teamIndexForPlayer => " .. teamIndexForPlayer )
-	end
+-- 	-- Then once we get to the 9th player from the case above, we need to wrap around and start assigning to the first team
+-- 	if teamIndexForPlayer >= #self.m_GatheredShuffledTeams then
+-- 		teamIndexForPlayer = teamIndexForPlayer - #self.m_GatheredShuffledTeams
+-- 		-- print( "teamIndexForPlayer => " .. teamIndexForPlayer )
+-- 	end
 	
-	teamAssignment = self.m_GatheredShuffledTeams[ 1 + teamIndexForPlayer ]
-	-- print( "teamAssignment = " .. teamAssignment )
+-- 	teamAssignment = self.m_GatheredShuffledTeams[ 1 + teamIndexForPlayer ]
+-- 	-- print( "teamAssignment = " .. teamAssignment )
 
-	self.m_PlayerTeamAssignments[ playerID ] = teamAssignment
+-- 	self.m_PlayerTeamAssignments[ playerID ] = teamAssignment
 
-	self.m_NumAssignedPlayers = self.m_NumAssignedPlayers + 1
+-- 	self.m_NumAssignedPlayers = self.m_NumAssignedPlayers + 1
 
-	return teamAssignment
-end
+-- 	return teamAssignment
+-- end
 
 ---------------------------------------------------------------------------
 -- Put a label over a player's hero so people know who is on what team
 ---------------------------------------------------------------------------
-function CDotaRun:MakeLabelForPlayer( nPlayerID )
-	if not PlayerResource:HasSelectedHero( nPlayerID ) then
-		return
-	end
+-- function CDotaRun:MakeLabelForPlayer( nPlayerID )
+-- 	if not PlayerResource:HasSelectedHero( nPlayerID ) then
+-- 		return
+-- 	end
 
-	local hero = PlayerResource:GetSelectedHeroEntity( nPlayerID )
-	if hero == nil then
-		return
-	end
+-- 	local hero = PlayerResource:GetSelectedHeroEntity( nPlayerID )
+-- 	if hero == nil then
+-- 		return
+-- 	end
 
-	local teamID = PlayerResource:GetTeam( nPlayerID )
-	local color = self:ColorForTeam( teamID )
-	hero:SetCustomHealthLabel( PlayerResource:GetPlayerName(nPlayerID), color[1], color[2], color[3] )
-end
+-- 	local teamID = PlayerResource:GetTeam( nPlayerID )
+-- 	local color = self:ColorForTeam( teamID )
+-- 	hero:SetCustomHealthLabel( PlayerResource:GetPlayerName(nPlayerID), color[1], color[2], color[3] )
+-- end
 
----------------------------------------------------------------------------
--- Tell everyone the team assignments during hero selection
----------------------------------------------------------------------------
-function CDotaRun:BroadcastPlayerTeamAssignments()
-	for nPlayerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
-		local nTeamID = PlayerResource:GetTeam( nPlayerID )
-		if nTeamID ~= DOTA_TEAM_NOTEAM then
-			GameRules:SendCustomMessage( "#TeamAssignmentMessage", nPlayerID, -1 )
-		end
-	end
-end
+-- ---------------------------------------------------------------------------
+-- -- Tell everyone the team assignments during hero selection
+-- ---------------------------------------------------------------------------
+-- function CDotaRun:BroadcastPlayerTeamAssignments()
+-- 	for nPlayerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
+-- 		local nTeamID = PlayerResource:GetTeam( nPlayerID )
+-- 		if nTeamID ~= DOTA_TEAM_NOTEAM then
+-- 			GameRules:SendCustomMessage( "#TeamAssignmentMessage", nPlayerID, -1 )
+-- 		end
+-- 	end
+-- end
 
 ---------------------------------------------------------------------------
 -- Update player labels and the scoreboard
 ---------------------------------------------------------------------------
 function CDotaRun:OnThink()
 
-	for nPlayerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
-		self:MakeLabelForPlayer( nPlayerID )
-	end
+	-- for nPlayerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
+	-- 	self:MakeLabelForPlayer( nPlayerID )
+	-- end
 	
 	playerPositions = self:SortPositions()
 	self:CalculatePositions()
@@ -438,10 +446,29 @@ function TableCount( t )
 	return n
 end
 
+-- ---------------------------------------------------------------------------
+-- -- Scan the map to see which teams have spawn points
+-- ---------------------------------------------------------------------------
+-- function CDotaRun:GatherValidTeams()
+-- --	print( "GatherValidTeams:" )
+
+-- 	local foundTeams = {}
+-- 	for _, playerStart in pairs( Entities:FindAllByClassname( "info_player_start_dota" ) ) do
+-- 		foundTeams[  playerStart:GetTeam() ] = true
+-- 	end
+
+-- 	local foundTeamsList = {}
+-- 	for t, _ in pairs( foundTeams ) do
+-- 		table.insert( foundTeamsList, t )
+-- 	end
+
+-- 	self.m_GatheredShuffledTeams = ShuffledList( foundTeamsList )
+-- end
+
 ---------------------------------------------------------------------------
 -- Scan the map to see which teams have spawn points
 ---------------------------------------------------------------------------
-function CDotaRun:GatherValidTeams()
+function CDotaRun:GatherAndRegisterValidTeams()
 --	print( "GatherValidTeams:" )
 
 	local foundTeams = {}
@@ -449,27 +476,62 @@ function CDotaRun:GatherValidTeams()
 		foundTeams[  playerStart:GetTeam() ] = true
 	end
 
+	local numTeams = TableCount(foundTeams)
+	print( "GatherValidTeams - Found spawns for a total of " .. numTeams .. " teams" )
+	
 	local foundTeamsList = {}
 	for t, _ in pairs( foundTeams ) do
 		table.insert( foundTeamsList, t )
 	end
 
+	if numTeams == 0 then
+		print( "GatherValidTeams - NO team spawns detected, defaulting to GOOD/BAD" )
+		table.insert( foundTeamsList, DOTA_TEAM_GOODGUYS )
+		table.insert( foundTeamsList, DOTA_TEAM_BADGUYS )
+		numTeams = 2
+	end
+
+	local maxPlayersPerValidTeam = math.floor( 10 / numTeams )
+
 	self.m_GatheredShuffledTeams = ShuffledList( foundTeamsList )
+
+	print( "Final shuffled team list:" )
+	for _, team in pairs( self.m_GatheredShuffledTeams ) do
+		print( " - " .. team .. " ( " .. GetTeamName( team ) .. " )" )
+	end
+
+	print( "Setting up teams:" )
+	for team = 0, (DOTA_TEAM_COUNT-1) do
+		local maxPlayers = 1
+		-- if ( nil ~= TableFindKey( foundTeamsList, team ) ) then
+		-- 	maxPlayers = maxPlayersPerValidTeam
+		-- end
+		if team == 4 then
+			GameRules:SetCustomGameTeamMaxPlayers( team, 0 )
+			print( " - " .. team .. " ( " .. GetTeamName( team ) .. " ) -> max players = " .. tostring(0) )
+		elseif team == 5 then
+			GameRules:SetCustomGameTeamMaxPlayers( team, 0 )
+			print( " - " .. team .. " ( " .. GetTeamName( team ) .. " ) -> max players = " .. tostring(0) )
+		else 
+			GameRules:SetCustomGameTeamMaxPlayers( team, maxPlayers )
+			print( " - " .. team .. " ( " .. GetTeamName( team ) .. " ) -> max players = " .. tostring(maxPlayers) )
+		end
+	end
 end
 
 ---------------------------------------------------------------------------
 -- Assign all real players to a team
 ---------------------------------------------------------------------------
-function CDotaRun:EnsurePlayersOnCorrectTeam()
-	for playerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
-		local teamReassignment = self:GetTeamReassignmentForPlayer( playerID )
-		if nil ~= teamReassignment then
-			print( " - Player " .. playerID .. " reassigned to team " .. teamReassignment )
-			PlayerResource:SetCustomTeamAssignment( playerID, teamReassignment )
-		end
-	end
-	return 1 -- Check again later in case more players spawn
-end
+-- function CDotaRun:EnsurePlayersOnCorrectTeam()
+-- 	for playerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
+-- 		local teamReassignment = self:GetTeamReassignmentForPlayer( playerID )
+-- 		if nil ~= teamReassignment then
+-- 			print( " - Player " .. playerID .. " reassigned to team " .. teamReassignment )
+-- 			PlayerResource:SetCustomTeamAssignment( playerID, teamReassignment )
+-- 		end
+-- 	end
+-- 	return 1 -- Check again later in case more players spawn
+-- end
 
 ---------------------------------------------------------------------------
 -- Resets relevant variables for a new round
@@ -585,8 +647,8 @@ function CDotaRun:On_game_rules_state_change( data )
 	-- end
 
 	if nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
-		GameRules:GetGameModeEntity():SetThink( "EnsurePlayersOnCorrectTeam", self, 0 )
-		GameRules:GetGameModeEntity():SetThink( "BroadcastPlayerTeamAssignments", self, 1 )
+		-- GameRules:GetGameModeEntity():SetThink( "EnsurePlayersOnCorrectTeam", self, 0 )
+		-- GameRules:GetGameModeEntity():SetThink( "BroadcastPlayerTeamAssignments", self, 1 )
 	end
 
 	if GameRules:State_Get() >= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS and  GameRules:State_Get() < DOTA_GAMERULES_STATE_POST_GAME then
@@ -632,10 +694,14 @@ end
 -- Deletes item or ability after use
 ---------------------------------------------------------------------------
 function CDotaRun:OnAbilityUsed(data)
+	DeepPrintTable(data)
 	print("Removing ability "..data.abilityname)
-	local player = EntIndexToHScript(data.PlayerID)
+	--local player = EntIndexToHScript(data.PlayerID)
+	local player = PlayerResource:GetPlayer(data.PlayerID)
+	DeepPrintTable(player)
 	local hero = player:GetAssignedHero()
-	
+
+
 	local ability = hero:FindAbilityByName(data.abilityname)
 	if(ability ~= nil) then
 		-- Delete ability
