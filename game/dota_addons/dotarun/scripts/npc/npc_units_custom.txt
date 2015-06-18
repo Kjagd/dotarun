@@ -132,7 +132,7 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"Model"						"models/heroes/magnataur/magnataur.mdl"			// Model.
 		"SoundSet"					"Hero_Magnataur"							// Name of sound set.
-		"BaseClass"					"npc_dota_creep_neutral"
+		"BaseClass"					"npc_dota_creature"
 		"Enabled"					"1"
 		"HeroUnlockOrder"			"0"
 		"Role"						"Initiator,Disabler,Nuker,Carry"
@@ -203,8 +203,8 @@
 	{										
 		// General
 		//----------------------------------------------------------------
-		"Model"						"models/creeps/neutral_creeps/n_creep_centaur_lrg/n_creep_centaur_lrg.mdl"	// Model.
-		"BaseClass"					"npc_dota_creep_neutral"
+		"Model"						"models/creeps/neutral_creeps/n_creep_centaur_lrg/n_creep_centaur_lrg.vmdl"	// Model.
+		"BaseClass"					"npc_dota_creature"
 		"SoundSet"					"n_creep_Melee"
 		"Level"						"5"
 		"ModelScale" 				"1"
@@ -269,7 +269,7 @@
 		// General
 		//----------------------------------------------------------------
 		"Model"						"models/creeps/neutral_creeps/n_creep_centaur_lrg/n_creep_centaur_lrg.mdl"	// Model.
-		"BaseClass"					"npc_dota_creep_neutral"
+		"BaseClass"					"npc_dota_creature"
 		"SoundSet"					"n_creep_Melee"
 		"Level"						"25"
 		"ModelScale" 				"2.5"
