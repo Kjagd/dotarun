@@ -39,7 +39,7 @@ function act(centNum)
 end
 
 function patrol(centNum)
-	Timers:CreateTimer(0, function()
+		Timers:CreateTimer(0, function()
 		act(centNum)
 		return RandomInt(1.5, 3.5)
 	end
@@ -50,5 +50,8 @@ end
 function startPatrol()
 	for i = 1, numCents do
 		patrol(i)
+		if i == 1 then
+			cents[i]:MoveToPosition(Vector(0,0,0))
+		end
 	end
 end
