@@ -1,0 +1,76 @@
+"addon"
+{
+	"PointsToWin"									"+{d:points_to_win} more"
+	"PointsToWin_CloseToVictory"					"+{d:points_to_win} more"
+	"PointsToWin_VeryCloseToVictory"				"+{d:points_to_win} more!"
+	"PointsToWin_Victory"							"Victory!"
+
+	"InstructionsTitle"								"DOTA RUN"
+	"InstructionsObjective"							"OBJECTIVE"
+	"InstructionsObjectiveText"						"Get to the goal first to earn points! First to 30 points win."
+	"InstructionsHowToPlay"							"HOW TO PLAY"
+	"InstructionsLines"								"-Run over logos to pick up spells and items.<br>
+													-Each spell and item can only be used once except Force Staff.<br>
+													-After someone has reached the goal everyone else has 30 seconds to make it too.<br>
+													-You get 10 points for being 1st, 7 for being 2nd, 5 for being 3rd, 4 for being 4th etc."
+
+	"Chest"											"ITEM"
+	"ItemWillSpawn"									"IS ABOUT TO BE DELIVERED!"
+	"ItemHasSpawned"								"IS ON ITS WAY!"
+
+	"RecentScore"									"+{d:score}"
+
+	"Unassigned"      								"Unassigned Team"
+	"Spectator"       								"Spectator Team"
+	"Neutrals"        								"Neutral Team"
+	"NoTeam"          								"No Team"
+
+	"DOTA_GoodGuys"   								"Teal Tiger"
+	"DOTA_BadGuys"    								"Yellow Monkey"
+	"DOTA_Custom1"    								"Pink Dragon"
+	"DOTA_Custom2"    								"Orange Dog"
+	"DOTA_Custom3"    								"Blue Rooster"
+	"DOTA_Custom4"    								"Green Ram"
+	"DOTA_Custom5"    								"Brown Rat"
+	"DOTA_Custom6"    								"Cyan Boar"
+	"DOTA_Custom7"    								"Olive Snake"
+	"DOTA_Custom8"    								"Purple Horse"
+
+	"VictoryMessage_GoodGuys"   					"Teal Tiger Wins!"	
+	"VictoryMessage_BadGuys"    					"Yellow Monkey Wins!"
+	"VictoryMessage_Custom1"    					"Pink Dragon Wins!"	
+	"VictoryMessage_Custom2"    					"Orange Dog Wins!"
+	"VictoryMessage_Custom3"    					"Blue Rooster Wins!"
+	"VictoryMessage_Custom4"    					"Green Ram Wins!"	
+	"VictoryMessage_Custom5"    					"Brown Rat Wins!"
+	"VictoryMessage_Custom6"    					"Cyan Boar Wins!" 
+	"VictoryMessage_Custom7"    					"Olve Snake Wins!"	
+	"VictoryMessage_Custom8"    					"Purple Horse Wins!"
+	
+	"OverthrowHeroPickup"							"{s:hero_id}"
+	"OverthrowTextPickup"							"HAS PICKED UP"
+	"OverthrowItemPickup"							"{s:item_id}!"
+
+	"Remaining"										"REMAINING"
+
+	"Overtime"										"OVERTIME!"
+	"OvertimeInstructions"							"SCORE TO WIN"
+
+	"KillMessageHero"								"{s:hero_id}"
+	"KillMessageText"								"HAS KILLED THE LEADER"
+	"KillMessageBounty"								"FOR 500 BONUS GOLD!"
+	
+	"addonname"										"Dota Run"
+	"overthrow_game_info_header_objective"			"Objective:"
+	"overthrow_brief_description"					""
+	"overthrow_game_info_header_how_to_play"		""
+	"overthrow_game_info_throne"					""
+	"overthrow_game_info_coins"						""
+	"overthrow_game_info_items"						""
+	"overthrow_game_info_tips_header"				""
+	"overthrow_game_info_tip01"						""
+	"overthrow_game_info_tip02"						""
+	"overthrow_game_info_tip03"						""
+	"overthrow_game_info_tip04"						""
+}
+
