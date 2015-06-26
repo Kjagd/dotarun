@@ -116,6 +116,7 @@ function CDotaRun:InitGameMode()
 	end
 
 	self.pointsToWin = 30
+	self.TEAM_KILLS_TO_WIN = 30
 
 	self.distanceFromOneToTwo = 12406
 	self.distanceFromTwoToThree = 12452
@@ -142,7 +143,7 @@ function CDotaRun:InitGameMode()
 	self.hasAlreadyReset = false
 
 	initPudges()
-	initShakers()
+	--initShakers() Moved to start of game to prevent hearing loss
 	initCents()
 	--initMagnus()
 
@@ -158,7 +159,7 @@ function CDotaRun:InitGameMode()
 
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, 1 )
 
-	print( "Dotarun has literally loaded, test." )
+	print( "Dotarun has literally loaded." )
 end
 
 function CDotaRun:On_player_team(data)
@@ -294,7 +295,7 @@ function CDotaRun:OnThink()
 	
 	playerPositions = self:SortPositions()
 	self:CalculatePositions()
-	self:UpdateScoreboard(playerPositions)
+	self:UpdateScoreboard()
 	self:BlueShell(playerPositions)
 		
 	return 1
@@ -384,8 +385,47 @@ end
 ---------------------------------------------------------------------------
 -- Simple scoreboard using debug text
 ---------------------------------------------------------------------------
-function CDotaRun:UpdateScoreboard(playerPositions)
+-- function CDotaRun:UpdateScoreboard(playerPositions)
 	
+-- 	local sortedTeams = {}
+-- 	for _, team in pairs( self.m_GatheredShuffledTeams ) do
+-- 		table.insert( sortedTeams, { teamID = team, teamScore = self.points[team] } )
+-- 	end
+
+-- 	-- reverse-sort by score
+-- 	table.sort( sortedTeams, function(a,b) return ( a.teamScore > b.teamScore ) end )
+
+-- 	UTIL_ResetMessageTextAll()
+-- 	UTIL_MessageTextAll( "#ScoreboardTitle", 255, 255, 255, 255 )
+-- 	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
+-- 	for _, t in pairs( sortedTeams ) do
+-- 		local clr = self:ColorForTeam( t.teamID )
+-- 		if(PlayerResource:GetNthPlayerIDOnTeam(t.teamID, 1) ~= -1) then
+-- 			name = PlayerResource:GetPlayerName(PlayerResource:GetNthPlayerIDOnTeam(t.teamID, 1))
+-- 			UTIL_MessageTextAll(t.teamScore.."\t"..name, clr[1], clr[2], clr[3], 255)
+-- 		end
+-- 	end
+
+-- 	UTIL_MessageTextAll( "#ScoreboardBreaker", 255, 255, 255, 255 )
+-- 	UTIL_MessageTextAll( "#ScoreboardPositionHeader", 255, 255, 255, 255 )
+-- 	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
+-- 	for key, t in pairs( playerPositions ) do
+-- 		local clr = self:ColorForTeam( t.teamID )
+-- 		if t.teamID == 5 then
+			
+-- 		elseif key == 1 then
+-- 			UTIL_MessageTextAll(key.."st\t"..t.pName, clr[1], clr[2], clr[3], 255)
+-- 		elseif key == 2 then
+-- 			UTIL_MessageTextAll(key.."nd\t"..t.pName, clr[1], clr[2], clr[3], 255)
+-- 		elseif key == 3 then
+-- 			UTIL_MessageTextAll(key.."rd\t"..t.pName, clr[1], clr[2], clr[3], 255)
+-- 		else 
+-- 			UTIL_MessageTextAll(key.."th\t"..t.pName, clr[1], clr[2], clr[3], 255)
+-- 		end
+-- 	end
+-- end
+
+function CDotaRun:UpdateScoreboard()
 	local sortedTeams = {}
 	for _, team in pairs( self.m_GatheredShuffledTeams ) do
 		table.insert( sortedTeams, { teamID = team, teamScore = self.points[team] } )
@@ -394,34 +434,55 @@ function CDotaRun:UpdateScoreboard(playerPositions)
 	-- reverse-sort by score
 	table.sort( sortedTeams, function(a,b) return ( a.teamScore > b.teamScore ) end )
 
-	UTIL_ResetMessageTextAll()
-	UTIL_MessageTextAll( "#ScoreboardTitle", 255, 255, 255, 255 )
-	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
 	for _, t in pairs( sortedTeams ) do
 		local clr = self:ColorForTeam( t.teamID )
-		if(PlayerResource:GetNthPlayerIDOnTeam(t.teamID, 1) ~= -1) then
-			name = PlayerResource:GetPlayerName(PlayerResource:GetNthPlayerIDOnTeam(t.teamID, 1))
-			UTIL_MessageTextAll(t.teamScore.."\t"..name, clr[1], clr[2], clr[3], 255)
-		end
-	end
 
-	UTIL_MessageTextAll( "#ScoreboardBreaker", 255, 255, 255, 255 )
-	UTIL_MessageTextAll( "#ScoreboardPositionHeader", 255, 255, 255, 255 )
-	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
-	for key, t in pairs( playerPositions ) do
-		local clr = self:ColorForTeam( t.teamID )
-		if t.teamID == 5 then
-			
-		elseif key == 1 then
-			UTIL_MessageTextAll(key.."st\t"..t.pName, clr[1], clr[2], clr[3], 255)
-		elseif key == 2 then
-			UTIL_MessageTextAll(key.."nd\t"..t.pName, clr[1], clr[2], clr[3], 255)
-		elseif key == 3 then
-			UTIL_MessageTextAll(key.."rd\t"..t.pName, clr[1], clr[2], clr[3], 255)
-		else 
-			UTIL_MessageTextAll(key.."th\t"..t.pName, clr[1], clr[2], clr[3], 255)
-		end
+		-- Scaleform UI Scoreboard
+		local score = 
+		{
+			team_id = t.teamID,
+			team_score = t.teamScore
+		}
+		FireGameEvent( "score_board", score )
 	end
+	-- Leader effects (moved from OnTeamKillCredit)
+	-- local leader = sortedTeams[1].teamID
+	-- --print("Leader = " .. leader)
+	-- self.leadingTeam = leader
+	-- self.runnerupTeam = sortedTeams[2].teamID
+	-- self.leadingTeamScore = sortedTeams[1].teamScore
+	-- self.runnerupTeamScore = sortedTeams[2].teamScore
+	-- if sortedTeams[1].teamScore == sortedTeams[2].teamScore then
+	-- 	self.isGameTied = true
+	-- else
+	-- 	self.isGameTied = false
+	-- end
+	-- local allHeroes = HeroList:GetAllHeroes()
+	-- for _,entity in pairs( allHeroes) do
+	-- 	if entity:GetTeamNumber() == leader and sortedTeams[1].teamScore ~= sortedTeams[2].teamScore then
+	-- 		if entity:IsAlive() == true then
+	-- 			-- Attaching a particle to the leading team heroes
+	-- 			local existingParticle = entity:Attribute_GetIntValue( "particleID", -1 )
+ --       			if existingParticle == -1 then
+ --       				local particleLeader = ParticleManager:CreateParticle( "particles/leader/leader_overhead.vpcf", PATTACH_OVERHEAD_FOLLOW, entity )
+	-- 				ParticleManager:SetParticleControlEnt( particleLeader, PATTACH_OVERHEAD_FOLLOW, entity, PATTACH_OVERHEAD_FOLLOW, "follow_overhead", entity:GetAbsOrigin(), true )
+	-- 				entity:Attribute_SetIntValue( "particleID", particleLeader )
+	-- 			end
+	-- 		else
+	-- 			local particleLeader = entity:Attribute_GetIntValue( "particleID", -1 )
+	-- 			if particleLeader ~= -1 then
+	-- 				ParticleManager:DestroyParticle( particleLeader, true )
+	-- 				entity:DeleteAttribute( "particleID" )
+	-- 			end
+	-- 		end
+	-- 	else
+	-- 		local particleLeader = entity:Attribute_GetIntValue( "particleID", -1 )
+	-- 		if particleLeader ~= -1 then
+	-- 			ParticleManager:DestroyParticle( particleLeader, true )
+	-- 			entity:DeleteAttribute( "particleID" )
+	-- 		end
+	-- 	end
+	-- end
 end
 
 ---------------------------------------------------------------------------
@@ -647,6 +708,8 @@ function CDotaRun:On_game_rules_state_change( data )
 	-- end
 
 	if nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
+		CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = self.TEAM_KILLS_TO_WIN } );
+		initShakers()
 		-- GameRules:GetGameModeEntity():SetThink( "EnsurePlayersOnCorrectTeam", self, 0 )
 		-- GameRules:GetGameModeEntity():SetThink( "BroadcastPlayerTeamAssignments", self, 1 )
 	end

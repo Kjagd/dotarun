@@ -20,13 +20,10 @@
 
 "CustomEvents"
 {
-    // Stat collection
-    "stat_collection_part"
-    {
-        "data"          "string"
-    }
-
-    "stat_collection_send"
-    {
-    }
+	
+	"score_board"
+	{
+		"team_id"					"short"
+		"team_score"				"short"
+	}
 }
