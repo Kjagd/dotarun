@@ -143,6 +143,13 @@ function WinHere(trigger)
     if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3]
          and GameRules.dotaRun.waypoints[playerID][4] and GameRules.dotaRun.waypoints[playerID][5]) then
         DistributePoints(teamNumber)
+
+        if (GameRules.dotaRun.points[teamNumber] >= GameRules.dotaRun.pointsToWin) then
+            GameRules:SetSafeToLeave( true )
+            GameRules:SetGameWinner(teamNumber)
+            GameRules:SetCustomVictoryMessage( GameRules.dotaRun.m_VictoryMessages[teamNumber] )
+        end
+
         GameRules.dotaRun.numFinished = GameRules.dotaRun.numFinished + 1
         if (GameRules.dotaRun.numFinished == GameRules.dotaRun.playerCount) then
             StartReset()
@@ -154,7 +161,7 @@ function WinHere(trigger)
         end 
 
         if (GameRules.dotaRun.numFinished == 1) then
-            ShowCustomHeaderMessage( "#Finished", playerID, -1, 5 )
+            GameRules.dotaRun:ShowCenterMessage("30 seconds left!", 5)
             Timers:CreateTimer(27, function()
                 if (not GameRules.dotaRun.hasAlreadyReset) then
                     GameRules.dotaRun:ShowCenterMessage("3", 1)
@@ -189,6 +196,8 @@ function WinHere(trigger)
             )
         end
     end
+
+    GameRules.dotaRun:OnGoalEnteredEvent(playerID, teamNumber, GameRules.dotaRun.points[teamNumber]) 
 end
 
 function StartReset()
@@ -208,6 +217,7 @@ function StartReset()
     --print("max: " .. maxPoints[1].points)
     --print("pointstowin: " .. GameRules.dotaRun.pointsToWin)
 
+    -- The if case is useless if the new insta win works, else is still fine
     if (maxPoints[1].points >= GameRules.dotaRun.pointsToWin) then
         GameRules:SetSafeToLeave( true )
         GameRules:SetGameWinner(maxPoints[1].teamID)
@@ -216,7 +226,7 @@ function StartReset()
     else
         --print("else")
         if (not messageSend and maxPoints[1].points >= GameRules.dotaRun.pointsToWin-10) then
-            ShowCustomHeaderMessage( "#CloseToWin", PlayerResource:GetNthPlayerIDOnTeam(maxPoints[1].teamID, 1), -1, 5 )
+            ShowCustomHeaderMessage( "Someone is close to winning!", PlayerResource:GetNthPlayerIDOnTeam(maxPoints[1].teamID, 1), -1, 5 )
             messageSend = true
         end
 
