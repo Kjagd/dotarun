@@ -6,7 +6,7 @@ require('pudge')
 require('shakers')
 require('centaurs')
 require( "utility_functions" )
---require('magnus')
+require('magnus')
 if CDotaRun == nil then
 	CDotaRun = class({})
 end
@@ -106,7 +106,7 @@ function CDotaRun:InitGameMode()
 	GameRules:GetGameModeEntity():SetTopBarTeamValuesVisible( false )
 
 	self.TaTrapFired = false
-	self.itemList = { "item_blink", "item_cyclone", "item_shivas_guard", "item_sheepstick", "item_ancient_janggo", "item_rod_of_atos"}
+	self.itemList = { "item_blink", "item_cyclone", "item_sheepstick", "item_ancient_janggo", "item_rod_of_atos"} -- Removed "item_shivas_guard"
 	self.spellList = {"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_gale_custom", "dark_seer_surge_custom", "jakiro_ice_path_custom", 
 	"batrider_flamebreak_custom", "ancient_apparition_ice_vortex_custom", "obsidian_destroyer_astral_imprisonment_custom", "pudge_meat_hook_custom"}
 
@@ -116,7 +116,6 @@ function CDotaRun:InitGameMode()
 	end
 
 	self.pointsToWin = 30
-	self.TEAM_KILLS_TO_WIN = 30
 
 	self.distanceFromOneToTwo = 12406
 	self.distanceFromTwoToThree = 12452
@@ -145,7 +144,7 @@ function CDotaRun:InitGameMode()
 	initPudges()
 	--initShakers() Moved to start of game to prevent hearing loss
 	initCents()
-	--initMagnus()
+	initMagnus()
 
 	CDotaRun:ResetRound()
 
@@ -294,6 +293,7 @@ function CDotaRun:OnThink()
 	-- end
 	
 	playerPositions = self:SortPositions()
+	self:UpdateOldScoreboard(playerPositions)
 	self:CalculatePositions()
 	self:UpdateScoreboard()
 	self:BlueShell(playerPositions)
@@ -382,48 +382,51 @@ function CDotaRun:SortPositions()
 	return playerPositions
 end
 
----------------------------------------------------------------------------
--- Simple scoreboard using debug text
----------------------------------------------------------------------------
--- function CDotaRun:UpdateScoreboard(playerPositions)
+-------------------------------------------------------------------------
+--Simple scoreboard using debug text
+-------------------------------------------------------------------------
+function CDotaRun:UpdateOldScoreboard(playerPositions)
 	
--- 	local sortedTeams = {}
--- 	for _, team in pairs( self.m_GatheredShuffledTeams ) do
--- 		table.insert( sortedTeams, { teamID = team, teamScore = self.points[team] } )
--- 	end
+	local sortedTeams = {}
+	for _, team in pairs( self.m_GatheredShuffledTeams ) do
+		table.insert( sortedTeams, { teamID = team, teamScore = self.points[team] } )
+	end
 
--- 	-- reverse-sort by score
--- 	table.sort( sortedTeams, function(a,b) return ( a.teamScore > b.teamScore ) end )
+	-- reverse-sort by score
+	table.sort( sortedTeams, function(a,b) return ( a.teamScore > b.teamScore ) end )
 
--- 	UTIL_ResetMessageTextAll()
--- 	UTIL_MessageTextAll( "#ScoreboardTitle", 255, 255, 255, 255 )
--- 	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
--- 	for _, t in pairs( sortedTeams ) do
--- 		local clr = self:ColorForTeam( t.teamID )
--- 		if(PlayerResource:GetNthPlayerIDOnTeam(t.teamID, 1) ~= -1) then
--- 			name = PlayerResource:GetPlayerName(PlayerResource:GetNthPlayerIDOnTeam(t.teamID, 1))
--- 			UTIL_MessageTextAll(t.teamScore.."\t"..name, clr[1], clr[2], clr[3], 255)
--- 		end
--- 	end
+	UTIL_ResetMessageTextAll()
+	UTIL_MessageTextAll( "", 255, 255, 255, 255 )
+	UTIL_MessageTextAll( "", 255, 255, 255, 255 )
+	UTIL_MessageTextAll( "", 255, 255, 255, 255 )
+	UTIL_MessageTextAll( "Scoreboard", 255, 255, 255, 255 )
+	UTIL_MessageTextAll( "--------------------", 255, 255, 255, 255 )
+	for _, t in pairs( sortedTeams ) do
+		local clr = self:ColorForTeam( t.teamID )
+		if(PlayerResource:GetNthPlayerIDOnTeam(t.teamID, 1) ~= -1) then
+			name = PlayerResource:GetPlayerName(PlayerResource:GetNthPlayerIDOnTeam(t.teamID, 1))
+			UTIL_MessageTextAll(t.teamScore.."\t"..name, clr[1], clr[2], clr[3], 255)
+		end
+	end
 
--- 	UTIL_MessageTextAll( "#ScoreboardBreaker", 255, 255, 255, 255 )
--- 	UTIL_MessageTextAll( "#ScoreboardPositionHeader", 255, 255, 255, 255 )
--- 	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
--- 	for key, t in pairs( playerPositions ) do
--- 		local clr = self:ColorForTeam( t.teamID )
--- 		if t.teamID == 5 then
+	-- UTIL_MessageTextAll( "#ScoreboardBreaker", 255, 255, 255, 255 )
+	-- UTIL_MessageTextAll( "#ScoreboardPositionHeader", 255, 255, 255, 255 )
+	-- UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
+	-- for key, t in pairs( playerPositions ) do
+	-- 	local clr = self:ColorForTeam( t.teamID )
+	-- 	if t.teamID == 5 then
 			
--- 		elseif key == 1 then
--- 			UTIL_MessageTextAll(key.."st\t"..t.pName, clr[1], clr[2], clr[3], 255)
--- 		elseif key == 2 then
--- 			UTIL_MessageTextAll(key.."nd\t"..t.pName, clr[1], clr[2], clr[3], 255)
--- 		elseif key == 3 then
--- 			UTIL_MessageTextAll(key.."rd\t"..t.pName, clr[1], clr[2], clr[3], 255)
--- 		else 
--- 			UTIL_MessageTextAll(key.."th\t"..t.pName, clr[1], clr[2], clr[3], 255)
--- 		end
--- 	end
--- end
+	-- 	elseif key == 1 then
+	-- 		UTIL_MessageTextAll(key.."st\t"..t.pName, clr[1], clr[2], clr[3], 255)
+	-- 	elseif key == 2 then
+	-- 		UTIL_MessageTextAll(key.."nd\t"..t.pName, clr[1], clr[2], clr[3], 255)
+	-- 	elseif key == 3 then
+	-- 		UTIL_MessageTextAll(key.."rd\t"..t.pName, clr[1], clr[2], clr[3], 255)
+	-- 	else 
+	-- 		UTIL_MessageTextAll(key.."th\t"..t.pName, clr[1], clr[2], clr[3], 255)
+	-- 	end
+	-- end
+end
 
 function CDotaRun:UpdateScoreboard()
 	local sortedTeams = {}
@@ -619,6 +622,7 @@ function CDotaRun:ResetRound()
 	for i = 1, 5 do
 		GameRules.dotaRun.waypointleader[i] = false
 	end
+	repositionShakers()
 end
 
 function CDotaRun:ShowCenterMessage( msg, nDur )
@@ -708,7 +712,7 @@ function CDotaRun:On_game_rules_state_change( data )
 	-- end
 
 	if nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
-		CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = self.TEAM_KILLS_TO_WIN } );
+		CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = self.pointsToWin } );
 		initShakers()
 		-- GameRules:GetGameModeEntity():SetThink( "EnsurePlayersOnCorrectTeam", self, 0 )
 		-- GameRules:GetGameModeEntity():SetThink( "BroadcastPlayerTeamAssignments", self, 1 )
@@ -728,13 +732,13 @@ function CDotaRun:On_game_rules_state_change( data )
 	
 	if GameRules:State_Get() == DOTA_GAMERULES_STATE_PRE_GAME then
 		Timers:CreateTimer(2, function()
-			GameRules.dotaRun:ShowCenterMessage("Welcome to Dota Run!\n First to 30 points", 5)
+			GameRules.dotaRun:ShowCenterMessage("Welcome to Dota Run!", 5)
         	return
     	end
     	)
 
 		Timers:CreateTimer(7, function()
-			GameRules.dotaRun:ShowCenterMessage("Run over the squares to \n get items and spells", 5)
+			--GameRules.dotaRun:ShowCenterMessage("Run over the squares to \n get items and spells", 5)
         	return
     	end
     	)
@@ -790,6 +794,29 @@ function CDotaRun:OnAbilityUsed(data)
 	   	end
 	    )
 	end
+end
+
+function CDotaRun:OnGoalEnteredEvent(id, teamid, teampoints)
+--  print( "OnKillCredit" )
+--  DeepPrint( event )
+
+    local playerID = id
+    local nTeamID = teamid
+    local nTeamKills = teampoints
+    local nKillsRemaining = self.pointsToWin - nTeamKills
+    
+    local broadcast_kill_event =
+    {
+        killer_id = playerID,
+        team_id = nTeamID,
+        team_kills = nTeamKills,
+        kills_remaining = nKillsRemaining,
+        victory = 0,
+        close_to_victory = 0,
+        very_close_to_victory = 0,
+    }
+
+    CustomGameEventManager:Send_ServerToAllClients( "kill_event", broadcast_kill_event )
 end
 
 function PrintTable(t, indent, done)

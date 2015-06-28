@@ -19,7 +19,7 @@ function FISSURE()
 	for i = 1, numShakers do
 		-- print("HOOKING " .. i)
 		local randomAngle = RandomFloat(0, 2*math.pi)
-		shakers[i]:MoveToPosition(shakers[i]:GetAbsOrigin() + Vector(math.cos(randomAngle)*5,math.sin(randomAngle)*5)) 
+		shakers[i]:MoveToPosition(shakers[i]:GetAbsOrigin() + Vector(math.cos(randomAngle)*5,math.sin(randomAngle)*5,0)) 
 		Timers:CreateTimer(1, function()
 			shakers[i]:CastAbilityOnPosition(shakers[i]:GetAbsOrigin() + Vector(math.cos(randomAngle),math.sin(randomAngle),200), fissureAbilities[i], 0)
 			return
@@ -34,4 +34,10 @@ function startFissures()
       	return RandomInt(2.5, 3.5)
     end
     )
+end
+
+function repositionShakers()
+	for i = 1, numShakers do
+		FindClearSpaceForUnit(shakers[i], positions[i], false)
+	end
 end

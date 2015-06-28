@@ -1,5 +1,6 @@
 "addon"
 {
+
 	"PointsToWin"									"+{d:points_to_win} more"
 	"PointsToWin_CloseToVictory"					"+{d:points_to_win} more"
 	"PointsToWin_VeryCloseToVictory"				"+{d:points_to_win} more!"
@@ -62,14 +63,14 @@
 	
 	"addonname"										"Dota Run"
 	"overthrow_game_info_header_objective"			"Objective:"
-	"overthrow_brief_description"					""
-	"overthrow_game_info_header_how_to_play"		""
-	"overthrow_game_info_throne"					""
-	"overthrow_game_info_coins"						""
-	"overthrow_game_info_items"						""
-	"overthrow_game_info_tips_header"				""
-	"overthrow_game_info_tip01"						""
-	"overthrow_game_info_tip02"						""
+	"overthrow_brief_description"					"Get to the goal first to earn points! Use spells and items to gain the lead.\nFirst to 30 points win."
+	"overthrow_game_info_header_how_to_play"		"How to play:"
+	"overthrow_game_info_throne"					"Run over squares to pick up spells and items."
+	"overthrow_game_info_coins"						"Each spell and item can only be used once except Force Staff."
+	"overthrow_game_info_items"						"After someone has reached the goal everyone else has 30 seconds to make it too. You get 10 points for being 1st, 7 for being 2nd, 5 for being 3rd, 4 for being 4th etc.<br><br>"
+	"overthrow_game_info_tips_header"				"Tips:"
+	"overthrow_game_info_tip01"						"-Don't skip a corner or you will miss the checkpoint!"
+	"overthrow_game_info_tip02"						"-If you're the last man to enter a corner you will get a rocket with global range."
 	"overthrow_game_info_tip03"						""
 	"overthrow_game_info_tip04"						""
 }

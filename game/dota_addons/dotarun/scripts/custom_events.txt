@@ -26,4 +26,25 @@
 		"team_id"					"short"
 		"team_score"				"short"
 	}
+
+	"kills_counter"
+	{
+		"leading_team"				"short"
+		"kills_remaining"			"short"
+	}
+
+	"countdown_timer"
+	{
+		"timer_reminder"			"short"
+	}
+
+    "stat_collection_part"
+    {
+        "data"          "string"
+    }
+
+    "stat_collection_send"
+    {
+
+    }
 }
