@@ -1,4 +1,5 @@
-function GiveRandomItem(hero)
+--When / if Shiva's returns the random shall be 1, 6 again
+function GiveRandomItem(hero)  
  	
  	local itemSlotsFull = GameRules.dotaRun:DoesHeroHaveMaxItems(hero)
  	if (itemSlotsFull) then
@@ -7,7 +8,7 @@ function GiveRandomItem(hero)
  	end
 
 	local alreadyHas = false
-	local itemNew = CreateItem(GameRules.dotaRun.itemList[RandomInt(1, 6)], hero, hero)
+	local itemNew = CreateItem(GameRules.dotaRun.itemList[RandomInt(1, 5)], hero, hero)
 	for i=0,5 do 
 		itemOld = hero:GetItemInSlot(i)
 		if(itemOld ~= nil and itemOld:GetClassname() == itemNew:GetClassname()) then

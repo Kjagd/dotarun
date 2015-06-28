@@ -41,7 +41,7 @@ Label
 #CoinsText,
 #ItemsText
 {
-    width: 50%;
+    width: 100%;
 }
 
 .Header
@@ -65,26 +65,15 @@ Label
 #ThroneText
 {
     margin-top: 60px;
-	text-align: right;
+	text-align: left;
 }
 
-#ThroneImage
-{
-    margin-top: -20px;
-    width: 240px;
-    height: 352px;
-}
 
 #CoinsRow
 {
     margin-top: -120px;
 }
 
-#CoinsImage
-{
-    width: 240px;
-    height: 256px;
-}
 
 #CoinsText
 {
@@ -96,16 +85,11 @@ Label
     margin-top: 0px;
 }
 
-#ItemsImage
-{
-    width: 240px;
-    height: 192px;
-}
 
 #ItemsText
 {
     margin-top: 40px;
-	text-align: right;
+	text-align: left;
 }
 
 #TipsHeader
