@@ -9,11 +9,13 @@ Hey all!
 
 Our first dota 2 mod is being created right here, so if anybody feels like pitching in, sending a PR or whatever, feel free to do so!
 
+The code is not very pretty since we haven't had time to clean up after reborn, but it is all working.
+
 ### Setting up
 
 First of all you need to download the files to the correct location. Your git root should be at 
 
-`...\Steam\SteamApps\common\dota 2 beta\dota_ugc`
+`...\Steam\SteamApps\common\dota 2 beta`
 
 Please note that since git doesn't allow cloning into a non-empty directory, it will probably create a directory called dotarun,
 and you will to need move the content of this folder one level up to dota_ugc. (Don't forget the .git folder!)
