@@ -31,7 +31,7 @@ end
 function startFissures()
 	Timers:CreateTimer(5, function()
     	FISSURE()
-      	return RandomInt(2.5, 3.5)
+      	return RandomInt(2.5, 3.5) -- Should be randomfloat?
     end
     )
 end
