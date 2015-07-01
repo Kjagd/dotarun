@@ -39,9 +39,8 @@ Label
 
 #ThroneText,
 #CoinsText,
-#ItemsText
 {
-    width: 100%;
+    width: 50%;
 }
 
 .Header
@@ -68,10 +67,16 @@ Label
 	text-align: left;
 }
 
+#ThroneImage
+{
+    margin-top: 20px;
+    width: 200px;
+    height: 190px;
+}
 
 #CoinsRow
 {
-    margin-top: -120px;
+    margin-top: -200px;
 }
 
 
@@ -119,7 +124,8 @@ Label
 
 Label .midas_throne,
 Label .overboss,
-Label .treasure
+Label .treasure,
+Label .squares
 {
     color: #cccccc;
     font-weight: bold;

@@ -12,6 +12,7 @@
 		<Label id="HowToPlayHeader" class="Header" html="true" text="#overthrow_game_info_header_how_to_play" />
 		<Panel id="ThroneRow" class="InfoRow">
 			<Label id="ThroneText" html="true" text="#overthrow_game_info_throne" />
+			<Image id="ThroneImage" src="file://{images}/custom_game/game_info/square.psd" />
 		</Panel>
 		<Panel id="CoinsRow" class="InfoRow">
 			<Label id="CoinsText" html="true" text="#overthrow_game_info_coins" />
@@ -23,8 +24,6 @@
 		<Panel id="TipsRow" class="InfoRow">
 			<Label id="TipText01" class="TipText" html="true" text="#overthrow_game_info_tip01" />
 			<Label id="TipText02" class="TipText" html="true" text="#overthrow_game_info_tip02" />
-			<Label id="TipText03" class="TipText" html="true" text="#overthrow_game_info_tip03" />
-			<Label id="TipText04" class="TipText" html="true" text="#overthrow_game_info_tip04" />
 		</Panel>
 	</Panel>
 </root>

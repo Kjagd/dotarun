@@ -93,7 +93,28 @@ function WaypointFiveTouch(trigger)
 
     print(GameRules.dotaRun.waypoints[playerID][5])
     print("id" .. playerID)          
-end        
+end
+
+function WaypointSixTouch(trigger)
+     
+    playerID = trigger.activator:GetPlayerID() 
+
+    if (not GameRules.dotaRun.waypointleader[6]) then
+        GameRules.dotaRun.lead = playerID
+        GameRules.dotaRun.waypointleader[6] = true
+    end
+    -- print(playerID)
+    if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2]
+        and GameRules.dotaRun.waypoints[playerID][3] and GameRules.dotaRun.waypoints[playerID][4]
+        and GameRules.dotaRun.waypoints[playerID][5]) then
+        GameRules.dotaRun.waypoints[playerID][6] = true
+    end
+    
+    lastMan(1, trigger.activator)
+
+    print(GameRules.dotaRun.waypoints[playerID][6])
+    print("id" .. playerID)          
+end           
 
 function lastMan(waypointID, hero)
     local throughCount = 0
@@ -138,11 +159,11 @@ function WinHere(trigger)
     print(GameRules.dotaRun.waypoints[playerID][4])
     print(GameRules.dotaRun.waypoints[playerID][5])
     print(GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] 
-        and GameRules.dotaRun.waypoints[playerID][3] and GameRules.dotaRun.waypoints[playerID][4] and GameRules.dotaRun.waypoints[playerID][5])
+        and GameRules.dotaRun.waypoints[playerID][3] and GameRules.dotaRun.waypoints[playerID][4] and GameRules.dotaRun.waypoints[playerID][5] and GameRules.dotaRun.waypoints[playerID][6])
 
     if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3]
-         and GameRules.dotaRun.waypoints[playerID][4] and GameRules.dotaRun.waypoints[playerID][5]) then
-        DistributePoints(teamNumber)
+         and GameRules.dotaRun.waypoints[playerID][4] and GameRules.dotaRun.waypoints[playerID][5] and GameRules.dotaRun.waypoints[playerID][6]) then
+        DistributePoints(teamNumber, hero, playerID)
 
         if (GameRules.dotaRun.points[teamNumber] >= GameRules.dotaRun.pointsToWin) then
             GameRules:SetSafeToLeave( true )
@@ -197,7 +218,7 @@ function WinHere(trigger)
         end
     end
 
-    GameRules.dotaRun:OnGoalEnteredEvent(playerID, teamNumber, GameRules.dotaRun.points[teamNumber]) 
+    --GameRules.dotaRun:OnGoalEnteredEvent(playerID, teamNumber, GameRules.dotaRun.points[teamNumber]) 
 end
 
 function StartReset()
@@ -235,21 +256,42 @@ function StartReset()
     end
 end
 
-function DistributePoints(teamID)
+function DistributePoints(teamID, hero, playerID)
+    local points = 0
     if GameRules.dotaRun.numFinished == 0 then
-        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + 10
+        points = 10
+        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
     elseif GameRules.dotaRun.numFinished == 1 then
-        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + 7
+        points = 7
+        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
     elseif GameRules.dotaRun.numFinished == 2 then
-        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + 5
+        points = 5
+        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
     elseif GameRules.dotaRun.numFinished == 3 then
-        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + 4
+        points = 4
+        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
     elseif GameRules.dotaRun.numFinished == 4 then
-        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + 3
+        points = 3
+        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
     elseif GameRules.dotaRun.numFinished == 5 then
-        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + 2
+        points = 2
+        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
     elseif GameRules.dotaRun.numFinished == 6 then
-        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + 1
+        points = 1
+        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
+    elseif GameRules.dotaRun.numFinished == 7 then
+        points = 1
+        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
+    elseif GameRules.dotaRun.numFinished == 8 then
+        points = 1
+        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
+    elseif GameRules.dotaRun.numFinished == 9 then
+        points = 1
+        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
+    end
+
+    for i = 1, points do
+        hero:IncrementKills(playerID)
     end
 end
 

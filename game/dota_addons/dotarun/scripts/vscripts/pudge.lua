@@ -36,7 +36,7 @@ end
 function startHooks()
 	Timers:CreateTimer(5, function()
     	hook()
-      	return RandomInt(1.5, 3.5)
+      	return RandomInt(1.5, 3.5) -- Should be randomfloat?
     end
     )
 end
