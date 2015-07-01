@@ -5,8 +5,9 @@ require('timers')
 require('pudge')
 require('shakers')
 require('centaurs')
-require( "utility_functions" )
 require('magnus')
+require('earth_spirit')
+require( "utility_functions" )
 if CDotaRun == nil then
 	CDotaRun = class({})
 end
@@ -29,6 +30,7 @@ function Precache( context )
 	PrecacheUnitByNameSync("npc_dota_hero_earthshaker", context)
 	PrecacheUnitByNameSync("npc_dota_hero_templar_assassin", context)
 	PrecacheUnitByNameSync("npc_dota_hero_magnataur", context)
+	PrecacheUnitByNameSync("npc_dota_hero_earth_spirit", context)
 
 	PrecacheResource( "particle", "particles/econ/items/lanaya/lanaya_epit_trap/templar_assassin_epit_trap_ring_inner_start.vpcf", context )
 	-- PrecacheItemByNameSync("mirana_arrow", context)
@@ -145,6 +147,7 @@ function CDotaRun:InitGameMode()
 	--initShakers() Moved to start of game to prevent hearing loss
 	initCents()
 	initMagnus()
+
 
 	CDotaRun:ResetRound()
 
@@ -293,9 +296,9 @@ function CDotaRun:OnThink()
 	-- end
 	
 	playerPositions = self:SortPositions()
-	self:UpdateOldScoreboard(playerPositions)
+	--self:UpdateOldScoreboard(playerPositions)
 	self:CalculatePositions()
-	self:UpdateScoreboard()
+	--self:UpdateScoreboard()
 	self:BlueShell(playerPositions)
 		
 	return 1
@@ -610,7 +613,7 @@ function CDotaRun:ResetRound()
     	GameRules.dotaRun.spawned[i] = false
 		GameRules.dotaRun.zoneOpen[i] = true
 
-    	for j = 1, 5 do
+    	for j = 1, 6 do
     		GameRules.dotaRun.waypoints[i][j] = false -- Fill the values here
     	end
 	end
@@ -619,7 +622,7 @@ function CDotaRun:ResetRound()
 		GameRules.dotaRun.playerDistances[i] = 0
 	end
 
-	for i = 1, 5 do
+	for i = 1, 6 do
 		GameRules.dotaRun.waypointleader[i] = false
 	end
 	repositionShakers()
@@ -714,6 +717,8 @@ function CDotaRun:On_game_rules_state_change( data )
 	if nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
 		CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = self.pointsToWin } );
 		initShakers()
+		initEarthSpirit()
+
 		-- GameRules:GetGameModeEntity():SetThink( "EnsurePlayersOnCorrectTeam", self, 0 )
 		-- GameRules:GetGameModeEntity():SetThink( "BroadcastPlayerTeamAssignments", self, 1 )
 	end
@@ -768,6 +773,11 @@ function CDotaRun:OnAbilityUsed(data)
 	DeepPrintTable(player)
 	local hero = player:GetAssignedHero()
 
+	-- hero:IncrementKills(data.PlayerID) For testing scoreboard UI
+
+
+	-- Scaleform UI Scoreboard
+
 
 	local ability = hero:FindAbilityByName(data.abilityname)
 	if(ability ~= nil) then
@@ -796,28 +806,38 @@ function CDotaRun:OnAbilityUsed(data)
 	end
 end
 
-function CDotaRun:OnGoalEnteredEvent(id, teamid, teampoints)
---  print( "OnKillCredit" )
---  DeepPrint( event )
-
-    local playerID = id
-    local nTeamID = teamid
-    local nTeamKills = teampoints
-    local nKillsRemaining = self.pointsToWin - nTeamKills
-    
-    local broadcast_kill_event =
-    {
-        killer_id = playerID,
-        team_id = nTeamID,
-        team_kills = nTeamKills,
-        kills_remaining = nKillsRemaining,
-        victory = 0,
-        close_to_victory = 0,
-        very_close_to_victory = 0,
-    }
-
-    CustomGameEventManager:Send_ServerToAllClients( "kill_event", broadcast_kill_event )
+function CDotaRun:OnTeamKillCredit(event)
+	print("test")
 end
+
+function CDotaRun:OnEntityKilled( event )
+	print("test2")
+end
+
+
+-- Hvis vi vil have at der kommer et lille 1 tal når folk går i mål
+-- function CDotaRun:OnGoalEnteredEvent(id, teamid, teampoints)
+-- --  print( "OnKillCredit" )
+-- --  DeepPrint( event )
+
+--     local playerID = id
+--     local nTeamID = teamid
+--     local nTeamKills = teampoints
+--     local nKillsRemaining = self.pointsToWin - nTeamKills
+    
+--     local broadcast_kill_event =
+--     {
+--         killer_id = playerID,
+--         team_id = nTeamID,
+--         team_kills = nTeamKills,
+--         kills_remaining = nKillsRemaining,
+--         victory = 0,
+--         close_to_victory = 0,
+--         very_close_to_victory = 0,
+--     }
+
+--     CustomGameEventManager:Send_ServerToAllClients( "kill_event", broadcast_kill_event )
+-- end
 
 function PrintTable(t, indent, done)
 	--print ( string.format ('PrintTable type %s', type(keys)) )
