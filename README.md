@@ -26,7 +26,7 @@ The documentation for Dota 2 alpha tools aren't always the best, so here are som
 
 [Valve's scripting overview](https://developer.valvesoftware.com/wiki/Dota_2_Workshop_Tools/Scripting)
 
-[Dota2Modding subreddit](http://www.reddit.com/r/dota2modding)
+[ModDota](https://moddota.com)
 
 [Some introduction tutorials](http://yrrep.me/dota/)
 
@@ -43,9 +43,9 @@ Now browse scipts/npc or whatever you need.
 
 #### Steam Workshop:
 
-[Workshop link](http://steamcommunity.com/sharedfiles/filedetails/?id=311707837)
+[Workshop link](http://steamcommunity.com/sharedfiles/filedetails/?id=469890148)
 
 #### Credits: 
 Thanks do BMD for his Barebones mod [GitHub](https://github.com/bmddota/barebones)
 
-Thanks to everyone at [Moddota](https://moddota.com) and the IRC.
+Thanks to everyone at ModDota and the IRC.
