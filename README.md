@@ -47,4 +47,5 @@ Now browse scipts/npc or whatever you need.
 
 #### Credits: 
 Thanks do BMD for his Barebones mod [GitHub](https://github.com/bmddota/barebones)
+
 Thanks to everyone at [Moddota](https://moddota.com) and the IRC.
