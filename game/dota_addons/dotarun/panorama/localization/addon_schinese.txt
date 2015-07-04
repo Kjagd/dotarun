@@ -1,0 +1,79 @@
+"addon"
+{
+
+	"PointsToWin"									"+{d:points_to_win} more"
+	"PointsToWin_CloseToVictory"					"+{d:points_to_win} more"
+	"PointsToWin_VeryCloseToVictory"				"+{d:points_to_win} more!"
+	"PointsToWin_Victory"							"Victory!"
+
+	"InstructionsTitle"								"DOTA RUN"
+	"InstructionsObjective"							"OBJECTIVE"
+	"InstructionsObjectiveText"						"Get to the goal first to earn points! First to 30 points win."
+	"InstructionsHowToPlay"							"HOW TO PLAY"
+	"InstructionsLines"								"-Run over logos to pick up spells and items.<br>
+													-Each spell and item can only be used once except Force Staff.<br>
+													-After someone has reached the goal everyone else has 30 seconds to make it too.<br>
+													-You get 10 points for being 1st, 7 for being 2nd, 5 for being 3rd, 4 for being 4th etc."
+
+	"Chest"											"ITEM"
+	"ItemWillSpawn"									"IS ABOUT TO BE DELIVERED!"
+	"ItemHasSpawned"								"IS ON ITS WAY!"
+
+	"RecentScore"									"+{d:score}"
+
+	"Unassigned"      								"Unassigned Team"
+	"Spectator"       								"Spectator Team"
+	"Neutrals"        								"Neutral Team"
+	"NoTeam"          								"No Team"
+
+	"DOTA_GoodGuys"   								"Teal Tiger"
+	"DOTA_BadGuys"    								"Yellow Monkey"
+	"DOTA_Custom1"    								"Pink Dragon"
+	"DOTA_Custom2"    								"Orange Dog"
+	"DOTA_Custom3"    								"Blue Rooster"
+	"DOTA_Custom4"    								"Green Ram"
+	"DOTA_Custom5"    								"Brown Rat"
+	"DOTA_Custom6"    								"Cyan Boar"
+	"DOTA_Custom7"    								"Olive Snake"
+	"DOTA_Custom8"    								"Purple Horse"
+
+	"VictoryMessage_GoodGuys"   					"Teal Tiger Wins!"	
+	"VictoryMessage_BadGuys"    					"Yellow Monkey Wins!"
+	"VictoryMessage_Custom1"    					"Pink Dragon Wins!"	
+	"VictoryMessage_Custom2"    					"Orange Dog Wins!"
+	"VictoryMessage_Custom3"    					"Blue Rooster Wins!"
+	"VictoryMessage_Custom4"    					"Green Ram Wins!"	
+	"VictoryMessage_Custom5"    					"Brown Rat Wins!"
+	"VictoryMessage_Custom6"    					"Cyan Boar Wins!" 
+	"VictoryMessage_Custom7"    					"Olve Snake Wins!"	
+	"VictoryMessage_Custom8"    					"Purple Horse Wins!"
+	
+	"OverthrowHeroPickup"							"{s:hero_id}"
+	"OverthrowTextPickup"							"HAS PICKED UP"
+	"OverthrowItemPickup"							"{s:item_id}!"
+
+	"Remaining"										"REMAINING"
+
+	"Overtime"										"OVERTIME!"
+	"OvertimeInstructions"							"SCORE TO WIN"
+
+	"KillMessageHero"								"{s:hero_id}"
+	"KillMessageText"								"HAS KILLED THE LEADER"
+	"KillMessageBounty"								"FOR 500 BONUS GOLD!"
+	
+	"addonname"										"Dota Run"
+	"overthrow_game_info_header_objective"          "游戏目标"
+    "overthrow_brief_description"                   "首先到达终点以得到积分，使用各种法术及物品来取得领先"
+    "overthrow_game_info_header_how_to_play"        "玩法说明"
+    "overthrow_game_info_throne"                    "跑过<span class='squares'>符文方块</span>来取得法术或物品."
+    "overthrow_game_info_coins"                     "除了原力法杖，所有其他法术及物品只能使用一次"
+    "overthrow_game_info_items"                     "当有人已经到达终点时，其他人将剩下30秒来完成比赛。单圈第一名得10分，第二名7分，第三名5分，第4名4分，第5名3分，第二名6分，第六名2分，其余完成比赛的人各得1分。<br><br>"
+    "overthrow_game_info_tips_header"               "游戏贴士"
+    "overthrow_game_info_tip01"                     "不要抄近路而忽略角落，否则你会错失检查点"
+    "overthrow_game_info_tip02"                     "如果你时最后一个到达角落的人，你将会得到一个全地图射程的火箭"
+    "overthrow_game_info_tip03"                     "水中行进速度变慢"
+    "overthrow_game_info_tip04"                     "你可以吧敌人推到路边的石壁上"
+
+
+}
+

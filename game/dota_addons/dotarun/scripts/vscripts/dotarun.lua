@@ -8,7 +8,7 @@ function GiveRandomItem(hero)
  	end
 
 	local alreadyHas = false
-	local itemNew = CreateItem(GameRules.dotaRun.itemList[RandomInt(1, 5)], hero, hero)
+	local itemNew = CreateItem(GameRules.dotaRun.itemList[RandomInt(1, 9)], hero, hero)
 	for i=0,5 do 
 		itemOld = hero:GetItemInSlot(i)
 		if(itemOld ~= nil and itemOld:GetClassname() == itemNew:GetClassname()) then
