@@ -24,6 +24,8 @@
 		<Panel id="TipsRow" class="InfoRow">
 			<Label id="TipText01" class="TipText" html="true" text="#overthrow_game_info_tip01" />
 			<Label id="TipText02" class="TipText" html="true" text="#overthrow_game_info_tip02" />
+			<Label id="TipText03" class="TipText" html="true" text="#overthrow_game_info_tip03" />
+			<Label id="TipText04" class="TipText" html="true" text="#overthrow_game_info_tip04" />
 		</Panel>
 	</Panel>
 </root>

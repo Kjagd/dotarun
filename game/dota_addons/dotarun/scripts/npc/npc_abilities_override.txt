@@ -386,68 +386,31 @@
 			}
 		}
 	}
-	
-	//=================================================================================================================
-	// Quelling Blade
-	//=================================================================================================================
-	"item_quelling_blade"
-	{
-		"ItemCost"						"3000"
-	}
 
 	//=================================================================================================================
-	// Courier
+	// Black King Bar
 	//=================================================================================================================
-	"item_courier"
-	{
-		"ItemPurchasable"				"0"
-		"ItemDroppable"					"0"
-	}
-
-	//=================================================================================================================
-	// Flying Courier
-	//=================================================================================================================
-	"item_flying_courier"
-	{
-		"ItemPurchasable"				"0"
-		"ItemDroppable"					"0"
-	}
-
-	//=================================================================================================================
-	// Smoke of Deceit
-	//=================================================================================================================
-	"item_smoke_of_deceit"
+	"item_black_king_bar"
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"188"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
-		"Model"							"models/props_gameplay/smoke.mdl"
-		"Effect"						"dropped_smoke"		
-		"FightRecapLevel"				"1"
-																																																																												 
+		"ID"							"116"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"FightRecapLevel"				"2"
+
 		// Stats		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"25.0"
+		"AbilityCooldown"				"5.0"
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"100"
-		"ItemShopTags"					"consumable"
-		"ItemQuality"					"consumable"
-		"ItemAliases"					"smoke of deceit"
-		"ItemStackable"					"1"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-		"ItemPermanent"					"0"
-		"ItemInitialCharges"			"1"
-		"ItemDisplayCharges"			"1"
-		"ItemStockMax"					"3"
-		"ItemStockTime"					"720.0"			  
-		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
-		"ItemSupport"					"1"
-		"ItemAlertable"					"1"
-
-
+		"ItemCost"						"3975"
+		"ItemShopTags"					"str;damage;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"bkb;black king bar"
+		"ItemSellable"					"1"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -455,192 +418,357 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"application_radius"	"1200"
+				"bonus_strength"		"0"
 			}
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"visibility_radius"		"1025"
+				"bonus_damage"			"0"
 			}
 			"03"
 			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"2.5"
+			}
+			"04"
+			{
 				"var_type"				"FIELD_INTEGER"
-				"bonus_movement_speed"		"25"
+				"max_level"				"1"
+			}
+			"05"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"model_scale"			"30"     // Percentage over model scale
+			}
+		}
+	}
+	
+	//=================================================================================================================
+	// Phase Boots
+	//=================================================================================================================
+	"item_phase_boots"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"50"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"5.0"
+		
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1290"
+		"ItemShopTags"					"damage;move_speed;hard_to_tag"
+		"ItemQuality"					"common"
+		"ItemAliases"					"phase boots"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_movement_speed"	"0"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_damage"			"0"
+			}			
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"phase_movement_speed"  "0"
 			}
 			"04"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"duration"				"35.0"
+				"phase_duration"		"3.0"
 			}
 		}
 	}
-
-
 	
 	//=================================================================================================================
-	// Elder Titan: Natural Order
+	// Ethereal Blade
 	//=================================================================================================================
-	"elder_titan_natural_order"
+	"item_ethereal_blade"
 	{
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"radius"					"275 275 275 275"
-			}
-			"02"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"armor_reduction_pct"	    "3 6 9 12"
-			}
-			"03"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"magic_resistance_pct"		"8 16 25 33"
-			}
-		}
-	}
-
-	//=================================================================================================================
-	// Witch Doctor: Maledict
-	//=================================================================================================================
-	"witch_doctor_maledict"
-	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"176"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY | DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
-	}
-	
-	//=================================================================================================================
-	// Templar Assassin: Trap
-	//=================================================================================================================
-	"templar_assassin_trap"
-	{
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"movement_speed_bonus"		"-50"
-			}
-			"02"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"trap_radius"				"375"
-			}
-			"03"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"trap_duration"				"5.0"
-			}
-			"04"
-			{
-				"var_type"							"FIELD_INTEGER"
-				"movement_speed_bonus_stage"		"-6"
-			}	
-		}
-	}
-	
-	//=================================================================================================================
-	// Templar Assassin: Self Trap
-	//=================================================================================================================
-	"templar_assassin_self_trap"
-	{
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"movement_speed_bonus"		"-50"
-			}
-			"02"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"trap_radius"				"400"
-			}
-			"03"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"trap_duration"				"5.0"
-			}
-			"04"
-			{
-				"var_type"					"FIELD_INTEGER"
-				"movement_speed_bonus_stage"		"-6"
-			}
-		}
-	}		
+		"FightRecapLevel"				"1"
 
-	//=================================================================================================================
-	// Elder Titan: Echo Stomp
-	//=================================================================================================================
-	"elder_titan_echo_stomp"
-	{
-		// Special
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"5.0"	    
+		"AbilitySharedCooldown"			"ethereal"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		"ItemCost"						"4700"
+		"ItemShopTags"					"agi;str;int;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemAliases"					"eb;ethereal blade"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
 		{
 			"01"
 			{
-				"var_type"						"FIELD_FLOAT"
-				"cast_time"						"1.4"
+				"var_type"				"FIELD_INTEGER"
+				"bonus_agility"			"0"
 			}
 			"02"
 			{
-				"var_type"						"FIELD_INTEGER"
-				"radius"						"475"
+				"var_type"				"FIELD_INTEGER"
+				"bonus_strength"		"0"
 			}
 			"03"
 			{
-				"var_type"						"FIELD_FLOAT"
-				"sleep_duration"				"2.0 3.0 4.0 5.0"
+				"var_type"				"FIELD_INTEGER"
+				"bonus_intellect"		"0"
 			}
 			"04"
 			{
-				"var_type"						"FIELD_INTEGER"
-				"stomp_damage"					"40 80 120 160"
+				"var_type"				"FIELD_INTEGER"
+				"blast_movement_slow"	"-80"
 			}
 			"05"
 			{
-				"var_type"						"FIELD_FLOAT"
-				"initial_stun_duration"					"0.65"
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"3.0"
+			}
+			"06"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"blast_agility_multiplier"			"0.0"
+			}
+			"07"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"blast_damage_base"			"0"
+			}
+			"08"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration_ally"				"4.0"
+			}
+			"09"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"ethereal_damage_bonus"	"0"
+			}
+			"10"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"projectile_speed"	"1000"
 			}
 		}
 	}
-
+	
 	//=================================================================================================================
-	// Elder Titan: Echo Stomp (Spirit Version)
+	// Lotus Orb
 	//=================================================================================================================
-	"elder_titan_echo_stomp_spirit"
+	"item_lotus_orb"
 	{
-		// Special
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"226"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"FightRecapLevel"				"1"
+		
+		"AbilityCooldown"				"5.0"
+		"AbilityCastRange"				"900"
+		"AbilityManaCost"				"0"
+
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"4050"
+		"ItemShopTags"					"regen_health;regen_mana;str;agi;int;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"ls;lotus orb"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		
+		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
 		{
 			"01"
 			{
-				"var_type"						"FIELD_FLOAT"
-				"cast_time"						"1.4"
+				"var_type"				"FIELD_INTEGER"
+				"bonus_damage"			"0"
 			}
 			"02"
 			{
-				"var_type"						"FIELD_INTEGER"
-				"radius"						"475"
+				"var_type"				"FIELD_INTEGER"
+				"bonus_armor"		"0"
 			}
 			"03"
 			{
-				"var_type"						"FIELD_FLOAT"
-				"sleep_duration"				"2.0 3.0 4.0 5.0"
+				"var_type"				"FIELD_INTEGER"
+				"bonus_health_regen"	"0"
 			}
 			"04"
 			{
-				"var_type"						"FIELD_INTEGER"
-				"stomp_damage"					"40 80 120 160"
+				"var_type"				"FIELD_INTEGER"
+				"bonus_mana_regen"		"0"
+			}			
+			"05"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"active_duration"		"5"
+			}
+			"06"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"cast_range_tooltip"		"900"
 			}
 		}
 	}
+	
+	//=================================================================================================================
+	// Manta
+	//=================================================================================================================
+	"item_manta"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"147"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+
+		// Stats		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"5.0"
+		"AbilityCastPoint"				"0.0"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		"ItemCost"						"4950"
+		"ItemShopTags"					"agi;str;int;attack_speed;move_speed;hard_to_tag"
+		"ItemQuality"					"epic"
+		"ItemAliases"					"manta style"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_strength"		"0"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_agility"			"0"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_intellect"		"0"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_attack_speed"	"0"
+			}
+			"05"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_movement_speed"	"0"
+			}
+			"06"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"images_count"			"1"
+			}			
+			"07"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"tooltip_illusion_duration"			"20"
+			}
+			"08"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"images_do_damage_percent_melee"	"0"
+			}
+			"09"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"tooltip_damage_outgoing_melee"			"0"
+			}	
+			"10"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"images_take_damage_percent_melee"	"0"
+			}
+			"11"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"tooltip_damage_incoming_melee_total_pct"			"0"
+			}			
+			"12"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"images_do_damage_percent_ranged"	"0"
+			}
+			"13"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"tooltip_damage_outgoing_ranged"			"0"
+			}
+			"14"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"images_take_damage_percent_ranged"	"0"
+			}
+			"15"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"tooltip_damage_incoming_ranged_total_pct"			"0"
+			}
+			"16"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"cooldown_melee"		"5.0"
+			}
+			"17"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"cooldown_ranged_tooltip"		"5"
+			}
+			"18"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"invuln_duration"		"0.1"
+			}
+			"19"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"vision_radius"			"1000"
+			}			
+		}
+	}
+	
 }
 	

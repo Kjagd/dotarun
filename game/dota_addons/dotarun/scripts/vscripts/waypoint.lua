@@ -89,7 +89,7 @@ function WaypointFiveTouch(trigger)
         GameRules.dotaRun.waypoints[playerID][5] = true
     end
     
-    lastMan(1, trigger.activator)
+    lastMan(5, trigger.activator)
 
     print(GameRules.dotaRun.waypoints[playerID][5])
     print("id" .. playerID)          
@@ -110,7 +110,7 @@ function WaypointSixTouch(trigger)
         GameRules.dotaRun.waypoints[playerID][6] = true
     end
     
-    lastMan(1, trigger.activator)
+    lastMan(6, trigger.activator)
 
     print(GameRules.dotaRun.waypoints[playerID][6])
     print("id" .. playerID)          
@@ -118,6 +118,7 @@ end
 
 function lastMan(waypointID, hero)
     local throughCount = 0
+    local playerID = hero:GetPlayerID()
     for i = 0, 9 do
         if (GameRules.dotaRun.waypoints[i][waypointID]) then
             throughCount = throughCount + 1
@@ -135,11 +136,13 @@ function lastMan(waypointID, hero)
         if (not hasMaxAbilities) then
             local abilityName = "gyrocopter_homing_missile_custom"
             if(hero:FindAbilityByName(abilityName) == nil) then
+                Notifications:Top(playerID, {text="You got a global range missile!", duration=5, continue=false})
                 print("Adding ability: "..abilityName)
                 hero:RemoveAbility("empty_ability1") 
                 hero:AddAbility(abilityName)
                 ability = hero:FindAbilityByName(abilityName)
                 ability:SetLevel(1)
+                -- local message you got a global homing missile
             end
         end
     end
@@ -176,13 +179,24 @@ function WinHere(trigger)
             StartReset()
             GameRules.dotaRun.hasAlreadyReset = true
         else
-            local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
-            teleportHero(hero, point, playerID)
-            hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table)
+            Timers:CreateTimer(0.06, function()
+                local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
+                teleportHero(hero, point, playerID)
+                hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table)
+                return
+            end
+            )
+            Timers:CreateTimer(1, function()
+                local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
+                teleportHero(hero, point, playerID)
+                hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table)
+                return
+            end
+            )
         end 
 
         if (GameRules.dotaRun.numFinished == 1) then
-            GameRules.dotaRun:ShowCenterMessage("30 seconds left!", 5)
+            GameRules.dotaRun:ShowCenterMessage("30 seconds left!", 5) -- change to BMD?
             Timers:CreateTimer(27, function()
                 if (not GameRules.dotaRun.hasAlreadyReset) then
                     GameRules.dotaRun:ShowCenterMessage("3", 1)
@@ -222,7 +236,7 @@ function WinHere(trigger)
 end
 
 function StartReset()
-    local messageSend = false
+    local messageSent = false
     local maxPoints = {}
     maxPoints[1] = {teamID = -1, points = 0}
     for i = DOTA_TEAM_GOODGUYS, DOTA_TEAM_CUSTOM_8 do
@@ -246,9 +260,16 @@ function StartReset()
         GameRules:SetCustomVictoryMessage( GameRules.dotaRun.m_VictoryMessages[maxPoints[1].teamID] ) 
     else
         --print("else")
-        if (not messageSend and maxPoints[1].points >= GameRules.dotaRun.pointsToWin-10) then
-            ShowCustomHeaderMessage( "Someone is close to winning!", PlayerResource:GetNthPlayerIDOnTeam(maxPoints[1].teamID, 1), -1, 5 )
-            messageSend = true
+        if (not messageSent and maxPoints[1].points >= GameRules.dotaRun.pointsToWin-10) then
+            local team = maxPoints[1].teamID
+            local lookingToWinID = PlayerResource:GetNthPlayerIDOnTeam(maxPoints[1].teamID, 1)
+            Notifications:Top(lookingToWinID, {text="You are close to winning!", duration=5, style={color="green"}, continue=false})
+            for i = 0, 9 do
+                if i ~= lookingToWinID then
+                    Notifications:Top(i, {text="An enemy is close to winning!", duration=5, style={color="red"}, continue=false})
+                end
+            end  
+            messageSent = true
         end
 
         EmitGlobalSound( "ui.npe_objective_complete" )
