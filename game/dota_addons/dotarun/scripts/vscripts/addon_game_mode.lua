@@ -1,6 +1,7 @@
 -- Generated from template
 
 require('lib.statcollection')
+require('lib.notifications')
 require('timers')
 require('pudge')
 require('shakers')
@@ -33,6 +34,8 @@ function Precache( context )
 	PrecacheUnitByNameSync("npc_dota_hero_earth_spirit", context)
 
 	PrecacheResource( "particle", "particles/econ/items/lanaya/lanaya_epit_trap/templar_assassin_epit_trap_ring_inner_start.vpcf", context )
+
+	PrecacheResource( "soundfile", "soundevents/custom_sounds.vsndevts", context ) 
 	-- PrecacheItemByNameSync("mirana_arrow", context)
 	-- PrecacheItemByNameSync("venomancer_venomous_gale", context)
 	-- PrecacheItemByNameSync("mirana_leap", context)
@@ -108,7 +111,8 @@ function CDotaRun:InitGameMode()
 	GameRules:GetGameModeEntity():SetTopBarTeamValuesVisible( false )
 
 	self.TaTrapFired = false
-	self.itemList = { "item_blink", "item_cyclone", "item_sheepstick", "item_ancient_janggo", "item_rod_of_atos"} -- Removed "item_shivas_guard"
+	self.itemList = { "item_blink", "item_cyclone", "item_sheepstick", "item_ancient_janggo", "item_rod_of_atos", "item_black_king_bar",
+	"item_phase_boots", "item_ethereal_blade", "item_manta"} -- Removed "item_shivas_guard"
 	self.spellList = {"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_gale_custom", "dark_seer_surge_custom", "jakiro_ice_path_custom", 
 	"batrider_flamebreak_custom", "ancient_apparition_ice_vortex_custom", "obsidian_destroyer_astral_imprisonment_custom", "pudge_meat_hook_custom"}
 
@@ -300,9 +304,44 @@ function CDotaRun:OnThink()
 	self:CalculatePositions()
 	--self:UpdateScoreboard()
 	self:BlueShell(playerPositions)
+	self:HasFinished()
 		
 	return 1
 end
+
+---------------------------------------------------------------------------
+-- Check if a player has already finished and move to start if true
+---------------------------------------------------------------------------
+
+function CDotaRun:HasFinished()
+	for i = 0,(DOTA_MAX_TEAM_PLAYERS-1) do
+		local player = PlayerResource:GetPlayer(i)
+		if (player ~= nil and player:GetAssignedHero() ~= nil) then
+
+			if (GameRules.dotaRun.waypoints[i][5]) then
+				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "win" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+			elseif (GameRules.dotaRun.waypoints[i][4]) then
+				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint5" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+					+ self.distanceFromFiveToGoal
+			elseif (GameRules.dotaRun.waypoints[i][3]) then
+				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint3" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+					+ self.distanceFromFiveToGoal + self.distanceFromFourToFive
+			elseif (GameRules.dotaRun.waypoints[i][2]) then
+				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint3" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+					+ self.distanceFromFiveToGoal + self.distanceFromFourToFive + self.distanceFromThreeToFour
+			elseif (GameRules.dotaRun.waypoints[i][1]) then
+				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint2" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+					+ self.distanceFromFiveToGoal + self.distanceFromFourToFive + self.distanceFromThreeToFour + self.distanceFromTwoToThree
+			else 
+				local distance = (Entities:FindByName( nil, "waypoint1" ):GetOrigin() 
+					- player:GetAssignedHero():GetOrigin()):Length2D()
+				GameRules.dotaRun.playerDistances[i+1] = distance
+					+ self.distanceFromFiveToGoal + self.distanceFromFourToFive + self.distanceFromThreeToFour + self.distanceFromTwoToThree + self.distanceFromOneToTwo
+			end 
+		end
+	end
+end
+
 
 ---------------------------------------------------------------------------
 -- Calculate the distances from the waypoints

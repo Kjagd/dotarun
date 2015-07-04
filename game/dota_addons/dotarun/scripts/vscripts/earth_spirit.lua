@@ -1,8 +1,8 @@
 local earth_spirit = {}
 local kickAbilities = {}
 local placeAbilities = {}
-local positionsBot = {Vector(1505, 3870, 300), Vector(124, 3840, 300), Vector(-1666, 3136, 300)}
-local positionsTop = {Vector(1505, 5002, 300), Vector(124, 5119, 300), Vector(-1666, 4288, 300)}  
+local positionsBot = {Vector(1535, 3839, 300), Vector(124, 3840, 300), Vector(-1666, 3136, 300)}
+local positionsTop = {Vector(1535, 5119, 300), Vector(124, 5119, 300), Vector(-1666, 4288, 300)}  
 local numEarth = 3
 
 function initEarthSpirit() 
@@ -39,8 +39,14 @@ end
 
 function act_earthSpirit(earthSpiritNum)
 	if earthSpiritNum < 4 then
+		if (earth_spirit[earthSpiritNum]:GetAbsOrigin() ~= positionsBot[earthSpiritNum]) then
+			FindClearSpaceForUnit(earth_spirit[earthSpiritNum], positionsBot[earthSpiritNum], false)
+		end
 		earth_spirit[earthSpiritNum]:CastAbilityOnPosition(positionsTop[earthSpiritNum], kickAbilities[earthSpiritNum], 0)
 	else
+		if (earth_spirit[earthSpiritNum]:GetAbsOrigin() ~= positionsTop[earthSpiritNum-numEarth]) then
+			FindClearSpaceForUnit(earth_spirit[earthSpiritNum], positionsTop[earthSpiritNum-numEarth], false)
+		end
 		earth_spirit[earthSpiritNum]:CastAbilityOnPosition(positionsBot[earthSpiritNum-numEarth], kickAbilities[earthSpiritNum], 0)
 	end
 	
