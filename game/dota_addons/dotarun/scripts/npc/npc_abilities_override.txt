@@ -482,7 +482,7 @@
 			"03"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"phase_movement_speed"  "0"
+				"phase_movement_speed"  "10"
 			}
 			"04"
 			{
