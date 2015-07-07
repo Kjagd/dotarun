@@ -197,6 +197,14 @@ function WinHere(trigger)
 
         if (GameRules.dotaRun.numFinished == 1) then
             GameRules.dotaRun:ShowCenterMessage("30 seconds left!", 5) -- change to BMD?
+            Timers:CreateTimer(15, function()
+                if (not GameRules.dotaRun.hasAlreadyReset) then
+                    GameRules.dotaRun:ShowCenterMessage("15", 1)
+                end
+                
+                return 
+            end
+            )
             Timers:CreateTimer(27, function()
                 if (not GameRules.dotaRun.hasAlreadyReset) then
                     GameRules.dotaRun:ShowCenterMessage("3", 1)
