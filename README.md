@@ -3,7 +3,7 @@ Dota Run
 
 The best running game in existence, hopefully!
 
-![Dota Run](http://i.imgur.com/zsZ7OGB.png)
+![Dota Run](http://i.imgur.com/v1Rtjxy.png)
 
 Hey all! 
 
@@ -18,7 +18,7 @@ First of all you need to download the files to the correct location. Your git ro
 `...\Steam\SteamApps\common\dota 2 beta`
 
 Please note that since git doesn't allow cloning into a non-empty directory, it will probably create a directory called dotarun,
-and you will to need move the content of this folder one level up to dota_ugc. (Don't forget the .git folder!)
+and you will to need move the content of this folder one level up to dota 2 beta. (Don't forget the .git folder!)
 
 #### Resources
 
