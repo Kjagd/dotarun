@@ -705,7 +705,7 @@
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityTextureName"			"obsidian_destroyer_astral_imprisonment"
 		
-
+		"AbilityCastRange"				"600"
 		"AbilityDuration"				"3"
 		"AbilityCooldown"				"4"
 
@@ -1200,7 +1200,7 @@
 			"03"
 			{
 				"var_type"					"FIELD_FLOAT"
-				"stun_duration"				"5"
+				"stun_duration"				"4"
 			}
 			"04"
 			{
