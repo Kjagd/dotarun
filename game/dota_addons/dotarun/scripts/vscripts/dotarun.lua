@@ -75,7 +75,7 @@ end
 function WaterSlow(trigger)
 	print("Slowing")
 	hero = trigger.activator
-	GiveUnitSlow(hero, hero, "modifier_slow", 40)
+	GiveUnitSlow(hero, hero, "modifier_slow")
 end
 
 function WaterUnslow(trigger)
@@ -85,8 +85,8 @@ function WaterUnslow(trigger)
 	
 end
 
-function GiveUnitSlow(source, target, modifier,dur)
+function GiveUnitSlow(source, target, modifier)
     --source and target should be hscript-units. The same unit can be in both source and target
     local item = CreateItem( "item_apply_slow", source, source)
-    item:ApplyDataDrivenModifier( source, target, modifier, {duration=dur} )
+    item:ApplyDataDrivenModifier( source, target, modifier, {} )
 end

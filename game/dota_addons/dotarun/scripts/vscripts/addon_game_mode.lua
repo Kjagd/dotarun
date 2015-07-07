@@ -127,7 +127,8 @@ function CDotaRun:InitGameMode()
 	self.distanceFromTwoToThree = 12452
 	self.distanceFromThreeToFour = 9000
 	self.distanceFromFourToFive = 9500
-	self.distanceFromFiveToGoal = 7300
+	self.distanceFromFiveToSix = 7300
+	self.distanceFromSixToGoal = 7000
 
 	self.playerDistances = {}
 
@@ -318,25 +319,28 @@ function CDotaRun:HasFinished()
 		local player = PlayerResource:GetPlayer(i)
 		if (player ~= nil and player:GetAssignedHero() ~= nil) then
 
-			if (GameRules.dotaRun.waypoints[i][5]) then
+			if (GameRules.dotaRun.waypoints[i][6]) then
 				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "win" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+			elseif (GameRules.dotaRun.waypoints[i][5]) then
+				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint6" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+					+ self.distanceFromSixToGoal
 			elseif (GameRules.dotaRun.waypoints[i][4]) then
 				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint5" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromFiveToGoal
+					+ self.distanceFromSixToGoal + self.distanceFromFiveToSix
 			elseif (GameRules.dotaRun.waypoints[i][3]) then
-				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint3" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromFiveToGoal + self.distanceFromFourToFive
+				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint4" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+					+ self.distanceFromSixToGoal + self.distanceFromFiveToSix + self.distanceFromFourToFive
 			elseif (GameRules.dotaRun.waypoints[i][2]) then
 				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint3" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromFiveToGoal + self.distanceFromFourToFive + self.distanceFromThreeToFour
+					+ self.distanceFromSixToGoal + self.distanceFromFiveToSix + self.distanceFromFourToFive + self.distanceFromThreeToFour
 			elseif (GameRules.dotaRun.waypoints[i][1]) then
 				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint2" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromFiveToGoal + self.distanceFromFourToFive + self.distanceFromThreeToFour + self.distanceFromTwoToThree
+					+ self.distanceFromSixToGoal + self.distanceFromFiveToSix + self.distanceFromFourToFive + self.distanceFromThreeToFour + self.distanceFromTwoToThree
 			else 
 				local distance = (Entities:FindByName( nil, "waypoint1" ):GetOrigin() 
 					- player:GetAssignedHero():GetOrigin()):Length2D()
-				GameRules.dotaRun.playerDistances[i+1] = distance
-					+ self.distanceFromFiveToGoal + self.distanceFromFourToFive + self.distanceFromThreeToFour + self.distanceFromTwoToThree + self.distanceFromOneToTwo
+				GameRules.dotaRun.playerDistances[i+1] = distance + self.distanceFromSixToGoal
+					+ self.distanceFromFiveToSix + self.distanceFromFourToFive + self.distanceFromThreeToFour + self.distanceFromTwoToThree + self.distanceFromOneToTwo
 			end 
 		end
 	end
@@ -352,25 +356,28 @@ function CDotaRun:CalculatePositions()
 		local player = PlayerResource:GetPlayer(i)
 		if (player ~= nil and player:GetAssignedHero() ~= nil) then
 
-			if (GameRules.dotaRun.waypoints[i][5]) then
+			if (GameRules.dotaRun.waypoints[i][6]) then
 				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "win" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+			elseif (GameRules.dotaRun.waypoints[i][5]) then
+				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint6" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+					+ self.distanceFromSixToGoal 
 			elseif (GameRules.dotaRun.waypoints[i][4]) then
 				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint5" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromFiveToGoal
+					+ self.distanceFromSixToGoal + self.distanceFromFiveToSix
 			elseif (GameRules.dotaRun.waypoints[i][3]) then
-				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint3" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromFiveToGoal + self.distanceFromFourToFive
+				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint4" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
+					+ self.distanceFromSixToGoal + self.distanceFromFiveToSix + self.distanceFromFourToFive
 			elseif (GameRules.dotaRun.waypoints[i][2]) then
 				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint3" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromFiveToGoal + self.distanceFromFourToFive + self.distanceFromThreeToFour
+					+ self.distanceFromSixToGoal + self.distanceFromFiveToSix + self.distanceFromFourToFive + self.distanceFromThreeToFour
 			elseif (GameRules.dotaRun.waypoints[i][1]) then
 				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint2" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromFiveToGoal + self.distanceFromFourToFive + self.distanceFromThreeToFour + self.distanceFromTwoToThree
+					+ self.distanceFromSixToGoal + self.distanceFromFiveToSix + self.distanceFromFourToFive + self.distanceFromThreeToFour + self.distanceFromTwoToThree
 			else 
 				local distance = (Entities:FindByName( nil, "waypoint1" ):GetOrigin() 
 					- player:GetAssignedHero():GetOrigin()):Length2D()
 				GameRules.dotaRun.playerDistances[i+1] = distance
-					+ self.distanceFromFiveToGoal + self.distanceFromFourToFive + self.distanceFromThreeToFour + self.distanceFromTwoToThree + self.distanceFromOneToTwo
+					+ self.distanceFromSixToGoal + self.distanceFromFiveToSix + self.distanceFromFourToFive + self.distanceFromThreeToFour + self.distanceFromTwoToThree + self.distanceFromOneToTwo
 			end 
 		end
 	end
@@ -390,7 +397,8 @@ function CDotaRun:BlueShell(playerPositions)
 					local hero = PlayerResource:GetPlayer(playerID):GetAssignedHero()
 					if (hero ~= nil) then
 						hero:SetBaseMoveSpeed(speed)
-						speed = speed + 10
+						speed = speed + 30
+						print(speed)
 					end
 				end
 				--Note that this actually works, but the movement display is not altered :D
@@ -420,7 +428,8 @@ function CDotaRun:SortPositions()
 
 	-- reverse-sort by distance
 	table.sort(  playerPositions, function(a,b) return ( a.position < b.position ) end )
-
+	print("pos")
+	print(playerPositions)
 	return playerPositions
 end
 

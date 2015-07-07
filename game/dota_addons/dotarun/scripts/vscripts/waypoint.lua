@@ -334,10 +334,13 @@ function setCameraToWin(hero)
 end 
 
 function teleportHero(hero, point, playerID)
+     local particle = ParticleManager:CreateParticle("particles/econ/events/nexon_hero_compendium_2014/teleport_start_i_nexon_hero_cp_2014.vpcf",
+         PATTACH_ABSORIGIN, hero)
     -- Find a spot for the hero around 'point' and teleports to it
     FindClearSpaceForUnit(hero, point, false)
     -- Stop the hero, so he doesn't move
     hero:Stop()
+   
     -- Refocus the camera of said player to the position of the teleported hero.
     -- PlayerResource:SetCameraTarget(playerID, hero)
     SendToConsole("dota_camera_center")
