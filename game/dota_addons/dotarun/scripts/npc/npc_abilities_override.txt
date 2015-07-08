@@ -1,4 +1,3 @@
-
 // Dota Abilities Override File
 "DOTAAbilities"
 {
@@ -510,7 +509,6 @@
 		"AbilityCastRange"				"800"
 		"AbilityCastPoint"				"0.0"
 		"AbilityCooldown"				"5.0"	    
-		"AbilitySharedCooldown"			"ethereal"
 
 		// Item Info
 		//-------------------------------------------------------------------------------------------------------------
