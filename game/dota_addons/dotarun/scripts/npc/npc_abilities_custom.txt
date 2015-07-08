@@ -1245,4 +1245,713 @@
 			
 		}
 	}
+
+	//=================================================================================================================
+	// Meepo: Earthbind
+	//=================================================================================================================
+	"meepo_earthbind_custom"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"baseclass"					"meepo_earthbind"													
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.3"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"4"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"2.0"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"220"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"speed"					"857"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"tooltip_range"			"500 750 1000 1250"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Vengefulspirit Nether Swap
+	//=================================================================================================================
+	"vengefulspirit_nether_swap_custom"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"baseclass"					"vengefulspirit_nether_swap"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_CUSTOM"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"FightRecapLevel"				"2"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"800"
+		"AbilityCastPoint"				"0.3 0.3 0.3"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"4"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"tooltip_range"					"800"
+			}
+			"02"
+			{
+				"var_type"						"FIELD_FLOAT"
+				"nether_swap_cooldown_scepter"	"10"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Wisp: Tether
+	//=================================================================================================================
+	"wisp_tether_custom"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"baseclass"						"wisp_tether"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.001 0.001 0.001 0.001"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"4"
+		"AbilityDuration"				"3"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		
+		// Cast Range
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"1000"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"radius"					"900 900 900 900"
+			}
+			"02"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"movespeed"					"14 15 16 17"
+			}
+			"03"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"latch_distance"			"700 700 700 700"
+			}
+			"04"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"latch_speed"				"1000 1000 1000 1000"
+			}
+			"05"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"tether_duration"			"12.0 12.0 12.0 12.0"
+			}
+			"06"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"tether_heal_amp"			"1.5"
+			}
+			"07"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"slow"			"-100"
+			}
+			"08"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"attackslow_tooltip"			"-100"
+			}
+			"09"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"stun_duration"				"0.75 1.25 1.75 2.25"
+			}
+		}
+	}
+
+
+	//=================================================================================================================
+	// Disruptor: Glimpse
+	//=================================================================================================================
+	"disruptor_glimpse_custom"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"baseclass"							"disruptor_glimpse"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_CREEP_HERO"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.05 0.05 0.05 0.05"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"4"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		
+		// Cast Range
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"600 1000 1400 1800"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"backtrack_time"			"2.0 2.0 2.0 2.0"
+			}
+			"02"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"cast_range"				"600 1000 1400 1800"
+			}
+		}
+	}	
+
+"wisp_tether_datadriven"
+{
+	// General
+	//-------------------------------------------------------------------------------------------------------------
+	"BaseClass"				"ability_datadriven"
+	"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_CREEP_HERO"
+	"AbilityTextureName"			"wisp_tether"
+
+	// Casting
+	//-------------------------------------------------------------------------------------------------------------
+	"AbilityCastPoint"				"0.001 0.001 0.001 0.001"
+
+	// Time		
+	//-------------------------------------------------------------------------------------------------------------
+	"AbilityCooldown"				"4"
+	"AbilityDuration"				"3"
+
+	// Cost
+	//-------------------------------------------------------------------------------------------------------------
+	"AbilityManaCost"				"0"
+	
+	// Cast Range
+	//-------------------------------------------------------------------------------------------------------------
+	"AbilityCastRange"				"1000"
+
+	// Special
+	//-------------------------------------------------------------------------------------------------------------
+	"AbilitySpecial"
+	{
+		"01"
+		{
+			"var_type"					"FIELD_INTEGER"
+			"radius"					"900 900 900 900"
+		}
+		"02"
+		{
+			"var_type"					"FIELD_INTEGER"
+			"movespeed"					"17"
+		}
+		"03"
+		{
+			"var_type"					"FIELD_INTEGER"
+			"latch_distance"			"700 700 700 700"
+		}
+		"04"
+		{
+			"var_type"					"FIELD_INTEGER"
+			"latch_speed"				"1000 1000 1000 1000"
+		}
+		"05"
+		{
+			"var_type"					"FIELD_FLOAT"
+			"tether_duration"			"3"
+		}
+		"06"
+		{
+			"var_type"					"FIELD_FLOAT"
+			"tether_heal_amp"			"1.5"
+		}
+		"07"
+		{
+			"var_type"					"FIELD_INTEGER"
+			"slow"			"-100"
+		}
+		"08"
+		{
+			"var_type"					"FIELD_INTEGER"
+			"attackslow_tooltip"			"-100"
+		}
+		"09"
+		{
+			"var_type"					"FIELD_FLOAT"
+			"stun_duration"				"0.75 1.25 1.75 2.25"
+		}
+		// Extra variables
+		"10"
+		{
+			"var_type"					"FIELD_INTEGER"
+			"latch_distance_to_target"	"300"
+		}
+		"11"
+		{
+			"var_type"					"FIELD_INTEGER"
+			"latch_destroy_tree_radius"	"350"
+		}
+		"12"
+		{
+			"var_type"					"FIELD_FLOAT"
+			"latch_tick_interval"		"0.03"
+		}
+		"13"
+		{
+			"var_type"					"FIELD_INTEGER"
+			"tether_line_radius"		"32"
+		}
+		"14"
+		{
+			"var_type"					"FIELD_FLOAT"
+			"tether_line_tick_interval"	"0.03"
+		}
+	}
+	
+	// Data driven
+	//-------------------------------------------------------------------------------------------------------------
+	"precache"
+	{
+		"soundfile"					"soundevents/game_sounds_heroes/game_sounds_wisp.vsndevts"
+		"particle"					"particles/units/heroes/hero_wisp/wisp_tether.vpcf"
+		
+	}
+	
+	"OnAbilityPhaseStart"
+	{
+		"RunScript"
+		{
+			"ScriptFile"	"heroes/hero_wisp/tether.lua"
+			"Function"		"TetherPreCast"
+		}
+	}
+	
+	"OnSpellStart"
+	{
+		"ApplyModifier"
+		{
+			"Target"		"CASTER"
+			"ModifierName"	"modifier_tether_caster_datadriven"
+		}
+		
+		"ApplyModifier"
+		{
+			"Target"		"TARGET"
+			"ModifierName"	"modifier_tether_ally_datadriven"
+		}
+		
+		"RunScript"
+		{
+			"ScriptFile"		"heroes/hero_wisp/tether.lua"
+			"Function"			"CastTether"
+			"Target"			"TARGET"
+			
+			"latch_distance"	"%latch_distance"
+			"latch_modifier"	"modifier_tether_caster_latching_datadriven"
+			
+			"sub_ability_name"	"wisp_tether_break_datadriven"
+		}
+	}
+	
+	"OnUpgrade"
+	{
+		"RunScript"
+		{
+			"ScriptFile"	"heroes/hero_wisp/tether.lua"
+			"Function"		"LevelUpAbility"
+			"ability_name"	"wisp_tether_break_datadriven"
+		}
+	}
+	
+	"OnProjectileHitUnit"
+	{
+		"DeleteOnHit"	"0"
+		
+		"RunScript"
+		{
+			"ScriptFile"		"heroes/hero_wisp/tether.lua"
+			"Function"			"OnProjectileHit"
+			"Target"			"TARGET"
+			
+			"slow_modifier"		"modifier_tether_slow_datadriven"
+		}
+	}
+	
+	"Modifiers"
+	{
+		"modifier_tether_caster_datadriven"
+		{
+			"IsBuff"	"1"
+			"Duration"	"%tether_duration"
+			
+			"Properties"
+			{
+				"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%movespeed"
+			}
+			
+			"OnCreated"
+			{
+				"FireSound"
+				{
+					"EffectName"		"Hero_Wisp.Tether"	// a loop sound
+					"Target"			"CASTER"
+				}
+			}
+			
+			"OnDestroy"
+			{
+				"RemoveModifier"
+				{
+					"Target"			"CASTER"
+					"ModifierName"		"modifier_tether_caster_latching_datadriven"
+				}
+				
+				"RunScript"
+				{
+					"ScriptFile"		"heroes/hero_wisp/tether.lua"
+					"Function"			"EndTether"
+					
+					"ally_modifier"		"modifier_tether_ally_datadriven"
+					"sub_ability_name"	"wisp_tether_break_datadriven"
+				}
+			
+				"RunScript"
+				{
+					"ScriptFile"		"heroes/hero_wisp/tether.lua"
+					"Function"			"StopSound"
+					"sound_name"		"Hero_Wisp.Tether"
+				}
+				
+				"FireSound"
+				{
+					"EffectName"		"Hero_Wisp.Tether.Stop"
+					"Target"			"CASTER"
+				}
+			}
+			
+			"OnTakeDamage"
+			{
+				"RunScript"
+				{
+					"ScriptFile"	"heroes/hero_wisp/tether.lua"
+					"Function"		"TrackCurrentHealth"
+				}
+			}
+			
+			"OnHealReceived"
+			{
+				"RunScript"
+				{
+					"ScriptFile"	"heroes/hero_wisp/tether.lua"
+					"Function"		"HealAlly"
+					"tether_heal_amp"	"%tether_heal_amp"
+				}
+				
+				"RunScript"
+				{
+					"ScriptFile"	"heroes/hero_wisp/tether.lua"
+					"Function"		"TrackCurrentHealth"
+				}
+			}
+			
+			"OnHealthGained"
+			{
+				"RunScript"
+				{
+					"ScriptFile"	"heroes/hero_wisp/tether.lua"
+					"Function"		"HealAlly"
+					"tether_heal_amp"	"%tether_heal_amp"
+				}
+				
+				"RunScript"
+				{
+					"ScriptFile"	"heroes/hero_wisp/tether.lua"
+					"Function"		"TrackCurrentHealth"
+				}
+			}
+			
+			"OnSpentMana"
+			{
+				"RunScript"
+				{
+					"ScriptFile"	"heroes/hero_wisp/tether.lua"
+					"Function"		"GiveManaToAlly"
+					"tether_heal_amp"	"%tether_heal_amp"
+				}
+				"RunScript"
+				{
+					"ScriptFile"	"heroes/hero_wisp/tether.lua"
+					"Function"		"TrackCurrentMana"
+				}
+			}
+			
+			"OnManaGained"
+			{
+				"RunScript"
+				{
+					"ScriptFile"	"heroes/hero_wisp/tether.lua"
+					"Function"		"GiveManaToAlly"
+					"tether_heal_amp"	"%tether_heal_amp"
+				}
+			
+				"RunScript"
+				{
+					"ScriptFile"	"heroes/hero_wisp/tether.lua"
+					"Function"		"TrackCurrentMana"
+				}
+			}
+			
+			"ThinkInterval"		"0.03"
+			"OnIntervalThink"
+			{
+				"RunScript"
+				{
+					"ScriptFile"	"heroes/hero_wisp/tether.lua"
+					"Function"		"TrackCurrentHealth"
+				}
+			//	"RunScript"
+			//	{
+			//		"ScriptFile"	"heroes/hero_wisp/tether.lua"
+			//		"Function"		"TrackCurrentMana"
+			//	}
+				"RunScript"
+				{
+					"ScriptFile"	"heroes/hero_wisp/tether.lua"
+					"Function"		"CheckDistance"
+					
+					"radius"			"%radius"
+					"caster_modifier"	"modifier_tether_caster_datadriven"
+					"latch_modifier"	"modifier_tether_caster_latching_datadriven"
+				}
+			}
+		}
+		
+		"modifier_tether_caster_latching_datadriven"
+		{
+			"IsHidden"	"1"
+			
+			"Duration"	"%tether_duration"
+			
+			"ThinkInterval"		"%latch_tick_interval"
+			"OnIntervalThink"
+			{
+				"RunScript"
+				{
+					"ScriptFile"		"heroes/hero_wisp/tether.lua"
+					"Function"			"Latch"
+					
+					"tick_interval"				"%latch_tick_interval"
+					"latch_speed"				"%latch_speed"
+					"latch_distance_to_target"	"%latch_distance_to_target"
+					"latch_modifier"			"modifier_tether_caster_latching_datadriven"
+				}
+			}
+			
+			"States"
+			{
+				"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+				"MODIFIER_STATE_ROOTED"				"MODIFIER_STATE_VALUE_ENABLED"
+			}
+			
+			"OnDestroy"
+			{
+				"DestroyTrees"
+				{
+					"Target"		"TARGET"
+					"Radius"		"%latch_destroy_tree_radius"
+				}
+			}
+		}
+		
+		"modifier_tether_ally_datadriven"
+		{
+			"IsBuff"	"1"
+			"Duration"	"%tether_duration"
+			
+			"Properties"
+			{
+				"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%movespeed"
+			}
+			
+			"OnCreated"
+			{
+				"FireSound"
+				{
+					"EffectName"		"Hero_Wisp.Tether.Target"
+					"Target"			"TARGET"
+				}
+				
+				"AttachEffect"
+				{
+					"EffectName"		"particles/units/heroes/hero_wisp/wisp_tether.vpcf"
+					"EffectAttachType"	"attach_hitloc"
+					"Target"			"TARGET"
+					
+					"ControlPointEntities"
+					{
+						"CASTER"	"attach_hitloc"
+						"TARGET"	"attach_hitloc"
+					}
+				}
+			}
+			
+			"ThinkInterval"			"%tether_line_tick_interval"
+			"OnIntervalThink"
+			{
+				"RunScript"
+				{
+					"ScriptFile"		"heroes/hero_wisp/tether.lua"
+					"Function"			"FireTetherProjectile"
+					"Target"			"TARGET"
+					
+					"tether_line_radius"	"%tether_line_radius"
+					"tick_interval"			"%tether_line_tick_interval"
+				}
+			}
+		}
+		
+		"modifier_tether_slow_datadriven"
+		{
+			"IsDebuff"	"1"
+		
+			"Duration"	"%stun_duration"
+			
+			"EffectName"		"particles/units/heroes/hero_wisp/wisp_tether_slow.vpcf"
+			"EffectAttachType"	"follow_origin"
+			
+			"Properties"
+			{
+				"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%slow"
+			}
+			
+			"OnCreated"
+			{
+				"FireEffect"
+				{
+					"EffectName"		"particles/units/heroes/hero_wisp/wisp_tether_slow.vpcf"
+					"EffectAttachType"	"attach_hitloc"
+					"Target"			"TARGET"
+				}
+				
+				"FireSound"
+				{
+					"EffectName"	"Hero_Wisp.Tether.Stun"
+					"Target"		"TARGET"
+				}
+			}
+		}
+	}
+}
+
+"wisp_tether_break_datadriven"
+{
+	// General
+	//-------------------------------------------------------------------------------------------------------------
+	"BaseClass"				"ability_datadriven"
+	"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+	"MaxLevel"						"1"
+	"AbilityTextureName"			"wisp_tether_break"
+
+	// Casting
+	//-------------------------------------------------------------------------------------------------------------
+	"AbilityCastPoint"				"0 0 0 0"
+
+	// Time		
+	//-------------------------------------------------------------------------------------------------------------
+	"AbilityCooldown"				"1.0 1.0 1.0 1.0"
+	
+	// Data driven
+	//-------------------------------------------------------------------------------------------------------------
+	"OnSpellStart"
+	{
+		"RemoveModifier"
+		{
+			"Target"		"CASTER"
+			"ModifierName"	"modifier_tether_caster_datadriven"
+		}
+	}
+	
+	"OnUpgrade"
+	{
+		"RunScript"
+		{
+			"ScriptFile"	"heroes/hero_wisp/tether.lua"
+			"Function"		"LevelUpAbility"
+			"ability_name"	"wisp_tether_datadriven"
+		}
+	}
+}
+
+	
+
+
 }

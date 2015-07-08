@@ -8,7 +8,7 @@ function GiveRandomItem(hero)
  	end
 
 	local alreadyHas = false
-	local itemNew = CreateItem(GameRules.dotaRun.itemList[RandomInt(1, 9)], hero, hero)
+	local itemNew = CreateItem(GameRules.dotaRun.itemList[RandomInt(1, #GameRules.dotaRun.itemList)], hero, hero)
 	for i=0,5 do 
 		itemOld = hero:GetItemInSlot(i)
 		if(itemOld ~= nil and itemOld:GetClassname() == itemNew:GetClassname()) then
@@ -37,7 +37,7 @@ function GiveRandomAbility(hero)
 	
 	if (not hasMaxAbilities) then
 		-- See https://stackoverflow.com/questions/9613322/lua-table-getn-returns-0
-		abilityName = GameRules.dotaRun.spellList[RandomInt(1, 9)]
+		abilityName = GameRules.dotaRun.spellList[RandomInt(1, #GameRules.dotaRun.spellList)]
 		if(hero:FindAbilityByName(abilityName) == nil) then
 			print("Adding ability: "..abilityName)
     	    hero:RemoveAbility("empty_ability1") 
