@@ -3,12 +3,13 @@
 require('lib.statcollection')
 require('lib.notifications')
 require('timers')
+require('utility_functions')
 require('pudge')
 require('shakers')
 require('centaurs')
 require('magnus')
 require('earth_spirit')
-require( "utility_functions" )
+require('techies')
 if CDotaRun == nil then
 	CDotaRun = class({})
 end
@@ -26,6 +27,7 @@ function Precache( context )
 	PrecacheUnitByNameSync("npc_dota_hero_templar_assassin", context)
 	PrecacheUnitByNameSync("npc_dota_hero_magnataur", context)
 	PrecacheUnitByNameSync("npc_dota_hero_earth_spirit", context)
+	PrecacheUnitByNameSync("npc_dota_hero_techies", context)
 	PrecacheUnitByNameSync("npc_dota_hero_meepo", context)
 
 	PrecacheResource( "particle", "particles/econ/items/lanaya/lanaya_epit_trap/templar_assassin_epit_trap_ring_inner_start.vpcf", context )
@@ -174,6 +176,7 @@ function CDotaRun:InitGameMode()
 	--initShakers() Moved to start of game to prevent hearing loss
 	initCents()
 	initMagnus()
+	initTechie()
 
 
 	CDotaRun:ResetRound()
@@ -693,6 +696,7 @@ function CDotaRun:ResetRound()
 		GameRules.dotaRun.waypointleader[i] = false
 	end
 	repositionShakers()
+	setUpMines()
 end
 
 function CDotaRun:ShowCenterMessage( msg, nDur )
