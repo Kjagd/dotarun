@@ -1,0 +1,53 @@
+[h1] If you liked Mario Kart / Crash Team Racing / Lego Racers you'll love this! [/h1]
+
+Get to the finish line faster than your opponents by using all the dirty tricks you can come up with.
+
+Use your trusted force staff and the additional items and abilities you collect by finding the marked squares, but be careful of the traps!
+
+Each item and spell can only be used once, so use it right!
+
+The map is FFA and the first to score 30 points wins. You get 10 points for being 1st, 7 for being 2nd, 5 for being 3rd, 4 for being 4th, 3 for being 5th, 2 for being 6th and anyone else gets 1 point if they finish.
+
+[h1] Development & Bugs [/h1]
+
+Please report issues in the pinned discussion.
+
+The mod is open sourced here: https://github.com/Kjagd/dotarun
+
+Huge thanks to [url=http://mattoswald.com/] /u/Insert [/url] for the icon!
+
+We would also like to thank the guys who have done the ingame translations! MLF(Russian) and MLGB (Chinese).
+
+[h1]Если вам понравился Mario kart/Crash team racing/Lego racers То тогда вам понравится и это![/h1]
+
+Используйте форс стафф и другие предметы и способности,которые вы получаете путём собирания помеченных квадратов,но будьте осторожны:не попадитесь на ловушки!
+
+все против всех,и веигрывает тот,кто первым наберёт 30 очков.
+
+первый получает 10 очков, второй - 7, третий - 5, четвёртый - 4, пятый - 3, остальные - 1, если они достигнут финиша.
+
+[h1]Развитие & Баги[/h1]
+
+Пожалуйста,пишите свои ошибки и баги в закреплённой теме под названием "Report bugs here"
+
+Мод с открытым исходным кодом здесь: https://github.com/Kjagd/dotarun
+
+Translated by Zer0
+
+[h1]如果你喜欢马里奥赛车／Crash Team Racing /乐高赛车手系列，你一定会喜欢这个。[/h1]
+
+用尽浑身解数、不择手段比对手先一步到达终点。
+
+使用你的原力法杖以及在符文方块处得到的各种物品和能力来取得胜利，但是要小心陷阱哦！
+
+请注意除了原力法杖之外，所得到的其他物品和法术只能够使用一次，所以物尽其用吧。
+
+游戏是混战模式，夺得总分30分者胜利，单圈第一名得10分，第二名7分，第三名5分，第四名4分，第五名3分，第六名2分，其余完成比赛的人各得1分。
+
+[h1]程序开发&漏洞[/h1]
+
+请在指定的讨论区提交游戏中碰到的各类问题。
+
+开源mod在这里: https://github.com/Kjagd/dotarun
+
+Translated by MLGB

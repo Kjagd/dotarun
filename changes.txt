@@ -1,0 +1,60 @@
+07-07-2015
+
+Content/Bugs:
+-Improved loading screen look
+-Additional 15 sec warning before round end
+-Fixed bug where you could forcestaff over a cliff near first pudge
+
+Balances:
+-Water slow is now percentage based (-20%)
+-Phase boots now also provides 10% bonus speed
+-Reduced Astral imprisoment range to 600 (was global before!)
+-Reduced Gyro missile stun duration from 5s to 4s
+
+07-04-2015
+
+Removed Lotus Orb since it was causing crashes.
+Arrow is now global.
+
+Added more items (with changed values from their normal forms):
+- BKB
+- Manta Style
+- Lotus Orb
+- Ethereal Blade
+- Phase Boots
+
+Reduced the amount of Gyro missiles given out.
+
+It is no longer possible to get trapped next to the second water.
+
+New notifications.
+
+Tried to fix a bug which sometimes didn't teleport people when they scored if they got forced or euled at the same time.
+
+Added in game russian and simplified chinese translations.
+
+07-01-2015
+
+- New Scoreboard! Looks like Overthrow.
+- Bigger map.
+- New obstacle: Earth spirits kicks remnants back and forth.
+
+06-28-2015
+
+-New obstacle added. Several Magnuses tries to skewer you away from the goal.
+-Earthshaker now turns before he casts fissures so you can dodge it.
+-Once someone has 30 or more points the game is now instantly over.
+
+06-27-2015
+
+Visual updates!
+-Added new game info
+-Colors and team names like in Overthrow
+-Removed Shiva's Guard for pressing ceremonial reasons
+-Used the logo as a loading screen
+-Earthshaker no longer shakes while you wait for others (less noisy)
+-New TAB scoreboard (scores not updating)
+
+And a bit more.
+
+Hopefully a new scoreboard at the top like the one in Overthrow will be implemented soon.
