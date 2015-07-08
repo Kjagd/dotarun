@@ -18,24 +18,42 @@ end
 --   })
 
 function Precache( context )
-	PrecacheUnitByNameSync("npc_dota_hero_venomancer", context)
 	PrecacheUnitByNameSync("npc_dota_hero_mirana", context)
-	PrecacheUnitByNameSync("npc_dota_hero_jakiro", context)
-	PrecacheUnitByNameSync("npc_dota_hero_dark_seer", context)
 	PrecacheUnitByNameSync("npc_dota_hero_batrider", context)
-	PrecacheUnitByNameSync("npc_dota_hero_ancient_apparition", context)
 	PrecacheUnitByNameSync("npc_dota_hero_gyrocopter", context)
-	PrecacheUnitByNameSync("npc_dota_hero_necrolyte", context)
-	PrecacheUnitByNameSync("npc_dota_hero_obsidian_destroyer", context)
 	PrecacheUnitByNameSync("npc_dota_hero_pudge", context)
 	PrecacheUnitByNameSync("npc_dota_hero_earthshaker", context)
 	PrecacheUnitByNameSync("npc_dota_hero_templar_assassin", context)
 	PrecacheUnitByNameSync("npc_dota_hero_magnataur", context)
 	PrecacheUnitByNameSync("npc_dota_hero_earth_spirit", context)
+	PrecacheUnitByNameSync("npc_dota_hero_meepo", context)
 
 	PrecacheResource( "particle", "particles/econ/items/lanaya/lanaya_epit_trap/templar_assassin_epit_trap_ring_inner_start.vpcf", context )
 
 	PrecacheResource( "soundfile", "soundevents/custom_sounds.vsndevts", context ) 
+
+	--venomancer
+	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_venomancer.vsndevts", context)
+	PrecacheResource("particle", "particles/units/heroes/hero_venomancer/venomancer_venomous_gale.vpcf", context)
+	PrecacheResource("particle", "particles/units/heroes/hero_venomancer/venomancer_gale_poison_debuff.vpcf", context)
+
+	--jakiro
+	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_jakiro.vsndevts", context)
+	PrecacheResource("particle", "particles/units/heroes/hero_jakiro/jakiro_ice_path.vpcf", context)
+	PrecacheResource("particle", "particles/units/heroes/hero_jakiro/jakiro_ice_path_b.vpcf", context)
+
+	--DS
+	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_dark_seer.vsndevts", context)
+	PrecacheResource("particle", "particles/units/heroes/hero_dark_seer/dark_seer_surge.vpcf", context)
+
+	--OD
+	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_obsidian_destroyer.vsndevts", context)
+	PrecacheResource("particle", "particles/units/heroes/hero_obsidian_destroyer/obsidian_destroyer_prison.vpcf", context)		
+
+	--Venge
+	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_vengefulspirit.vsndevts", context)
+	PrecacheResource("particle", "particles/units/heroes/hero_vengeful/vengeful_nether_swap.vpcf", context)
+	PrecacheResource("particle", "particles/units/heroes/hero_vengeful/vengeful_nether_swap_pink.vpcf", context)
 	-- PrecacheItemByNameSync("mirana_arrow", context)
 	-- PrecacheItemByNameSync("venomancer_venomous_gale", context)
 	-- PrecacheItemByNameSync("mirana_leap", context)
@@ -113,8 +131,12 @@ function CDotaRun:InitGameMode()
 	self.TaTrapFired = false
 	self.itemList = { "item_blink", "item_cyclone", "item_sheepstick", "item_ancient_janggo", "item_rod_of_atos", "item_black_king_bar",
 	"item_phase_boots", "item_ethereal_blade", "item_manta"} -- Removed "item_shivas_guard"
-	self.spellList = {"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_gale_custom", "dark_seer_surge_custom", "jakiro_ice_path_custom", 
-	"batrider_flamebreak_custom", "ancient_apparition_ice_vortex_custom", "obsidian_destroyer_astral_imprisonment_custom", "pudge_meat_hook_custom"}
+	self.spellList = {
+	"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_gale_custom", "dark_seer_surge_custom", "jakiro_ice_path_custom", 
+	"batrider_flamebreak_custom", "obsidian_destroyer_astral_imprisonment_custom", "pudge_meat_hook_custom", 
+	"meepo_earthbind_custom", "vengefulspirit_nether_swap_custom"}
+
+	--, "wisp_tether_datadriven", "disruptor_glimpse_custom"
 
 	self.points = {}
 	for i = DOTA_TEAM_GOODGUYS, DOTA_TEAM_CUSTOM_8 do
@@ -397,8 +419,7 @@ function CDotaRun:BlueShell(playerPositions)
 					local hero = PlayerResource:GetPlayer(playerID):GetAssignedHero()
 					if (hero ~= nil) then
 						hero:SetBaseMoveSpeed(speed)
-						speed = speed + 30
-						print(speed)
+						speed = speed + 20
 					end
 				end
 				--Note that this actually works, but the movement display is not altered :D
@@ -428,8 +449,6 @@ function CDotaRun:SortPositions()
 
 	-- reverse-sort by distance
 	table.sort(  playerPositions, function(a,b) return ( a.position < b.position ) end )
-	print("pos")
-	print(playerPositions)
 	return playerPositions
 end
 
