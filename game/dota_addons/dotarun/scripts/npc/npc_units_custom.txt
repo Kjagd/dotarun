@@ -393,7 +393,7 @@
 		// Movement
 		//-------------------------------------------------------------------------------------------------------------
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
-		"MovementSpeed"				"270"									// Speed.
+		"MovementSpeed"				"440"									// Speed.
 		"MovementTurnRate"			"0.5"									// Turning rate.
 		"HasAggressiveStance"		"0"										// Plays alternate idle/run animation when near enemies
 		"HealthBarOffset"			"150"
