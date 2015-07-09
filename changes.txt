@@ -1,3 +1,11 @@
+07-09-2015
+-Fixed minor techies bug
+
+07-09-2015
+-Added Nether Swap
+-Added Earthbind
+-Added new Techies minefield trap!
+
 07-07-2015
 
 Content/Bugs:
