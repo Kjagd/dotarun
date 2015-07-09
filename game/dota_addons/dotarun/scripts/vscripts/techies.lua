@@ -28,8 +28,8 @@ function setUpMines()
 		end
 	end
 
-	x = RandomInt(0, fHeight-1)
-	y = 0
+	x = 0
+	y = RandomInt(0, fHeight-1)
 	stasisTrap[x][y] = false
 	print(x.."")
 	while (x < fLength+1) do
