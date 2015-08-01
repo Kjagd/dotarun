@@ -1,7 +1,7 @@
 local shakers = {}
 local fissureAbilities = {}
 local positions = {Vector(-3185,-3467,200), Vector(-2400,-3467,200),Vector(-1700,-3467,200),Vector(-1000,-3467,200),Vector(-300,-3467,200),Vector(400,-3467,200)}
-local numShakers = 6
+local numShakers = 4
 
 function initShakers() 
 	for i = 1, numShakers do
