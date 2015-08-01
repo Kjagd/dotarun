@@ -193,7 +193,7 @@ function CDotaRun:InitGameMode()
 	self.hasAlreadyReset = false
 
 	initPudges()
-	--initShakers() Moved to start of game to prevent hearing loss
+	-- --initShakers() Moved to start of game to prevent hearing loss
 	initCents()
 	initMagnus()
 	initTechie()
@@ -808,7 +808,7 @@ function CDotaRun:On_game_rules_state_change( data )
 	if nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
 		CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = self.pointsToWin } );
 		initShakers()
-		initEarthSpirit()
+		initEarthSpirit()	
 
 		-- GameRules:GetGameModeEntity():SetThink( "EnsurePlayersOnCorrectTeam", self, 0 )
 		-- GameRules:GetGameModeEntity():SetThink( "BroadcastPlayerTeamAssignments", self, 1 )
