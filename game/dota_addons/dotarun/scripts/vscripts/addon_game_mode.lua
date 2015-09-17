@@ -156,7 +156,7 @@ function CDotaRun:InitGameMode()
 	self.spellList = {
 	"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_gale_custom", "dark_seer_surge_custom", "jakiro_ice_path_custom", 
 	"batrider_flamebreak_custom", "obsidian_destroyer_astral_imprisonment_custom", "pudge_meat_hook_custom", 
-	"meepo_earthbind_custom", "vengefulspirit_nether_swap_custom"}
+	"meepo_earthbind_custom", "vengefulspirit_nether_swap_custom", "tiny_toss_custom"}
 
 	--, "wisp_tether_datadriven", "disruptor_glimpse_custom"
 
@@ -834,7 +834,7 @@ function CDotaRun:On_game_rules_state_change( data )
     	)
 
 		Timers:CreateTimer(7, function()
-			--GameRules.dotaRun:ShowCenterMessage("Run over the squares to \n get items and spells", 5)
+			GameRules.dotaRun:ShowCenterMessage("The game will start shortly", 5)
         	return
     	end
     	)
