@@ -338,7 +338,7 @@
 		// Abilities
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityLayout"				"6"
-		"Ability1"					"techies_stasis_trap_custom"									
+		"Ability1"					"techies_stasis_trap_datadriven"									
 		"Ability2"					"techies_minefield_sign_custom"									
 		"Ability3"					"Invulnerable"									
 		
@@ -442,7 +442,27 @@
 		}
 
 	}
-		
+
+	"custom_sign"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"					"npc_dota_creature"
+
+		"Model"						"models/heroes/techies/techies_sign.vmdl"	
+
+		"IsNeutralUnitType"			"1"
+		"Level"						"5"
+
+
+
+		"Ability1"				"Invulnerable"
+		"Ability2"				"Passthrough"
+
+		"TeamName"					"DOTA_TEAM_NEUTRALS"							// Team name.
+
+
+	}	
 
 //=================================================================================
 // Neutral: Centaur Chief

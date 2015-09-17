@@ -146,7 +146,8 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"baseclass"							"techies_stasis_trap"													
+		"baseclass"							"techies_stasis_trap"
+		"ScriptFile"					        "techies_stasis_trap"													
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN | DOTA_ABILITY_BEHAVIOR_AOE"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
 
@@ -201,6 +202,19 @@
 			{
 				"var_type"					"FIELD_FLOAT"
 				"duration"					"120"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"techies_stasis_trap_custom.lua"
+				"Function"		"Sign"
+				"Target"		"POINT"
+				"modifier_stasis_trap"	"modifier_stasis_trap_datadriven"
+				"modifier_tracker"		"modifier_stasis_trap_tracker_datadriven"
+				"modifier_stasis_trap_invisibility"	"modifier_stasis_trap_invisibility_datadriven"
 			}
 		}
 	}
@@ -735,6 +749,26 @@
          	   }
        	 }
    	 }
+	}
+
+	
+	"Passthrough"
+	{
+		"BaseClass"                     "ability_datadriven"
+    	"AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+    	"AbilityTextureName"            "disruptor_glimpse"
+    	
+		"Modifiers"
+	    	{
+	     	   "Passthrough"
+	     	   {
+	     	       "Passive"                       "1"
+	     	       "States"
+	        	    {
+	         	       "MODIFIER_STATE_NO_UNIT_COLLISION"   		"MODIFIER_STATE_VALUE_ENABLED"
+	         	   }
+	       	 }
+	   	 }
 	}
 
 	//=================================================================================================================
@@ -1580,6 +1614,353 @@
 			}
 		}
 	}	
+
+	//=================================================================================================================
+	// Tiny: Toss
+	//=================================================================================================================
+	"tiny_toss_custom"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"baseclass"					"tiny_toss"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_RUNE_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_CUSTOM"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
+		"FightRecapLevel"				"1"
+		
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"900"
+		"AbilityCastPoint"				"0.0 0.0 0.0 0.0"
+
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"4"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityModifierSupportValue"	"0.25"	// generally used for damage only
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"1.3"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"grab_radius"			"275"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"275 275 275 275"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_damage_pct"		"20 20 20 20"
+			}
+			"05"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"grow_bonus_damage_pct"		"35 50 65 80"
+			}
+			"06"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"tooltip_range"		"900"
+			}
+			"07"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"toss_damage"				"0"
+			}
+
+		}
+	}
+
+
+
+
+
+
+	// Rewrite of the Techies Stasis Trap ability
+// Author: Pizzalol
+// Date: 25.03.2015.
+"techies_stasis_trap_datadriven"
+{
+	// General
+	//-------------------------------------------------------------------------------------------------------------
+	"BaseClass"				"ability_datadriven"
+	"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN | DOTA_ABILITY_BEHAVIOR_AOE"
+	"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+	"AbilityTextureName"			"techies_stasis_trap"
+	"AOERadius"						"%activation_radius"
+
+	// Precache
+	//-------------------------------------------------------------------------------------------------------------
+	"precache"
+	{
+		"soundfile"		"soundevents/game_sounds_heroes/game_sounds_techies.vsndevts"		
+		"particle"		"particles/units/heroes/hero_techies/techies_stasis_trap_plant.vpcf"
+		"particle"		"particles/units/heroes/hero_techies/techies_stasis_trap_apear.vpcf"
+		"particle"		"particles/units/heroes/hero_techies/techies_stasis_trap_explode.vpcf"
+		"particle"		"particles/status_fx/status_effect_techies_stasis.vpcf"
+		"model"			"models/heroes/techies/fx_techiesfx_stasis.vmdl"	
+	}
+
+	// Casting
+	//-------------------------------------------------------------------------------------------------------------
+	"AbilityCastRange"				"250"
+	"AbilityCastPoint"				"0"
+	
+	// Time		
+	//-------------------------------------------------------------------------------------------------------------
+	"AbilityCooldown"				"0"
+
+	// Cost
+	//-------------------------------------------------------------------------------------------------------------
+	"AbilityManaCost"				"0"
+
+	// Special
+	//-------------------------------------------------------------------------------------------------------------
+	"AbilitySpecial"
+	{		
+		"01"
+		{
+			"var_type"					"FIELD_INTEGER"
+			"activation_radius"			"250"
+		}
+		"02"
+		{
+			"var_type"					"FIELD_FLOAT"
+			"explode_delay"			"1"
+		}
+		"03"
+		{
+			"var_type"					"FIELD_INTEGER"
+			"stun_radius"				"250"
+		}
+		"04"
+		{
+			"var_type"					"FIELD_FLOAT"
+			"stun_duration"				"2.5 3 3.5 4"
+		}
+		"05"
+		{
+			"var_type"					"FIELD_FLOAT"
+			"activation_time"			"1.5"
+		}	
+		"06"
+		{
+			"var_type"					"FIELD_FLOAT"
+			"fade_time"					"2.0"
+		}
+		"07"
+		{
+			"var_type"					"FIELD_FLOAT"
+			"duration"					"120.0"
+		}
+		// Extra
+		"08"
+		{
+			"var_type"					"FIELD_FLOAT"
+			"vision_radius"				"300"
+		}
+		"09"
+		{
+			"var_type"					"FIELD_FLOAT"
+			"vision_duration"			"1.0"
+		}
+	}
+
+	"OnAbilityPhaseStart"
+	{
+		"FireSound"
+		{
+			"EffectName"	"Hero_Techies.StasisTrap.Plant"
+			"Target" 		"CASTER"
+		}
+
+		"FireEffect"
+		{
+			"EffectName"        "particles/units/heroes/hero_techies/techies_stasis_trap_plant.vpcf"
+			"EffectAttachType"  "start_at_customorigin"
+			"TargetPoint"            "POINT"
+
+			"ControlPoints"
+			{
+				"01"	"POINT"
+			}
+		}
+	}
+
+	"OnSpellStart"
+	{
+		"RunScript"
+		{
+			"ScriptFile"	"heroes/hero_techies/stasis_trap.lua"
+			"Function"		"StasisTrapPlant"
+			"Target"		"POINT"
+			"modifier_stasis_trap"	"modifier_stasis_trap_datadriven"
+			"modifier_tracker"		"modifier_stasis_trap_tracker_datadriven"
+			"modifier_stasis_trap_invisibility"	"modifier_stasis_trap_invisibility_datadriven"
+		}
+	}
+
+	"Modifiers"
+	{
+		"modifier_stasis_trap_datadriven"
+		{
+			"IsHidden"		"1"
+			"IsPurgable"	"0"
+
+			"OnCreated"
+			{
+				"FireEffect"
+				{
+					"EffectName"        "particles/units/heroes/hero_techies/techies_stasis_trap_apear.vpcf"
+					"EffectAttachType"  "start_at_customorigin"
+
+					"ControlPointEntities"
+					{
+						"TARGET"	"attach_hitloc"
+						"TARGET"	"attach_hitloc"
+						"TARGET"	"attach_hitloc"
+						"TARGET"	"attach_hitloc"
+					}
+				}
+			}
+
+			"States"
+			{
+				"MODIFIER_STATE_NO_UNIT_COLLISION"		"MODIFIER_STATE_VALUE_ENABLED"
+			}
+		}
+
+		"modifier_stasis_trap_tracker_datadriven"
+		{
+			"IsHidden"		"1"
+			"IsPurgable"	"0"
+
+			"ThinkInterval"  "0.1"
+			"OnIntervalThink"
+			{
+				"RunScript"
+				{
+					"ScriptFile"	"heroes/hero_techies/stasis_trap.lua"
+					"Function"		"StasisTrapTracker"
+					"modifier_trigger"	"modifier_stasis_trap_trigger_datadriven"
+				}
+			}
+		}
+
+		"modifier_stasis_trap_invisibility_datadriven"
+		{
+			"IsHidden"		"1"
+			"IsPurgable"	"0"
+
+			"States"
+			{
+				"MODIFIER_STATE_INVISIBLE"		"MODIFIER_STATE_VALUE_ENABLED"
+			}
+		}
+
+		"modifier_stasis_trap_trigger_datadriven"
+		{
+			"OnCreated"
+			{
+				"ActOnTargets"
+				{
+					"Target"
+					{
+						"Center"  	"TARGET"
+						"Radius" 	"%stun_radius"
+						"Teams" 	"DOTA_UNIT_TARGET_TEAM_ENEMY"
+						"Types" 	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+					}
+				
+					"Action"    
+					{
+						"ApplyModifier"
+						{
+							"ModifierName"	"modifier_stasis_trap_stun_datadriven"
+							"Target" 		"TARGET"
+							"Duration"		"%stun_duration"
+						}
+					}
+				}
+
+				"FireEffect"
+				{
+					"EffectName"        "particles/units/heroes/hero_techies/techies_stasis_trap_explode.vpcf"
+					"EffectAttachType"  "follow_hitloc"
+					"Target"            "TARGET"
+
+					"ControlPoints"
+					{
+						"01"	"%stun_radius 0 0"
+					}
+				}
+
+				"CreateThinker"
+				{
+					"ModifierName"	"modifier_stasis_trap_thinker"
+					"Target" 		"TARGET"
+				}
+
+				"RunScript"
+				{
+					"ScriptFile"	"heroes/hero_techies/stasis_trap.lua"
+					"Function"		"StasisTrapRemove"
+				}
+			}
+		}
+
+		"modifier_stasis_trap_stun_datadriven"
+		{
+			"IsDebuff"	"1"
+
+			"EffectName"	"particles/generic_gameplay/generic_stunned.vpcf"
+			"EffectAttachType"	"follow_overhead"
+
+			"StatusEffectName"		"particles/status_fx/status_effect_techies_stasis.vpcf"
+			"StatusEffectPriority"	"1"
+
+			"States"
+			{
+				"MODIFIER_STATE_STUNNED"	"MODIFIER_STATE_VALUE_ENABLED"
+				"MODIFIER_STATE_FROZEN"		"MODIFIER_STATE_VALUE_ENABLED"
+			}
+		}
+
+		"modifier_stasis_trap_thinker"
+		{
+			"Duration"	"0.03"
+
+			"OnCreated"
+			{
+				"FireSound"
+				{
+					"EffectName"	"Hero_Techies.StasisTrap.Stun"
+					"Target" 		"TARGET"
+				}
+			}
+		}
+	}
+}
+
 
 "wisp_tether_datadriven"
 {
