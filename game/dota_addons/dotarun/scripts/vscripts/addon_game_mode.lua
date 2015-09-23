@@ -75,6 +75,19 @@ function Precache( context )
 	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_vengefulspirit.vsndevts", context)
 	PrecacheResource("particle", "particles/units/heroes/hero_vengeful/vengeful_nether_swap.vpcf", context)
 	PrecacheResource("particle", "particles/units/heroes/hero_vengeful/vengeful_nether_swap_pink.vpcf", context)
+
+	--Tiny
+	PrecacheResource("particle", "particles/units/heroes/hero_tiny/tiny_toss_blur.vpcf", context)
+
+	--Wr
+	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot.vpcf", context)
+	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_bolo_rope_shadow.vpcf", context)
+	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_pair_tree.vpcf", context)
+	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_rope.vpcf", context)
+	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_shackle_trail.vpcf", context)
+	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_single.vpcf", context)
+
+
 	-- PrecacheItemByNameSync("mirana_arrow", context)
 	-- PrecacheItemByNameSync("venomancer_venomous_gale", context)
 	-- PrecacheItemByNameSync("mirana_leap", context)
@@ -156,7 +169,7 @@ function CDotaRun:InitGameMode()
 	self.spellList = {
 	"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_gale_custom", "dark_seer_surge_custom", "jakiro_ice_path_custom", 
 	"batrider_flamebreak_custom", "obsidian_destroyer_astral_imprisonment_custom", "pudge_meat_hook_custom", 
-	"meepo_earthbind_custom", "vengefulspirit_nether_swap_custom", "tiny_toss_custom"}
+	"meepo_earthbind_custom", "vengefulspirit_nether_swap_custom", "tiny_toss_custom", "windrunner_shackleshot_custom"}
 
 	--, "wisp_tether_datadriven", "disruptor_glimpse_custom"
 
