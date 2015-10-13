@@ -77,12 +77,15 @@ function Precache( context )
 	PrecacheResource("particle", "particles/units/heroes/hero_vengeful/vengeful_nether_swap_pink.vpcf", context)
 
 	--Tiny
+	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_tiny.vsndevts", context)
 	PrecacheResource("particle", "particles/units/heroes/hero_tiny/tiny_toss_blur.vpcf", context)
 
 	--Wr
+	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_windrunner.vsndevts", context)
 	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot.vpcf", context)
 	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_bolo_rope_shadow.vpcf", context)
 	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_pair_tree.vpcf", context)
+	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_pair.vpcf", context)
 	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_rope.vpcf", context)
 	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_shackle_trail.vpcf", context)
 	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_single.vpcf", context)
