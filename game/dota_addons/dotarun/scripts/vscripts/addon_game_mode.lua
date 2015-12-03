@@ -230,12 +230,15 @@ function CDotaRun:InitGameMode()
 	print( "Dotarun has literally loaded." )
 end
 
+---------------------------------------------------------------------------
+-- Handle disconnects and reconnects. Playercounting does not work on dedicated server
+---------------------------------------------------------------------------
 function CDotaRun:On_player_team(data)
 	if (data.disconnect == 1) then -- player has disconnected
-		self.playerCount = self.playerCount - 1
+		--self.playerCount = self.playerCount - 1
 		print("disconnect")
 	elseif (data.disconnect == 0 and data.oldteam == 0 and GameRules:State_Get() < DOTA_GAMERULES_STATE_HERO_SELECTION) then -- player has connected
-		self.playerCount = self.playerCount + 1
+		--self.playerCount = self.playerCount + 1
 		local playerID = PlayerResource:GetNthPlayerIDOnTeam(data.team, 1)
 		local spawn = Entities:FindByName( nil, "waypointHomeTeleport")
 		--PlayerResource:SetCameraTarget(playerID, spawn) -- sets camera to spawn and locks it
@@ -243,7 +246,7 @@ function CDotaRun:On_player_team(data)
 		--Can't unlock camera, need ActionScript https://github.com/AeroHand/Speed-Racing/tree/0a293da7817d01ab860cdffc4187e96970fd1be8/resource/flash3
 		print("connect")
 	elseif (data.disconnect == 0 and data.oldteam == 0) then -- player has reconnected
-		self.playerCount = self.playerCount + 1
+		--self.playerCount = self.playerCount + 1
 
 		Timers:CreateTimer(1, function()
 			local playerID = PlayerResource:GetNthPlayerIDOnTeam(data.team, 1)
@@ -367,14 +370,30 @@ function CDotaRun:OnThink()
 	--self:UpdateScoreboard()
 	self:BlueShell(playerPositions)
 	self:HasFinished()
+	self:CountConnectedPlayers()
 		
 	return 1
 end
 
 ---------------------------------------------------------------------------
+-- Count connected players. State 0 - no connection, state 1 - connected, state 2 - server?, state 3 - disconnected.
+---------------------------------------------------------------------------
+function CDotaRun:CountConnectedPlayers()
+    local connectedPlayers = 0
+    for playerID = 0,DOTA_MAX_TEAM_PLAYERS do
+    	print("connectionState: " .. PlayerResource:GetConnectionState(playerID) .. "for id: " .. playerID)
+    	if (PlayerResource:GetConnectionState(playerID) == 1) then -- 1 is connected
+    		connectedPlayers = connectedPlayers + 1
+    		print("id " .. playerID .. "is connected")
+    	end  
+    end
+    print("connectedPlayers: " .. connectedPlayers)
+    self.playerCount = connectedPlayers
+end
+
+---------------------------------------------------------------------------
 -- Check if a player has already finished and move to start if true
 ---------------------------------------------------------------------------
-
 function CDotaRun:HasFinished()
 	for i = 0,(DOTA_MAX_TEAM_PLAYERS-1) do
 		local player = PlayerResource:GetPlayer(i)
