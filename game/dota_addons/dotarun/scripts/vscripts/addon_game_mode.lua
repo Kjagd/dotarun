@@ -376,13 +376,13 @@ function CDotaRun:OnThink()
 end
 
 ---------------------------------------------------------------------------
--- Count connected players. State 0 - no connection, state 1 - connected, state 2 - server?, state 3 - disconnected.
+-- Count connected players. State 0 - no connection, state 1 - bot, state 2 - player connected, state 3 - bot/player disconnected.
 ---------------------------------------------------------------------------
 function CDotaRun:CountConnectedPlayers()
     local connectedPlayers = 0
     for playerID = 0,DOTA_MAX_TEAM_PLAYERS do
     	print("connectionState: " .. PlayerResource:GetConnectionState(playerID) .. "for id: " .. playerID)
-    	if (PlayerResource:GetConnectionState(playerID) == 2) then -- 1 is connected. 2 connected, 1 bot??
+    	if (PlayerResource:GetConnectionState(playerID) == 2) then
     		connectedPlayers = connectedPlayers + 1
     		print("id " .. playerID .. "is connected")
     	end  
