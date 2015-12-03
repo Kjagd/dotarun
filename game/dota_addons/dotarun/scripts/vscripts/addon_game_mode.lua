@@ -382,7 +382,7 @@ function CDotaRun:CountConnectedPlayers()
     local connectedPlayers = 0
     for playerID = 0,DOTA_MAX_TEAM_PLAYERS do
     	print("connectionState: " .. PlayerResource:GetConnectionState(playerID) .. "for id: " .. playerID)
-    	if (PlayerResource:GetConnectionState(playerID) == 1) then -- 1 is connected
+    	if (PlayerResource:GetConnectionState(playerID) == 2) then -- 1 is connected. 2 connected, 1 bot??
     		connectedPlayers = connectedPlayers + 1
     		print("id " .. playerID .. "is connected")
     	end  
