@@ -289,35 +289,20 @@ function DistributePoints(teamID, hero, playerID)
     local points = 0
     if GameRules.dotaRun.numFinished == 0 then
         points = 10
-        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
     elseif GameRules.dotaRun.numFinished == 1 then
         points = 7
-        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
     elseif GameRules.dotaRun.numFinished == 2 then
         points = 5
-        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
     elseif GameRules.dotaRun.numFinished == 3 then
         points = 4
-        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
     elseif GameRules.dotaRun.numFinished == 4 then
         points = 3
-        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
     elseif GameRules.dotaRun.numFinished == 5 then
         points = 2
-        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
-    elseif GameRules.dotaRun.numFinished == 6 then
+    else
         points = 1
-        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
-    elseif GameRules.dotaRun.numFinished == 7 then
-        points = 1
-        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
-    elseif GameRules.dotaRun.numFinished == 8 then
-        points = 1
-        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
-    elseif GameRules.dotaRun.numFinished == 9 then
-        points = 1
-        GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
     end
+    GameRules.dotaRun.points[teamID] = GameRules.dotaRun.points[teamID] + points
 
     for i = 1, points do
         hero:IncrementKills(playerID)
