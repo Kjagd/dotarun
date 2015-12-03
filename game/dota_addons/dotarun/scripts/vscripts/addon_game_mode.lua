@@ -90,25 +90,6 @@ function Precache( context )
 	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_shackle_trail.vpcf", context)
 	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_single.vpcf", context)
 
-
-	-- PrecacheItemByNameSync("mirana_arrow", context)
-	-- PrecacheItemByNameSync("venomancer_venomous_gale", context)
-	-- PrecacheItemByNameSync("mirana_leap", context)
-	-- PrecacheItemByNameSync("dark_seer_surge", context)
-	-- PrecacheItemByNameSync("jakiro_ice_path", context)
-	-- PrecacheItemByNameSync("batrider_flamebreak", context)
-	-- PrecacheItemByNameSync("ancient_apparition_ice_vortex", context)
-	-- PrecacheItemByNameSync("gyrocopter_homing_missile", context)
-	-- PrecacheItemByNameSync("obsidian_destroyer_astral_imprisonment", context)
-	-- PrecacheItemByNameSync("necrolyte_death_pulse", context)
-
-	--[[
-		Precache things we know we'll use.  Possible file types include (but not limited to):
-			PrecacheResource( "model", "*.vmdl", context )
-			PrecacheResource( "soundfile", "*.vsndevts", context )
-			PrecacheResource( "particle", "*.vpcf", context )
-			PrecacheResource( "particle_folder", "particles/folder", context )
-	]]
 	print("Precache end")
 end
 
@@ -168,13 +149,11 @@ function CDotaRun:InitGameMode()
 
 	self.TaTrapFired = false
 	self.itemList = { "item_blink", "item_cyclone", "item_sheepstick", "item_ancient_janggo", "item_rod_of_atos", "item_black_king_bar",
-	"item_phase_boots", "item_ethereal_blade", "item_manta"} -- Removed "item_shivas_guard"
+	"item_phase_boots", "item_ethereal_blade", "item_manta"}
 	self.spellList = {
 	"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_gale_custom", "dark_seer_surge_custom", "jakiro_ice_path_custom", 
 	"batrider_flamebreak_custom", "obsidian_destroyer_astral_imprisonment_custom", "pudge_meat_hook_custom", 
 	"meepo_earthbind_custom", "vengefulspirit_nether_swap_custom", "tiny_toss_custom", "windrunner_shackleshot_custom"}
-
-	--, "wisp_tether_datadriven", "disruptor_glimpse_custom"
 
 	self.points = {}
 	for i = DOTA_TEAM_GOODGUYS, DOTA_TEAM_CUSTOM_8 do
@@ -392,7 +371,7 @@ function CDotaRun:CountConnectedPlayers()
 end
 
 ---------------------------------------------------------------------------
--- Check if a player has already finished and move to start if true
+-- Check if a player has already finished and move to start if true -- don't think this is working/used
 ---------------------------------------------------------------------------
 function CDotaRun:HasFinished()
 	for i = 0,(DOTA_MAX_TEAM_PLAYERS-1) do
