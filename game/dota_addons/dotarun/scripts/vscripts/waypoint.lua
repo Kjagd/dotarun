@@ -125,7 +125,7 @@ function lastMan(waypointID, hero)
         end
     end
 
-    if (throughCount == GameRules.dotaRun.playerCount) then
+    if (throughCount >= GameRules.dotaRun.playerCount) then
         local hasMaxAbilities = true;
         for i = 1,6 do
             if(hero:GetAbilityByIndex(i):GetAbilityName() == "empty_ability1") then
