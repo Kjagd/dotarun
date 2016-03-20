@@ -236,13 +236,13 @@
 .player_dead #HeroIcon
 {
 	wash-color: #CCCCCC;
-	desaturation: 1;
+	saturation: 0;
 }
 
 .player_connection_abandoned #HeroIcon
 {
 	wash-color: #FF0000;
-	desaturation: 1;
+	saturation: 0;
 }
 
 #DisconnectionIndicator

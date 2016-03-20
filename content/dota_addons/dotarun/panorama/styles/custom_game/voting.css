@@ -1,0 +1,162 @@
+.BaseHud
+{
+    width: 100%;
+    height: 100%;
+}
+
+#Voting
+{
+    horizontal-align: center;
+    position: 0px 13% 0px;
+    margin-top: -3%;
+    width: 580px;
+    height: 620px;
+    padding: 20px 20px 0px 20px;
+    background-color: #000000DD;
+    border: 2px solid #484A48;
+    box-shadow: #000 -4px -4px 3px 8px;
+    flow-children: down;
+}
+
+
+#Title, #ResultsTitle
+{
+    color: #FFF;
+    font-size: 34px;
+    font-weight: bold;
+    text-shadow: 0px 0px 3px 3.0 #000;
+    width: 100%;
+    text-align: center;
+}
+
+#Title
+{
+    margin-top: -10px;
+}
+
+#DifficultyPanel
+{
+    width: 100%;
+    height: 160px;
+    margin-top: 30px;
+    flow-children: right;
+}
+
+.DifficultyImage
+{
+    width: 110px;
+    height: 110px;
+    margin-left: 0px;
+}
+
+.DifficultyLabel
+{
+    color: #FFF;
+    font-size: 25px;
+    font-weight: bold;
+    text-shadow: 0px 0px 3px 3.0 #000;
+    text-align: center;
+    horizontal-align: center;
+    vertical-align: top;
+    width: 100%;
+    height: 30px;
+}
+
+.DifficultyBox
+{
+    width: 33%;
+    height: 160px;
+    flow-children: down;
+}
+
+#Goal
+{
+    margin-top: 2px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #9e7305;
+    text-align: center;
+    width: 100%;
+    text-transform: uppercase;
+    text-overflow: clip;
+}
+
+#VictoryPoints
+{
+    margin-top: -20px;
+    horizontal-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+    font-size: 60px;
+    color: white;
+    text-shadow: 2px 2px 2px #7b612b;
+    text-overflow: clip;
+}
+
+.VictoryPanel
+{
+    horizontal-align: center;
+    margin-left: 38px;
+    flow-children: down;
+    width: 100px;
+    height: 110px;
+
+    background-image: url("file://{images}/custom_game/goal_logo.psd");
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 100% 100%;
+}
+
+.Bronze
+{
+        background-image: url("file://{images}/custom_game/voting/goal_short.psd");
+
+}
+
+.Silver
+{
+        background-image: url("file://{images}/custom_game/voting/goal_med.psd");
+}
+
+.Gold
+{
+        background-image: url("file://{images}/custom_game/voting/goal_long.psd");
+
+}
+
+.Bronze #VictoryPoints {
+    color: gradient( linear, 0% 0%, 0% 100%, from( #c88423 ), color-stop( 0.25, #c88423 ), color-stop( 0.5, #FFC684 ), color-stop( 0.75, #c88423 ), to( #8F6524 ) );
+}
+
+.Silver #VictoryPoints {
+    color: gradient( linear, 0% 0%, 0% 100%, from( #666666 ), color-stop( 0.25, #666666 ), color-stop( 0.5, #E0E0E0 ), color-stop( 0.75, #666666 ), to( #474747 ) );
+}
+
+.Gold #VictoryPoints {
+    color: gradient( linear, 0% 0%, 0% 100%, from( #c88423 ), color-stop( 0.25, #c88423 ), color-stop( 0.5, #fffb84 ), color-stop( 0.75, #c88423 ), to( #9a6717 ) );
+}
+
+.PopupButton {
+    horizontal-align: center;
+}
+
+
+#ButtonLabel
+{
+    width: 100%;
+    text-align: center;
+    text-shadow: 0px 0px 3px 2.0 #000;
+    text-transform: uppercase;
+}
+
+
+.Hover
+{
+    brightness: 1.5;
+    opacity: 1.5;
+    text-decoration: underline;
+}
+
+.Selected .DifficultyLabel {
+    text-decoration: underline;
+}

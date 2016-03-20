@@ -140,5 +140,5 @@
 
 .HeroSelectPlayerRoot.hero_highlighted #PlayerPortrait
 {
-    desaturation: 1.0;
+    saturation: 0;
 }
