@@ -1,0 +1,46 @@
+<root>
+  <styles>
+    <include src="file://{resources}/styles/dotastyles.css" />
+    <include src="file://{resources}/styles/custom_game/voting.css" />
+  </styles>
+  <scripts>
+    <include src="file://{resources}/scripts/custom_game/voting.js" /> 
+  </scripts>
+  <Panel hittest="false" class="BaseHud">
+    <Panel hittest="false" id="Voting">
+      <Label id="Title" text="#VotePlease"/>
+      <Panel hittest="false"  id="DifficultyPanel">
+        <Panel id="Short" onmouseover="HoverDifficulty('Short')" onmouseout="MouseOverDiff('Short')" onactivate="SelectDifficulty('Short')" class="DifficultyBox">
+          <Panel>
+            <Panel class="VictoryPanel Bronze">
+              <Label id="Goal" text="#Goal" />
+              <Label id="VictoryPoints" text="15" />
+            </Panel>
+          </Panel>
+          <Label id="ShortDifficultyLabel" text="#difficulty_short" class="DifficultyLabel"/>
+        </Panel>
+        <Panel id="Med" onmouseover="HoverDifficulty('Med')" onmouseout="MouseOverDiff('Med')" onactivate="SelectDifficulty('Med')" class="DifficultyBox">
+          <Panel>
+            <Panel class="VictoryPanel Silver">
+              <Label id="Goal" text="#Goal" />
+              <Label id="VictoryPoints" text="25" />
+            </Panel>
+          </Panel>
+          <Label id="MidDifficultyLabel" text="#difficulty_med" class="DifficultyLabel"/>
+        </Panel>
+        <Panel id="Long" onmouseover="HoverDifficulty('Long')" onmouseout="MouseOverDiff('Long')" onactivate="SelectDifficulty('Long')" class="DifficultyBox">
+          <Panel>
+            <Panel class="VictoryPanel Gold">
+              <Label id="Goal" text="#Goal" />
+              <Label id="VictoryPoints" text="35" />
+            </Panel>
+          </Panel>
+          <Label id="MidDifficultyLabel" text="#difficulty_long" class="DifficultyLabel"/>
+        </Panel>
+      </Panel>
+      <Button onactivate="ConfirmVote()" class="PopupButton Green">
+        <Label text="#Confirm_vote" id="ButtonLabel" />
+      </Button>
+    </Panel>
+  </Panel>
+</root>
