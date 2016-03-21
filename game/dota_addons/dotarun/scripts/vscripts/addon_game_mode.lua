@@ -149,12 +149,40 @@ function CDotaRun:InitGameMode()
 	GameRules:GetGameModeEntity():SetTopBarTeamValuesVisible( false )
 
 	self.TaTrapFired = false
-	self.itemList = { "item_blink", "item_cyclone", "item_sheepstick", "item_ancient_janggo", "item_rod_of_atos", "item_black_king_bar",
-	"item_phase_boots", "item_ethereal_blade", "item_manta"}
+	self.itemList = { 
+		"item_blink",
+		"item_cyclone",
+		"item_sheepstick",
+		"item_ancient_janggo",
+		"item_rod_of_atos",
+		"item_black_king_bar",
+		"item_phase_boots",
+		"item_ethereal_blade",
+		"item_manta"
+	}
 	self.spellList = {
-	"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_gale_custom", "dark_seer_surge_custom", "jakiro_ice_path_custom", 
-	"batrider_flamebreak_custom", "obsidian_destroyer_astral_imprisonment_custom", "pudge_meat_hook_custom", 
-	"meepo_earthbind_custom", "vengefulspirit_nether_swap_custom", "tiny_toss_custom", "windrunner_shackleshot_custom"}
+		"mirana_arrow_custom",
+		"mirana_leap_custom",
+		"venomancer_venomous_gale_custom",
+		"dark_seer_surge_custom",
+		"jakiro_ice_path_custom", 
+		"batrider_flamebreak_custom",
+		"obsidian_destroyer_astral_imprisonment_custom",
+		"pudge_meat_hook_custom", 
+		"meepo_earthbind_custom",
+		"vengefulspirit_nether_swap_custom",
+		"tiny_toss_custom",
+		"windrunner_shackleshot_custom"
+	}
+	self.checkpoints = {
+		"waypoint1",
+		"waypoint2",
+		"waypoint3",
+		"waypoint4",
+		"waypoint5",
+		"waypoint6",
+		"win"
+	}
 
 	self.points = {}
 	for i = DOTA_TEAM_GOODGUYS, DOTA_TEAM_CUSTOM_8 do
