@@ -13,10 +13,26 @@
 	width: 100px;
 	height: 100px;
 
-	background-image: url("file://{images}/custom_game/goal_logo.psd");
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 	background-size: 100% 100%;
+}
+
+.Short
+{
+        background-image: url("file://{images}/custom_game/voting/goal_short.psd");
+
+}
+
+.Med
+{
+        background-image: url("file://{images}/custom_game/voting/goal_med.psd");
+}
+
+.Long
+{
+        background-image: url("file://{images}/custom_game/voting/goal_long.psd");
+
 }
 
 #Goal
@@ -42,6 +58,22 @@
 	text-shadow: 2px 2px 2px #7b612b;
 	color: gradient( linear, 0% 0%, 0% 100%, from( #c88423 ), color-stop( 0.25, #c88423 ), color-stop( 0.5, #fffb84 ), color-stop( 0.75, #c88423 ), to( #9a6717 ) );
     text-overflow: clip;
+}
+
+.Short #VictoryPoints {
+    color: gradient( linear, 0% 0%, 0% 100%, from( #c88423 ), color-stop( 0.25, #c88423 ), color-stop( 0.5, #FFC684 ), color-stop( 0.75, #c88423 ), to( #8F6524 ) );
+}
+
+.Med #VictoryPoints {
+    color: gradient( linear, 0% 0%, 0% 100%, from( #666666 ), color-stop( 0.25, #666666 ), color-stop( 0.5, #E0E0E0 ), color-stop( 0.75, #666666 ), to( #474747 ) );
+}
+
+.Long #VictoryPoints {
+    color: gradient( linear, 0% 0%, 0% 100%, from( #c88423 ), color-stop( 0.25, #c88423 ), color-stop( 0.5, #fffb84 ), color-stop( 0.75, #c88423 ), to( #9a6717 ) );
+}
+
+.Hidden {
+    opacity: 0;
 }
 
 #Timer

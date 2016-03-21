@@ -16,7 +16,7 @@
           <Panel id="ShortCount" class="VoteCount">
           </Panel>
           <Panel>
-            <Panel class="VictoryPanel Bronze">
+            <Panel class="VictoryPanel Short">
               <Label id="Goal" text="#Goal" />
               <Label id="VictoryPoints" text="15" />
             </Panel>
@@ -27,7 +27,7 @@
           <Panel id="MedCount" class="VoteCount"> 
           </Panel>
           <Panel>
-            <Panel class="VictoryPanel Silver">
+            <Panel class="VictoryPanel Med">
               <Label id="Goal" text="#Goal" />
               <Label id="VictoryPoints" text="25" />
             </Panel>
@@ -38,7 +38,7 @@
           <Panel id="LongCount" class="VoteCount"> 
           </Panel>
           <Panel>    
-            <Panel class="VictoryPanel Gold"> 
+            <Panel class="VictoryPanel Long"> 
               <Label id="Goal" text="#Goal" />
               <Label id="VictoryPoints" text="35" />
             </Panel>
@@ -46,7 +46,7 @@
           <Label id="MidDifficultyLabel" text="#difficulty_long" class="DifficultyLabel"/>
         </Panel>
       </Panel>
-      <Button onactivate="ConfirmVote()" class="PopupButton Green">
+      <Button onactivate="ConfirmVote()" class="PopupButton Green" id="VoteBtn">
         <Label text="#Confirm_vote" id="ButtonLabel" />
       </Button>
       <Label text="" id="Countdown"/>
