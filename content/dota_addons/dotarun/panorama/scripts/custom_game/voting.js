@@ -3,8 +3,10 @@ var difficultyModes = ["Short","Med","Long"];
 var difficultyCounts = [22, 22, 22];
 var difficultyOffsets = [13, 13, 13];
 var timer = $("#Countdown");
+var voted = false
 
 function HoverDifficulty(name) {
+    if (voted) return;
     var panel = $("#"+name)
 
     if (name != selectedLength || selectedLength != "")
@@ -14,13 +16,13 @@ function HoverDifficulty(name) {
 function MouseOverDiff(name) {
     var panel = $("#"+name)
 
-
     if (name != selectedLength)
         panel.RemoveClass('Hover')
 
 }
 
 function SelectDifficulty(name) {
+    if (voted) return;
     var panel = $("#"+name)
     selectedLength = name
 
@@ -42,9 +44,8 @@ function SelectDifficulty(name) {
 
 function ConfirmVote() {
     Game.EmitSound("ui_generic_button_click");
-    $.Msg(selectedLength);
-    //$("#MiranaTest").style.position = "50px 0 0 0";
-
+    $("#VoteBtn").enabled = false;
+    voted = true;
 
     var idName = GetLengthID(selectedLength);
     var countHolder = $("#"+difficultyModes[idName]+"Count");
@@ -56,7 +57,6 @@ function ConfirmVote() {
 
     var data = {};
     data['length'] = selectedLength
-    $.Msg(data)
     GameEvents.SendCustomGameEventToServer( "vote_cast", { "data" : data } );
 }
 
@@ -75,4 +75,16 @@ function UpdateVoteTimer( data )
     timer.text = data.time;
 }
 
+function WinnerFound ( data ) 
+{
+    $.Msg("winner was " + data.winner);
+    $("#Short").AddClass("Fade");
+    $("#Med").AddClass("Fade");
+    $("#Long").AddClass("Fade");
+    $("#"+data.winner).RemoveClass("Fade");
+    $("#Voting").DeleteAsync(1.5);
+}
+
 GameEvents.Subscribe( "update_vote_timer", UpdateVoteTimer);
+GameEvents.Subscribe( "voting_done", WinnerFound);
+

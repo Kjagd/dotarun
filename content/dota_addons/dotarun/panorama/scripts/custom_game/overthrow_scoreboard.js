@@ -52,6 +52,14 @@ function UpdateKillsToWin()
 	{
 		$("#VictoryPoints").text = victory_condition.kills_to_win;
 	}
+	var color = CustomNetTables.GetTableValue( "game_state", "color_to_win" );
+	$.Msg(color);
+	if ( color )
+	{
+		$("#GoalPanel").AddClass(color.win_color);
+		$("#GoalPanel").RemoveClass("Hidden");
+	}
+
 }
 
 function OnGameStateChanged( table, key, data )
