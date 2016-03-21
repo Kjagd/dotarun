@@ -116,37 +116,41 @@
     background-size: 100% 100%;
 }
 
-.Bronze
+.Short
 {
         background-image: url("file://{images}/custom_game/voting/goal_short.psd");
 
 }
 
-.Silver
+.Med
 {
         background-image: url("file://{images}/custom_game/voting/goal_med.psd");
 }
 
-.Gold
+.Long
 {
         background-image: url("file://{images}/custom_game/voting/goal_long.psd");
 
 }
 
-.Bronze #VictoryPoints {
+.Short #VictoryPoints {
     color: gradient( linear, 0% 0%, 0% 100%, from( #c88423 ), color-stop( 0.25, #c88423 ), color-stop( 0.5, #FFC684 ), color-stop( 0.75, #c88423 ), to( #8F6524 ) );
 }
 
-.Silver #VictoryPoints {
+.Med #VictoryPoints {
     color: gradient( linear, 0% 0%, 0% 100%, from( #666666 ), color-stop( 0.25, #666666 ), color-stop( 0.5, #E0E0E0 ), color-stop( 0.75, #666666 ), to( #474747 ) );
 }
 
-.Gold #VictoryPoints {
+.Long #VictoryPoints {
     color: gradient( linear, 0% 0%, 0% 100%, from( #c88423 ), color-stop( 0.25, #c88423 ), color-stop( 0.5, #fffb84 ), color-stop( 0.75, #c88423 ), to( #9a6717 ) );
 }
 
 .PopupButton {
     horizontal-align: center;
+}
+
+.Fade {
+    opacity: 0.3;
 }
 
 
