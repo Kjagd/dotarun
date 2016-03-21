@@ -1,10 +1,7 @@
 var selectedLength = "";
 var difficultyModes = ["Short","Med","Long"];
-var difficultyCounts = [15, 15, 15];
-var difficultyOffsets = [15, 15, 15];
-var countOffset = 10;
-
-
+var difficultyCounts = [22, 22, 22];
+var difficultyOffsets = [13, 13, 13];
 
 function HoverDifficulty(name) {
     var panel = $("#"+name)
@@ -68,5 +65,3 @@ function GetLengthID(name) {
         return 2;
     }
 }
-
-//function PerfectMiranaRa

@@ -13,7 +13,7 @@
       <Label id="Title" text="#VotePlease"/>
       <Panel hittest="false"  id="DifficultyPanel">
         <Panel id="Short" onmouseover="HoverDifficulty('Short')" onmouseout="MouseOverDiff('Short')" onactivate="SelectDifficulty('Short')" class="DifficultyBox">
-          <Panel id="ShortCount" class="VoteCount"> 
+          <Panel id="ShortCount" class="VoteCount">
           </Panel>
           <Panel>
             <Panel class="VictoryPanel Bronze">
@@ -37,8 +37,8 @@
         <Panel id="Long" onmouseover="HoverDifficulty('Long')" onmouseout="MouseOverDiff('Long')" onactivate="SelectDifficulty('Long')" class="DifficultyBox">
           <Panel id="LongCount" class="VoteCount"> 
           </Panel>
-          <Panel>
-            <Panel class="VictoryPanel Gold">
+          <Panel> 
+            <Panel class="VictoryPanel Gold"> 
               <Label id="Goal" text="#Goal" />
               <Label id="VictoryPoints" text="35" />
             </Panel>
