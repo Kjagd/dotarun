@@ -22,75 +22,18 @@ end
 
 function Precache( context )
 	print("Precache begin")
-	PrecacheUnitByNameSync("npc_dota_hero_mirana", context)
-	PrecacheUnitByNameSync("npc_dota_hero_pudge", context)
-	PrecacheUnitByNameSync("npc_dota_hero_earthshaker", context)
-	PrecacheUnitByNameSync("npc_dota_hero_templar_assassin", context)
-	PrecacheUnitByNameSync("npc_dota_hero_magnataur", context)
-	PrecacheUnitByNameSync("npc_dota_hero_earth_spirit", context)
-	PrecacheUnitByNameSync("npc_dota_hero_techies", context)
 
-	PrecacheResource( "particle", "particles/econ/items/lanaya/lanaya_epit_trap/templar_assassin_epit_trap_ring_inner_start.vpcf", context )
+	local precache = LoadKeyValues("scripts/kv/precache.kv")
 
-	PrecacheResource( "soundfile", "soundevents/custom_sounds.vsndevts", context ) 
-
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_meepo.vsndevts", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_meepo/meepo_earthbind.vpcf", context)
-
-	--batrider
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_batrider.vsndevts", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_batrider/batrider_flamebreak.vpcf", context ) 
-	PrecacheResource("particle", "particles/units/heroes/hero_batrider/batrider_flamebreak_tracking.vpcf", context ) 
-
-	--Gyro.. so much
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_gyrocopter.vsndevts", context)
-	PrecacheResource("particle", "particles/econ/items/gyrocopter/hero_gyrocopter_gyrotechnics/gyro_guided_missile.vpcf", context)
-	PrecacheResource("particle", "particles/econ/items/gyrocopter/hero_gyrocopter_gyrotechnics/gyro_guided_missile_death.vpcf", context)
-	PrecacheResource("particle", "particles/econ/items/gyrocopter/hero_gyrocopter_gyrotechnics/gyro_guided_missile_explosion.vpcf", context)
-	PrecacheResource("particle", "particles/econ/items/gyrocopter/hero_gyrocopter_gyrotechnics/gyro_guided_missile_target.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_gyrocopter/gyro_homing_missile_fuse.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_gyrocopter/gyro_guided_missile.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_gyrocopter/gyro_guided_missile_death.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_gyrocopter/gyro_guided_missile_explosion.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_gyrocopter/gyro_guided_missile_target.vpcf", context)
-	PrecacheResource("model", "models/heroes/gyro/gyro_missile.vmdl", context)
-
-	--venomancer
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_venomancer.vsndevts", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_venomancer/venomancer_venomous_gale.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_venomancer/venomancer_gale_poison_debuff.vpcf", context)
-
-	--jakiro
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_jakiro.vsndevts", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_jakiro/jakiro_ice_path.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_jakiro/jakiro_ice_path_b.vpcf", context)
-
-	--DS
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_dark_seer.vsndevts", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_dark_seer/dark_seer_surge.vpcf", context)
-
-	--OD
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_obsidian_destroyer.vsndevts", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_obsidian_destroyer/obsidian_destroyer_prison.vpcf", context)		
-
-	--Venge
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_vengefulspirit.vsndevts", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_vengeful/vengeful_nether_swap.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_vengeful/vengeful_nether_swap_pink.vpcf", context)
-
-	--Tiny
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_tiny.vsndevts", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_tiny/tiny_toss_blur.vpcf", context)
-
-	--Wr
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_windrunner.vsndevts", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_bolo_rope_shadow.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_pair_tree.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_pair.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_rope.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_shackle_trail.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_single.vpcf", context)
+    for k, a in pairs(precache) do
+        for _, v in pairs(a) do
+            if k == "unit" then
+                PrecacheUnitByNameSync(v, context)
+            elseif k ~= "Async" then
+                PrecacheResource(k, v, context)
+            end
+        end
+    end
 
 	print("Precache end")
 end
@@ -151,12 +94,52 @@ function CDotaRun:InitGameMode()
 	GameRules:GetGameModeEntity():SetTopBarTeamValuesVisible( false )
 
 	self.TaTrapFired = false
-	self.itemList = { "item_blink", "item_cyclone", "item_sheepstick", "item_ancient_janggo", "item_rod_of_atos", "item_black_king_bar",
-	"item_phase_boots", "item_ethereal_blade", "item_manta"}
+	self.itemList = { 
+		"item_blink",
+		"item_cyclone",
+		"item_sheepstick",
+		"item_ancient_janggo",
+		"item_rod_of_atos",
+		"item_black_king_bar",
+		"item_phase_boots",
+		"item_ethereal_blade",
+		"item_manta"
+	}
 	self.spellList = {
-	"mirana_arrow_custom", "mirana_leap_custom", "venomancer_venomous_gale_custom", "dark_seer_surge_custom", "jakiro_ice_path_custom", 
-	"batrider_flamebreak_custom", "obsidian_destroyer_astral_imprisonment_custom", "pudge_meat_hook_custom", 
-	"meepo_earthbind_custom", "vengefulspirit_nether_swap_custom", "tiny_toss_custom", "windrunner_shackleshot_custom"}
+		"mirana_arrow_custom",
+		"mirana_leap_custom",
+		"venomancer_venomous_gale_custom",
+		"dark_seer_surge_custom",
+		"jakiro_ice_path_custom", 
+		"batrider_flamebreak_custom",
+		"obsidian_destroyer_astral_imprisonment_custom",
+		"pudge_meat_hook_custom", 
+		"meepo_earthbind_custom",
+		"vengefulspirit_nether_swap_custom",
+		"tiny_toss_custom",
+		"windrunner_shackleshot_custom"
+	}
+
+	local checkpoint_names = {
+		"waypoint1",
+		"waypoint2",
+		"waypoint3",
+		"waypoint4",
+		"waypoint5",
+		"waypoint6",
+		"win"
+	}
+
+	self.checkpoints = {}
+	for key,name in pairs(checkpoint_names) do
+		self.checkpoints[key] = Entities:FindByName(nil, name)
+	end
+	
+	self.waypointDistances = {}
+	for i=1,#self.checkpoints-1 do
+		local dist = (self.checkpoints[i]:GetAbsOrigin() - self.checkpoints[i+1]:GetAbsOrigin()):Length2D()
+		self.waypointDistances[i] = dist
+	end
 
 	self.points = {}
 	for i = DOTA_TEAM_GOODGUYS, DOTA_TEAM_CUSTOM_8 do
@@ -381,30 +364,16 @@ function CDotaRun:HasFinished()
 	for i = 0,(DOTA_MAX_TEAM_PLAYERS-1) do
 		local player = PlayerResource:GetPlayer(i)
 		if (player ~= nil and player:GetAssignedHero() ~= nil) then
-
-			if (GameRules.dotaRun.waypoints[i][6]) then
-				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "win" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-			elseif (GameRules.dotaRun.waypoints[i][5]) then
-				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint6" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromSixToGoal
-			elseif (GameRules.dotaRun.waypoints[i][4]) then
-				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint5" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromSixToGoal + self.distanceFromFiveToSix
-			elseif (GameRules.dotaRun.waypoints[i][3]) then
-				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint4" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromSixToGoal + self.distanceFromFiveToSix + self.distanceFromFourToFive
-			elseif (GameRules.dotaRun.waypoints[i][2]) then
-				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint3" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromSixToGoal + self.distanceFromFiveToSix + self.distanceFromFourToFive + self.distanceFromThreeToFour
-			elseif (GameRules.dotaRun.waypoints[i][1]) then
-				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint2" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromSixToGoal + self.distanceFromFiveToSix + self.distanceFromFourToFive + self.distanceFromThreeToFour + self.distanceFromTwoToThree
-			else 
-				local distance = (Entities:FindByName( nil, "waypoint1" ):GetOrigin() 
-					- player:GetAssignedHero():GetOrigin()):Length2D()
-				GameRules.dotaRun.playerDistances[i+1] = distance + self.distanceFromSixToGoal
-					+ self.distanceFromFiveToSix + self.distanceFromFourToFive + self.distanceFromThreeToFour + self.distanceFromTwoToThree + self.distanceFromOneToTwo
-			end 
+			for w = #self.checkpoints-1,1,-1 do
+				local dist = 0
+				if (not self.waypoints[i][w]) then
+					dist = dist + self.waypointDistances[w]
+				else
+					local distvec = self.checkpoints[w]:GetAbsOrigin() - player:GetAssignedHero():GetAbsOrigin()
+					self.playerDistances[i+1] = dist + distvec:Length2D()
+					break
+				end
+			end
 		end
 	end
 end
