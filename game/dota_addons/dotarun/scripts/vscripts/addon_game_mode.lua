@@ -162,6 +162,9 @@ function CDotaRun:InitGameMode()
 	end
 
 	self.pointsToWin = 30
+	self.pointsToWinShort = 15
+	self.pointsToWinMed = 25
+	self.pointsToWinLong = 35
 
 	self.distanceFromOneToTwo = 12406
 	self.distanceFromTwoToThree = 12452

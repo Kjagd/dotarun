@@ -35,21 +35,40 @@ function AddVote(option, choice)
 	end
 end
 
+function GetWinningChoice(option)
+	local highestVotes = 0
+
+	for k, v in pairs(option) do
+		if v > highestVotes then
+			highestVotes = v
+			winner = k
+		end
+	end
+
+	return winner
+end
+
+
 function FinalizeVotes()
 	if VOTING_FINISHED then return end --Never allow voting twice
 
 	print("All players have finished voting")
 	Timers:RemoveTimer("VoteThinker")
 	VOTING_FINISHED = true
+
+	winner = GetWinningChoice(VOTE_RESULTS)
+	--if (winner == "Short") then
+	--	self.pointsToWin = self.pointsToWinShort
+	--elseif (winner == "Long") then
+	--	self.pointsToWin = self.pointsToWinLong
+	--else 
+	--	self.pointsToWin = self.pointsToWinMed
+	--end
+
+	--print("Vote winner:" .. self.pointsToWin)
 end
 
-
-
-
 function StartVoteTimer()
-	--for _,playerID in pairs(playerIDs) do --add all players to the list of players that have not voted yet
-	--	PLAYERS_NOT_VOTED[playerID] = 1
-	--end
 	for i = 0,(DOTA_MAX_TEAM_PLAYERS-1) do
 		local player = PlayerResource:GetPlayer(i)
 		if (player ~= nil) then
