@@ -51,8 +51,6 @@ function ConfirmVote() {
     difficultyOffsets[idName] *= 0.9;
 
     var miranaFace = $.CreatePanel("Panel", countHolder, "countPanel");
-    miranaFace.BLoadLayout("file://{resources}/layout/custom_game/mirana_face.xml", false, false);
-           
     miranaFace.style.position = difficultyCounts[idName]+"px 0 0 0";
 }
 

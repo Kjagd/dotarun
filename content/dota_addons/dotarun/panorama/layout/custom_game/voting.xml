@@ -37,7 +37,7 @@
         <Panel id="Long" onmouseover="HoverDifficulty('Long')" onmouseout="MouseOverDiff('Long')" onactivate="SelectDifficulty('Long')" class="DifficultyBox">
           <Panel id="LongCount" class="VoteCount"> 
           </Panel>
-          <Panel> 
+          <Panel>    
             <Panel class="VictoryPanel Gold"> 
               <Label id="Goal" text="#Goal" />
               <Label id="VictoryPoints" text="35" />

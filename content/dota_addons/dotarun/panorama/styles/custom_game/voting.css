@@ -173,10 +173,14 @@
 
 .VoteCount {
     height: 48px;
+    width:  100%;
     vertical-align: center;
 }
 
 #countPanel {
     transition: position 0.3s ease-in-out 0s, perspective-origin 1.2s ease-in-out 0.8s;
+    background-image: url("file://{images}/custom_game/voting/mirana.png");
+    width: 32px;
+    height: 32px;
 }
 
