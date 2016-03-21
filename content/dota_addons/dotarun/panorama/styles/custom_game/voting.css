@@ -37,8 +37,8 @@
 #DifficultyPanel
 {
     width: 100%;
-    height: 160px;
-    margin-top: 30px;
+    height: 220px;
+    margin-top: 10px;
     flow-children: right;
 }
 
@@ -65,7 +65,7 @@
 .DifficultyBox
 {
     width: 33%;
-    height: 160px;
+    height: 200px;
     flow-children: down;
 }
 
@@ -149,14 +149,30 @@
     text-transform: uppercase;
 }
 
-
 .Hover
 {
-    brightness: 1.5;
-    opacity: 1.5;
+    brightness: 1.4;
+    opacity: 1.4;
     text-decoration: underline;
 }
 
 .Selected .DifficultyLabel {
     text-decoration: underline;
+}
+
+#MiranaCounter {
+    margin-left: 28px;
+    horizontal-align: left;
+    flow-children: none;
+    height: 32px;
+}
+
+#MiranaTest {
+    position: 10px 0 0 0;
+}
+
+.VoteCount {
+    height: 48px;
+    vertical-align: center;
+
 }
