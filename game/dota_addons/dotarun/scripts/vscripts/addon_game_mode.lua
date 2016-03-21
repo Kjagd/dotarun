@@ -4,6 +4,7 @@ require('lib.statcollection')
 require('lib.notifications')
 require('timers')
 require('utility_functions')
+require('gamesettings')
 require('pudge')
 require('shakers')
 require('centaurs')
@@ -84,6 +85,7 @@ function CDotaRun:InitGameMode()
 
 	self:GatherAndRegisterValidTeams()
 
+	GameRules:SetPreGameTime(GameSettings.voteTime)
 	GameRules:SetCustomGameEndDelay( 0 )
 	GameRules:SetCustomVictoryMessageDuration( 0 )
 	GameRules:SetHideKillMessageHeaders( true )
@@ -145,9 +147,6 @@ function CDotaRun:InitGameMode()
 	end
 
 	self.pointsToWin = 30
-	self.pointsToWinShort = 15
-	self.pointsToWinMed = 25
-	self.pointsToWinLong = 35
 
 	self.distanceFromOneToTwo = 12406
 	self.distanceFromTwoToThree = 12452
@@ -793,8 +792,11 @@ function CDotaRun:On_game_rules_state_change( data )
 	-- 	ShowGenericPopup( "#multiteam_instructions_title", "#multiteam_instructions_body", tostring(self.TEAM_KILLS_TO_WIN), "", DOTA_SHOWGENERICPOPUP_TINT_SCREEN )
 	-- end
 
+	if nNewState == DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP then
+		GameRules:SetCustomGameSetupAutoLaunchDelay( 0 )
+	end
+
 	if nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
-		CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = self.pointsToWin } );
 		initShakers()
 		initEarthSpirit()	
 
@@ -817,26 +819,20 @@ function CDotaRun:On_game_rules_state_change( data )
 	if GameRules:State_Get() == DOTA_GAMERULES_STATE_PRE_GAME then
 
 		StartVoteTimer()
-
-		Timers:CreateTimer(2, function()
-			GameRules.dotaRun:ShowCenterMessage("Welcome to Dota Run!", 5)
-        	return
-    	end
-    	)
-
-		Timers:CreateTimer(7, function()
-			GameRules.dotaRun:ShowCenterMessage("The game will start shortly", 5)
+		
+		Timers:CreateTimer(GameSettings.voteTime-4, function()
+			GameRules.dotaRun:ShowCenterMessage("Ready", 1)
         	return
     	end
     	)
     	for i = 0,2 do
-    		Timers:CreateTimer(12+i, function()
+    		Timers:CreateTimer(GameSettings.voteTime-3+i, function()
 				GameRules.dotaRun:ShowCenterMessage((3-i).."", 1)
         		return
 	    	end
 	    	)
 		end
-		Timers:CreateTimer(15, function()
+		Timers:CreateTimer(GameSettings.voteTime, function()
 			GameRules.dotaRun:ShowCenterMessage("Go!", 1)
         	return
 	    end
