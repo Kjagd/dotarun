@@ -5,10 +5,9 @@ if not PLAYERS_NOT_VOTED then
 end
 
 function VoteCast(source, table)
-	DeepPrintTable(table)
 	local playerID = tonumber(table.PlayerID)
 	local vote = table.data['length']
-	print( "PlayerID" .. playerID .. " voted " .. vote)
+	print( "PlayerID " .. playerID .. " voted " .. vote)
 
 	if not PLAYERS_NOT_VOTED[playerID] then
 		print(playerID .. " attempted to vote again!") -- this should never happen
@@ -22,7 +21,7 @@ function VoteCast(source, table)
 			count = count + 1
 		end
 		if count == 0 then
-			FinalizeVotes() -- all players have finished voting
+			--FinalizeVotes() -- all players have finished voting (disabled for now)
 		end
 	end
 end
@@ -38,6 +37,7 @@ end
 function GetWinningChoice(option)
 	local highestVotes = 0
 
+	winner = "Med"
 	for k, v in pairs(option) do
 		if v > highestVotes then
 			highestVotes = v
@@ -46,7 +46,7 @@ function GetWinningChoice(option)
 	end
 
 	return winner
-end
+ end
 
 
 function FinalizeVotes()
@@ -57,15 +57,19 @@ function FinalizeVotes()
 	VOTING_FINISHED = true
 
 	winner = GetWinningChoice(VOTE_RESULTS)
-	--if (winner == "Short") then
-	--	self.pointsToWin = self.pointsToWinShort
-	--elseif (winner == "Long") then
-	--	self.pointsToWin = self.pointsToWinLong
-	--else 
-	--	self.pointsToWin = self.pointsToWinMed
-	--end
+	if (winner == "Short") then
+		GameSettings.gameLength = GameSettings.shortLength
+	elseif (winner == "Long") then
+		GameSettings.gameLength = GameSettings.longLength
+	else 
+		GameSettings.gameLength = GameSettings.medLength
+	end
 
-	--print("Vote winner:" .. self.pointsToWin)
+	print("Vote winner:" .. GameSettings.gameLength)
+	CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = GameSettings.gameLength } )
+	CustomNetTables:SetTableValue( "game_state", "color_to_win", { win_color = winner } )
+
+	CustomGameEventManager:Send_ServerToAllClients( "voting_done", { winner = winner } )
 end
 
 function StartVoteTimer()
@@ -76,18 +80,14 @@ function StartVoteTimer()
 		end
 	end
 
-	local loops = 60
+	local loops = GameSettings.voteTime-5
 	Timers:CreateTimer("VoteThinker", {
 		callback = function()
 			loops = loops - 1
 			CustomGameEventManager:Send_ServerToAllClients("update_vote_timer", { time = loops } )
-			if loops == 30 then
-				EmitAnnouncerSound("announcer_ann_custom_timer_sec_30")
-			elseif loops == 5 then
-				EmitAnnouncerSound("announcer_ann_custom_timer_sec_05")
-			elseif loops == 0 then
+			if loops == 0 then
 				print("Vote timer ran out")
-				--FinalizeVotes() --time has run out, finalize votes
+				FinalizeVotes() --time has run out, finalize votes
 				return nil
 			end
 			return 1
