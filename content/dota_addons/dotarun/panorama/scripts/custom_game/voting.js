@@ -1,5 +1,9 @@
-var selectedLength = ""
-var difficultyModes = ["Short","Med","Long"]
+var selectedLength = "";
+var difficultyModes = ["Short","Med","Long"];
+var difficultyCounts = [15, 15, 15];
+var difficultyOffsets = [15, 15, 15];
+var countOffset = 10;
+
 
 
 function HoverDifficulty(name) {
@@ -7,9 +11,6 @@ function HoverDifficulty(name) {
 
     if (name != selectedLength || selectedLength != "")
         panel.AddClass('Hover')
-
-    Glow(panel)
-    UpdateMultipliers(name)
 }
 
 function MouseOverDiff(name) {
@@ -43,6 +44,29 @@ function SelectDifficulty(name) {
 
 function ConfirmVote() {
     Game.EmitSound("ui_generic_button_click");
-    var panel = $("#"+selectedLength)
+    $.Msg(selectedLength);
+    //$("#MiranaTest").style.position = "50px 0 0 0";
 
+
+    var idName = GetLengthID(selectedLength);
+    var countHolder = $("#"+difficultyModes[idName]+"Count");
+    difficultyCounts[idName] += difficultyOffsets[idName];
+    difficultyOffsets[idName] *= 0.9;
+
+    var miranaFace = $.CreatePanel("Panel", countHolder, "countPanel");
+    miranaFace.BLoadLayout("file://{resources}/layout/custom_game/mirana_face.xml", false, false);
+           
+    miranaFace.style.position = difficultyCounts[idName]+"px 0 0 0";
 }
+
+function GetLengthID(name) {
+    if (selectedLength == difficultyModes[0]) {
+        return 0;
+    } else if (selectedLength == difficultyModes[1]) {
+        return 1;
+    } else {
+        return 2;
+    }
+}
+
+//function PerfectMiranaRa
