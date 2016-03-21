@@ -21,75 +21,18 @@ end
 
 function Precache( context )
 	print("Precache begin")
-	PrecacheUnitByNameSync("npc_dota_hero_mirana", context)
-	PrecacheUnitByNameSync("npc_dota_hero_pudge", context)
-	PrecacheUnitByNameSync("npc_dota_hero_earthshaker", context)
-	PrecacheUnitByNameSync("npc_dota_hero_templar_assassin", context)
-	PrecacheUnitByNameSync("npc_dota_hero_magnataur", context)
-	PrecacheUnitByNameSync("npc_dota_hero_earth_spirit", context)
-	PrecacheUnitByNameSync("npc_dota_hero_techies", context)
 
-	PrecacheResource( "particle", "particles/econ/items/lanaya/lanaya_epit_trap/templar_assassin_epit_trap_ring_inner_start.vpcf", context )
+	local precache = LoadKeyValues("scripts/kv/precache.kv")
 
-	PrecacheResource( "soundfile", "soundevents/custom_sounds.vsndevts", context ) 
-
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_meepo.vsndevts", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_meepo/meepo_earthbind.vpcf", context)
-
-	--batrider
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_batrider.vsndevts", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_batrider/batrider_flamebreak.vpcf", context ) 
-	PrecacheResource("particle", "particles/units/heroes/hero_batrider/batrider_flamebreak_tracking.vpcf", context ) 
-
-	--Gyro.. so much
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_gyrocopter.vsndevts", context)
-	PrecacheResource("particle", "particles/econ/items/gyrocopter/hero_gyrocopter_gyrotechnics/gyro_guided_missile.vpcf", context)
-	PrecacheResource("particle", "particles/econ/items/gyrocopter/hero_gyrocopter_gyrotechnics/gyro_guided_missile_death.vpcf", context)
-	PrecacheResource("particle", "particles/econ/items/gyrocopter/hero_gyrocopter_gyrotechnics/gyro_guided_missile_explosion.vpcf", context)
-	PrecacheResource("particle", "particles/econ/items/gyrocopter/hero_gyrocopter_gyrotechnics/gyro_guided_missile_target.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_gyrocopter/gyro_homing_missile_fuse.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_gyrocopter/gyro_guided_missile.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_gyrocopter/gyro_guided_missile_death.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_gyrocopter/gyro_guided_missile_explosion.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_gyrocopter/gyro_guided_missile_target.vpcf", context)
-	PrecacheResource("model", "models/heroes/gyro/gyro_missile.vmdl", context)
-
-	--venomancer
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_venomancer.vsndevts", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_venomancer/venomancer_venomous_gale.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_venomancer/venomancer_gale_poison_debuff.vpcf", context)
-
-	--jakiro
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_jakiro.vsndevts", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_jakiro/jakiro_ice_path.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_jakiro/jakiro_ice_path_b.vpcf", context)
-
-	--DS
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_dark_seer.vsndevts", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_dark_seer/dark_seer_surge.vpcf", context)
-
-	--OD
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_obsidian_destroyer.vsndevts", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_obsidian_destroyer/obsidian_destroyer_prison.vpcf", context)		
-
-	--Venge
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_vengefulspirit.vsndevts", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_vengeful/vengeful_nether_swap.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_vengeful/vengeful_nether_swap_pink.vpcf", context)
-
-	--Tiny
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_tiny.vsndevts", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_tiny/tiny_toss_blur.vpcf", context)
-
-	--Wr
-	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_windrunner.vsndevts", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_bolo_rope_shadow.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_pair_tree.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_pair.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_rope.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_shackle_trail.vpcf", context)
-	PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_shackleshot_single.vpcf", context)
+    for k, a in pairs(precache) do
+        for _, v in pairs(a) do
+            if k == "unit" then
+                PrecacheUnitByNameSync(v, context)
+            elseif k ~= "Async" then
+                PrecacheResource(k, v, context)
+            end
+        end
+    end
 
 	print("Precache end")
 end
