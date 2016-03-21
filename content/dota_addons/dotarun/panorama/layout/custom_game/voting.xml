@@ -49,8 +49,7 @@
       <Button onactivate="ConfirmVote()" class="PopupButton Green">
         <Label text="#Confirm_vote" id="ButtonLabel" />
       </Button>
-
-      
+      <Label text="" id="Countdown"/>
     </Panel>
   </Panel>
 </root>

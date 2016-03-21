@@ -2,6 +2,7 @@ var selectedLength = "";
 var difficultyModes = ["Short","Med","Long"];
 var difficultyCounts = [22, 22, 22];
 var difficultyOffsets = [13, 13, 13];
+var timer = $("#Countdown");
 
 function HoverDifficulty(name) {
     var panel = $("#"+name)
@@ -52,6 +53,11 @@ function ConfirmVote() {
 
     var miranaFace = $.CreatePanel("Panel", countHolder, "countPanel");
     miranaFace.style.position = difficultyCounts[idName]+"px 0 0 0";
+
+    var data = {};
+    data['length'] = selectedLength
+    $.Msg(data)
+    GameEvents.SendCustomGameEventToServer( "vote_cast", { "data" : data } );
 }
 
 function GetLengthID(name) {
@@ -63,3 +69,10 @@ function GetLengthID(name) {
         return 2;
     }
 }
+
+function UpdateVoteTimer( data )
+{
+    timer.text = data.time;
+}
+
+GameEvents.Subscribe( "update_vote_timer", UpdateVoteTimer);

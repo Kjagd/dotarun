@@ -10,6 +10,7 @@ require('centaurs')
 require('magnus')
 require('earth_spirit')
 require('techies')
+require('voting')
 if CDotaRun == nil then
 	CDotaRun = class({})
 end
@@ -202,6 +203,7 @@ function CDotaRun:InitGameMode()
 	ListenToGameEvent("dota_player_used_ability", Dynamic_Wrap(CDotaRun, 'OnAbilityUsed'), self) 
 	ListenToGameEvent("player_team", Dynamic_Wrap(CDotaRun, 'On_player_team'), self)
 
+	CustomGameEventManager:RegisterListener( "vote_cast", VoteCast)
 
 
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, 1 )
@@ -360,13 +362,13 @@ end
 function CDotaRun:CountConnectedPlayers()
     local connectedPlayers = 0
     for playerID = 0,DOTA_MAX_TEAM_PLAYERS do
-    	print("connectionState: " .. PlayerResource:GetConnectionState(playerID) .. "for id: " .. playerID)
+    	--print("connectionState: " .. PlayerResource:GetConnectionState(playerID) .. "for id: " .. playerID)
     	if (PlayerResource:GetConnectionState(playerID) == 2) then
     		connectedPlayers = connectedPlayers + 1
-    		print("id " .. playerID .. "is connected")
+    	--	print("id " .. playerID .. "is connected")
     	end  
     end
-    print("connectedPlayers: " .. connectedPlayers)
+   -- print("connectedPlayers: " .. connectedPlayers)
     self.playerCount = connectedPlayers
 end
 
@@ -841,6 +843,9 @@ function CDotaRun:On_game_rules_state_change( data )
 	end
 	
 	if GameRules:State_Get() == DOTA_GAMERULES_STATE_PRE_GAME then
+
+		StartVoteTimer()
+
 		Timers:CreateTimer(2, function()
 			GameRules.dotaRun:ShowCenterMessage("Welcome to Dota Run!", 5)
         	return
