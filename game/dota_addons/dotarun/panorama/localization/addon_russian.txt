@@ -73,5 +73,15 @@
 	"overthrow_game_info_tip02""-Если вы достигли чекпоинт последним, вы получите ракету."
 	"overthrow_game_info_tip03""-Вода замедляет."
 	"overthrow_game_info_tip04""-Вы можете толкать соперников на выступы возле главного пути."
+
+	//Voting
+
+	"VotePlease"									"Голосование за длину игры"
+	"Confirm_vote"									"Проголосовать!"
+
+	"difficulty_short"								"Короткая"
+	"difficulty_med"								"Средняя"
+	"difficulty_long"								"Длинная"
+
 }
 
