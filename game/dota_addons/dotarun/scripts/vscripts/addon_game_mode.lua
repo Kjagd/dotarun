@@ -235,99 +235,13 @@ function CDotaRun:ColorForTeam( teamID )
 end
 
 ---------------------------------------------------------------------------
--- Determine a good team assignment for the next player
----------------------------------------------------------------------------
--- function CDotaRun:GetTeamReassignmentForPlayer( playerID )
--- 	if #self.m_GatheredShuffledTeams == 0 then
--- 		return nil
--- 	end
-
--- 	if nil == PlayerResource:GetPlayer( playerID ) then
--- 		return nil -- no player yet
--- 	end
-	
--- 	-- see if we've already assigned the player	
--- 	local existingAssignment = self.m_PlayerTeamAssignments[ playerID ]
--- 	if existingAssignment ~= nil then
--- 		if existingAssignment == PlayerResource:GetTeam( playerID ) then
--- 			return nil -- already assigned to this team and they're still on it
--- 		else
--- 			return existingAssignment -- something else pushed them out of the desired team - set it back
--- 		end
--- 	end
-
--- 	-- haven't assigned this player to a team yet
--- 	-- print( "m_NumAssignedPlayers = " .. self.m_NumAssignedPlayers )
-	
--- 	-- If the number of players per team doesn't divide evenly (ie. 10 players on 4 teams => 2.5 players per team)
--- 	-- Then this floor will round that down to 2 players per team
--- 	-- If you want to limit the number of players per team, you could just set this to eg. 1
--- 	local playersPerTeam = math.floor( DOTA_MAX_TEAM_PLAYERS / #self.m_GatheredShuffledTeams )
--- 	-- print( "playersPerTeam = " .. playersPerTeam )
-
--- 	local teamIndexForPlayer = math.floor( self.m_NumAssignedPlayers / playersPerTeam )
--- 	-- print( "teamIndexForPlayer = " .. teamIndexForPlayer )
-
--- 	-- Then once we get to the 9th player from the case above, we need to wrap around and start assigning to the first team
--- 	if teamIndexForPlayer >= #self.m_GatheredShuffledTeams then
--- 		teamIndexForPlayer = teamIndexForPlayer - #self.m_GatheredShuffledTeams
--- 		-- print( "teamIndexForPlayer => " .. teamIndexForPlayer )
--- 	end
-	
--- 	teamAssignment = self.m_GatheredShuffledTeams[ 1 + teamIndexForPlayer ]
--- 	-- print( "teamAssignment = " .. teamAssignment )
-
--- 	self.m_PlayerTeamAssignments[ playerID ] = teamAssignment
-
--- 	self.m_NumAssignedPlayers = self.m_NumAssignedPlayers + 1
-
--- 	return teamAssignment
--- end
-
----------------------------------------------------------------------------
--- Put a label over a player's hero so people know who is on what team
----------------------------------------------------------------------------
--- function CDotaRun:MakeLabelForPlayer( nPlayerID )
--- 	if not PlayerResource:HasSelectedHero( nPlayerID ) then
--- 		return
--- 	end
-
--- 	local hero = PlayerResource:GetSelectedHeroEntity( nPlayerID )
--- 	if hero == nil then
--- 		return
--- 	end
-
--- 	local teamID = PlayerResource:GetTeam( nPlayerID )
--- 	local color = self:ColorForTeam( teamID )
--- 	hero:SetCustomHealthLabel( PlayerResource:GetPlayerName(nPlayerID), color[1], color[2], color[3] )
--- end
-
--- ---------------------------------------------------------------------------
--- -- Tell everyone the team assignments during hero selection
--- ---------------------------------------------------------------------------
--- function CDotaRun:BroadcastPlayerTeamAssignments()
--- 	for nPlayerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
--- 		local nTeamID = PlayerResource:GetTeam( nPlayerID )
--- 		if nTeamID ~= DOTA_TEAM_NOTEAM then
--- 			GameRules:SendCustomMessage( "#TeamAssignmentMessage", nPlayerID, -1 )
--- 		end
--- 	end
--- end
-
----------------------------------------------------------------------------
 -- Update player labels and the scoreboard
 ---------------------------------------------------------------------------
 function CDotaRun:OnThink()
 
-	-- for nPlayerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
-	-- 	self:MakeLabelForPlayer( nPlayerID )
-	-- end
-	
+	self:CalculateDistances()
 	playerPositions = self:SortPositions()
-	--self:UpdateOldScoreboard(playerPositions)
-	--self:UpdateScoreboard()
 	self:BlueShell(playerPositions)
-	self:CalculatePositions()
 	self:CountConnectedPlayers()
 		
 	return 1
@@ -350,9 +264,9 @@ function CDotaRun:CountConnectedPlayers()
 end
 
 ---------------------------------------------------------------------------
--- Check if a player has already finished and move to start if true -- don't think this is working/used
+-- Calculate the distances for each player
 ---------------------------------------------------------------------------
-function CDotaRun:CalculatePositions()
+function CDotaRun:CalculateDistances()
 	for i = 0,(DOTA_MAX_TEAM_PLAYERS-1) do
 		local player = PlayerResource:GetPlayer(i)
 		if (player ~= nil and player:GetAssignedHero() ~= nil) then
@@ -367,7 +281,6 @@ function CDotaRun:CalculatePositions()
 				end
 			end
 			self.playerDistances[i+1] = dist
-			print("Distance"..i..": "..self.playerDistances[i+1])
 		end
 	end
 end
@@ -389,7 +302,6 @@ function CDotaRun:BlueShell(playerPositions)
 						speed = speed + 20
 					end
 				end
-				--Note that this actually works, but the movement display is not altered :D
 			end
 		end
 	end
@@ -419,112 +331,6 @@ function CDotaRun:SortPositions()
 	return playerPositions
 end
 
--------------------------------------------------------------------------
---Simple scoreboard using debug text
--------------------------------------------------------------------------
-function CDotaRun:UpdateOldScoreboard(playerPositions)
-	
-	local sortedTeams = {}
-	for _, team in pairs( self.m_GatheredShuffledTeams ) do
-		table.insert( sortedTeams, { teamID = team, teamScore = self.points[team] } )
-	end
-
-	-- reverse-sort by score
-	table.sort( sortedTeams, function(a,b) return ( a.teamScore > b.teamScore ) end )
-
-	UTIL_ResetMessageTextAll()
-	UTIL_MessageTextAll( "", 255, 255, 255, 255 )
-	UTIL_MessageTextAll( "", 255, 255, 255, 255 )
-	UTIL_MessageTextAll( "", 255, 255, 255, 255 )
-	UTIL_MessageTextAll( "Scoreboard", 255, 255, 255, 255 )
-	UTIL_MessageTextAll( "--------------------", 255, 255, 255, 255 )
-	for _, t in pairs( sortedTeams ) do
-		local clr = self:ColorForTeam( t.teamID )
-		if(PlayerResource:GetNthPlayerIDOnTeam(t.teamID, 1) ~= -1) then
-			name = PlayerResource:GetPlayerName(PlayerResource:GetNthPlayerIDOnTeam(t.teamID, 1))
-			UTIL_MessageTextAll(t.teamScore.."\t"..name, clr[1], clr[2], clr[3], 255)
-		end
-	end
-
-	-- UTIL_MessageTextAll( "#ScoreboardBreaker", 255, 255, 255, 255 )
-	-- UTIL_MessageTextAll( "#ScoreboardPositionHeader", 255, 255, 255, 255 )
-	-- UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
-	-- for key, t in pairs( playerPositions ) do
-	-- 	local clr = self:ColorForTeam( t.teamID )
-	-- 	if t.teamID == 5 then
-			
-	-- 	elseif key == 1 then
-	-- 		UTIL_MessageTextAll(key.."st\t"..t.pName, clr[1], clr[2], clr[3], 255)
-	-- 	elseif key == 2 then
-	-- 		UTIL_MessageTextAll(key.."nd\t"..t.pName, clr[1], clr[2], clr[3], 255)
-	-- 	elseif key == 3 then
-	-- 		UTIL_MessageTextAll(key.."rd\t"..t.pName, clr[1], clr[2], clr[3], 255)
-	-- 	else 
-	-- 		UTIL_MessageTextAll(key.."th\t"..t.pName, clr[1], clr[2], clr[3], 255)
-	-- 	end
-	-- end
-end
-
-function CDotaRun:UpdateScoreboard()
-	local sortedTeams = {}
-	for _, team in pairs( self.m_GatheredShuffledTeams ) do
-		table.insert( sortedTeams, { teamID = team, teamScore = self.points[team] } )
-	end
-
-	-- reverse-sort by score
-	table.sort( sortedTeams, function(a,b) return ( a.teamScore > b.teamScore ) end )
-
-	for _, t in pairs( sortedTeams ) do
-		local clr = self:ColorForTeam( t.teamID )
-
-		-- Scaleform UI Scoreboard
-		local score = 
-		{
-			team_id = t.teamID,
-			team_score = t.teamScore
-		}
-		FireGameEvent( "score_board", score )
-	end
-	-- Leader effects (moved from OnTeamKillCredit)
-	-- local leader = sortedTeams[1].teamID
-	-- --print("Leader = " .. leader)
-	-- self.leadingTeam = leader
-	-- self.runnerupTeam = sortedTeams[2].teamID
-	-- self.leadingTeamScore = sortedTeams[1].teamScore
-	-- self.runnerupTeamScore = sortedTeams[2].teamScore
-	-- if sortedTeams[1].teamScore == sortedTeams[2].teamScore then
-	-- 	self.isGameTied = true
-	-- else
-	-- 	self.isGameTied = false
-	-- end
-	-- local allHeroes = HeroList:GetAllHeroes()
-	-- for _,entity in pairs( allHeroes) do
-	-- 	if entity:GetTeamNumber() == leader and sortedTeams[1].teamScore ~= sortedTeams[2].teamScore then
-	-- 		if entity:IsAlive() == true then
-	-- 			-- Attaching a particle to the leading team heroes
-	-- 			local existingParticle = entity:Attribute_GetIntValue( "particleID", -1 )
- --       			if existingParticle == -1 then
- --       				local particleLeader = ParticleManager:CreateParticle( "particles/leader/leader_overhead.vpcf", PATTACH_OVERHEAD_FOLLOW, entity )
-	-- 				ParticleManager:SetParticleControlEnt( particleLeader, PATTACH_OVERHEAD_FOLLOW, entity, PATTACH_OVERHEAD_FOLLOW, "follow_overhead", entity:GetAbsOrigin(), true )
-	-- 				entity:Attribute_SetIntValue( "particleID", particleLeader )
-	-- 			end
-	-- 		else
-	-- 			local particleLeader = entity:Attribute_GetIntValue( "particleID", -1 )
-	-- 			if particleLeader ~= -1 then
-	-- 				ParticleManager:DestroyParticle( particleLeader, true )
-	-- 				entity:DeleteAttribute( "particleID" )
-	-- 			end
-	-- 		end
-	-- 	else
-	-- 		local particleLeader = entity:Attribute_GetIntValue( "particleID", -1 )
-	-- 		if particleLeader ~= -1 then
-	-- 			ParticleManager:DestroyParticle( particleLeader, true )
-	-- 			entity:DeleteAttribute( "particleID" )
-	-- 		end
-	-- 	end
-	-- end
-end
-
 ---------------------------------------------------------------------------
 -- Helper functions
 ---------------------------------------------------------------------------
@@ -546,25 +352,6 @@ function TableCount( t )
 	end
 	return n
 end
-
--- ---------------------------------------------------------------------------
--- -- Scan the map to see which teams have spawn points
--- ---------------------------------------------------------------------------
--- function CDotaRun:GatherValidTeams()
--- --	print( "GatherValidTeams:" )
-
--- 	local foundTeams = {}
--- 	for _, playerStart in pairs( Entities:FindAllByClassname( "info_player_start_dota" ) ) do
--- 		foundTeams[  playerStart:GetTeam() ] = true
--- 	end
-
--- 	local foundTeamsList = {}
--- 	for t, _ in pairs( foundTeams ) do
--- 		table.insert( foundTeamsList, t )
--- 	end
-
--- 	self.m_GatheredShuffledTeams = ShuffledList( foundTeamsList )
--- end
 
 ---------------------------------------------------------------------------
 -- Scan the map to see which teams have spawn points
@@ -619,20 +406,6 @@ function CDotaRun:GatherAndRegisterValidTeams()
 		end
 	end
 end
-
----------------------------------------------------------------------------
--- Assign all real players to a team
----------------------------------------------------------------------------
--- function CDotaRun:EnsurePlayersOnCorrectTeam()
--- 	for playerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
--- 		local teamReassignment = self:GetTeamReassignmentForPlayer( playerID )
--- 		if nil ~= teamReassignment then
--- 			print( " - Player " .. playerID .. " reassigned to team " .. teamReassignment )
--- 			PlayerResource:SetCustomTeamAssignment( playerID, teamReassignment )
--- 		end
--- 	end
--- 	return 1 -- Check again later in case more players spawn
--- end
 
 ---------------------------------------------------------------------------
 -- Resets relevant variables for a new round
@@ -809,12 +582,6 @@ function CDotaRun:OnAbilityUsed(data)
 	DeepPrintTable(player)
 	local hero = player:GetAssignedHero()
 
-	-- hero:IncrementKills(data.PlayerID) For testing scoreboard UI
-
-
-	-- Scaleform UI Scoreboard
-
-
 	local ability = hero:FindAbilityByName(data.abilityname)
 	if(ability ~= nil) then
 		-- Delete ability
@@ -841,15 +608,6 @@ function CDotaRun:OnAbilityUsed(data)
 	    )
 	end
 end
-
-function CDotaRun:OnTeamKillCredit(event)
-	print("test")
-end
-
-function CDotaRun:OnEntityKilled( event )
-	print("test2")
-end
-
 
 -- Hvis vi vil have at der kommer et lille 1 tal når folk går i mål
 -- function CDotaRun:OnGoalEnteredEvent(id, teamid, teampoints)
