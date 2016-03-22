@@ -332,10 +332,9 @@ function CDotaRun:OnThink()
 	
 	playerPositions = self:SortPositions()
 	--self:UpdateOldScoreboard(playerPositions)
-	self:CalculatePositions()
 	--self:UpdateScoreboard()
 	self:BlueShell(playerPositions)
-	self:HasFinished()
+	self:CalculatePositions()
 	self:CountConnectedPlayers()
 		
 	return 1
@@ -360,57 +359,22 @@ end
 ---------------------------------------------------------------------------
 -- Check if a player has already finished and move to start if true -- don't think this is working/used
 ---------------------------------------------------------------------------
-function CDotaRun:HasFinished()
+function CDotaRun:CalculatePositions()
 	for i = 0,(DOTA_MAX_TEAM_PLAYERS-1) do
 		local player = PlayerResource:GetPlayer(i)
 		if (player ~= nil and player:GetAssignedHero() ~= nil) then
-			for w = #self.checkpoints-1,1,-1 do
-				local dist = 0
-				if (not self.waypoints[i][w]) then
+			local dist = 0
+			for w = #self.checkpoints-1,0,-1 do
+				if (w > 0 and not self.waypoints[i][w]) then
 					dist = dist + self.waypointDistances[w]
 				else
-					local distvec = self.checkpoints[w]:GetAbsOrigin() - player:GetAssignedHero():GetAbsOrigin()
-					self.playerDistances[i+1] = dist + distvec:Length2D()
+					local distvec = self.checkpoints[w+1]:GetAbsOrigin() - player:GetAssignedHero():GetOrigin()
+					dist = dist + distvec:Length2D()
 					break
 				end
 			end
-		end
-	end
-end
-
-
----------------------------------------------------------------------------
--- Calculate the distances from the waypoints
----------------------------------------------------------------------------
-function CDotaRun:CalculatePositions()
-	-- Waypoints are indexed from zero because it matches playerID but playerDistance is indexed from 1 because we use lua list functions on it
-	for i = 0,(DOTA_MAX_TEAM_PLAYERS-1) do
-		local player = PlayerResource:GetPlayer(i)
-		if (player ~= nil and player:GetAssignedHero() ~= nil) then
-
-			if (GameRules.dotaRun.waypoints[i][6]) then
-				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "win" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-			elseif (GameRules.dotaRun.waypoints[i][5]) then
-				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint6" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromSixToGoal 
-			elseif (GameRules.dotaRun.waypoints[i][4]) then
-				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint5" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromSixToGoal + self.distanceFromFiveToSix
-			elseif (GameRules.dotaRun.waypoints[i][3]) then
-				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint4" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromSixToGoal + self.distanceFromFiveToSix + self.distanceFromFourToFive
-			elseif (GameRules.dotaRun.waypoints[i][2]) then
-				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint3" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromSixToGoal + self.distanceFromFiveToSix + self.distanceFromFourToFive + self.distanceFromThreeToFour
-			elseif (GameRules.dotaRun.waypoints[i][1]) then
-				GameRules.dotaRun.playerDistances[i+1] = (Entities:FindByName( nil, "waypoint2" ):GetOrigin() - player:GetAssignedHero():GetOrigin()):Length2D() 
-					+ self.distanceFromSixToGoal + self.distanceFromFiveToSix + self.distanceFromFourToFive + self.distanceFromThreeToFour + self.distanceFromTwoToThree
-			else 
-				local distance = (Entities:FindByName( nil, "waypoint1" ):GetOrigin() 
-					- player:GetAssignedHero():GetOrigin()):Length2D()
-				GameRules.dotaRun.playerDistances[i+1] = distance
-					+ self.distanceFromSixToGoal + self.distanceFromFiveToSix + self.distanceFromFourToFive + self.distanceFromThreeToFour + self.distanceFromTwoToThree + self.distanceFromOneToTwo
-			end 
+			self.playerDistances[i+1] = dist
+			print("Distance"..i..": "..self.playerDistances[i+1])
 		end
 	end
 end
