@@ -67,6 +67,7 @@ function FinalizeVotes()
 
 	print("Vote winner:" .. GameSettings.gameLength)
 	CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = GameSettings.gameLength } )
+	GameRules.dotaRun.pointsToWin = GameSettings.gameLength
 	CustomNetTables:SetTableValue( "game_state", "color_to_win", { win_color = winner } )
 
 	CustomGameEventManager:Send_ServerToAllClients( "voting_done", { winner = winner } )

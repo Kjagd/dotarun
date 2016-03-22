@@ -146,14 +146,7 @@ function CDotaRun:InitGameMode()
     	self.points[i] = 0
 	end
 
-	self.pointsToWin = 30
-
-	self.distanceFromOneToTwo = 12406
-	self.distanceFromTwoToThree = 12452
-	self.distanceFromThreeToFour = 9000
-	self.distanceFromFourToFive = 9500
-	self.distanceFromFiveToSix = 7300
-	self.distanceFromSixToGoal = 7000
+	self.pointsToWin = 25 -- Fallback to 25 if not set
 
 	self.playerDistances = {}
 
