@@ -47,17 +47,21 @@ function ConfirmVote() {
     $("#VoteBtn").enabled = false;
     voted = true;
 
-    var idName = GetLengthID(selectedLength);
-    var countHolder = $("#"+difficultyModes[idName]+"Count");
+    var data = {};
+    data['length'] = selectedLength
+    GameEvents.SendCustomGameEventToServer( "vote_cast", { "data" : data } );
+}
+
+function ReceiveVote( data ) {
+    $.Msg("backvote: " + data.voted);
+    var idName = GetLengthID(data.voted);
+    var countHolder = $("#"+data.voted+"Count");
     difficultyCounts[idName] += difficultyOffsets[idName];
     difficultyOffsets[idName] *= 0.9;
 
     var miranaFace = $.CreatePanel("Panel", countHolder, "countPanel");
     miranaFace.style.position = difficultyCounts[idName]+"px 0 0 0";
 
-    var data = {};
-    data['length'] = selectedLength
-    GameEvents.SendCustomGameEventToServer( "vote_cast", { "data" : data } );
 }
 
 function GetLengthID(name) {
@@ -77,7 +81,6 @@ function UpdateVoteTimer( data )
 
 function WinnerFound ( data ) 
 {
-    $.Msg("winner was " + data.winner);
     $("#Short").AddClass("Fade");
     $("#Med").AddClass("Fade");
     $("#Long").AddClass("Fade");
@@ -87,4 +90,6 @@ function WinnerFound ( data )
 
 GameEvents.Subscribe( "update_vote_timer", UpdateVoteTimer);
 GameEvents.Subscribe( "voting_done", WinnerFound);
+GameEvents.Subscribe( "vote_cast", ReceiveVote);
+
 
