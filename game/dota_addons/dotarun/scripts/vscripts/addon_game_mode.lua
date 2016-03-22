@@ -106,18 +106,18 @@ function CDotaRun:InitGameMode()
 		"item_manta"
 	}
 	self.spellList = {
-		-- "mirana_arrow_custom",
-		-- "mirana_leap_custom",
-		-- "venomancer_venomous_gale_custom",
-		-- "dark_seer_surge_custom",
-		-- "jakiro_ice_path_custom", 
-		-- "batrider_flamebreak_custom",
-		-- "obsidian_destroyer_astral_imprisonment_custom",
-		-- "pudge_meat_hook_custom", 
-		-- "meepo_earthbind_custom",
-		-- "vengefulspirit_nether_swap_custom",
-		-- "tiny_toss_custom",
-		-- "windrunner_shackleshot_custom",
+		"mirana_arrow_custom",
+		"mirana_leap_custom",
+		"venomancer_venomous_gale_custom",
+		"dark_seer_surge_custom",
+		"jakiro_ice_path_custom", 
+		"batrider_flamebreak_custom",
+		"obsidian_destroyer_astral_imprisonment_custom",
+		"pudge_meat_hook_custom", 
+		"meepo_earthbind_custom",
+		"vengefulspirit_nether_swap_custom",
+		"tiny_toss_custom",
+		"windrunner_shackleshot_custom",
 		"furion_sprout_custom",
 		"kunkka_torrent_custom"
 	}
@@ -182,6 +182,7 @@ function CDotaRun:InitGameMode()
 	ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(CDotaRun, 'On_game_rules_state_change'), self)
 	ListenToGameEvent("dota_player_used_ability", Dynamic_Wrap(CDotaRun, 'OnAbilityUsed'), self) 
 	ListenToGameEvent("player_team", Dynamic_Wrap(CDotaRun, 'On_player_team'), self)
+	ListenToGameEvent("dota_player_pick_hero", Dynamic_Wrap(CDotaRun, 'OnPlayerSpawn'), self)
 
 	CustomGameEventManager:RegisterListener( "vote_cast", VoteCast)
 
@@ -597,6 +598,14 @@ function CDotaRun:OnAbilityUsed(data)
 	   	end
 	    )
 	end
+end
+
+function CDotaRun:OnPlayerSpawn(data)
+	print("full spawn")
+	if (GameRules:State_Get() >= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS and data.player ~= nil) then 
+		CustomGameEventManager:Send_ServerToPlayer( data.player, "EnsureVoteGuiDelete", nil )
+	end
+	DeepPrintTable(data)
 end
 
 -- Hvis vi vil have at der kommer et lille 1 tal når folk går i mål

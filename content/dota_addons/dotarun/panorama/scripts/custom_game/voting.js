@@ -101,5 +101,6 @@ GameEvents.Subscribe( "update_vote_timer", UpdateVoteTimer);
 GameEvents.Subscribe( "voting_done", WinnerFound);
 GameEvents.Subscribe( "vote_cast", ReceiveVote);
 GameEvents.Subscribe( "remove_voting", RemoveGui);
+GameEvents.Subscribe( "EnsureVoteGuiDelete", RemoveGui);
 
 
