@@ -550,24 +550,12 @@ function CDotaRun:On_game_rules_state_change( data )
 	if GameRules:State_Get() == DOTA_GAMERULES_STATE_PRE_GAME then
 
 		StartVoteTimer()
-		
+
 		Timers:CreateTimer(GameSettings.voteTime-4, function()
-			GameRules.dotaRun:ShowCenterMessage("Ready", 1)
+			CustomGameEventManager:Send_ServerToAllClients( "start_countdown", nil )
         	return
     	end
     	)
-    	for i = 0,2 do
-    		Timers:CreateTimer(GameSettings.voteTime-3+i, function()
-				GameRules.dotaRun:ShowCenterMessage((3-i).."", 1)
-        		return
-	    	end
-	    	)
-		end
-		Timers:CreateTimer(GameSettings.voteTime, function()
-			GameRules.dotaRun:ShowCenterMessage("Go!", 1)
-        	return
-	    end
-	    )
 	end
 end
 
