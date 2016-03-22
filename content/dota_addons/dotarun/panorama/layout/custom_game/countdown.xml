@@ -1,0 +1,21 @@
+<root>
+  <styles>
+    <include src="file://{resources}/styles/dotastyles.css" />
+    <include src="file://{resources}/styles/custom_game/Countdown.css" />
+  </styles>
+  <scripts>
+    <include src="file://{resources}/scripts/custom_game/countdown.js" /> 
+  </scripts>
+
+  <Panel hittest="false" class="BaseHud">
+    <Panel hittest="false" id="Countdown">
+      <Panel hittest="false" id="CountdownPanel">
+        <Image src="file://{images}/custom_game/left_flag.png" scaling="stretch-to-fit-preserve-aspect" class="Hidden Flag" id="lflag" />
+        <Panel id="TimerHolder">
+          <Label id="CountdownText" text=""/>
+        </Panel>
+        <Image src="file://{images}/custom_game/right_flag.png" scaling="stretch-to-fit-preserve-aspect" class="Hidden Flag" id="rflag" />
+      </Panel>
+    </Panel>
+  </Panel>
+</root>

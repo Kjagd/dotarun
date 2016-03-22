@@ -4,6 +4,8 @@ var difficultyCounts = [22, 22, 22];
 var difficultyOffsets = [13, 13, 13];
 var timer = $("#Countdown");
 var voted = false
+$("#VoteBtn").enabled = false;
+
 
 function HoverDifficulty(name) {
     if (voted) return;
@@ -25,6 +27,8 @@ function SelectDifficulty(name) {
     if (voted) return;
     var panel = $("#"+name)
     selectedLength = name
+    $("#VoteBtn").enabled = true;
+
 
     for (var i in difficultyModes)
     {
