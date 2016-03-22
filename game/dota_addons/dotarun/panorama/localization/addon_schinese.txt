@@ -74,6 +74,14 @@
     "overthrow_game_info_tip03"                     "水中行进速度变慢"
     "overthrow_game_info_tip04"                     "你可以吧敌人推到路边的石壁上"
 
+	//Voting
+
+	"VotePlease"									"表决游戏时间长度"
+	"Confirm_vote"									"投的一票！"
+
+	"difficulty_short"								"短"
+	"difficulty_med"								"中"
+	"difficulty_long"								"长"
 
 }
 
