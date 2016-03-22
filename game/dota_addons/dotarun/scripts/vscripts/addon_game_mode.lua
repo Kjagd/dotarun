@@ -771,6 +771,7 @@ function CDotaRun:On_game_rules_state_change( data )
 				end
 			end
 		end
+		CustomGameEventManager:Send_ServerToAllClients( "remove_voting", nil )
 	end
 	
 	if GameRules:State_Get() == DOTA_GAMERULES_STATE_PRE_GAME then

@@ -53,7 +53,6 @@ function ConfirmVote() {
 }
 
 function ReceiveVote( data ) {
-    $.Msg("backvote: " + data.voted);
     var idName = GetLengthID(data.voted);
     var countHolder = $("#"+data.voted+"Count");
     difficultyCounts[idName] += difficultyOffsets[idName];
@@ -61,7 +60,6 @@ function ReceiveVote( data ) {
 
     var miranaFace = $.CreatePanel("Panel", countHolder, "countPanel");
     miranaFace.style.position = difficultyCounts[idName]+"px 0 0 0";
-
 }
 
 function GetLengthID(name) {
@@ -88,8 +86,16 @@ function WinnerFound ( data )
     $("#Voting").DeleteAsync(1.5);
 }
 
+function RemoveGui( data ) {
+    var panel = $("#Voting");
+    if  (panel != null) {
+        panel.DeleteAsync(0);
+    }
+}
+
 GameEvents.Subscribe( "update_vote_timer", UpdateVoteTimer);
 GameEvents.Subscribe( "voting_done", WinnerFound);
 GameEvents.Subscribe( "vote_cast", ReceiveVote);
+GameEvents.Subscribe( "remove_voting", RemoveGui);
 
 
