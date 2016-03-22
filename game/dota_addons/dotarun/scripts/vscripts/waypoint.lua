@@ -352,13 +352,12 @@ function NewLap()
         end
     end
 
+    Timers:CreateTimer(1, function()
+        CustomGameEventManager:Send_ServerToAllClients( "start_countdown", nil )
+        return
+    end)
 
-
-
-
-    GameRules.dotaRun:ShowCenterMessage("New lap starting in\n 5 seconds", 5)
     Timers:CreateTimer(5, function()
-        GameRules.dotaRun:ShowCenterMessage("Go!", 5)
         for i = 0,9 do 
             local player = PlayerResource:GetPlayer(i)
             if (player ~=nil) then
