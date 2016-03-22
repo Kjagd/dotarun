@@ -106,18 +106,20 @@ function CDotaRun:InitGameMode()
 		"item_manta"
 	}
 	self.spellList = {
-		"mirana_arrow_custom",
-		"mirana_leap_custom",
-		"venomancer_venomous_gale_custom",
-		"dark_seer_surge_custom",
-		"jakiro_ice_path_custom", 
-		"batrider_flamebreak_custom",
-		"obsidian_destroyer_astral_imprisonment_custom",
-		"pudge_meat_hook_custom", 
-		"meepo_earthbind_custom",
-		"vengefulspirit_nether_swap_custom",
-		"tiny_toss_custom",
-		"windrunner_shackleshot_custom"
+		-- "mirana_arrow_custom",
+		-- "mirana_leap_custom",
+		-- "venomancer_venomous_gale_custom",
+		-- "dark_seer_surge_custom",
+		-- "jakiro_ice_path_custom", 
+		-- "batrider_flamebreak_custom",
+		-- "obsidian_destroyer_astral_imprisonment_custom",
+		-- "pudge_meat_hook_custom", 
+		-- "meepo_earthbind_custom",
+		-- "vengefulspirit_nether_swap_custom",
+		-- "tiny_toss_custom",
+		-- "windrunner_shackleshot_custom",
+		"furion_sprout_custom",
+		"kunkka_torrent_custom"
 	}
 
 	local checkpoint_names = {
