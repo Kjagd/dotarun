@@ -58,12 +58,17 @@ function ConfirmVote() {
 
 function ReceiveVote( data ) {
     var idName = GetLengthID(data.voted);
+    var count = data.vote_count
     var countHolder = $("#"+data.voted+"Count");
-    difficultyCounts[idName] += difficultyOffsets[idName];
-    difficultyOffsets[idName] *= 0.9;
+    var offsetInc =  difficultyOffsets[idName];
+    var offset = difficultyCounts[idName];
+    for (var i = 0; i < count; i++) {
+        offset += offsetInc;
+        offsetInc *= 0.9;
+    }
 
     var miranaFace = $.CreatePanel("Panel", countHolder, "countPanel");
-    miranaFace.style.position = difficultyCounts[idName]+"px 0 0 0";
+    miranaFace.style.position = offset+"px 0 0 0";
 }
 
 function GetLengthID(name) {
