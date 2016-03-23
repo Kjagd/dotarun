@@ -601,11 +601,9 @@ function CDotaRun:OnAbilityUsed(data)
 end
 
 function CDotaRun:OnPlayerSpawn(data)
-	print("full spawn")
 	if (GameRules:State_Get() >= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS and data.player ~= nil) then 
 		CustomGameEventManager:Send_ServerToPlayer( data.player, "EnsureVoteGuiDelete", nil )
 	end
-	DeepPrintTable(data)
 end
 
 -- Hvis vi vil have at der kommer et lille 1 tal når folk går i mål

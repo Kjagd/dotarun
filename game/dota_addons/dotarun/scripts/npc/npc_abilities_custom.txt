@@ -156,6 +156,11 @@
 				"var_type"				"FIELD_INTEGER"
 				"shackle_count"			"1"
 			}
+			"06"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"shackle_angle"			"23"
+			}
 		}
 	}
 
