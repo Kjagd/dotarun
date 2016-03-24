@@ -18,7 +18,191 @@
 		"Ability6"					""
 		"Ability7"					""
 
-		"MovementSpeed"			"360"
+		"MovementSpeed"				"360"
+		"MovementTurnRate"			"0.400000"
+
+		"AttackCapabilities"    	"DOTA_UNIT_CAP_NO_ATTACK"
+	}
+
+	//=================================================================================================================
+	// HERO: Chaos Knight
+	//=================================================================================================================
+	"npc_dota_hero_chaos_knight_runner"
+	{
+		"override_hero"				"npc_dota_hero_chaos_knight"			// Hero to override
+		"AbilityLayout"				"6"
+		"Ability1"					""											
+		"Ability2"					""
+		"Ability3"					""
+		"Ability4"					""
+		"Ability5"					"Immunity"
+		"Ability6"					""
+		"Ability7"					""
+
+		"MovementSpeed"				"360"
+		"MovementTurnRate"			"0.400000"
+
+		"AttackCapabilities"    	"DOTA_UNIT_CAP_NO_ATTACK"
+	}
+
+	//=================================================================================================================
+	// HERO: Chen
+	//=================================================================================================================
+	"npc_dota_hero_chen_runner"
+	{
+		"override_hero"				"npc_dota_hero_chen"			// Hero to override
+		"AbilityLayout"				"6"
+		"Ability1"					""											
+		"Ability2"					""
+		"Ability3"					""
+		"Ability4"					""
+		"Ability5"					"Immunity"
+		"Ability6"					""
+		"Ability7"					""
+
+		"MovementSpeed"				"360"
+		"MovementTurnRate"			"0.400000"
+
+
+		"AttackCapabilities"    	"DOTA_UNIT_CAP_NO_ATTACK"
+	}
+	//=================================================================================================================
+	// HERO: Disruptor
+	//=================================================================================================================
+	"npc_dota_hero_disruptor_runner"
+	{
+		"override_hero"				"npc_dota_hero_disruptor"			// Hero to override
+		"AbilityLayout"				"6"
+		"Ability1"					""											
+		"Ability2"					""
+		"Ability3"					""
+		"Ability4"					""
+		"Ability5"					"Immunity"
+		"Ability6"					""
+		"Ability7"					""
+
+		"MovementSpeed"				"360"
+		"MovementTurnRate"			"0.400000"
+
+		"AttackCapabilities"    	"DOTA_UNIT_CAP_NO_ATTACK"
+	}
+	//=================================================================================================================
+	// HERO: Kotl
+	//=================================================================================================================
+	"npc_dota_hero_keeper_of_the_light_runner"
+	{
+		"override_hero"				"npc_dota_hero_keeper_of_the_light"			// Hero to override
+		"AbilityLayout"				"6"
+		"Ability1"					""											
+		"Ability2"					""
+		"Ability3"					""
+		"Ability4"					""
+		"Ability5"					"Immunity"
+		"Ability6"					""
+		"Ability7"					""
+
+		"MovementSpeed"				"360"
+		"MovementTurnRate"			"0.400000"
+
+		"AttackCapabilities"    	"DOTA_UNIT_CAP_NO_ATTACK"
+	}
+	//=================================================================================================================
+	// HERO: Centaur
+	//=================================================================================================================
+	"npc_dota_hero_centaur_runner"
+	{
+		"override_hero"				"npc_dota_hero_centaur"			// Hero to override
+		"AbilityLayout"				"6"
+		"Ability1"					""											
+		"Ability2"					""
+		"Ability3"					""
+		"Ability4"					""
+		"Ability5"					"Immunity"
+		"Ability6"					""
+		"Ability7"					""
+
+		"MovementSpeed"				"360"
+		"MovementTurnRate"			"0.400000"
+
+		"AttackCapabilities"    	"DOTA_UNIT_CAP_NO_ATTACK"
+	}
+	//=================================================================================================================
+	// HERO: Lycan
+	//=================================================================================================================
+	"npc_dota_hero_lycan_runner"
+	{
+		"override_hero"				"npc_dota_hero_lycan"			// Hero to override
+		"AbilityLayout"				"6"
+		"Ability1"					""											
+		"Ability2"					""
+		"Ability3"					""
+		"Ability4"					""
+		"Ability5"					"Immunity"
+		"Ability6"					""
+		"Ability7"					""
+
+		"MovementSpeed"				"360"
+		"MovementTurnRate"			"0.400000"
+
+		"AttackCapabilities"    	"DOTA_UNIT_CAP_NO_ATTACK"
+	}
+	//=================================================================================================================
+	// HERO: Magnus
+	//=================================================================================================================
+	"npc_dota_hero_magnus_runner"
+	{
+		"override_hero"				"npc_dota_hero_magnus"			// Hero to override
+		"AbilityLayout"				"6"
+		"Ability1"					""											
+		"Ability2"					""
+		"Ability3"					""
+		"Ability4"					""
+		"Ability5"					"Immunity"
+		"Ability6"					""
+		"Ability7"					""
+
+		"MovementSpeed"				"360"
+		"MovementTurnRate"			"0.400000"
+
+		"AttackCapabilities"    	"DOTA_UNIT_CAP_NO_ATTACK"
+	}
+	//=================================================================================================================
+	// HERO: Enchantress
+	//=================================================================================================================
+	"npc_dota_hero_enchantress_runner"
+	{
+		"override_hero"				"npc_dota_hero_enchantress"			// Hero to override
+		"AbilityLayout"				"6"
+		"Ability1"					""											
+		"Ability2"					""
+		"Ability3"					""
+		"Ability4"					""
+		"Ability5"					"Immunity"
+		"Ability6"					""
+		"Ability7"					""
+
+		"MovementSpeed"				"360"
+		"MovementTurnRate"			"0.400000"
+
+		"AttackCapabilities"    	"DOTA_UNIT_CAP_NO_ATTACK"
+	}
+	//=================================================================================================================
+	// HERO: Leshrac
+	//=================================================================================================================
+	"npc_dota_hero_leshrac_runner"
+	{
+		"override_hero"				"npc_dota_hero_leshrac"			// Hero to override
+		"AbilityLayout"				"6"
+		"Ability1"					""											
+		"Ability2"					""
+		"Ability3"					""
+		"Ability4"					""
+		"Ability5"					"Immunity"
+		"Ability6"					""
+		"Ability7"					""
+
+		"MovementSpeed"				"360"
+		"MovementTurnRate"			"0.400000"
 
 		"AttackCapabilities"    	"DOTA_UNIT_CAP_NO_ATTACK"
 	}
