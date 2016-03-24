@@ -548,6 +548,13 @@ function CDotaRun:On_game_rules_state_change( data )
 			end
 		end
 		CustomGameEventManager:Send_ServerToAllClients( "remove_voting", nil )
+
+		Timers:CreateTimer(20, function() --Late comers backup unit
+			print("Latecomers ui remove")
+			CustomGameEventManager:Send_ServerToAllClients( "remove_voting", nil )
+        	return
+    	end
+    	)
 	end
 	
 	if GameRules:State_Get() == DOTA_GAMERULES_STATE_PRE_GAME then
@@ -602,7 +609,8 @@ end
 
 function CDotaRun:OnPlayerSpawn(data)
 	if (GameRules:State_Get() >= DOTA_GAMERULES_STATE_GAME_IN_PROGRESS and data.player ~= nil) then 
-		CustomGameEventManager:Send_ServerToPlayer( data.player, "EnsureVoteGuiDelete", nil )
+		print("spawn vote ui remove")
+		CustomGameEventManager:Send_ServerToAllClients( "remove_voting", nil )
 	end
 end
 
