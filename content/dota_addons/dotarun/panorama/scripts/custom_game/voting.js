@@ -4,6 +4,7 @@ var difficultyCounts = [22, 22, 22];
 var difficultyOffsets = [13, 13, 13];
 var timer = $("#Countdown");
 var voted = false
+var string_diff = "npc_dota_hero_"
 $("#VoteBtn").enabled = false;
 
 
@@ -62,13 +63,15 @@ function ReceiveVote( data ) {
     var countHolder = $("#"+data.voted+"Count");
     var offsetInc =  difficultyOffsets[idName];
     var offset = difficultyCounts[idName];
+    var hero = data.unit_name.substring(string_diff.length);
+
     for (var i = 0; i < count; i++) {
         offset += offsetInc;
         offsetInc *= 0.9;
     }
-
-    var miranaFace = $.CreatePanel("Panel", countHolder, "countPanel");
-    miranaFace.style.position = offset+"px 0 0 0";
+    var heroFace = $.CreatePanel("Panel", countHolder, "countPanel");
+    heroFace.AddClass(hero);
+    heroFace.style.position = offset+"px 0 0 0";
 }
 
 function GetLengthID(name) {

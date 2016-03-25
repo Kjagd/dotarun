@@ -192,8 +192,40 @@
 
 #countPanel {
     transition: position 0.3s ease-in-out 0s, perspective-origin 1.2s ease-in-out 0.8s;
-    background-image: url("file://{images}/custom_game/voting/mirana.png");
     width: 32px;
     height: 32px;
+}
+
+#mirana {
+    background-image: url("file://{images}/custom_game/voting/mirana.png");
+}
+
+.chaos_knight {
+    background-image: url("file://{images}/custom_game/voting/chaos_knight.png");
+}
+
+.chen {
+    background-image: url("file://{images}/custom_game/voting/chen.png");
+}
+.disruptor {
+    background-image: url("file://{images}/custom_game/voting/disruptor.png");
+}
+._keeper_of_the_light {
+    background-image: url("file://{images}/custom_game/voting/_keeper_of_the_light.png");
+}
+.centaur {
+    background-image: url("file://{images}/custom_game/voting/centaur.png");
+}
+.luna {
+    background-image: url("file://{images}/custom_game/voting/luna.png");
+}
+.magnus {
+    background-image: url("file://{images}/custom_game/voting/magnus.png");
+}
+.enchantress {
+    background-image: url("file://{images}/custom_game/voting/enchantress.png");
+}
+.leshrac {
+    background-image: url("file://{images}/custom_game/voting/leshrac.png");
 }
 
