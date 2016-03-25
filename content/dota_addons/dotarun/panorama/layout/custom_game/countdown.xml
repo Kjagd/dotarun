@@ -11,8 +11,8 @@
     <Panel hittest="false" id="Countdown">
       <Panel hittest="false" id="CountdownPanel">
         <Image src="file://{images}/custom_game/left_flag.png" scaling="stretch-to-fit-preserve-aspect" class="Hidden Flag" id="lflag" />
-        <Panel id="TimerHolder">
-          <Label id="CountdownText" text=""/>
+        <Panel hittest="false" id="TimerHolder">
+          <Label hittest="false" id="CountdownText" text=""/>
         </Panel>
         <Image src="file://{images}/custom_game/right_flag.png" scaling="stretch-to-fit-preserve-aspect" class="Hidden Flag" id="rflag" />
       </Panel>
