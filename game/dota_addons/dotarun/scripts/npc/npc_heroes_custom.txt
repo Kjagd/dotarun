@@ -149,9 +149,9 @@
 	//=================================================================================================================
 	// HERO: Magnus
 	//=================================================================================================================
-	"npc_dota_hero_magnus_runner"
+	"npc_dota_hero_magnataur_runner"
 	{
-		"override_hero"				"npc_dota_hero_magnus"			// Hero to override
+		"override_hero"				"npc_dota_hero_magnataur"			// Hero to override
 		"AbilityLayout"				"6"
 		"Ability1"					""											
 		"Ability2"					""
