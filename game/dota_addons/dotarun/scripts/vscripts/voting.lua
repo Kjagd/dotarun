@@ -16,8 +16,7 @@ function VoteCast(source, table)
 
 		AddVote(VOTE_RESULTS, vote)
 
-		CustomGameEventManager:Send_ServerToAllClients( "vote_cast", { voted = vote, vote_count = VOTE_RESULTS[vote] } )
-
+		CustomGameEventManager:Send_ServerToAllClients( "vote_cast", { voted = vote, vote_count = VOTE_RESULTS[vote], unit_name = PlayerResource:GetPlayer(playerID):GetAssignedHero():GetUnitName() } )
 		local count = 0
 		for k, v in pairs(PLAYERS_NOT_VOTED) do
 			count = count + 1
