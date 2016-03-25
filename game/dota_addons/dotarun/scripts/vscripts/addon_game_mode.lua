@@ -87,9 +87,10 @@ function CDotaRun:InitGameMode()
 
 	GameRules:SetPreGameTime(GameSettings.voteTime)
 	GameRules:SetCustomGameEndDelay( 0 )
+	GameRules:SetHeroSelectionTime(15)
 	GameRules:SetCustomVictoryMessageDuration( 0 )
 	GameRules:SetHideKillMessageHeaders( true )
-	GameRules:SetSameHeroSelectionEnabled( true )
+	GameRules:SetSameHeroSelectionEnabled( false )
 	GameRules:GetGameModeEntity():SetTopBarTeamValuesOverride( true )
 	GameRules:GetGameModeEntity():SetTopBarTeamValuesVisible( false )
 
@@ -214,7 +215,7 @@ function CDotaRun:On_player_team(data)
 			local playerID = PlayerResource:GetNthPlayerIDOnTeam(data.team, 1)
 			GameRules.dotaRun.spawned[playerID] = false
 			local player = PlayerResource:GetPlayer(playerID)
-	        PlayerResource:ReplaceHeroWith(playerID, "npc_dota_hero_mirana", 0, 0)
+	        PlayerResource:ReplaceHeroWith(playerID, player:GetAssignedHero():GetUnitName(), 0, 0)
 	        local hero = player:GetAssignedHero()
 	        local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
 	        teleportHero(hero, point, playerID)
@@ -574,12 +575,10 @@ end
 ---------------------------------------------------------------------------
 function CDotaRun:OnAbilityUsed(data)
 	DeepPrintTable(data)
-	print("Removing ability "..data.abilityname)
 	--local player = EntIndexToHScript(data.PlayerID)
 	local player = PlayerResource:GetPlayer(data.PlayerID)
 	DeepPrintTable(player)
 	local hero = player:GetAssignedHero()
-
 	local ability = hero:FindAbilityByName(data.abilityname)
 	if(ability ~= nil) then
 		-- Delete ability

@@ -337,8 +337,8 @@ function NewLap()
     for i = 0,9 do
         local player = PlayerResource:GetPlayer(i)
         if (player ~=nil) then
-            PlayerResource:ReplaceHeroWith(i, "npc_dota_hero_mirana", 0, 0)
-            local hero = player:GetAssignedHero()
+            PlayerResource:ReplaceHeroWith(i,  player:GetAssignedHero():GetUnitName(), 0, 0)
+            local hero = player:GetAssignedHero() 
             local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
             teleportHero(hero, point, i)
             --FindClearSpaceForUnit(hero, point, false)
