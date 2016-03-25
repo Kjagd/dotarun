@@ -195,7 +195,7 @@
     width: 32px;
     height: 32px;
 }
-.
+
 .mirana {
     background-image: url("file://{images}/custom_game/voting/mirana.png");
 }
@@ -219,8 +219,8 @@
 .luna {
     background-image: url("file://{images}/custom_game/voting/luna.png");
 }
-.magnus {
-    background-image: url("file://{images}/custom_game/voting/magnus.png");
+.magnataur {
+    background-image: url("file://{images}/custom_game/voting/magnataur.png");
 }
 .enchantress {
     background-image: url("file://{images}/custom_game/voting/enchantress.png");
