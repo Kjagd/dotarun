@@ -104,8 +104,10 @@ function CDotaRun:InitGameMode()
 		"item_black_king_bar",
 		"item_phase_boots",
 		"item_ethereal_blade",
-		"item_manta"
+		"item_manta",
+		"item_banana"
 	}
+
 	self.spellList = {
 		"mirana_arrow_custom",
 		"mirana_leap_custom",
@@ -594,7 +596,7 @@ function CDotaRun:OnAbilityUsed(data)
 		Timers:CreateTimer(1, function() 
 			for i=0,5,1 do 
 	   			local item = hero:GetItemInSlot(i)
-	    		if  item ~= nil and item:GetClassname()  ~= "item_force_staff" then
+	    		if  item ~= nil and item:GetClassname()  ~= "item_force_staff" and item:GetClassname() ~= "item_banana" then
 		    		if(item:GetClassname() == data.abilityname) then
 		    			hero:RemoveItem(item)
 	    			end

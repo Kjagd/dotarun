@@ -8,10 +8,14 @@ function GiveRandomItem(hero)
  	end
 
 	local alreadyHas = false
+	local alreadyHasBanana = false
 	local itemNew = CreateItem(GameRules.dotaRun.itemList[RandomInt(1, #GameRules.dotaRun.itemList)], hero, hero)
 	for i=0,5 do 
 		itemOld = hero:GetItemInSlot(i)
 		if(itemOld ~= nil and itemOld:GetClassname() == itemNew:GetClassname()) then
+			if (itemOld:GetClassname() == "item_banana") then -- You can stack up bananas
+				break
+			end
 			print("Hero already has: " .. itemNew:GetClassname())
 			alreadyHas = true
 			break
