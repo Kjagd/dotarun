@@ -767,6 +767,67 @@
 			}			
 		}
 	}
+
+
+	//=================================================================================================================
+	// Banana
+	//=================================================================================================================
+	"item_banana"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"264"								// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		//"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"Model"							"models/props_gameplay/banana_prop_closed.vmdl"
+		
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0"
+		//"AbilityCastRange"				"800"
+		"AbilityCooldown"				"0.0"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"0"
+		"ItemShopTags"					"armor"
+		"ItemQuality"					"component"
+		"ItemAliases"					"banana"
+		"SideShop"						"0"
+		"ItemStackable"					"1"
+		"ItemPurchasable"				"0"
+		"ItemPermanent"					"0"
+		"ItemInitialCharges"			"3"
+		"ItemDisplayCharges"			"3"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		
+		// Sounden
+		//-------------------------------------------------------------------------------------------------------------			
+		"UIPickupSound"					"Item.PickUpRingShop"
+		"UIDropSound"					"Item.DropRingShop"
+		"WorldDropSound"				"Item.DropRingWorld"
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"slide_distance"		"800"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"slide_duration"		"2.0"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"radius"			"128"
+			}
+		}
+	}
 	
 }
 	
