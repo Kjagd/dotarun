@@ -797,8 +797,8 @@
 		"ItemStackable"					"1"
 		"ItemPurchasable"				"0"
 		"ItemPermanent"					"0"
-		"ItemInitialCharges"			"3"
-		"ItemDisplayCharges"			"3"
+		"ItemInitialCharges"			"2"
+		"ItemDisplayCharges"			"2"
 		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
 		
 		// Sounden
@@ -814,12 +814,12 @@
 			"01"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"slide_distance"		"800"
+				"slide_distance"		"300"
 			}
 			"02"
 			{
 				"var_type"			"FIELD_FLOAT"
-				"slide_duration"		"2.0"
+				"slide_duration"		"1.5"
 			}
 			"03"
 			{
