@@ -486,6 +486,12 @@ function CDotaRun:OnNPCSpawned( keys )
 	        )
 	    end
    	end
+
+   	-- check if banana and make model bigger
+   	if(string.find(spawnedUnit:GetUnitName(), "banana")) then
+   		print("found banana")
+   		spawnedUnit:SetModelScale(2.0)
+   	end
 end
 
 function CDotaRun:GiveForceStaff(hero)
