@@ -26,7 +26,7 @@
 		"ItemShopTags"					"int;armor;hard_to_tag"
 		"ItemQuality"					"epic"
 		"ItemAliases"					"shiva's guard"
-		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 
 		// Special
@@ -110,6 +110,7 @@
 		"ItemShopTags"					"int;regen_mana;move_speed;hard_to_tag"
 		"ItemQuality"					"rare"
 		"ItemAliases"					"cyclone euls;eul's scepter of divinity"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		
 		// Special	
@@ -163,6 +164,7 @@
 		"ItemAliases"					"drum of endurance"
 		"ItemInitialCharges"			"1"
 		"ItemDisplayCharges"			"1"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
 
 		// Special	
@@ -239,6 +241,7 @@
 		"ItemShopTags"					"int;armor;regen_health"
 		"ItemQuality"					"rare"
 		"ItemAliases"					"rod of atos"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		
 		// Special	
@@ -294,6 +297,7 @@
 		"ItemShopTags"					"int;damage;attack_speed;hard_to_tag"
 		"ItemQuality"					"rare"
 		"ItemAliases"					"fs;force staff"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
 		
 		// Special	
@@ -347,6 +351,7 @@
 		"ItemShopTags"					"int;regen_mana;agi;hard_to_tag"
 		"ItemQuality"					"rare"
 		"ItemAliases"					"hex;sheepstick;scythe of vyse"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		
 		// Special	
@@ -408,6 +413,7 @@
 		"ItemQuality"					"epic"
 		"ItemAliases"					"bkb;black king bar"
 		"ItemSellable"					"1"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		
 		// Special	
@@ -462,6 +468,7 @@
 		"ItemShopTags"					"damage;move_speed;hard_to_tag"
 		"ItemQuality"					"common"
 		"ItemAliases"					"phase boots"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_SPECTATORS"
 		
 		// Special	
@@ -516,7 +523,7 @@
 		"ItemCost"						"4700"
 		"ItemShopTags"					"agi;str;int;hard_to_tag"
 		"ItemQuality"					"epic"
-		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemAliases"					"eb;ethereal blade"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
 		
@@ -602,7 +609,7 @@
 		"ItemQuality"					"epic"
 		"ItemAliases"					"ls;lotus orb"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -663,7 +670,7 @@
 		"ItemShopTags"					"agi;str;int;attack_speed;move_speed;hard_to_tag"
 		"ItemQuality"					"epic"
 		"ItemAliases"					"manta style"
-		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		
 		// Special	
