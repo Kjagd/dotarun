@@ -153,6 +153,8 @@ function CDotaRun:InitGameMode()
 
 	self.pointsToWin = 25 -- Fallback to 25 if not set
 
+	self.alreadyScored = {}
+
 	self.playerDistances = {}
 
 	self.playerCount = 0
@@ -425,12 +427,14 @@ function CDotaRun:ResetRound()
     	GameRules.dotaRun.waypoints[i] = {}
     	GameRules.dotaRun.spawned[i] = false
 		GameRules.dotaRun.zoneOpen[i] = true
+		GameRules.dotaRun.alreadyScored[i] = false
 
     	for j = 1, 6 do
     		GameRules.dotaRun.waypoints[i][j] = false -- Fill the values here
     	end
 	end
 
+	-- Needs to be 1 indexed for some lua functions
 	for i = 1, DOTA_MAX_TEAM_PLAYERS do
 		GameRules.dotaRun.playerDistances[i] = 0
 	end
