@@ -166,6 +166,15 @@ function WinHere(trigger)
 
     if (GameRules.dotaRun.waypoints[playerID][1] and GameRules.dotaRun.waypoints[playerID][2] and GameRules.dotaRun.waypoints[playerID][3]
          and GameRules.dotaRun.waypoints[playerID][4] and GameRules.dotaRun.waypoints[playerID][5] and GameRules.dotaRun.waypoints[playerID][6]) then
+
+        if GameRules.dotaRun.alreadyScored[playerID] then
+            local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
+            teleportHero(hero, point, playerID)
+            hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table)
+            return
+        end
+        GameRules.dotaRun.alreadyScored[playerID] = true
+
         DistributePoints(teamNumber, hero, playerID)
 
         if (GameRules.dotaRun.points[teamNumber] >= GameRules.dotaRun.pointsToWin) then
