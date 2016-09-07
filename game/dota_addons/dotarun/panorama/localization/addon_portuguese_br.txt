@@ -1,0 +1,85 @@
+"addon"
+{
+  "PointsToWin"									        "Faltam +{d:points_to_win} pontos"
+	"PointsToWin_CloseToVictory"					"Faltam +{d:points_to_win} pontos"
+	"PointsToWin_VeryCloseToVictory"			"Só faltam +{d:points_to_win} pontos!"
+	"PointsToWin_Victory"							    "Você venceu!"
+
+	"InstructionsTitle"								    "DOTA RUN"
+	"InstructionsObjective"							  "OBJETIVO"
+	"InstructionsObjectiveText"						"Chegue ao objetivo primeiro para conseguir pontos! O primeiro a fazer 30 pontos vence."
+	"InstructionsHowToPlay"							  "COMO JOGAR"
+	"InstructionsLines"								    "-Corra sobre os quadrados para pegar magias e itens.<br>
+                                        -Cada magia e item só podem ser usados uma vez, exceto o Force Staff.<br>
+                                        -Depois que alguém chegar ao objetivo, todos tem 30 seguntos para chegar também.<br>
+													              -Você ganha 10 pontos por chegar em 1st, 7 por ser o 2nd, 5 por ser o 3rd, 4 por ser o 4, etc."
+
+	"Chest"											          "ITEM"
+	"ItemWillSpawn"									      "UM ITEM APARECERÁ!"
+	"ItemHasSpawned"								      "O ITEM ESTÁ A CAMINHO!"
+
+	"RecentScore"									        "+{d:score}"
+
+	"Unassigned"      								"Time Não Definido"
+	"Spectator"       								"Time dos Espectadores"
+	"Neutrals"        								"Time Neutro"
+	"NoTeam"          								"Sem Time"
+
+	"DOTA_GoodGuys"   								"Teal Tiger"
+	"DOTA_BadGuys"    								"Yellow Monkey"
+	"DOTA_Custom1"    								"Pink Dragon"
+	"DOTA_Custom2"    								"Orange Dog"
+	"DOTA_Custom3"    								"Blue Rooster"
+	"DOTA_Custom4"    								"Green Ram"
+	"DOTA_Custom5"    								"Brown Rat"
+	"DOTA_Custom6"    								"Cyan Boar"
+	"DOTA_Custom7"    								"Olive Snake"
+	"DOTA_Custom8"    								"Purple Horse"
+
+	"VictoryMessage_GoodGuys"   					"Teal Tiger Venceu!"	
+	"VictoryMessage_BadGuys"    					"Yellow Monkey Venceu!"
+	"VictoryMessage_Custom1"    					"Pink Dragon Venceu!"	
+	"VictoryMessage_Custom2"    					"Orange Dog Venceu!"
+	"VictoryMessage_Custom3"    					"Blue Rooster Venceu!"
+	"VictoryMessage_Custom4"    					"Green Ram Venceu!"	
+	"VictoryMessage_Custom5"    					"Brown Rat Venceu!"
+	"VictoryMessage_Custom6"    					"Cyan Boar Venceu!" 
+	"VictoryMessage_Custom7"    					"Olve Snake Venceu!"	
+	"VictoryMessage_Custom8"    					"Purple Horse Venceu!"
+	
+	"OverthrowHeroPickup"							"{s:hero_id}"
+	"OverthrowTextPickup"							"PEGOU"
+	"OverthrowItemPickup"							"{s:item_id}!"
+
+	"Remaining"										"RESTANTE"
+
+	"Overtime"										"TEMPO EXTRA!"
+	"OvertimeInstructions"				"PONTOS PARA VENCER"
+
+	"KillMessageHero"								"{s:hero_id}"
+	"KillMessageText"								"MATOU O LÍDER"
+	"KillMessageBounty"							"POR 500 BONUS DE GOLD!"
+	
+	"addonname"										            "Dota Run"
+	"overthrow_game_info_header_objective"		"Objetivo:"
+	"overthrow_brief_description"					    "Chegue ao objetivo primeiro para conseguir pontos! Use magias e itens para ficar na frente."
+	"overthrow_game_info_header_how_to_play"	"Como jogar:"
+	"overthrow_game_info_throne"					    "Corra sobre os <span class='squares'>quadrados</span> para pegar magias e itens."
+	"overthrow_game_info_coins"						    "Cada magia e item só podem ser usados uma vez, exceto o Force Staff."
+	"overthrow_game_info_items"						    "Depois que alguém chegar ao objetivo, todos tem 30 seguntos para chegar também. Você ganha 10 pontos por chegar em 1º, 7 por ser o 2º, 5 por ser o 3º, 4 por ser o 4º, 3 por ser o 5º, 2 por ser 6º e os outros ganham 1 ponto se eles terminarem.<br><br>"
+	"overthrow_game_info_tips_header"				  "Dicas:"
+	"overthrow_game_info_tip01"						    "-Não pegue atalhos ou você irá perder os pontos de controle!"
+	"overthrow_game_info_tip02"						    "-Se você for o último a passar pelos cantos você receberá uma míssel com alcance global."
+	"overthrow_game_info_tip03"						    "-A água causa lentidão."
+	"overthrow_game_info_tip04"						    "-Você pode empurrar os inimigos para as elevações do caminho."
+
+	//Voting
+
+	"VotePlease"									            "Vote na duração do jogo"
+	"Confirm_vote"									          "Confirmar voto!"
+
+	"difficulty_short"								        "Curto"
+	"difficulty_med"								          "Médio"
+	"difficulty_long"								          "Longo"
+
+}
