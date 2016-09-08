@@ -1865,6 +1865,62 @@
 			}
 		}		
 	}
+
+	//=================================================================================================================
+	// Abyssal Underlord: Pit of Malice
+	//=================================================================================================================
+	"abyssal_underlord_pit_of_malice_custom"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"5614"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"baseclass"						"abyssal_underlord_pit_of_malice"	
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		
+		"AbilityCastRange"				"750"
+		"AbilityCastPoint"				"0.6"
+		"FightRecapLevel"				"1"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"4.0 4.0 4.0 4.0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0 0 0 0"
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"radius"					"275"
+			}
+			"02"
+			{
+				"var_type"						"FIELD_FLOAT"
+				"pit_duration"					"4.0"
+			}		
+			"03"
+			{
+				"var_type"						"FIELD_FLOAT"
+				"pit_interval"					"0.5"
+			}
+			"04"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"pit_damage"					"0"
+			}
+			"05"
+			{
+				"var_type"						"FIELD_FLOAT"
+				"ensnare_duration"				"1.5 1.5 1.5 1.5"
+			}
+		}
+	}
 	
 
 
@@ -1873,10 +1929,10 @@
 
 
 	// Rewrite of the Techies Stasis Trap ability
-// Author: Pizzalol
-// Date: 25.03.2015.
-"techies_stasis_trap_datadriven"
-{
+	// Author: Pizzalol
+	// Date: 25.03.2015.
+	"techies_stasis_trap_datadriven"
+	{
 	// General
 	//-------------------------------------------------------------------------------------------------------------
 	"BaseClass"				"ability_datadriven"

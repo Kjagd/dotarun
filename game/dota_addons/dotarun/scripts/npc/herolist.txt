@@ -10,4 +10,5 @@
 		"npc_dota_hero_magnataur"			"1"
 		"npc_dota_hero_enchantress"			"1"
 		"npc_dota_hero_leshrac"				"1"
+		"npc_dota_hero_abyssal_underlord"	"1"
 }

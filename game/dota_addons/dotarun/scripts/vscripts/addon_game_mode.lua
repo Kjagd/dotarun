@@ -122,7 +122,8 @@ function CDotaRun:InitGameMode()
 		"tiny_toss_custom",
 		"windrunner_shackleshot_custom",
 		"furion_sprout_custom",
-		"kunkka_torrent_custom"
+		"kunkka_torrent_custom",
+		"abyssal_underlord_pit_of_malice_custom"
 	}
 
 	local checkpoint_names = {

@@ -206,4 +206,24 @@
 
 		"AttackCapabilities"    	"DOTA_UNIT_CAP_NO_ATTACK"
 	}
+	//=================================================================================================================
+	// HERO: Underlord
+	//=================================================================================================================
+	"npc_dota_hero_abyssal_underlord_runner"
+	{
+		"override_hero"				"npc_dota_hero_abyssal_underlord"			// Hero to override
+		"AbilityLayout"				"6"
+		"Ability1"					""											
+		"Ability2"					""
+		"Ability3"					""
+		"Ability4"					""
+		"Ability5"					"Immunity"
+		"Ability6"					""
+		"Ability7"					""
+
+		"MovementSpeed"				"360"
+		"MovementTurnRate"			"0.400000"
+
+		"AttackCapabilities"    	"DOTA_UNIT_CAP_NO_ATTACK"
+	}
 }
