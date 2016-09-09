@@ -787,31 +787,14 @@
 		{
 			"AttachWearables"
 			{
-			    "Wearable1"
-			    {
-			        "ItemDef" "47"
-			    }
-			    "Wearable2"
-			    {
-			        "ItemDef" "258"
-			    }
-			    "Wearable3"
-			    {
-			        "ItemDef" "259"
-			    }
-			    "Wearable4"
-			    {
-			        "ItemDef" "260"
-			    }
-			    "Wearable5"
-			    {
-			        "ItemDef" "261"
-			    }
-			    "Wearable6"
-			    {
-			        "ItemDef" "262"
-			    }
-			}
+            "1" { "ItemDef" "112" } // Spirit Breaker's Shoulder Armor
+            "2" { "ItemDef" "115" } // Spirit Breaker's Bracers
+            "3" { "ItemDef" "106" } // Spirit Breaker's Head
+            "4" { "ItemDef" "116" } // Spirit Breaker's Belt
+            "5" { "ItemDef" "114" } // Spirit Breaker's Tail
+            "6" { "ItemDef" "111" } // Spirit Breaker's Horns
+            "7" { "ItemDef" "113" } // Spirit Breaker's Mace			
+        	}
 		}
 	}	
 }
