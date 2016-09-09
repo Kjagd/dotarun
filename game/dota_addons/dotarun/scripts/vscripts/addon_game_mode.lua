@@ -174,6 +174,8 @@ function CDotaRun:InitGameMode()
 
 	self.hasAlreadyReset = false
 
+	self.leadingPlayerID = -1
+
 	initPudges()
 	-- --initShakers() Moved to start of game to prevent hearing loss
 	initCents()
@@ -252,7 +254,7 @@ function CDotaRun:OnThink()
 	playerPositions = self:SortPositions()
 	self:BlueShell(playerPositions)
 	self:CountConnectedPlayers()
-		
+
 	return 1
 end
 
@@ -309,6 +311,9 @@ function CDotaRun:BlueShell(playerPositions)
 					if (hero ~= nil) then
 						hero:SetBaseMoveSpeed(speed)
 						speed = speed + 20
+						if key == 1 then
+							self.leadingPlayerID = playerID
+						end
 					end
 				end
 			end
@@ -590,7 +595,7 @@ function CDotaRun:OnAbilityUsed(data)
 	DeepPrintTable(data)
 	--local player = EntIndexToHScript(data.PlayerID)
 	local player = PlayerResource:GetPlayer(data.PlayerID)
-	DeepPrintTable(player)
+	PrintTable(player)
 	local hero = player:GetAssignedHero()
 	local ability = hero:FindAbilityByName(data.abilityname)
 	if(ability ~= nil) then
@@ -598,7 +603,9 @@ function CDotaRun:OnAbilityUsed(data)
 		Timers:CreateTimer(4, function()
 			ability:SetLevel(0)
         	hero:RemoveAbility(data.abilityname)
+        	print("Removing: " .. data.abilityname)
         	hero:AddAbility("empty_ability1") 
+        	print("Adding empty ability")
             return
          end
          )
