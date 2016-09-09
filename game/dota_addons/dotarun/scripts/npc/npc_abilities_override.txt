@@ -813,7 +813,7 @@
 		"UIPickupSound"					"Item.PickUpRingShop"
 		"UIDropSound"					"Item.DropRingShop"
 		"WorldDropSound"				"Item.DropRingWorld"
-
+ 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"

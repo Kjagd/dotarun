@@ -530,8 +530,8 @@
 	}
 
 	//=================================================================================
-// Neutral: Centaur Chief
-//=================================================================================
+	// Neutral: Centaur Chief
+	//=================================================================================
 	"stomp_cent_boss"
 	{										
 		// General
@@ -688,6 +688,100 @@
 		"VoiceFile"					"scripts/voscripts/game_sounds_vo_pudge.txt"
 		
 		"VoiceBackgroundSound"		"Pudge.Background"
+
+		"Creature"
+		{
+			"AttachWearables"
+			{
+			    "Wearable1"
+			    {
+			        "ItemDef" "47"
+			    }
+			    "Wearable2"
+			    {
+			        "ItemDef" "258"
+			    }
+			    "Wearable3"
+			    {
+			        "ItemDef" "259"
+			    }
+			    "Wearable4"
+			    {
+			        "ItemDef" "260"
+			    }
+			    "Wearable5"
+			    {
+			        "ItemDef" "261"
+			    }
+			    "Wearable6"
+			    {
+			        "ItemDef" "262"
+			    }
+			}
+		}
+	}
+
+	"charger"
+	{
+
+		// General
+		//----------------------------------------------------------------
+		"Model"						"models/heroes/spirit_breaker/spirit_breaker.mdl"	// Model.
+		"BaseClass"					"npc_dota_creature"
+		"SoundSet"					"n_creep_Melee"
+		"Level"						"5"
+		"ModelScale" 				"1"
+		"IsNeutralUnitType"			"1"
+
+		// Abilities
+		//----------------------------------------------------------------
+		"Ability1"					"spirit_breaker_charge_of_darkness_custom"			// Ability 1
+		"Ability2"					"spirit_breaker_greater_bash_custom"			// Ability 2
+		"Ability3"					"Invulnerable"			// Ability 3
+		"Ability4"					""			// Ability 4
+
+		// Armor
+		//----------------------------------------------------------------
+		"ArmorPhysical"				"4"			// Physical protection.
+
+		// Attack
+		//----------------------------------------------------------------
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"  
+
+		// Bounds
+		//----------------------------------------------------------------
+		"RingRadius"				"80"
+		"HealthBarOffset"			"220"
+
+		// Bounty
+		//----------------------------------------------------------------
+		"BountyXP"					"119"		// Experience earn.
+		"BountyGoldMin"				"66"		// Gold earned min.
+		"BountyGoldMax"				"78"		// Gold earned max.
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"420"		// Speed.
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"				"1100"		// Base health.
+		"StatusHealthRegen"			"1"			// Health regeneration rate.
+		"StatusMana"				"200"		// Base mana.
+		"StatusManaRegen"			"0.0"		// Mana regeneration rate.		 
+		
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"		"800"		// Range of vision during day light.
+		"VisionNighttimeRange"		"800"		// Range of vision at night time.
+
+		// Team
+		//----------------------------------------------------------------
+		"TeamName"					"DOTA_TEAM_NEUTRALS"							// Team name.
+		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_LIGHT"
+		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_STRONG"
+		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
 
 		"Creature"
 		{
