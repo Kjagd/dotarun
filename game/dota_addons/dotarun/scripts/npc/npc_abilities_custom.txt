@@ -46,7 +46,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"ability_datadriven"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
 		"MaxLevel"						"4"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
@@ -68,7 +68,6 @@
 			{
 				"ScriptFile"	"heroes/hero_spirit_breaker/charge.lua"
 				"Function"		"Charge"
-				"Target"		"TARGET"
 			}
 		}
 	}
