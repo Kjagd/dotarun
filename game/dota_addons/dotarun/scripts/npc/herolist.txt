@@ -4,7 +4,6 @@
 		"npc_dota_hero_chaos_knight"		"1"
 		"npc_dota_hero_chen"				"1"
 		"npc_dota_hero_disruptor"			"1"
-		"npc_dota_hero_keeper_of_the_light"	"1"
 		"npc_dota_hero_centaur"				"1"
 		"npc_dota_hero_luna"				"1"
 		"npc_dota_hero_magnataur"			"1"
