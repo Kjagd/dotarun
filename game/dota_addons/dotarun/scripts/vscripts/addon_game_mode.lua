@@ -448,7 +448,7 @@ function CDotaRun:ResetRound()
 		GameRules.dotaRun.waypointleader[i] = false
 	end
 	repositionShakers()
-	--setUpMines()
+	setUpMines()
 end
 
 function CDotaRun:ShowCenterMessage( msg, nDur )
