@@ -10,13 +10,13 @@
 	{
 		"override_hero"				"npc_dota_hero_mirana"			// Hero to override
 		"AbilityLayout"				"6"
-		"Ability1"					""											
-		"Ability2"					""
-		"Ability3"					""
-		"Ability4"					""
+		"Ability1"					"empty_ability1"											
+		"Ability2"					"empty_ability2"
+		"Ability3"					"empty_ability3"
+		"Ability4"					"empty_ability4"
 		"Ability5"					"Immunity"
-		"Ability6"					""
-		"Ability7"					""
+		"Ability6"					"empty_ability5"
+		"Ability7"					"empty_ability6"
 
 		"MovementSpeed"				"360"
 		"MovementTurnRate"			"0.400000"
@@ -31,13 +31,13 @@
 	{
 		"override_hero"				"npc_dota_hero_chaos_knight"			// Hero to override
 		"AbilityLayout"				"6"
-		"Ability1"					""											
-		"Ability2"					""
-		"Ability3"					""
-		"Ability4"					""
+		"Ability1"					"empty_ability1"											
+		"Ability2"					"empty_ability2"
+		"Ability3"					"empty_ability3"
+		"Ability4"					"empty_ability4"
 		"Ability5"					"Immunity"
-		"Ability6"					""
-		"Ability7"					""
+		"Ability6"					"empty_ability5"
+		"Ability7"					"empty_ability6"
 
 		"MovementSpeed"				"360"
 		"MovementTurnRate"			"0.400000"
@@ -52,13 +52,13 @@
 	{
 		"override_hero"				"npc_dota_hero_chen"			// Hero to override
 		"AbilityLayout"				"6"
-		"Ability1"					""											
-		"Ability2"					""
-		"Ability3"					""
-		"Ability4"					""
+		"Ability1"					"empty_ability1"											
+		"Ability2"					"empty_ability2"
+		"Ability3"					"empty_ability3"
+		"Ability4"					"empty_ability4"
 		"Ability5"					"Immunity"
-		"Ability6"					""
-		"Ability7"					""
+		"Ability6"					"empty_ability5"
+		"Ability7"					"empty_ability6"
 
 		"MovementSpeed"				"360"
 		"MovementTurnRate"			"0.400000"
@@ -73,13 +73,13 @@
 	{
 		"override_hero"				"npc_dota_hero_disruptor"			// Hero to override
 		"AbilityLayout"				"6"
-		"Ability1"					""											
-		"Ability2"					""
-		"Ability3"					""
-		"Ability4"					""
+		"Ability1"					"empty_ability1"											
+		"Ability2"					"empty_ability2"
+		"Ability3"					"empty_ability3"
+		"Ability4"					"empty_ability4"
 		"Ability5"					"Immunity"
-		"Ability6"					""
-		"Ability7"					""
+		"Ability6"					"empty_ability5"
+		"Ability7"					"empty_ability6"
 
 		"MovementSpeed"				"360"
 		"MovementTurnRate"			"0.400000"
@@ -93,13 +93,13 @@
 	{
 		"override_hero"				"npc_dota_hero_keeper_of_the_light"			// Hero to override
 		"AbilityLayout"				"6"
-		"Ability1"					""											
-		"Ability2"					""
-		"Ability3"					""
-		"Ability4"					""
+		"Ability1"					"empty_ability1"											
+		"Ability2"					"empty_ability2"
+		"Ability3"					"empty_ability3"
+		"Ability4"					"empty_ability4"
 		"Ability5"					"Immunity"
-		"Ability6"					""
-		"Ability7"					""
+		"Ability6"					"empty_ability5"
+		"Ability7"					"empty_ability6"
 
 		"MovementSpeed"				"360"
 		"MovementTurnRate"			"0.400000"
@@ -113,13 +113,13 @@
 	{
 		"override_hero"				"npc_dota_hero_centaur"			// Hero to override
 		"AbilityLayout"				"6"
-		"Ability1"					""											
-		"Ability2"					""
-		"Ability3"					""
-		"Ability4"					""
+		"Ability1"					"empty_ability1"											
+		"Ability2"					"empty_ability2"
+		"Ability3"					"empty_ability3"
+		"Ability4"					"empty_ability4"
 		"Ability5"					"Immunity"
-		"Ability6"					""
-		"Ability7"					""
+		"Ability6"					"empty_ability5"
+		"Ability7"					"empty_ability6"
 
 		"MovementSpeed"				"360"
 		"MovementTurnRate"			"0.400000"
@@ -133,13 +133,13 @@
 	{
 		"override_hero"				"npc_dota_hero_luna"			// Hero to override
 		"AbilityLayout"				"6"
-		"Ability1"					""											
-		"Ability2"					""
-		"Ability3"					""
-		"Ability4"					""
+		"Ability1"					"empty_ability1"											
+		"Ability2"					"empty_ability2"
+		"Ability3"					"empty_ability3"
+		"Ability4"					"empty_ability4"
 		"Ability5"					"Immunity"
-		"Ability6"					""
-		"Ability7"					""
+		"Ability6"					"empty_ability5"
+		"Ability7"					"empty_ability6"
 
 		"MovementSpeed"				"360"
 		"MovementTurnRate"			"0.400000"
@@ -153,13 +153,13 @@
 	{
 		"override_hero"				"npc_dota_hero_magnataur"			// Hero to override
 		"AbilityLayout"				"6"
-		"Ability1"					""											
-		"Ability2"					""
-		"Ability3"					""
-		"Ability4"					""
+		"Ability1"					"empty_ability1"											
+		"Ability2"					"empty_ability2"
+		"Ability3"					"empty_ability3"
+		"Ability4"					"empty_ability4"
 		"Ability5"					"Immunity"
-		"Ability6"					""
-		"Ability7"					""
+		"Ability6"					"empty_ability5"
+		"Ability7"					"empty_ability6"
 
 		"MovementSpeed"				"360"
 		"MovementTurnRate"			"0.400000"
@@ -173,13 +173,13 @@
 	{
 		"override_hero"				"npc_dota_hero_enchantress"			// Hero to override
 		"AbilityLayout"				"6"
-		"Ability1"					""											
-		"Ability2"					""
-		"Ability3"					""
-		"Ability4"					""
+		"Ability1"					"empty_ability1"											
+		"Ability2"					"empty_ability2"
+		"Ability3"					"empty_ability3"
+		"Ability4"					"empty_ability4"
 		"Ability5"					"Immunity"
-		"Ability6"					""
-		"Ability7"					""
+		"Ability6"					"empty_ability5"
+		"Ability7"					"empty_ability6"
 
 		"MovementSpeed"				"360"
 		"MovementTurnRate"			"0.400000"
@@ -193,13 +193,13 @@
 	{
 		"override_hero"				"npc_dota_hero_leshrac"			// Hero to override
 		"AbilityLayout"				"6"
-		"Ability1"					""											
-		"Ability2"					""
-		"Ability3"					""
-		"Ability4"					""
+		"Ability1"					"empty_ability1"											
+		"Ability2"					"empty_ability2"
+		"Ability3"					"empty_ability3"
+		"Ability4"					"empty_ability4"
 		"Ability5"					"Immunity"
-		"Ability6"					""
-		"Ability7"					""
+		"Ability6"					"empty_ability5"
+		"Ability7"					"empty_ability6"
 
 		"MovementSpeed"				"360"
 		"MovementTurnRate"			"0.400000"
@@ -213,13 +213,13 @@
 	{
 		"override_hero"				"npc_dota_hero_abyssal_underlord"			// Hero to override
 		"AbilityLayout"				"6"
-		"Ability1"					""											
-		"Ability2"					""
-		"Ability3"					""
-		"Ability4"					""
+		"Ability1"					"empty_ability1"											
+		"Ability2"					"empty_ability2"
+		"Ability3"					"empty_ability3"
+		"Ability4"					"empty_ability4"
 		"Ability5"					"Immunity"
-		"Ability6"					""
-		"Ability7"					""
+		"Ability6"					"empty_ability5"
+		"Ability7"					"empty_ability6"
 
 		"MovementSpeed"				"360"
 		"MovementTurnRate"			"0.400000"

@@ -1,7 +1,7 @@
 --When / if Shiva's returns the random shall be 1, 6 again
 function GiveRandomItem(hero)  
  	
- 	local itemSlotsFull = GameRules.dotaRun:DoesHeroHaveMaxItems(hero)
+ 	local itemSlotsFull = GameRules.dotaRun:DoesHeroHaveMaxItems(hero)	
  	if (itemSlotsFull) then
  		print("No item slots!")
  		return
@@ -30,25 +30,41 @@ function GiveRandomItem(hero)
 	end
 end
 
+function hasMaxAbilities(hero)
+
+end
+
 function GiveRandomAbility(hero)
 
+	local removeAbil = 0
 	local hasMaxAbilities = true;
-	for i = 1,6 do
-		if(hero:GetAbilityByIndex(i):GetAbilityName() == "empty_ability1") then
-			hasMaxAbilities = false
+	( function () 
+		for i = 0,6 do -- ability 0,1,2,3,4 and 6
+			--if hero:GetAbilityByIndex(i) == nil then
+			--print("Ability name:" .. hero:GetAbilityByIndex(i):GetAbilityName()) 
+			if hero:GetAbilityByIndex(i) ~= nil then
+				for j = 1,6 do
+					ability = "empty_ability" .. j
+					if(hero:GetAbilityByIndex(i):GetAbilityName() == ability) then
+						removeAbil = ability
+						hasMaxAbilities = false
+						return
+					end
+				end
+			end
 		end
-	end
+	end ) ()
 	
 	if (not hasMaxAbilities) then
 		-- See https://stackoverflow.com/questions/9613322/lua-table-getn-returns-0
 		abilityName = GameRules.dotaRun.spellList[RandomInt(1, #GameRules.dotaRun.spellList)]
 		if(hero:FindAbilityByName(abilityName) == nil) then
 			print("Adding ability: "..abilityName)
-    	    hero:RemoveAbility("empty_ability1") 
+    	    hero:RemoveAbility(removeAbil) 
 			hero:AddAbility(abilityName)
+			hero:SetAbilityPoints(1)
 			ability = hero:FindAbilityByName(abilityName)
-			ability:SetLevel(1)
-			-- ability:SetAbilityIndex(1)
+			ability:UpgradeAbility(true)
 		else 
 			print("Hero already had ability: "..abilityName)
 			GiveRandomAbility(hero)
