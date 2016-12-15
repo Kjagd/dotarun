@@ -104,8 +104,7 @@ function CDotaRun:InitGameMode()
 		"item_black_king_bar",
 		"item_phase_boots",
 		"item_ethereal_blade",
-		"item_manta",
-		"item_banana"
+		"item_manta"
 	}
 
 	self.spellList = {
@@ -449,7 +448,7 @@ function CDotaRun:ResetRound()
 		GameRules.dotaRun.waypointleader[i] = false
 	end
 	repositionShakers()
-	setUpMines()
+	--setUpMines()
 end
 
 function CDotaRun:ShowCenterMessage( msg, nDur )
@@ -486,7 +485,7 @@ function CDotaRun:OnNPCSpawned( keys )
 					hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
 				end
 				for i = 1, 6 do
-					hero:AddAbility("empty_ability1")
+					--hero:AddAbility("empty_ability1")
 				end
 				GameRules.dotaRun:GiveForceStaff(hero)
 				
