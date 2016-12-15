@@ -28,6 +28,8 @@
 		"ItemAliases"					"shiva's guard"
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"AllowedInBackpack" 			"0"
+
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -112,6 +114,8 @@
 		"ItemAliases"					"cyclone euls;eul's scepter of divinity"
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"AllowedInBackpack" 			"0"
+
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -166,6 +170,8 @@
 		"ItemDisplayCharges"			"1"
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
+		"AllowedInBackpack" 			"0"
+
 
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -243,6 +249,8 @@
 		"ItemAliases"					"rod of atos"
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"AllowedInBackpack" 			"0"
+
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -299,7 +307,8 @@
 		"ItemAliases"					"fs;force staff"
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
-		
+		"AllowedInBackpack" 			"0"
+
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -353,6 +362,7 @@
 		"ItemAliases"					"hex;sheepstick;scythe of vyse"
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+		"AllowedInBackpack" 			"0"
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
@@ -415,7 +425,8 @@
 		"ItemSellable"					"1"
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-		
+		"AllowedInBackpack" 			"0"
+	
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -470,7 +481,8 @@
 		"ItemAliases"					"phase boots"
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_SPECTATORS"
-		
+		"AllowedInBackpack" 			"0"
+
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -526,7 +538,8 @@
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemAliases"					"eb;ethereal blade"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
-		
+		"AllowedInBackpack" 			"0"
+	
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -610,7 +623,8 @@
 		"ItemAliases"					"ls;lotus orb"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
-		
+		"AllowedInBackpack" 			"0"
+	
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -672,7 +686,8 @@
 		"ItemAliases"					"manta style"
 		"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_NEVER"
 		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
-		
+		"AllowedInBackpack" 			"0"
+	
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
@@ -807,6 +822,8 @@
 		"ItemInitialCharges"			"2"
 		"ItemDisplayCharges"			"2"
 		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"AllowedInBackpack" 			"0"
+
 		
 		// Sounden
 		//-------------------------------------------------------------------------------------------------------------			
