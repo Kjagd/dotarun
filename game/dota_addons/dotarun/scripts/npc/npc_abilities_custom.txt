@@ -2100,17 +2100,19 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"ID"							"5614"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
-		"baseclass"						"abyssal_underlord_pit_of_malice"	
+		"baseclass" 					"abyssal_underlord_pit_of_malice"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		
 		"AbilityCastRange"				"750"
-		"AbilityCastPoint"				"0.6"
+		"AbilityCastPoint"				"0.45"
 		"FightRecapLevel"				"1"
 		
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"4.0 4.0 4.0 4.0"
+		"AbilityCooldown"				"4 4 4 4"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
@@ -2123,7 +2125,7 @@
 			"01"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"radius"					"275"
+				"radius"					"250"
 			}
 			"02"
 			{
@@ -2133,7 +2135,7 @@
 			"03"
 			{
 				"var_type"						"FIELD_FLOAT"
-				"pit_interval"					"0.5"
+				"pit_interval"					"2.0"
 			}
 			"04"
 			{
@@ -2143,7 +2145,7 @@
 			"05"
 			{
 				"var_type"						"FIELD_FLOAT"
-				"ensnare_duration"				"1.5 1.5 1.5 1.5"
+				"ensnare_duration"				"1.0 1.0 1.0 1.0"
 			}
 		}
 	}
