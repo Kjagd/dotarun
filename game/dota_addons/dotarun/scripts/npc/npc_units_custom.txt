@@ -752,12 +752,7 @@
 		//----------------------------------------------------------------
 		"RingRadius"				"80"
 		"HealthBarOffset"			"220"
-
-		// Bounty
-		//----------------------------------------------------------------
-		"BountyXP"					"119"		// Experience earn.
-		"BountyGoldMin"				"66"		// Gold earned min.
-		"BountyGoldMax"				"78"		// Gold earned max.
+		"BoundsHullName" 			"DOTA_HULL_SIZE_SMALL"
 
 		// Movement
 		//----------------------------------------------------------------

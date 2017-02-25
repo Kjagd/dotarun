@@ -125,25 +125,43 @@ function lastMan(waypointID, hero)
         end
     end
 
+    print("in last man")
     if (throughCount >= GameRules.dotaRun.playerCount) then
         local hasMaxAbilities = true;
-        for i = 1,6 do
-            if(hero:GetAbilityByIndex(i):GetAbilityName() == "empty_ability1") then
-                hasMaxAbilities = false
+        local removeAbil = 0
+        ( function () 
+            for i = 0,6 do -- ability 0,1,2,3,4 and 6
+                --if hero:GetAbilityByIndex(i) == nil then
+                --print("Ability name:" .. hero:GetAbilityByIndex(i):GetAbilityName()) 
+                if hero:GetAbilityByIndex(i) ~= nil then
+                    for j = 1,6 do
+                        ability = "empty_ability" .. j
+                        if(hero:GetAbilityByIndex(i):GetAbilityName() == ability) then
+                            removeAbil = ability
+                            hasMaxAbilities = false
+                            return
+                        end
+                    end
+                end
             end
-        end        
+        end ) ()
+    
         print("last man!")
         if (not hasMaxAbilities) then
-            local abilityName = "gyrocopter_homing_missile_custom"
+            local abilityName = "charge_player"
+            -- See https://stackoverflow.com/questions/9613322/lua-table-getn-returns-0 Idk why I put this
             if(hero:FindAbilityByName(abilityName) == nil) then
-                Notifications:Top(playerID, {text="You got a global range missile!", duration=5, continue=false})
                 print("Adding ability: "..abilityName)
-                hero:RemoveAbility("empty_ability1") 
+                hero:RemoveAbility(removeAbil) 
                 hero:AddAbility(abilityName)
+                hero:SetAbilityPoints(1)
                 ability = hero:FindAbilityByName(abilityName)
-                ability:SetLevel(1)
-                -- local message you got a global homing missile
+                ability:UpgradeAbility(true)
+            else 
+                print("Hero already had ability charger")
             end
+        else
+            print("Hero already has six abilities")
         end
     end
 end

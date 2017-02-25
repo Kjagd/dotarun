@@ -1,3 +1,6 @@
+local lastPosition = Vector(0,0,0)
+local charger = {}
+
 function Charge(keys)
 	local caster = keys.caster
 
@@ -16,11 +19,15 @@ function Charge(keys)
 		end
 	end
 
-	Timers:CreateTimer(0.06, function()
+
+	-- Give the casting player some time to move away
+	Timers:CreateTimer(0.50, function()
 		charger:CastAbilityOnTarget(target, chargeAbility, target:GetPlayerOwnerID())
 		return 
 	end
 	)
+
+	GameRules:GetGameModeEntity():SetThink( "ChargerThink", self, 2 )
 	
 
 	--local targets = FindUnitsInRadius(caster:GetTeam(), target:GetAbsOrigin(), nil, 1000, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_CREEP, DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE, FIND_CLOSEST, false)
@@ -36,4 +43,20 @@ function Charge(keys)
 	-- 		ApplyDamage(damageTable)
 	-- 	end
 	-- end
+end
+
+function ChargerThink()
+	print(lastPosition)
+	print(charger:GetAbsOrigin())
+
+	print(lastPosition - charger:GetAbsOrigin())
+	if (lastPosition - charger:GetAbsOrigin() == Vector(0,0,0)) then -- has not moved for 5 secs
+		charger:Destroy()
+		return
+	end
+
+	print("thinking")
+	lastPosition = charger:GetAbsOrigin()
+
+	return 2
 end

@@ -70,7 +70,7 @@
 	"overthrow_game_info_items"						"After someone has reached the goal everyone else has 30 seconds to make it too. You get 10 points for being 1st, 7 for being 2nd, 5 for being 3rd, 4 for being 4th, 3 for being 5th, 2 for being 6th and anyone else gets 1 point if they finish.<br><br>"
 	"overthrow_game_info_tips_header"				"Tips:"
 	"overthrow_game_info_tip01"						"-Don't skip a corner or you will miss the checkpoint!"
-	"overthrow_game_info_tip02"						"-If you're the last man to enter a corner you will get a rocket with global range."
+	"overthrow_game_info_tip02"						"-If you're the last man to enter a corner you will get a charger!"
 	"overthrow_game_info_tip03"						"-Water slows."
 	"overthrow_game_info_tip04"						"-You can push enemies onto ledges on the path."
 

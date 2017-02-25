@@ -111,7 +111,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"movement_speed"		"1000 1000 1000 1000"
+				"movement_speed"		"1500 1500 1500 1500"
 			}
 			"02"
 			{
@@ -1678,6 +1678,11 @@
 			{
 				"var_type"					"FIELD_INTEGER"
 				"enemy_vision_time"			"4"
+			}
+			"12"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"charge_restore_time"	"0"
 			}
 			
 		}
