@@ -93,6 +93,9 @@ function CDotaRun:InitGameMode()
 	GameRules:SetSameHeroSelectionEnabled( false )
 	GameRules:GetGameModeEntity():SetTopBarTeamValuesOverride( true )
 	GameRules:GetGameModeEntity():SetTopBarTeamValuesVisible( false )
+	GameRules:SetStrategyTime( 0 )
+	GameRules:SetShowcaseTime( 0 )
+
 
 	self.TaTrapFired = false
 	self.itemList = { 
@@ -114,7 +117,6 @@ function CDotaRun:InitGameMode()
 		"dark_seer_surge_custom",
 		"jakiro_ice_path_custom", 
 		"batrider_flamebreak_custom",
-		"obsidian_destroyer_astral_imprisonment_custom",
 		"pudge_meat_hook_custom", 
 		"meepo_earthbind_custom",
 		"vengefulspirit_nether_swap_custom",
