@@ -203,6 +203,7 @@ function WinHere(trigger)
 
         GameRules.dotaRun.numFinished = GameRules.dotaRun.numFinished + 1
         if (GameRules.dotaRun.numFinished == GameRules.dotaRun.playerCount) then
+
             StartReset()
             GameRules.dotaRun.hasAlreadyReset = true
         else
