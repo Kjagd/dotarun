@@ -19,3 +19,5 @@
 !/content/dota_addons/dotarun
 
 *.bin
+
+settings.kv

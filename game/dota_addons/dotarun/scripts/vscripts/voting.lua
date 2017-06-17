@@ -1,3 +1,5 @@
+require("statcollection/lib/statcollection")
+
 
 if not PLAYERS_NOT_VOTED then
 	PLAYERS_NOT_VOTED  = {}
@@ -65,6 +67,8 @@ function FinalizeVotes()
 	else 
 		GameSettings.gameLength = GameSettings.medLength
 	end
+
+	statCollection:setFlags({points_to_win = GameSettings.gameLength})
 
 	print("Vote winner:" .. GameSettings.gameLength)
 	CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = GameSettings.gameLength } )

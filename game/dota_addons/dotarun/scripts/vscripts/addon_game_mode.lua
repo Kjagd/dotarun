@@ -1,6 +1,5 @@
 -- Generated from template
 
-require('lib.statcollection')
 require('lib.notifications')
 require('timers')
 require('utility_functions')
@@ -12,13 +11,11 @@ require('magnus')
 require('earth_spirit')
 require('techies')
 require('voting')
+require("statcollection/init")
+
 if CDotaRun == nil then
 	CDotaRun = class({})
 end
-
--- statcollection.addStats({
---     modID = '19b0e2fdf5da5817c03127bb598102bd' --GET THIS FROM http://getdotastats.com/#d2mods__my_mods
---   })
 
 function Precache( context )
 	print("Precache begin")

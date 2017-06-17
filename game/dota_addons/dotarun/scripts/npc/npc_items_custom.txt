@@ -107,7 +107,5 @@
 				"replenish_amount"		"250"
 			}
 		}
-	}
-
-	
+	}	
 }

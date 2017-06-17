@@ -30,10 +30,6 @@ function GiveRandomItem(hero)
 	end
 end
 
-function hasMaxAbilities(hero)
-
-end
-
 function GiveRandomAbility(hero)
 
 	local removeAbil = 0
