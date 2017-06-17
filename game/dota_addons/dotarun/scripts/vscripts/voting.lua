@@ -69,6 +69,7 @@ function FinalizeVotes()
 	end
 
 	statCollection:setFlags({points_to_win = GameSettings.gameLength})
+	statCollection:sendStage2()
 
 	print("Vote winner:" .. GameSettings.gameLength)
 	CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = GameSettings.gameLength } )
