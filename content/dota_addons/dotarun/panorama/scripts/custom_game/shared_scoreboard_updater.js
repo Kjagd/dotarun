@@ -349,6 +349,7 @@ function _ScoreboardUpdater_UpdateAllTeamsAndPlayers( scoreboardConfig, teamsCon
 		var teamPlayers = Game.GetPlayerIDsOnTeam( teamId )
 		for ( var playerId of teamPlayers )
 		{
+			var playerInfo = Game.GetPlayerInfo( playerId );
 			team.teamScore = team.teamScore + playerInfo.player_kills
 			
 		}
