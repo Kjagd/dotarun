@@ -109,7 +109,6 @@ function CDotaRun:InitGameMode()
 
 	self.spellList = {
 		"mirana_arrow_custom",
-		"mirana_leap_custom",
 		"venomancer_venomous_gale_custom",
 		"dark_seer_surge_custom",
 		"jakiro_ice_path_custom", 
