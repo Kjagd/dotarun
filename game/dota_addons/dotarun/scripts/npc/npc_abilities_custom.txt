@@ -1284,6 +1284,11 @@
 				"var_type"				"FIELD_FLOAT"
 				"duration"				"5.0"
 			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"speed_boost"			"54"
+			}
 		}
 	}
 
