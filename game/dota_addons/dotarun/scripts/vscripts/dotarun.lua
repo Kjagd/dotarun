@@ -1,3 +1,14 @@
+function Set (list)
+	local set = {}
+	for _, l in ipairs(list) do set[l] = true end
+	return set
+  end
+
+local chargeBasedSpells = Set {
+	"obsidian_destroyer_astral_imprisonment_custom",
+	"vengefulspirit_nether_swap_custom"
+}
+
 --When / if Shiva's returns the random shall be 1, 6 again
 function GiveRandomItem(hero)  
  	
@@ -51,6 +62,7 @@ function GiveRandomAbility(hero)
 		end
 	end ) ()
 	
+
 	if (not hasMaxAbilities) then
 		-- See https://stackoverflow.com/questions/9613322/lua-table-getn-returns-0
 		abilityName = GameRules.dotaRun.spellList[RandomInt(1, #GameRules.dotaRun.spellList)]
@@ -59,8 +71,14 @@ function GiveRandomAbility(hero)
     	    hero:RemoveAbility(removeAbil) 
 			hero:AddAbility(abilityName)
 			hero:SetAbilityPoints(1)
+
 			ability = hero:FindAbilityByName(abilityName)
 			ability:UpgradeAbility(true)
+			if (chargeBasedSpells[abilityName]) then
+				print("Giving charge")
+				modifier = ability:GetIntrinsicModifierName()
+				hero:FindModifierByName(modifier):IncrementStackCount()
+			end
 		else 
 			print("Hero already had ability: "..abilityName)
 			GiveRandomAbility(hero)

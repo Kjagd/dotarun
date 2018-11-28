@@ -115,12 +115,13 @@ function CDotaRun:InitGameMode()
 		"batrider_flamebreak_custom",
 		"pudge_meat_hook_custom", 
 		"meepo_earthbind_custom",
-		"vengefulspirit_nether_swap_custom",
 		"tiny_toss_custom",
 		"windrunner_shackleshot_custom",
 		"furion_sprout_custom",
 		"kunkka_torrent_custom",
-		"abyssal_underlord_pit_of_malice_custom"
+		"abyssal_underlord_pit_of_malice_custom",
+		"obsidian_destroyer_astral_imprisonment_custom",
+		"vengefulspirit_nether_swap_custom"
 	}
 
 	local checkpoint_names = {
@@ -178,7 +179,6 @@ function CDotaRun:InitGameMode()
 	initCents()
 	initMagnus()
 	initTechie()
-
 
 	CDotaRun:ResetRound()
 
@@ -559,7 +559,7 @@ function CDotaRun:On_game_rules_state_change( data )
 			if (player ~=nil) then
 				hero = player:GetAssignedHero()
 				if (hero ~=nil) then
-					hero:RemoveModifierByName("modifier_stunned") 
+					hero:RemoveModifierByName("modifier_stunned")
 				end
 			end
 		end
