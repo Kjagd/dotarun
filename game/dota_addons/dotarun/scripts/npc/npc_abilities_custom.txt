@@ -665,7 +665,8 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"magnataur_skewer"												
+		"BaseClass"						"magnataur_skewer"	
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"											
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
