@@ -119,9 +119,7 @@ function CDotaRun:InitGameMode()
 		"windrunner_shackleshot_custom",
 		"furion_sprout_custom",
 		"kunkka_torrent_custom",
-		"abyssal_underlord_pit_of_malice_custom",
-		"obsidian_destroyer_astral_imprisonment_custom",
-		"vengefulspirit_nether_swap_custom"
+		"abyssal_underlord_pit_of_malice_custom"
 	}
 
 	local checkpoint_names = {
