@@ -122,6 +122,8 @@ function CDotaRun:InitGameMode()
 		"abyssal_underlord_pit_of_malice_custom"
 	}
 
+	self.waypointHomeTeleport = Vector(-6587.95, -6333.06, 135)
+
 	local checkpoint_names = {
 		"waypoint1",
 		"waypoint2",
@@ -204,8 +206,8 @@ function CDotaRun:On_player_team(data)
 		print("disconnect")
 	elseif (data.disconnect == 0 and data.oldteam == 0 and GameRules:State_Get() < DOTA_GAMERULES_STATE_HERO_SELECTION) then -- player has connected
 		--self.playerCount = self.playerCount + 1
-		local playerID = PlayerResource:GetNthPlayerIDOnTeam(data.team, 1)
-		local spawn = Entities:FindByName( nil, "waypointHomeTeleport")
+		-- local playerID = PlayerResource:GetNthPlayerIDOnTeam(data.team, 1)
+		-- local spawn = Entities:FindByName( nil, "waypointHomeTeleport")
 		--PlayerResource:SetCameraTarget(playerID, spawn) -- sets camera to spawn and locks it
 		--FireGameEvent("console_command", {pid=-2, command="dota_camera_lock 0"}) -- unlocks camera
 		--Can't unlock camera, need ActionScript https://github.com/AeroHand/Speed-Racing/tree/0a293da7817d01ab860cdffc4187e96970fd1be8/resource/flash3
@@ -219,7 +221,7 @@ function CDotaRun:On_player_team(data)
 			local player = PlayerResource:GetPlayer(playerID)
 	        PlayerResource:ReplaceHeroWith(playerID, player:GetAssignedHero():GetUnitName(), 0, 0)
 	        local hero = player:GetAssignedHero()
-	        local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
+	        local point = GameRules.dotaRun.waypointHomeTeleport
 	        teleportHero(hero, point, playerID)
 	        return
 	    end

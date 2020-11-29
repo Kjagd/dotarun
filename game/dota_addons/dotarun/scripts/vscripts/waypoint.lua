@@ -12,7 +12,7 @@ function WaypointOneTouch(trigger)
     GameRules.dotaRun.waypoints[playerID][1] = true
     
     lastMan(1, trigger.activator)
-
+ 
     print(GameRules.dotaRun.waypoints[playerID][1])
     print("id" .. playerID)          
 end	
@@ -186,7 +186,7 @@ function WinHere(trigger)
          and GameRules.dotaRun.waypoints[playerID][4] and GameRules.dotaRun.waypoints[playerID][5] and GameRules.dotaRun.waypoints[playerID][6]) then
 
         if GameRules.dotaRun.alreadyScored[playerID] then
-            local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
+            local point = GameRules.dotaRun.waypointHomeTeleport
             teleportHero(hero, point, playerID)
             hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table)
             return
@@ -208,14 +208,14 @@ function WinHere(trigger)
             GameRules.dotaRun.hasAlreadyReset = true
         else
             Timers:CreateTimer(0.06, function()
-                local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
+                local point = GameRules.dotaRun.waypointHomeTeleport
                 teleportHero(hero, point, playerID)
                 hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table)
                 return
             end
             )
             Timers:CreateTimer(1, function()
-                local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
+                local point = GameRules.dotaRun.waypointHomeTeleport
                 teleportHero(hero, point, playerID)
                 hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table)
                 return
@@ -367,7 +367,7 @@ function NewLap()
         if (player ~=nil) then
             PlayerResource:ReplaceHeroWith(i, player:GetAssignedHero():GetUnitName(), 0, 0)
             local hero = player:GetAssignedHero() 
-            local point = Entities:FindByName( nil, "waypointHomeTeleport"):GetAbsOrigin()
+            local point = GameRules.dotaRun.waypointHomeTeleport
             teleportHero(hero, point, i)
             --FindClearSpaceForUnit(hero, point, false)
             hero:AddNewModifier(caster, ability, "modifier_stunned", modifier_table) 
