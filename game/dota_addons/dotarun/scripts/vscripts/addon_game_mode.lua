@@ -11,7 +11,6 @@ require('magnus')
 require('earth_spirit')
 require('techies')
 require('voting')
-require("statcollection/init")
 
 if CDotaRun == nil then
 	CDotaRun = class({})
