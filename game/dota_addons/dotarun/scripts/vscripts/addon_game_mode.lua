@@ -21,15 +21,15 @@ function Precache( context )
 
 	local precache = LoadKeyValues("scripts/kv/precache.kv")
 
-    for k, a in pairs(precache) do
-        for _, v in pairs(a) do
-            if k == "unit" then
-                PrecacheUnitByNameSync(v, context)
-            elseif k ~= "Async" then
-                PrecacheResource(k, v, context)
-            end
-        end
-    end
+	for k, a in pairs(precache) do
+		for _, v in pairs(a) do
+			if k == "unit" then
+				PrecacheUnitByNameSync(v, context)
+			elseif k ~= "Async" then
+				PrecacheResource(k, v, context)
+			end
+		end
+	end
 
 	print("Precache end")
 end
@@ -146,7 +146,7 @@ function CDotaRun:InitGameMode()
 
 	self.points = {}
 	for i = DOTA_TEAM_GOODGUYS, DOTA_TEAM_CUSTOM_8 do
-    	self.points[i] = 0
+		self.points[i] = 0
 	end
 
 	self.pointsToWin = 25 -- Fallback to 25 if not set
@@ -218,13 +218,13 @@ function CDotaRun:On_player_team(data)
 			local playerID = PlayerResource:GetNthPlayerIDOnTeam(data.team, 1)
 			GameRules.dotaRun.spawned[playerID] = false
 			local player = PlayerResource:GetPlayer(playerID)
-	        PlayerResource:ReplaceHeroWith(playerID, player:GetAssignedHero():GetUnitName(), 0, 0)
-	        local hero = player:GetAssignedHero()
-	        local point = GameRules.dotaRun.waypointHomeTeleport
-	        teleportHero(hero, point, playerID)
-	        return
-	    end
-	    )
+			PlayerResource:ReplaceHeroWith(playerID, player:GetAssignedHero():GetUnitName(), 0, 0)
+			local hero = player:GetAssignedHero()
+			local point = GameRules.dotaRun.waypointHomeTeleport
+			teleportHero(hero, point, playerID)
+			return
+		end
+		)
 		print("reconnect")
 	end
 	print("playercount is: " .. self.playerCount)
@@ -258,16 +258,16 @@ end
 -- Count connected players. State 0 - no connection, state 1 - bot, state 2 - player connected, state 3 - bot/player disconnected.
 ---------------------------------------------------------------------------
 function CDotaRun:CountConnectedPlayers()
-    local connectedPlayers = 0
-    for playerID = 0,DOTA_MAX_TEAM_PLAYERS do
-    	--print("connectionState: " .. PlayerResource:GetConnectionState(playerID) .. "for id: " .. playerID)
-    	if (PlayerResource:GetConnectionState(playerID) == 2) then
-    		connectedPlayers = connectedPlayers + 1
-    	--	print("id " .. playerID .. "is connected")
-    	end  
-    end
+	local connectedPlayers = 0
+	for playerID = 0,DOTA_MAX_TEAM_PLAYERS do
+		--print("connectionState: " .. PlayerResource:GetConnectionState(playerID) .. "for id: " .. playerID)
+		if (PlayerResource:GetConnectionState(playerID) == 2) then
+			connectedPlayers = connectedPlayers + 1
+		--	print("id " .. playerID .. "is connected")
+		end  
+	end
    -- print("connectedPlayers: " .. connectedPlayers)
-    self.playerCount = connectedPlayers
+	self.playerCount = connectedPlayers
 end
 
 ---------------------------------------------------------------------------
@@ -426,14 +426,14 @@ function CDotaRun:ResetRound()
 	GameRules.dotaRun.numFinished = 0
 
 	for i = 0, (DOTA_MAX_TEAM_PLAYERS-1) do 
-    	GameRules.dotaRun.waypoints[i] = {}
-    	GameRules.dotaRun.spawned[i] = false
+		GameRules.dotaRun.waypoints[i] = {}
+		GameRules.dotaRun.spawned[i] = false
 		GameRules.dotaRun.zoneOpen[i] = true
 		GameRules.dotaRun.alreadyScored[i] = false
 
-    	for j = 1, 6 do
-    		GameRules.dotaRun.waypoints[i][j] = false -- Fill the values here
-    	end
+		for j = 1, 6 do
+			GameRules.dotaRun.waypoints[i][j] = false -- Fill the values here
+		end
 	end
 
 	-- Needs to be 1 indexed for some lua functions
@@ -459,21 +459,21 @@ end
 function CDotaRun:StartZoneTimer(hero)
 	Timers:CreateTimer(5, function()
 		GameRules.dotaRun.zoneOpen[hero:GetPlayerID()] = true
-        return
-    end
-    )
+		return
+	end
+	)
 end
 
 ---------------------------------------------------------------------------
 -- Give Miranas spells and empty abilities
 ---------------------------------------------------------------------------
 function CDotaRun:OnNPCSpawned( keys )
-    local spawnedUnit = EntIndexToHScript( keys.entindex )
-    if(string.find(spawnedUnit:GetUnitName(), "hero")) then
+	local spawnedUnit = EntIndexToHScript( keys.entindex )
+	if(string.find(spawnedUnit:GetUnitName(), "hero")) then
 		local playerID = spawnedUnit:GetPlayerID() 
-	    if (not GameRules.dotaRun.spawned[playerID]) then
-	        Timers:CreateTimer(0.6, function()
-	        	local ability = spawnedUnit:FindAbilityByName("Immunity")
+		if (not GameRules.dotaRun.spawned[playerID]) then
+			Timers:CreateTimer(0.6, function()
+				local ability = spawnedUnit:FindAbilityByName("Immunity")
 				ability:SetLevel(1)
 				local player = PlayerResource:GetPlayer(playerID)
 				local hero = player:GetAssignedHero() 
@@ -488,10 +488,10 @@ function CDotaRun:OnNPCSpawned( keys )
 				GameRules.dotaRun:GiveForceStaff(hero)
 				
 				GameRules.dotaRun.spawned[playerID] = true
-	            return
-	        end
-	        )
-	    end
+				return
+			end
+			)
+		end
    	end
 
    	-- check if banana and make model bigger
@@ -507,10 +507,10 @@ function CDotaRun:GiveForceStaff(hero)
 	for i=0,5 do 
 	   	local item = hero:GetItemInSlot(i)
 	   	if (item ~= nil) then
-	    	if  item:GetClassname()  == "item_force_staff" then
-		    	hasForceStaff = true
-		    end
-	    end
+			if  item:GetClassname()  == "item_force_staff" then
+				hasForceStaff = true
+			end
+		end
 	end
 
 	if (not hasForceStaff) then
@@ -530,9 +530,9 @@ function CDotaRun:DoesHeroHaveMaxItems(hero)
 	local itemSlotsFull = true
 	for i=0,5 do 
 		if(hero:GetItemInSlot(i) == nil) then
-	    	itemSlotsFull = false
-	    	break
-	    end
+			itemSlotsFull = false
+			break
+		end
 	end
 	return itemSlotsFull
 end
@@ -575,9 +575,9 @@ function CDotaRun:On_game_rules_state_change( data )
 		Timers:CreateTimer(20, function() --Late comers backup unit
 			print("Latecomers ui remove")
 			CustomGameEventManager:Send_ServerToAllClients( "remove_voting", nil )
-        	return
-    	end
-    	)
+			return
+		end
+		)
 	end
 	
 	if GameRules:State_Get() == DOTA_GAMERULES_STATE_PRE_GAME then
@@ -586,9 +586,9 @@ function CDotaRun:On_game_rules_state_change( data )
 
 		Timers:CreateTimer(GameSettings.voteTime-4, function()
 			CustomGameEventManager:Send_ServerToAllClients( "start_countdown", nil )
-        	return
-    	end
-    	)
+			return
+		end
+		)
 	end
 end
 
@@ -606,32 +606,35 @@ function CDotaRun:OnAbilityUsed(data)
 		-- Delete ability
 		Timers:CreateTimer(4, function()
 			ability:SetLevel(0)
-        	hero:RemoveAbility(data.abilityname)
-        	print("Removing: " .. data.abilityname)
-        	hero:AddAbility("empty_ability1") 
-        	print("Adding empty ability")
-            return
-         end
-         )
+			hero:RemoveAbility(data.abilityname)
+			print("Removing: " .. data.abilityname)
+			hero:AddAbility("empty_ability1") 
+			print("Adding empty ability")
+			return
+		 end
+		 )
 	else
 		-- Else delete item
 		Timers:CreateTimer(1, function() 
 			for i=0,5,1 do 
-	   			local item = hero:GetItemInSlot(i)
+				local item = hero:GetItemInSlot(i)
 				if  item ~= nil and item:GetClassname()  ~= "item_force_staff" and item:GetClassname() ~= "item_banana" then
-					if item:GetClassname() == "item_phase_boots" then
-						Timers:CreateTimer(2, function()
-							hero:RemoveItem(item)	
-						end
-						)
-		    		elseif(item:GetClassname() == data.abilityname) then
-		    			hero:RemoveItem(item)
-	    			end
-	    		end
-	   		end
-	   		return
+                    if(item:GetClassname() == data.abilityname) then
+                        if item:GetClassname() == "item_phase_boots" then
+                            Timers:CreateTimer(2, function()
+                                hero:RemoveItem(item)	
+                                return
+                            end
+                            )
+                        else 
+                            hero:RemoveItem(item)
+                        end 
+					end
+				end
+            end
+            return
 	   	end
-	    )
+		)
 	end
 end
 
@@ -651,7 +654,7 @@ end
 --     local nTeamID = teamid
 --     local nTeamKills = teampoints
 --     local nKillsRemaining = self.pointsToWin - nTeamKills
-    
+	
 --     local broadcast_kill_event =
 --     {
 --         killer_id = playerID,
@@ -702,11 +705,11 @@ end
 
 --Use this in waypoint too
 function teleportHero(hero, point, playerID)
-    -- Find a spot for the hero around 'point' and teleports to it
-    FindClearSpaceForUnit(hero, point, false)
-    -- Stop the hero, so he doesn't move
-    hero:Stop()
-    -- Refocus the camera of said player to the position of the teleported hero.
-    -- PlayerResource:SetCameraTarget(playerID, hero)
-    SendToConsole("dota_camera_center")
+	-- Find a spot for the hero around 'point' and teleports to it
+	FindClearSpaceForUnit(hero, point, false)
+	-- Stop the hero, so he doesn't move
+	hero:Stop()
+	-- Refocus the camera of said player to the position of the teleported hero.
+	-- PlayerResource:SetCameraTarget(playerID, hero)
+	SendToConsole("dota_camera_center")
 end
