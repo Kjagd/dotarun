@@ -7,7 +7,7 @@
 	//=================================================================================
 	"npc_dota_arrow_trap"
   	{
-    	"Model"      "models/development/invisiblebox.mdl"
+    	"Model"      "models/development/invisiblebox.vmdl"
     	"BaseClass"  "npc_dota_creature"
     
     	// Abilities
@@ -312,7 +312,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"					"npc_dota_creature"							// Class of entity of link to.
-		"Model"						"models/heroes/techies/techies.mdl"						// Model.
+		"Model"						"models/heroes/techies/techies.vmdl"						// Model.
 		"IdleExpression"			"scenes/techies/techies_exp_idle_01.vcd"		// custom facial animation idle
 		"ModelScale" 				"0.60"
 		"LoadoutScale"				".6"
@@ -536,7 +536,7 @@
 	{										
 		// General
 		//----------------------------------------------------------------
-		"Model"						"models/creeps/neutral_creeps/n_creep_centaur_lrg/n_creep_centaur_lrg.mdl"	// Model.
+		"Model"						"models/creeps/neutral_creeps/n_creep_centaur_lrg/n_creep_centaur_lrg.vmdl"	// Model.
 		"BaseClass"					"npc_dota_creature"
 		"SoundSet"					"n_creep_Melee"
 		"Level"						"25"
@@ -598,7 +598,7 @@
 
   	"npc_dota_ta_trap"
   	{
-    	"Model"      "models/development/invisiblebox.mdl"
+    	"Model"      "models/development/invisiblebox.vmdl"
     	"BaseClass"  "npc_dota_creature"
     
     	// Abilities
@@ -625,7 +625,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"Model"					"models/heroes/pudge/pudge.mdl"				// Model.		
+		"Model"					"models/heroes/pudge/pudge.vmdl"				// Model.		
 		"BaseClass"				"npc_dota_creature"
 		"Portrait"				"vgui/hud/heroportraits/portrait_pudge"		// Small image for hero selection
 		"IdleExpression"		"scenes/pudge/pudge_exp_idle_01.vcd"		// custom facial animation idle
@@ -726,7 +726,7 @@
 
 		// General
 		//----------------------------------------------------------------
-		"Model"						"models/heroes/spirit_breaker/spirit_breaker.mdl"	// Model.
+		"Model"						"models/heroes/spirit_breaker/spirit_breaker.vmdl"	// Model.
 		"BaseClass"					"npc_dota_creature"
 		"SoundSet"					"n_creep_Melee"
 		"Level"						"5"
