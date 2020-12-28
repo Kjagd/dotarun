@@ -484,6 +484,7 @@ function CDotaRun:OnNPCSpawned( keys )
 				for i = 1, 6 do
 					--hero:AddAbility("empty_ability1")
 				end
+				GameRules.dotaRun:RemoveStartItems(hero)
 				GameRules.dotaRun:GiveForceStaff(hero)
 				
 				GameRules.dotaRun.spawned[playerID] = true
@@ -515,6 +516,13 @@ function CDotaRun:GiveForceStaff(hero)
 	if (not hasForceStaff) then
 		local item = CreateItem("item_force_staff", hero, hero) 
 		hero:AddItem(item)
+	end
+end
+
+function CDotaRun:RemoveStartItems(hero)
+	for i=0,5 do 
+	   	local item = hero:GetItemInSlot(i)
+	   	hero:RemoveItem(item)
 	end
 end
 
