@@ -229,42 +229,42 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bonus_stats"			"0"
+				"aura_movement_speed"	"0"
 			}
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bonus_damage"			"0"
+				"bonus_str"				"0"
 			}
 			"03"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bonus_aura_attack_speed_pct"	"0"
+				"bonus_int"				"0"
 			}
 			"04"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bonus_aura_movement_speed_pct"	"0"
+				"bonus_attack_speed_pct"	"0"
 			}
 			"05"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bonus_attack_speed_pct"	"10"
+				"bonus_movement_speed_pct"	"10"
 			}
 			"06"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"bonus_movement_speed_pct"	"10"
+				"duration"				"6"
 			}
 			"07"
 			{
-				"var_type"				"FIELD_FLOAT"
-				"duration"				"6.0"
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"1200"
 			}
 			"08"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"radius"				"900"
+				"charges_tooltip"				"1"
 			}
 		}
 	}
