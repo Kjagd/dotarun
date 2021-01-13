@@ -130,7 +130,7 @@
 
 		// Abilities
 		//----------------------------------------------------------------
-		"Ability1"					"skew"			// Ability 1
+		"Ability1"					"magnus_skewer_lua"			// Ability 1
 		"Ability2"					"Invulnerable"			// Ability 2
 		"Ability3"					""			// Ability 3
 		"Ability4"					""			// Ability 4

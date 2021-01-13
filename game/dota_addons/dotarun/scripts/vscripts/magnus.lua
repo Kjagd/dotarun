@@ -7,7 +7,7 @@ local numMagnus = 3
 function initMagnus() 
 	for i = 1, numMagnus do
 		magnus[i] = CreateUnitByName("skewer_magnus", positions[i], true, nil, nil, 1)
-		skewerAbilities[i] = magnus[i]:FindAbilityByName("skew")
+		skewerAbilities[i] = magnus[i]:FindAbilityByName("magnus_skewer_lua")
 		skewerAbilities[i]:SetLevel(1)
 		print("magnus " .. i .. " created")
 		ability = magnus[i]:FindAbilityByName("Invulnerable") 

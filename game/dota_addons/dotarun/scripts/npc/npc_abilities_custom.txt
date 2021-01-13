@@ -666,11 +666,14 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"BaseClass"						"magnataur_skewer"	
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"											
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
+	"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
 		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_YES"
 		"FightRecapLevel"				"1"
+		"AbilitySound"					"Hero_Magnataur.Skewer.Cast"
+		"HasScepterUpgrade"			"0"
 		
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
@@ -696,7 +699,8 @@
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"range"					"2000"
+				"range"					"2000 2000 2000 2000"
+				"LinkedSpecialBonus"	"special_bonus_unique_magnus_3"
 			}
 			"03"
 			{
@@ -706,7 +710,7 @@
 			"04"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"skewer_radius"				"125"
+				"skewer_radius"				"145"
 			}
 			"05"
 			{
@@ -716,18 +720,33 @@
 			"06"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"skewer_damage"			"0"
+				"skewer_damage"			"0 0 0 0"
 			}			
 			"07"
 			{
 				"var_type"				"FIELD_INTEGER"
 				"tree_radius"				"200"
+			}			
+			"08"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"tool_attack_slow"				"10 20 30 40"
+			}	
+			"09"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"skewer_cooldown"				"6"
+				"RequiresScepter"	"1"
+			}
+			"10"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"skewer_manacost"				"40"
+				"RequiresScepter"	"1"
 			}
 		}
 	}
 	
-
-
 
 	//=================================================================================================================
 	// Templar Assassin: Trap
@@ -2917,3 +2936,5 @@
 
 
 }
+
+#base "../vscripts/lua_abilities/magnus_skewer_lua/magnus_skewer_lua.txt"
