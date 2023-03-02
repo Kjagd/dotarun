@@ -1449,13 +1449,11 @@
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastRange"				"1100"
-		"AbilityCastPoint"				"0.65 0.65 0.65 0.65"
+		"AbilityCastRange"				"1200"
+		"AbilityCastPoint"				"0.65"
 
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"4"
-		"AbilityDuration"				"2"
 
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
@@ -1467,29 +1465,28 @@
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
+		"AbilityValues"
 		{
-			"01"
+			"path_delay"				"0.5"
+			"stun_duration"
 			{
-				"var_type"					"FIELD_FLOAT"
-				"path_delay"				"0.5"
+				"value"					"2"
 			}
-			"02"
+			"path_duration"
 			{
-				"var_type"					"FIELD_FLOAT"
-				"duration"					"2"
-			}
-			"03"
+				"value"					"3.5"
+			}			
+			"path_radius"				"150"
+			"damage"		
 			{
-				"var_type"					"FIELD_INTEGER"
-				"path_radius"				"150"
+				"value"			"0"
+				"CalculateSpellDamageTooltip" "1"
 			}
-			"04"
+			"AbilityCooldown"				
 			{
-				"var_type"					"FIELD_INTEGER"
-				"damage"					"50"
-			}
-		}		
+				"value"								"4"
+			}	
+		}			
 	}
 
 	"batrider_flamebreak_custom"
