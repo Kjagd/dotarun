@@ -122,10 +122,12 @@ function UpdateTimer()
 		if ( teamGradient && GameUI.CustomUIConfig().team_colors )
 		{
 			var teamColor = GameUI.CustomUIConfig().team_colors[ teamId ];
-			teamColor = teamColor.replace( ";", "" );
-			var gradientText = 'gradient( linear, 0% 0%, 0% 100%, from( #00000000 ), to( ' + teamColor + '40 ) );';
-//			$.Msg( gradientText );
-			teamGradient.style.backgroundColor = gradientText;
+			if (teamColor) {
+				teamColor = teamColor.replace( ";", "" );
+				var gradientText = 'gradient( linear, 0% 0%, 0% 100%, from( #00000000 ), to( ' + teamColor + '40 ) );';
+	//			$.Msg( gradientText );
+				teamGradient.style.backgroundColor = gradientText;
+			}
 		}
 
 		if ( teamName )

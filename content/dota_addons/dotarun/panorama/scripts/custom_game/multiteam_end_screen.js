@@ -38,8 +38,10 @@
 		if ( GameUI.CustomUIConfig().team_colors )
 		{
 			var teamColor = GameUI.CustomUIConfig().team_colors[ winningTeamId ];
-			teamColor = teamColor.replace( ";", "" );
-			endScreenVictory.style.color = teamColor + ";";
+			if (teamColor) {
+				teamColor = teamColor.replace( ";", "" );
+				endScreenVictory.style.color = teamColor + ";";
+			}
 		}
 	}
 
