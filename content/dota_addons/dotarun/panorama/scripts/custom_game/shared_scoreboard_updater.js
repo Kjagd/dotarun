@@ -226,21 +226,23 @@ function _ScoreboardUpdater_UpdateTeamPanel( scoreboardConfig, containerPanel, t
 	if ( GameUI.CustomUIConfig().team_colors )
 	{
 		var teamColor = GameUI.CustomUIConfig().team_colors[ teamId ];
-		var teamColorPanel = teamPanel.FindChildInLayoutFile( "TeamColor" );
-		
-		teamColor = teamColor.replace( ";", "" );
-
-		if ( teamColorPanel )
-		{
-			teamNamePanel.style.backgroundColor = teamColor + ";";
-		}
-		
-		var teamColor_GradentFromTransparentLeft = teamPanel.FindChildInLayoutFile( "TeamColor_GradentFromTransparentLeft" );
-		if ( teamColor_GradentFromTransparentLeft )
-		{
-			var gradientText = 'gradient( linear, 0% 0%, 800% 0%, from( #00000000 ), to( ' + teamColor + ' ) );';
-//			$.Msg( gradientText );
-			teamColor_GradentFromTransparentLeft.style.backgroundColor = gradientText;
+		if (teamColor) {
+			var teamColorPanel = teamPanel.FindChildInLayoutFile( "TeamColor" );
+			
+			teamColor = teamColor.replace( ";", "" );
+	
+			if ( teamColorPanel )
+			{
+				teamNamePanel.style.backgroundColor = teamColor + ";";
+			}
+			
+			var teamColor_GradentFromTransparentLeft = teamPanel.FindChildInLayoutFile( "TeamColor_GradentFromTransparentLeft" );
+			if ( teamColor_GradentFromTransparentLeft )
+			{
+				var gradientText = 'gradient( linear, 0% 0%, 800% 0%, from( #00000000 ), to( ' + teamColor + ' ) );';
+	//			$.Msg( gradientText );
+				teamColor_GradentFromTransparentLeft.style.backgroundColor = gradientText;
+			}
 		}
 	}
 	
