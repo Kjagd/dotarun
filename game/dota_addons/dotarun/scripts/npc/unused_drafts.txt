@@ -71,14 +71,10 @@
 		
 		// Special	
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"				"FIELD_FLOAT"
-				"cyclone_duration"		"2.5"
-			}
-		}
+		"AbilityValues"
+        {
+            "cyclone_duration" "2.5"
+        }
 	
 
 
@@ -183,28 +179,12 @@
                
                 // Special     
                 //-------------------------------------------------------------------------------------------------------------
-                "AbilitySpecial"
-                {
-                        "01"
-                        {
-                                "var_type"                              "FIELD_FLOAT"
-                                "duration"                              "3.0"
-                        }
-                        "02"
-                        {
-                                "var_type"                              "FIELD_INTEGER"
-                                "attack_bonus"                  "900"
-                        }
-                        "03"
-                        {
-                                "var_type"                              "FIELD_INTEGER"
-                                "radius"                                "125 125 125 125"
-                        }
-                        "04"
-                        {
-                                "var_type"                              "FIELD_INTEGER"
-                                "speed"                                 "1200 1200 1200 1200"
-                        }
-                }
+                "AbilityValues"
+        {
+            "duration" "3.0"
+            "attack_bonus" "900"
+            "radius" "125 125 125 125"
+            "speed" "1200 1200 1200 1200"
+        }
 	}
 }
