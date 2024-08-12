@@ -1,5 +1,3 @@
-// old 
-
 "use strict";
 
 
@@ -167,7 +165,7 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 
 //=============================================================================
 //=============================================================================
-function _ScoreboardUpdater_UpdateTeamPanel( scoreboardConfig, containerPanel, teamDetails )
+function _ScoreboardUpdater_UpdateTeamPanel( scoreboardConfig, containerPanel, teamDetails, teamsInfo )
 {
 	if ( !containerPanel )
 		return;
@@ -207,21 +205,28 @@ function _ScoreboardUpdater_UpdateTeamPanel( scoreboardConfig, containerPanel, t
 
 	var teamPlayers = Game.GetPlayerIDsOnTeam( teamId )
 	var playersContainer = teamPanel.FindChildInLayoutFile( "PlayersContainer" );
+	var teamScore = 0
 	if ( playersContainer )
 	{
 		for ( var playerId of teamPlayers )
 		{
 			_ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContainer, playerId, localPlayerTeamId )
 			var playerInfo = Game.GetPlayerInfo( playerId );
-			_ScoreboardUpdater_SetTextSafe( teamPanel, "TeamScore", playerInfo.player_kills)
+			teamScore = teamScore + playerInfo.player_kills
+			
 		}
 	}
 	
 	teamPanel.SetHasClass( "no_players", (teamPlayers.length == 0) )
 	teamPanel.SetHasClass( "one_player", (teamPlayers.length == 1) )
-
 	
+	if ( teamsInfo.max_team_players < teamPlayers.length )
+	{
+		teamsInfo.max_team_players = teamPlayers.length;
+	}
+
 	_ScoreboardUpdater_SetTextSafe( teamPanel, "TeamName", $.Localize( teamDetails.team_name ) )
+	_ScoreboardUpdater_SetTextSafe( teamPanel, "TeamScore", teamScore)
 	
 	if ( GameUI.CustomUIConfig().team_colors )
 	{
@@ -282,29 +287,11 @@ function _ScoreboardUpdater_ReorderTeam( scoreboardConfig, teamsParent, teamPane
 // sort / reorder as necessary
 function compareFunc( a, b ) // GameUI.CustomUIConfig().sort_teams_compare_func;
 {
-	var teamPlayersA = Game.GetPlayerIDsOnTeam( a.team_id);
-	var teamPlayersB = Game.GetPlayerIDsOnTeam( b.team_id);
-	
-	if ( teamPlayersB.length === 0 || teamPlayersA.length === 0 )
-	{
-		return 0;
-	}
-	
-	var playerA;
-	var playerB;
-	
-	var idA = teamPlayersA[0]
-	var idB = teamPlayersB[0]
-	
-
-	var playerInfoA = Game.GetPlayerInfo( idA );
-	var playerInfoB = Game.GetPlayerInfo( idB );
-	
-	if ( playerInfoA.player_kills < playerInfoB.player_kills )
+	if ( a.teamScore < b.teamScore )
 	{
 		return 1; // [ B, A ]
 	}
-	else if (  playerInfoA.player_kills > playerInfoB.player_kills )
+	else if ( a.teamScore > b.teamScore )
 	{
 		return -1; // [ A, B ]
 	}
@@ -312,8 +299,6 @@ function compareFunc( a, b ) // GameUI.CustomUIConfig().sort_teams_compare_func;
 	{
 		return 0;
 	}
-	
-	
 };
 
 function stableCompareFunc( a, b )
@@ -361,14 +346,24 @@ function _ScoreboardUpdater_UpdateAllTeamsAndPlayers( scoreboardConfig, teamsCon
 	var teamsList = [];
 	for ( var teamId of Game.GetAllTeamIDs() )
 	{
-		teamsList.push( Game.GetTeamDetails( teamId ) );
+		var team = Game.GetTeamDetails( teamId )
+		var team.teamScore = 0
+		var teamPlayers = Game.GetPlayerIDsOnTeam( teamId )
+		for ( var playerId of teamPlayers )
+		{
+			var playerInfo = Game.GetPlayerInfo( playerId );
+			team.teamScore = team.teamScore + playerInfo.player_kills
+			
+		}
+		teamsList.push( team );
 	}
 
 	// update/create team panels
+	var teamsInfo = { max_team_players: 0 };
 	var panelsByTeam = [];
 	for ( var i = 0; i < teamsList.length; ++i )
 	{
-		var teamPanel = _ScoreboardUpdater_UpdateTeamPanel( scoreboardConfig, teamsContainer, teamsList[i] );
+		var teamPanel = _ScoreboardUpdater_UpdateTeamPanel( scoreboardConfig, teamsContainer, teamsList[i], teamsInfo );
 		if ( teamPanel )
 		{
 			panelsByTeam[ teamsList[i].team_id ] = teamPanel;
