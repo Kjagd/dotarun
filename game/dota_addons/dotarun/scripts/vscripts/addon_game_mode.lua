@@ -193,6 +193,9 @@ function CDotaRun:InitGameMode()
 
     GameRules:GetGameModeEntity():SetThink( "OnThink", self, 1 )
 
+    -- Remove spectating delay
+    Convars:SetInt('tv_delay', 0)
+
     print( "Dotarun has literally loaded." )
 end
 
