@@ -1,4 +1,9 @@
+require('dotarun')
+
 function WaypointOneTouch(trigger)
+    if not isHero(trigger) then
+		return
+	end
     if (GameRules.dotaRun.hasAlreadyReset) then
         GameRules.dotaRun.hasAlreadyReset = false
     end
@@ -18,6 +23,9 @@ function WaypointOneTouch(trigger)
 end	
 
 function WaypointTwoTouch(trigger)
+    if not isHero(trigger) then
+		return
+	end
     playerID = trigger.activator:GetPlayerID() 
 
     if (not GameRules.dotaRun.waypointleader[2]) then
@@ -36,6 +44,9 @@ function WaypointTwoTouch(trigger)
 end 
 
 function WaypointThreeTouch(trigger)
+    if not isHero(trigger) then
+		return
+	end
 
     playerID = trigger.activator:GetPlayerID() 
 
@@ -56,6 +67,9 @@ function WaypointThreeTouch(trigger)
 end    
 
 function WaypointFourTouch(trigger)
+    if not isHero(trigger) then
+		return
+	end
      
     playerID = trigger.activator:GetPlayerID() 
 
@@ -76,6 +90,9 @@ function WaypointFourTouch(trigger)
 end 
 
 function WaypointFiveTouch(trigger)
+    if not isHero(trigger) then
+		return
+	end
      
     playerID = trigger.activator:GetPlayerID() 
 
@@ -96,6 +113,9 @@ function WaypointFiveTouch(trigger)
 end
 
 function WaypointSixTouch(trigger)
+    if not isHero(trigger) then
+		return
+	end
      
     playerID = trigger.activator:GetPlayerID() 
 
@@ -167,6 +187,9 @@ function lastMan(waypointID, hero)
 end
 
 function WinHere(trigger)
+    if not isHero(trigger) then
+		return
+	end
     local playerID = trigger.activator:GetPlayerID()
     local player = PlayerResource:GetPlayer(playerID)
     local hero = player:GetAssignedHero()

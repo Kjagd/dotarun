@@ -90,9 +90,13 @@ function GiveRandomAbility(hero)
 end
 
 function ItemZoneOne(trigger)
-	playerID = trigger.activator:GetPlayerID()
+	local hero = trigger.activator
+
+	if not isHero(trigger) then
+		return
+	end
+	local playerID = trigger.activator:GetPlayerID()
 	print("PlayerID: " .. playerID) 
-	hero = trigger.activator
 
 	if (GameRules.dotaRun.zoneOpen[hero:GetPlayerID()] == true) then
 		GiveRandomAbility(hero)
@@ -108,13 +112,23 @@ end
 
 function WaterSlow(trigger)
 	print("Slowing")
-	hero = trigger.activator
+	local hero = trigger.activator
+
+	if not isHero(trigger) then
+		return
+	end
+
 	GiveUnitSlow(hero, hero, "modifier_slow")
 end
 
 function WaterUnslow(trigger)
 	print("Unslowing")
-	hero = trigger.activator
+	local hero = trigger.activator
+
+	if not isHero(trigger) then
+		return
+	end
+
 	hero:RemoveModifierByName("modifier_slow")
 	
 end
@@ -123,4 +137,27 @@ function GiveUnitSlow(source, target, modifier)
     --source and target should be hscript-units. The same unit can be in both source and target
     local item = CreateItem( "item_apply_slow", source, source)
     item:ApplyDataDrivenModifier( source, target, modifier, {} )
+end
+
+function isHero(trigger) 
+	local unit = trigger.activator
+    if not unit or unit:IsNull() then
+        return false
+    end
+
+    if not unit.GetPlayerID or not unit.IsRealHero then
+        return false
+    end
+	
+	local playerID = unit:GetPlayerID()
+
+	-- Debug to console to see what is actually hitting the trigger
+    print("Triggered by: " .. unit:GetClassname() .. " | PlayerID: " .. playerID)
+
+	if unit:IsIllusion() then 
+		return false 
+	end
+
+    -- If PlayerID is -1, it's a non-player unit (courier, summon, or collision box)
+    return playerID ~= -1
 end

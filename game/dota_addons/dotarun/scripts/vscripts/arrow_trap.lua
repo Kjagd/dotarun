@@ -1,4 +1,9 @@
+require('dotarun')
+
 function Fire(data)
+	if not isHero(data) then
+		return
+	end
 	print("Arrow firing")
 	local target = data.caller
 	if target ~= nil then
@@ -9,6 +14,9 @@ end
 
 local Points = {Vector(4058,6076,20),Vector(3286,6964,20),Vector(2286,6072,20),Vector(1470,6940,20), Vector(-1120,6724,20), Vector(-1097,6528,20), Vector(-1114,6361,20)}
 function FireAtPoint(data)
+	if not isHero(data) then
+		return
+	end	
 	print("Arrow firing")
 	local target = data.caller
 	if target ~= nil then
@@ -38,6 +46,9 @@ function FireAtPoint(data)
 end
 
 function TaTrap(data)
+	if not isHero(data) then
+		return
+	end
 	print("TA trap!")
 	if (not GameRules.dotaRun.TaTrapFired) then
 		local TaTrap = Entities:FindByName(nil, "ta_trap_one")
