@@ -1,3 +1,5 @@
+require('heroes.hero_techies.stasis_trap')
+
 local techies = {}
 local gridOrigin = Vector(-1300,-6620,300)
 local gridSpace = 290
@@ -62,7 +64,7 @@ function setUpMines()
 				end
 				Timers:CreateTimer(timeout, function()
 					techies:CastAbilityOnPosition(gridOrigin+Vector(i*gridSpace, j*gridSpace), signAbility, 0)
-					techies:CastAbilityOnPosition(gridOrigin+Vector(i*gridSpace, j*gridSpace), stasisTrap, 0)
+					StasisTrapPlant(techies, gridOrigin+Vector(i*gridSpace, j*gridSpace), stasisTrap) -- Apparently the old approach no longer worked
 					return
 				end
 				)

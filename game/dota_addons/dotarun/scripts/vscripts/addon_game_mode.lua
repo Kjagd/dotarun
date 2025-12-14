@@ -9,7 +9,7 @@ require('shakers')
 require('centaurs')
 require('magnus')
 require('earth_spirit')
--- require('techies')
+require('techies')
 require('voting')
 
 if CDotaRun == nil then
@@ -177,7 +177,7 @@ function CDotaRun:InitGameMode()
     -- --initShakers() Moved to start of game to prevent hearing loss
     initCents()
     initMagnus()
-    -- initTechie()
+    initTechie()
 
     CDotaRun:ResetRound()
 
@@ -448,7 +448,7 @@ function CDotaRun:ResetRound()
         GameRules.dotaRun.waypointleader[i] = false
     end
     repositionShakers()
-    -- setUpMines()
+    setUpMines()
 end
 
 function CDotaRun:ShowCenterMessage( msg, nDur )
