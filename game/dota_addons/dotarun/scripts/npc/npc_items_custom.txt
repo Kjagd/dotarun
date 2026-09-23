@@ -6,7 +6,6 @@
 	//=================================================================================================================
 	"item_apply_slow"
 	{
-		"ID"                            "1124"  // unique ID number for this item.  Do not change this once 
   		"BaseClass"                     "item_datadriven"
     	"ItemBaseLevel"                 "1"
 
@@ -36,8 +35,6 @@
 	//=================================================================================================================
 	"item_recipe_arcane_boots2"
 	{
-		"ID"							"1005"
-
 		"BaseClass"						"item_recipe_arcane_boots"
 
 		// Item Info
@@ -60,8 +57,6 @@
 	//=================================================================================================================
 	"item_arcane_boots2"
 	{
-		"ID"							"1006"
-
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
