@@ -71,7 +71,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"5353"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"baseclass"						"spirit_breaker_charge_of_darkness"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_ALERT_TARGET | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
@@ -116,7 +115,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"5355"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"baseclass"						"spirit_breaker_greater_bash"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
@@ -236,7 +234,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"baseclass"					"techies_minefield_sign"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"baseclass"					"techies_minefield_sign"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_NONE"	
 
@@ -1260,7 +1258,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"baseclass"					"vengefulspirit_nether_swap"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"baseclass"					"vengefulspirit_nether_swap"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_CUSTOM"
@@ -1342,7 +1340,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"baseclass"							"disruptor_glimpse"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"baseclass"							"disruptor_glimpse"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
@@ -1382,7 +1380,7 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"baseclass"					"tiny_toss"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"baseclass"					"tiny_toss"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_RUNE_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_CUSTOM"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_CUSTOM"
@@ -1504,7 +1502,6 @@
 	{
 		// General
 		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"5614"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
 		"baseclass" 					"abyssal_underlord_pit_of_malice"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
